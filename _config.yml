@@ -21,7 +21,7 @@ repository               : "spidermonk7/spidermonk7.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "profile.png"
+  avatar           : "id_photo_smile.png"
   name             : "Cui Shaoyang"
   pronouns         : "he/him"  
   bio              : "Short biography for the left-hand sidebar"
