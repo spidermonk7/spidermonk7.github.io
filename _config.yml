@@ -12,7 +12,7 @@ title                    : "Joey Cui / Home Page"
 title_separator          : "-"
 name                     : &name "Cui Shaoyang(Joey)"
 description              : &description "personal description"
-url                      : https://spidermonk7.github.io
+url                      : https://spidermonk7.github.io/
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "spidermonk7/spidermonk7.github.io"
 
