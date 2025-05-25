@@ -75,7 +75,7 @@ education:
   - area: BSc Artificial Intelligence
     institution: Peking University
     date_start: 2021-09-01
-    date_end: 2025-07-02(Expect)
+    date_end: 2025-07-02
     summary: |
       GPA: 3.521/4.0
       
