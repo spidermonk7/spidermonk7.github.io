@@ -143,11 +143,11 @@ skills:
 
 languages:
   - name: English
-    percent: IELTs-7.5
+    percent: 100
   - name: Chinese
-    percent: Native Speaker
+    percent: 100
   - name: Japeness
-    percent: Beginner~
+    percent: 10
 
 # Awards.
 #   Add/remove as many awards below as you like.
