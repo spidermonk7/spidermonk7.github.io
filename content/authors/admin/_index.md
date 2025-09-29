@@ -11,7 +11,7 @@ last_name: CUI
 
 # Status emoji
 status:
-  icon: 😣
+  icon: 😄
 
 # Is this the primary user of the site?
 superuser: true
@@ -24,8 +24,8 @@ role: Undergraduate
 
 # Organizations/Affiliations to display in Biography blox
 organizations:
-  - name: Peking University(PKU)
-    url: https://www.pku.edu.cn
+  - name: Tsinghua University(THU)
+    url: https://www.tsinghua.edu.cn
 
 # Social network links
 # Need to use another icon? Simply download the SVG icon to your `assets/media/icons/` folder.
@@ -47,9 +47,9 @@ profiles:
     url: (Not yet)
 
 interests:
-  - Artificial Intelligence
   - Computational Neuroscience
-  - LLM Applications
+  - Artificial Intelligence
+  - LLM & AI-Agents
 
 education:
   # - area: BSc Artificial Intelligence
@@ -78,23 +78,22 @@ education:
     date_end: 2025-07-02
     summary: |
       GPA: 3.521/4.0
-      
       Courses included:
       - Computer Vision(By Prof.SC Zhu)
       - CORE(By Prof.Yixin Zhu)
       - Neuroscience: from Brain Simulation to NeuroAI(By Prof.Kai Du)
-# work:
-#   - position: Director of Cloud Infrastructure
-#     company_name: GenCoin
-#     company_url: ''
-#     company_logo: ''
-#     date_start: 2021-01-01
-#     date_end: ''
-#     summary: |2-
-#       Responsibilities include:
-#       - lorem ipsum dolor sit amet, consectetur adipiscing elit
-#       - lorem ipsum dolor sit amet, consectetur adipiscing elit
-#       - lorem ipsum dolor sit amet, consectetur adipiscing elit
+work:
+  - position: Director of Cloud Infrastructure
+    company_name: GenCoin
+    company_url: ''
+    company_logo: ''
+    date_start: 2021-01-01
+    date_end: ''
+    summary: |2-
+      Responsibilities include:
+      - lorem ipsum dolor sit amet, consectetur adipiscing elit
+      - lorem ipsum dolor sit amet, consectetur adipiscing elit
+      - lorem ipsum dolor sit amet, consectetur adipiscing elit
 #   - position: Backend Software Engineer
 #     company_name: X
 #     company_url: ''
