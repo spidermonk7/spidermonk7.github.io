@@ -82,6 +82,7 @@ education:
       - Computer Vision(By Prof.SC Zhu)
       - CORE(By Prof.Yixin Zhu)
       - Neuroscience: from Brain Simulation to NeuroAI(By Prof.Kai Du)
+
 work:
   - position: Team Manager and Coach
     company_name: Women's Football Team, Yuanpei College

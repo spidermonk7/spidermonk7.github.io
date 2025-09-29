@@ -12,7 +12,7 @@ sections:
   - block: collection
     content:
       title: Selected Projects
-      text: I enjoy making things. Here are a selection of projects that I have worked on over the years.
+      text: I enjoy building innovative solutions. Here are selected projects showcasing my work in AI, neuroscience, and intelligent systems.
       filters:
         folders:
           - project
