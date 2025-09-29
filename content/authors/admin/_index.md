@@ -83,17 +83,16 @@ education:
       - CORE(By Prof.Yixin Zhu)
       - Neuroscience: from Brain Simulation to NeuroAI(By Prof.Kai Du)
 work:
-  - position: Director of Cloud Infrastructure
-    company_name: GenCoin
+  - position: Brain inspired algrithm engineer
+    company_name: Tsinghua University
     company_url: ''
     company_logo: ''
-    date_start: 2021-01-01
+    date_start: 2025-08-31
     date_end: ''
     summary: |2-
       Responsibilities include:
-      - lorem ipsum dolor sit amet, consectetur adipiscing elit
-      - lorem ipsum dolor sit amet, consectetur adipiscing elit
-      - lorem ipsum dolor sit amet, consectetur adipiscing elit
+      - study into detail neuron modeling, simulation and training.
+      - building AI-Agent for science research: Manifold Analysis as a start point.
 #   - position: Backend Software Engineer
 #     company_name: X
 #     company_url: ''
@@ -127,7 +126,7 @@ skills:
     color: '#eeac02'
     color_border: '#f0bf23'
     items:
-      - name: Hiking
+      - name: Badminton
         description: ''
         percent: 60
         icon: person-simple-walk
@@ -142,7 +141,7 @@ skills:
 
 languages:
   - name: English
-    percent: 100
+    percent: 7.5
   - name: Chinese
     percent: 100
   - name: Japeness
