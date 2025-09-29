@@ -6,11 +6,11 @@ event_url: https://ijtcs.fudan.edu.cn/
 
 location: Online
 address:
-  street: 
-  city: 
-  region: 
-  postcode: 
-  country: 
+  street: ""
+  city: ""
+  region: ""
+  postcode: ""
+  country: "" 
 
 summary: Invited presentation on consciousness and self-consciousness models in Conscious Turing Machines (CTM) framework.
 abstract: 'Based on the previous works of Conscious Turing machine(CTM), we discussed the consciousness and self-consciousness of a CTM and gave clear definitions. We examined whether the CTM framework aligns with key definitions of human consciousness to evaluate its potential for generating awareness. Concerning some illusion and disorder phenomena, we created a possible model and workflow (the "MIT" model) to understand how those phenomena work in CTM, and thus grasp a glimpse of the generation of consciousness in CTM.'
