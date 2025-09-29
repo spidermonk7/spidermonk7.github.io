@@ -1,13 +1,15 @@
 ---
-title: scikit-learn
-date: 2023-10-26
-external_link: https://github.com/scikit-learn/scikit-learn
+title: IJCAI Mahjong AI Competition
+date: 2022-06-01
+external_link: https://github.com/spidermonk7/mahjong-ai
 tags:
-  - Hugo
-  - Wowchemy
-  - Markdown
+  - Deep Learning
+  - ResNet
+  - CNN
+  - Game AI
+  - Competition
 ---
 
-scikit-learn is a Python module for machine learning built on top of SciPy and is distributed under the 3-Clause BSD license.
+Applied Deep Residual Networks to Mahjong tasks using supervised learning algorithms based on CNNs (ResNet, Res2Net, and DenseNet). Performed feature extraction and strategy learning on expert game-play data. Achieved 10th place in IJCAI2022 and 7th place in IJCAI2023 competitions.
 
 <!--more-->
