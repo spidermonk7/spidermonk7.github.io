@@ -1,13 +1,14 @@
 ---
-title: Pandas
-date: 2023-10-26
-external_link: https://github.com/pandas-dev/pandas
+title: FAB - Factory of Abstract-style Benchmark
+date: 2024-11-01
+external_link: https://github.com/spidermonk7/FAB-Benchmark
 tags:
-  - Hugo
-  - Wowchemy
-  - Markdown
+  - AGI Evaluation
+  - Benchmark Generation
+  - Large Language Models
+  - Python
 ---
 
-Flexible and powerful data analysis / manipulation library for Python, providing labeled data structures.
+Developed the first fully automated, low-cost benchmark generation framework for abstract-style evaluation across general-purpose domains. Enables scalable testing of large language models using structured abstraction errors, covering semantic, structural, and factual variants.
 
 <!--more-->
