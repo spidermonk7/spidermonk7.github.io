@@ -74,6 +74,16 @@ sections:
       view: article-grid
       columns: 1
   - block: collection
+    id: awards
+    content:
+      title: Awards & Honors
+      filters:
+        folders:
+          - award
+    design:
+      view: article-grid
+      columns: 2
+  - block: collection
     id: news
     content:
       title: Recent News
