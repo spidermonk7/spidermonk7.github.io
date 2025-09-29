@@ -24,8 +24,8 @@ role: Undergraduate
 
 # Organizations/Affiliations to display in Biography blox
 organizations:
-  - name: Tsinghua University(THU)
-    url: https://www.tsinghua.edu.cn
+  - name: Peking University
+    url: https://www.pku.edu.cn
 
 # Social network links
 # Need to use another icon? Simply download the SVG icon to your `assets/media/icons/` folder.
@@ -82,28 +82,31 @@ education:
       - Computer Vision(By Prof.SC Zhu)
       - CORE(By Prof.Yixin Zhu)
       - Neuroscience: from Brain Simulation to NeuroAI(By Prof.Kai Du)
-# work:
-#   - position: Brain inspired algrithm engineer
-#     company_name: Tsinghua University
-#     company_url: ''
-#     company_logo: ''
-#     date_start: 2025-08-31
-#     date_end: ''
-#     summary: |2-
-#       Responsibilities include:
-#       - study into detail neuron modeling, simulation and training.
-#       - building AI-Agent for science research: Manifold Analysis as a start point.
-#   - position: Backend Software Engineer
-#     company_name: X
-#     company_url: ''
-#     company_logo: ''
-#     date_start: 2016-01-01
-#     date_end: 2020-12-31
-#     summary: |
-#       Responsibilities include:
-#       - Migrated infrastructure to a new data center
-#       - lorem ipsum dolor sit amet, consectetur adipiscing elit
-#       - lorem ipsum dolor sit amet, consectetur adipiscing elit
+work:
+  - position: Team Manager and Coach
+    company_name: Women's Football Team, Yuanpei College
+    company_url: ''
+    company_logo: ''
+    date_start: 2022-10-01
+    date_end: 2024-06-01
+    summary: |2-
+      Responsibilities include:
+      - Managing and organizing training sessions and game schedules
+      - Communicating with club management to ensure adequate support and resources
+      - Designing weekly training plans to enhance players' overall abilities
+      - Observing player performances and providing guidance and feedback
+  - position: Research Assistant
+    company_name: Peking University (Dr. Kai Du's Lab)
+    company_url: 'https://www.pku.edu.cn'
+    company_logo: ''
+    date_start: 2022-09-01
+    date_end: 2023-01-01
+    summary: |
+      Exploring the Computational Robustness of Tall Pyramidal Cells:
+      - Conducted independent exploration on L5PC neuronal cells' response to noise
+      - Studied robustness of different noise distributions
+      - Explored computational characteristics of detailed neuronal models
+      - Proposed new perspectives on biological vs. artificial intelligence paradigms
 
 # Skills
 # Add your own SVG icons to `assets/media/icons/`
