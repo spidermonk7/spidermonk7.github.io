@@ -1,16 +1,22 @@
 ---
-title: "An example journal article"
+title: "Task Ability Decomposition and Difficulty Quantification of Visual Tasks for AGI Evaluation"
 authors:
 - admin
-- Robert Ford
+- X. Y. He
+- J. H. Han
+- Z. L. Zhang
+- Y. J. Peng
 author_notes:
-- "Equal contribution"
-- "Equal contribution"
-date: "2015-09-01T00:00:00Z"
+- "First author"
+- ""
+- ""
+- ""
+- "Corresponding author"
+date: "2024-03-01T00:00:00Z"
 doi: ""
 
 # Schedule page publish date (NOT publication's date).
-publishDate: "2017-01-01T00:00:00Z"
+publishDate: "2024-03-01T00:00:00Z"
 
 # Publication type.
 # Accepts a single type but formatted as a YAML list (for Hugo requirements).
@@ -18,24 +24,28 @@ publishDate: "2017-01-01T00:00:00Z"
 publication_types: ["article-journal"]
 
 # Publication name and optional abbreviated publication name.
-publication: "*Journal of Source Themes, 1*(1)"
-publication_short: ""
+publication: "*Science China Technological Sciences* (JCR Q1, in press)"
+publication_short: "Sci China Tech Sci"
 
-abstract: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus. Vestibulum sit amet erat at nulla eleifend gravida.
+abstract: This paper presents the first systematic exploration of the structure of task-ability space and its connection to task difficulty in the context of artificial general intelligence (AGI) evaluation. We propose TADDL-V, a novel framework for quantifying the difficulty of visual tasks to support comprehensive AGI evaluation. Our approach decomposes complex visual tasks into fundamental ability components and establishes quantitative measures of task difficulty. Additionally, we release AGI-V70, a curated benchmark set designed for testing diverse visual abilities across multiple domains. This work provides essential theoretical foundations and practical tools for advancing AGI evaluation methodologies.
 
 # Summary. An optional shortened abstract.
-summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum.
+summary: First systematic exploration of task-ability space structure and its link to task difficulty. Proposed TADDL-V framework for quantifying visual task difficulty and released AGI-V70 benchmark for AGI evaluation.
 
 tags:
-- Source Themes
-featured: false
+- AGI Evaluation
+- Computer Vision
+- Task Decomposition
+- Artificial Intelligence
+- Benchmark
+featured: true
 
 # links:
 # - name: ""
 #   url: ""
-url_pdf: http://arxiv.org/pdf/1512.04133v1
-url_code: 'https://github.com/HugoBlox/hugo-blox-builder'
-url_dataset: ''
+url_pdf: ''
+url_code: 'https://github.com/spidermonk7/TADDL-V'
+url_dataset: 'https://github.com/spidermonk7/AGI-V70'
 url_poster: ''
 url_project: ''
 url_slides: ''
@@ -45,7 +55,7 @@ url_video: ''
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder. 
 image:
-  caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/jdD8gXaTZsc)'
+  caption: 'TADDL-V Framework Overview'
   focal_point: ""
   preview_only: false
 
@@ -54,22 +64,28 @@ image:
 #   Simply enter your project's folder or file name without extension.
 #   E.g. `internal-project` references `content/project/internal-project/index.md`.
 #   Otherwise, set `projects: []`.
-projects: []
+projects: 
+- taddl-v
 
 # Slides (optional).
 #   Associate this publication with Markdown slides.
 #   Simply enter your slide deck's filename without extension.
 #   E.g. `slides: "example"` references `content/slides/example/index.md`.
 #   Otherwise, set `slides: ""`.
-slides: example
+slides: ""
 ---
 
-{{% callout note %}}
-Click the *Cite* button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-{{% /callout %}}
+This work represents a significant advance in AGI evaluation methodology by providing the first comprehensive framework for understanding and quantifying visual task difficulty. 
 
-{{% callout note %}}
-Create your slides in Markdown - click the *Slides* button to check out the example.
-{{% /callout %}}
+## Key Contributions
 
-Add the publication's **full text** or **supplementary notes** here. You can use rich formatting such as including [code, math, and images](https://docs.hugoblox.com/content/writing-markdown-latex/).
+- **Novel Theoretical Framework**: First exploration of task-ability space structure and its relationship to task difficulty
+- **TADDL-V Framework**: Systematic approach for quantifying difficulty of visual tasks
+- **AGI-V70 Benchmark**: Curated dataset for testing diverse visual abilities
+- **Practical Impact**: Tools and methods that advance the field of AGI evaluation
+
+## Significance
+
+This research addresses a critical gap in AGI evaluation by providing rigorous theoretical foundations and practical tools for assessing artificial intelligence capabilities across visual domains. The work has been accepted for publication in Science China Technological Sciences, a prestigious Q1 journal, reflecting its contribution to the field.
+
+The TADDL-V framework and AGI-V70 benchmark are freely available to the research community, promoting open science and collaborative advancement in AGI evaluation.
