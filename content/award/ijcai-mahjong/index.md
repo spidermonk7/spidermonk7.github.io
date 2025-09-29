@@ -3,11 +3,6 @@ title: IJCAI Chinese Standard Mahjong AI Competition
 date: 2023-06-01
 summary: '7th place in IJCAI2023 and 10th place in IJCAI2022 Chinese Standard Mahjong AI Competition'
 
-# Award details
-award: 7th Place (2023), 10th Place (2022)
-awarder: IJCAI - International Joint Conference on Artificial Intelligence
-award_url: https://www.ijcai.org/
-
 # Optional image
 image:
   caption: 'IJCAI Competition Results'
