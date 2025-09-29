@@ -35,11 +35,13 @@ sections:
       title: '📚 My Research'
       subtitle: ''
       text: |-
-        Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
+        My research focuses on understanding and explaining the essence of Intelligence, aspiring to create Artificial General Intelligence (AGI). I pursue this goal through two complementary approaches:
 
-        I apply a range of qualitative and quantitative methods to comprehensively investigate the role of science and technology in the economy.
+        **Top-down**: Analyzing and interpreting intelligence from a macroscopic perspective, focusing on studies of intention, consciousness, and world models. I leverage existing AI technologies to explain and replicate intelligent phenomena.
+
+        **Bottom-up**: Based on computational neuroscience, I aim to mimic the computational logic of biological intelligence through detailed models, including brain-like architectures, brain region analysis, and simulation of detailed neuron models.
         
-        Please reach out to collaborate 😃
+        I am actively seeking internship opportunities in neuroscience laboratories to gain hands-on experimental experience. Please reach out to collaborate! 🧠
     design:
       columns: '1'
   - block: collection
