@@ -183,12 +183,6 @@ languages:
 
 <!-- I'm Joey Cui (崔绍洋), currently an undergraduate student at Yuanpei College, Peking University, studying General Artificial Intelligence. My research interests lie in the intersection of neuroscience, cognitive science, and large language models. I have worked on benchmark generation for evaluating LLMs in neuroscience-related tasks, fine-tuning large models (e.g., Falcon 3B/7B), and building multi-agent LLM systems. In Fall 2025, I will pursue an MSc in Data Science and Machine Learning at the National University of Singapore. -->
 
-My research centers on understanding and explaining the essence of intelligence, with the long-term aspiration of creating Artificial General Intelligence (AGI). I approach this problem from two complementary perspectives:
+I'm Joey Cui (崔绍洋), currently an undergraduate student at Yuanpei College, Peking University, studying General Artificial Intelligence. My research centers on understanding and explaining the essence of intelligence, with the long-term aspiration of contributing to the development of Artificial General Intelligence (AGI). Drawing on computational neuroscience, I aim to emulate the computational logic of biological intelligence through detailed models—studying brain-inspired architectures, analyzing neural circuits, and simulating (or even training) biophysically detailed neuron models. My goal is to identify new research directions in intelligence science and develop approaches that are more fundamentally aligned with AGI.
 
-Top-down:
-Investigating intelligence from a macroscopic perspective, with a focus on intention, consciousness, and world models. My aim is to leverage existing AI technologies to analyze, explain, and replicate intelligent phenomena.
-
-Bottom-up:
-
-Drawing on computational neuroscience, I seek to mimic the computational logic of biological intelligence through detailed models. This involves studying brain-inspired architectures, analyzing brain regions, and simulating (or even training) biophysically detailed neuron models. My goal is to discover new research directions in intelligence science and develop approaches more fundamentally aligned with AGI.
-
+Currently, I am actively seeking an internship opportunity in a neuroscience laboratory, where I hope to gain first-hand experimental and analytical experience. Such training will not only fill a critical gap in my background but also prepare me for future PhD applications.
