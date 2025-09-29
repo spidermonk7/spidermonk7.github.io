@@ -75,24 +75,24 @@ education:
   - area: BSc Artificial Intelligence
     institution: Peking University
     date_start: 2021-09-01
-    date_end: 2025-07-02
+    date_end: 2025-07-01
     summary: |
       GPA: 3.521/4.0
       Courses included:
       - Computer Vision(By Prof.SC Zhu)
       - CORE(By Prof.Yixin Zhu)
       - Neuroscience: from Brain Simulation to NeuroAI(By Prof.Kai Du)
-work:
-  - position: Brain inspired algrithm engineer
-    company_name: Tsinghua University
-    company_url: ''
-    company_logo: ''
-    date_start: 2025-08-31
-    date_end: ''
-    summary: |2-
-      Responsibilities include:
-      - study into detail neuron modeling, simulation and training.
-      - building AI-Agent for science research: Manifold Analysis as a start point.
+# work:
+#   - position: Brain inspired algrithm engineer
+#     company_name: Tsinghua University
+#     company_url: ''
+#     company_logo: ''
+#     date_start: 2025-08-31
+#     date_end: ''
+#     summary: |2-
+#       Responsibilities include:
+#       - study into detail neuron modeling, simulation and training.
+#       - building AI-Agent for science research: Manifold Analysis as a start point.
 #   - position: Backend Software Engineer
 #     company_name: X
 #     company_url: ''
@@ -140,8 +140,8 @@ skills:
         icon: camera
 
 languages:
-  - name: English
-    percent: 7.5
+  - name: English(IELTS7.5)
+    percent: 100
   # - name: Chinese
   #   percent: 100
   # - name: Japeness
