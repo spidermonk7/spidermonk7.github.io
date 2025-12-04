@@ -1,17 +1,18 @@
 ---
 # Display name
 title: 崔绍洋
+slug: joey-cui
 
 # Name pronunciation (optional)
 name_pronunciation: Shaoyang Cui
 
 # Full name (for SEO)
-first_name:  Shao Yang
+first_name: Shao Yang
 last_name: CUI
 
 # Status emoji
 status:
-  icon: 😄
+  icon: 😀
 
 # Is this the primary user of the site?
 superuser: true
@@ -79,9 +80,9 @@ education:
     summary: |
       GPA: 3.521/4.0
       Courses included:
-      - Computer Vision(By Prof.SC Zhu)
-      - CORE(By Prof.Yixin Zhu)
-      - Neuroscience: from Brain Simulation to NeuroAI(By Prof.Kai Du)
+      - Computer Vision (By Prof. SC Zhu)
+      - CORE (By Prof. Yixin Zhu)
+      - Neuroscience: from Brain Simulation to NeuroAI (By Prof. Kai Du)
 
 work:
   - position: Team Manager and Coach
@@ -144,11 +145,11 @@ skills:
         icon: camera
 
 languages:
-  - name: English(IELTS7.5)
+  - name: English (IELTS 7.5)
     percent: 100
   # - name: Chinese
   #   percent: 100
-  # - name: Japeness
+  # - name: Japanese
   #   percent: 10
 
 # Awards.
@@ -184,8 +185,6 @@ languages:
 ---
 
 ## About Me
-
-<!-- I'm Joey Cui (崔绍洋), currently an undergraduate student at Yuanpei College, Peking University, studying General Artificial Intelligence. My research interests lie in the intersection of neuroscience, cognitive science, and large language models. I have worked on benchmark generation for evaluating LLMs in neuroscience-related tasks, fine-tuning large models (e.g., Falcon 3B/7B), and building multi-agent LLM systems. In Fall 2025, I will pursue an MSc in Data Science and Machine Learning at the National University of Singapore. -->
 
 I'm Joey Cui (崔绍洋), currently an undergraduate student at Yuanpei College, Peking University, studying General Artificial Intelligence. My research centers on understanding and explaining the essence of intelligence, with the long-term aspiration of contributing to the development of Artificial General Intelligence (AGI). Drawing on computational neuroscience, I aim to emulate the computational logic of biological intelligence through detailed models—studying brain-inspired architectures, analyzing neural circuits, and simulating (or even training) biophysically detailed neuron models. My goal is to identify new research directions in intelligence science and develop approaches that are more fundamentally aligned with AGI.
 
