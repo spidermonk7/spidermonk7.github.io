@@ -55,9 +55,10 @@ url_video: ''
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder. 
 image:
-  caption: 'TADDL-V Framework Overview'
+  caption: 'TADDL-V framework overview'
   focal_point: ""
   preview_only: false
+  filename: Figure2.png
 
 # Associated Projects (optional).
 #   Associate this publication with one or more of your projects.
@@ -89,3 +90,9 @@ This work represents a significant advance in AGI evaluation methodology by prov
 This research addresses a critical gap in AGI evaluation by providing rigorous theoretical foundations and practical tools for assessing artificial intelligence capabilities across visual domains. The work has been accepted for publication in Science China Technological Sciences, a prestigious Q1 journal, reflecting its contribution to the field.
 
 The TADDL-V framework and AGI-V70 benchmark are freely available to the research community, promoting open science and collaborative advancement in AGI evaluation.
+
+## Visual teasers
+
+![TADDL-V Framework](Figure2.png)
+
+![Abstract snapshot](abstract.png)
