@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>NeuroAI | Shaoyang's Page</title><link>https://spidermonk7.github.io/tags/neuroai/</link><atom:link href="https://spidermonk7.github.io/tags/neuroai/index.xml" rel="self" type="application/rss+xml"/><description>NeuroAI</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Wed, 15 Jan 2025 00:00:00 +0000</lastBuildDate><image><url>https://spidermonk7.github.io/media/icon_hu7729264130191091259.png</url><title>NeuroAI</title><link>https://spidermonk7.github.io/tags/neuroai/</link></image><item><title>Cortical Microcircuit Simulation Bench</title><link>https://spidermonk7.github.io/ongoing-projects/neuro-sim/</link><pubDate>Wed, 15 Jan 2025 00:00:00 +0000</pubDate><guid>https://spidermonk7.github.io/ongoing-projects/neuro-sim/</guid><description>&lt;p>Milestones:&lt;/p>
+&lt;ul>
+&lt;li>Integrating biophysical neuron models with controllable noise profiles.&lt;/li>
+&lt;li>Benchmarking stability vs. perturbation type (Gaussian, Poisson, bursty).&lt;/li>
+&lt;li>Visualizing circuit responses for teaching and experiment planning.&lt;/li>
+&lt;/ul></description></item></channel></rss>

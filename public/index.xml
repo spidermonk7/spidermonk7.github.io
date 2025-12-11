@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Shaoyang's Page</title><link>https://spidermonk7.github.io/</link><atom:link href="https://spidermonk7.github.io/index.xml" rel="self" type="application/rss+xml"/><description>Shaoyang's Page</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Mon, 24 Oct 2022 00:00:00 +0000</lastBuildDate><image><url>https://spidermonk7.github.io/media/icon_hu7729264130191091259.png</url><title>Shaoyang's Page</title><link>https://spidermonk7.github.io/</link></image><item><title>Bio-Symbolic Embeddings for Cognitive Tasks</title><link>https://spidermonk7.github.io/ongoing-projects/bio-embeddings/</link><pubDate>Mon, 10 Feb 2025 00:00:00 +0000</pubDate><guid>https://spidermonk7.github.io/ongoing-projects/bio-embeddings/</guid><description>&lt;p>Milestones:&lt;/p>
+&lt;ul>
+&lt;li>Prototype embedding fusion of spiking traces + semantic graphs.&lt;/li>
+&lt;li>Evaluate on toy cognitive benchmarks (memory, planning).&lt;/li>
+&lt;li>Compare against baseline LLM embeddings for transfer and robustness.&lt;/li>
+&lt;/ul></description></item><item><title>Multi-Agent Lab for Scientific Reasoning</title><link>https://spidermonk7.github.io/ongoing-projects/agent-lab/</link><pubDate>Sun, 02 Feb 2025 00:00:00 +0000</pubDate><guid>https://spidermonk7.github.io/ongoing-projects/agent-lab/</guid><description>&lt;p>Milestones:&lt;/p>
+&lt;ul>
+&lt;li>Tooling adapters for papers/arXiv, code execution, and plotting.&lt;/li>
+&lt;li>Debate/critique loop templates for hypothesis refinement.&lt;/li>
+&lt;li>Case study: drafting a neuroscience experiment protocol end-to-end.&lt;/li>
+&lt;/ul></description></item><item><title>Cortical Microcircuit Simulation Bench</title><link>https://spidermonk7.github.io/ongoing-projects/neuro-sim/</link><pubDate>Wed, 15 Jan 2025 00:00:00 +0000</pubDate><guid>https://spidermonk7.github.io/ongoing-projects/neuro-sim/</guid><description>&lt;p>Milestones:&lt;/p>
+&lt;ul>
+&lt;li>Integrating biophysical neuron models with controllable noise profiles.&lt;/li>
+&lt;li>Benchmarking stability vs. perturbation type (Gaussian, Poisson, bursty).&lt;/li>
+&lt;li>Visualizing circuit responses for teaching and experiment planning.&lt;/li>
+&lt;/ul></description></item><item><title>FAB - Factory of Abstract-style Benchmark</title><link>https://spidermonk7.github.io/project/fab/</link><pubDate>Fri, 01 Nov 2024 00:00:00 +0000</pubDate><guid>https://spidermonk7.github.io/project/fab/</guid><description>&lt;p>Developed the first fully automated, low-cost benchmark generation framework for abstract-style evaluation across general-purpose domains. Enables scalable testing of large language models using structured abstraction errors, covering semantic, structural, and factual variants.&lt;/p></description></item><item><title>TradeCraft - AI Trading System</title><link>https://spidermonk7.github.io/project/tradecraft/</link><pubDate>Thu, 01 Aug 2024 00:00:00 +0000</pubDate><guid>https://spidermonk7.github.io/project/tradecraft/</guid><description>&lt;p>An intelligent trading system that leverages advanced AI algorithms for market analysis and automated trading strategies. TradeCraft combines machine learning models with real-time market data processing to identify trading opportunities and execute trades with optimal timing.&lt;/p></description></item><item><title>Projects</title><link>https://spidermonk7.github.io/projects/</link><pubDate>Sun, 19 May 2024 00:00:00 +0000</pubDate><guid>https://spidermonk7.github.io/projects/</guid><description/></item><item><title>TADDL-V - Task Ability Decomposition and Difficulty quantification of visual tasks for AGI evaluation</title><link>https://spidermonk7.github.io/project/taddl-v/</link><pubDate>Fri, 01 Mar 2024 00:00:00 +0000</pubDate><guid>https://spidermonk7.github.io/project/taddl-v/</guid><description>&lt;p>TADDL-V is a comprehensive framework for quantifying difficulty of visual tasks to support AGI evaluation. This project represents the first systematic exploration of task-ability space structure and its connection to task difficulty, providing essential tools for evaluating artificial general intelligence capabilities in visual domains.&lt;/p></description></item><item><title>Task Ability Decomposition and Difficulty Quantification of Visual Tasks for AGI Evaluation</title><link>https://spidermonk7.github.io/publication/journal-article/</link><pubDate>Fri, 01 Mar 2024 00:00:00 +0000</pubDate><guid>https://spidermonk7.github.io/publication/journal-article/</guid><description>&lt;p>This work represents a significant advance in AGI evaluation methodology by providing the first comprehensive framework for understanding and quantifying visual task difficulty.&lt;/p>
+&lt;h2 id="key-contributions">Key Contributions&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Novel Theoretical Framework&lt;/strong>: First exploration of task-ability space structure and its relationship to task difficulty&lt;/li>
+&lt;li>&lt;strong>TADDL-V Framework&lt;/strong>: Systematic approach for quantifying difficulty of visual tasks&lt;/li>
+&lt;li>&lt;strong>AGI-V70 Benchmark&lt;/strong>: Curated dataset for testing diverse visual abilities&lt;/li>
+&lt;li>&lt;strong>Practical Impact&lt;/strong>: Tools and methods that advance the field of AGI evaluation&lt;/li>
+&lt;/ul>
+&lt;h2 id="significance">Significance&lt;/h2>
+&lt;p>This research addresses a critical gap in AGI evaluation by providing rigorous theoretical foundations and practical tools for assessing artificial intelligence capabilities across visual domains. The work has been accepted for publication in Science China Technological Sciences, a prestigious Q1 journal, reflecting its contribution to the field.&lt;/p>
+&lt;p>The TADDL-V framework and AGI-V70 benchmark are freely available to the research community, promoting open science and collaborative advancement in AGI evaluation.&lt;/p>
+&lt;h2 id="visual-teaser">Visual teaser&lt;/h2>
+&lt;p>
+&lt;figure >
+&lt;div class="flex justify-center ">
+&lt;div class="w-100" >&lt;img alt="TADDL-V Framework" srcset="
+/publication/journal-article/Figure2_hu16282056926172136217.webp 400w,
+/publication/journal-article/Figure2_hu14960457648425997693.webp 760w,
+/publication/journal-article/Figure2_hu12456530112026025648.webp 1200w"
+src="https://spidermonk7.github.io/publication/journal-article/Figure2_hu16282056926172136217.webp"
+width="760"
+height="387"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/p></description></item><item><title>Experience</title><link>https://spidermonk7.github.io/experience/</link><pubDate>Tue, 24 Oct 2023 00:00:00 +0000</pubDate><guid>https://spidermonk7.github.io/experience/</guid><description/></item><item><title>IJCAI Chinese Standard Mahjong AI Competition</title><link>https://spidermonk7.github.io/award/ijcai-mahjong/</link><pubDate>Thu, 01 Jun 2023 00:00:00 +0000</pubDate><guid>https://spidermonk7.github.io/award/ijcai-mahjong/</guid><description>&lt;p>Achieved outstanding performance in the prestigious IJCAI Chinese Standard Mahjong AI Competition across two consecutive years:&lt;/p>
+&lt;p>&lt;strong>2023&lt;/strong>: &lt;strong>7th Place&lt;/strong> - IJCAI2023 Special Track
+&lt;strong>2022&lt;/strong>: &lt;strong>10th Place&lt;/strong> - IJCAI2022 Competition&lt;/p>
+&lt;h2 id="technical-approach">Technical Approach&lt;/h2>
+&lt;p>Our solution applied Deep Residual Networks to Mahjong strategy learning:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Architecture&lt;/strong>: Implemented CNNs based on ResNet, Res2Net, and DenseNet architectures&lt;/li>
+&lt;li>&lt;strong>Learning Method&lt;/strong>: Used supervised learning algorithms for feature extraction and strategy learning&lt;/li>
+&lt;li>&lt;strong>Training Data&lt;/strong>: Leveraged large amounts of expert game-play data&lt;/li>
+&lt;li>&lt;strong>Performance&lt;/strong>: Demonstrated consistent improvement and competitive ranking&lt;/li>
+&lt;/ul>
+&lt;h2 id="recognition">Recognition&lt;/h2>
+&lt;ul>
+&lt;li>Invited to present at the IJCAI2023 special track&lt;/li>
+&lt;li>Recognized among top performers in international AI gaming competition&lt;/li>
+&lt;li>Contributed to advancing AI applications in complex strategic games&lt;/li>
+&lt;/ul>
+&lt;p>This achievement demonstrates proficiency in applying state-of-the-art deep learning techniques to complex strategic decision-making problems and competitive performance in international AI competitions.&lt;/p></description></item><item><title>Possible Models of Self-Awareness in Conscious Turing Machines</title><link>https://spidermonk7.github.io/event/ijtcs2023-ctm/</link><pubDate>Sun, 15 Jan 2023 14:00:00 +0000</pubDate><guid>https://spidermonk7.github.io/event/ijtcs2023-ctm/</guid><description>&lt;p>This invited talk presented our research on consciousness and self-awareness models within the Conscious Turing Machine (CTM) framework. We explored fundamental questions about machine consciousness and proposed the &amp;ldquo;MIT&amp;rdquo; model to understand consciousness generation phenomena in computational systems.&lt;/p>
+&lt;p>The presentation covered:&lt;/p>
+&lt;ul>
+&lt;li>Clear definitions of consciousness and self-consciousness in CTM&lt;/li>
+&lt;li>Analysis of how the CTM framework aligns with human consciousness theories&lt;/li>
+&lt;li>The &amp;ldquo;MIT&amp;rdquo; model for understanding illusion and disorder phenomena&lt;/li>
+&lt;li>Implications for artificial general intelligence development&lt;/li>
+&lt;/ul>
+&lt;p>This work contributes to the theoretical foundations of machine consciousness and provides insights into the computational basis of awareness.&lt;/p></description></item><item><title>Computational Robustness of Tall Pyramidal Cells</title><link>https://spidermonk7.github.io/project/neuronal-robustness/</link><pubDate>Thu, 01 Sep 2022 00:00:00 +0000</pubDate><guid>https://spidermonk7.github.io/project/neuronal-robustness/</guid><description>&lt;p>Conducted independent exploration on the robustness of L5PC neuronal cells&amp;rsquo; response to noise of different distributions. Proposed new perspectives on the differences between biological intelligence and mainstream artificial intelligence paradigms.&lt;/p></description></item><item><title>Self-Awareness in Conscious Turing Machines</title><link>https://spidermonk7.github.io/project/ctm/</link><pubDate>Thu, 01 Sep 2022 00:00:00 +0000</pubDate><guid>https://spidermonk7.github.io/project/ctm/</guid><description>&lt;p>Based on the framework of Conscious Turing Machines (CTM), discussed consciousness and self-consciousness of a CTM with clear definitions. Examined whether the CTM framework aligns with key definitions of human consciousness and created the &amp;lsquo;MIT&amp;rsquo; model to understand consciousness generation phenomena. Invited to present at IJTCS2023 workshop.&lt;/p></description></item></channel></rss>
