@@ -36,6 +36,10 @@ jobs:
       with:
         hugo-version: ${{ env.WC_HUGO_VERSION }}
         extended: true
+    - name: Setup Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.22'
     - uses: actions/cache@v3
       with:
         path: /tmp/hugo_cache_runner/

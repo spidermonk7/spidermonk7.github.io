@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ongoing Projects | Shaoyang's Page</title><link>https://spidermonk7.github.io/ongoing-projects/</link><atom:link href="https://spidermonk7.github.io/ongoing-projects/index.xml" rel="self" type="application/rss+xml"/><description>Ongoing Projects</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Mon, 10 Feb 2025 00:00:00 +0000</lastBuildDate><image><url>https://spidermonk7.github.io/media/icon_hu7729264130191091259.png</url><title>Ongoing Projects</title><link>https://spidermonk7.github.io/ongoing-projects/</link></image><item><title>Bio-Symbolic Embeddings for Cognitive Tasks</title><link>https://spidermonk7.github.io/ongoing-projects/bio-embeddings/</link><pubDate>Mon, 10 Feb 2025 00:00:00 +0000</pubDate><guid>https://spidermonk7.github.io/ongoing-projects/bio-embeddings/</guid><description>&lt;p>Milestones:&lt;/p>
+&lt;ul>
+&lt;li>Prototype embedding fusion of spiking traces + semantic graphs.&lt;/li>
+&lt;li>Evaluate on toy cognitive benchmarks (memory, planning).&lt;/li>
+&lt;li>Compare against baseline LLM embeddings for transfer and robustness.&lt;/li>
+&lt;/ul></description></item><item><title>Multi-Agent Lab for Scientific Reasoning</title><link>https://spidermonk7.github.io/ongoing-projects/agent-lab/</link><pubDate>Sun, 02 Feb 2025 00:00:00 +0000</pubDate><guid>https://spidermonk7.github.io/ongoing-projects/agent-lab/</guid><description>&lt;p>Milestones:&lt;/p>
+&lt;ul>
+&lt;li>Tooling adapters for papers/arXiv, code execution, and plotting.&lt;/li>
+&lt;li>Debate/critique loop templates for hypothesis refinement.&lt;/li>
+&lt;li>Case study: drafting a neuroscience experiment protocol end-to-end.&lt;/li>
+&lt;/ul></description></item><item><title>Cortical Microcircuit Simulation Bench</title><link>https://spidermonk7.github.io/ongoing-projects/neuro-sim/</link><pubDate>Wed, 15 Jan 2025 00:00:00 +0000</pubDate><guid>https://spidermonk7.github.io/ongoing-projects/neuro-sim/</guid><description>&lt;p>Milestones:&lt;/p>
+&lt;ul>
+&lt;li>Integrating biophysical neuron models with controllable noise profiles.&lt;/li>
+&lt;li>Benchmarking stability vs. perturbation type (Gaussian, Poisson, bursty).&lt;/li>
+&lt;li>Visualizing circuit responses for teaching and experiment planning.&lt;/li>
+&lt;/ul></description></item></channel></rss>

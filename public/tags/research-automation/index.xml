@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Research Automation | Shaoyang's Page</title><link>https://spidermonk7.github.io/tags/research-automation/</link><atom:link href="https://spidermonk7.github.io/tags/research-automation/index.xml" rel="self" type="application/rss+xml"/><description>Research Automation</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 02 Feb 2025 00:00:00 +0000</lastBuildDate><image><url>https://spidermonk7.github.io/media/icon_hu7729264130191091259.png</url><title>Research Automation</title><link>https://spidermonk7.github.io/tags/research-automation/</link></image><item><title>Multi-Agent Lab for Scientific Reasoning</title><link>https://spidermonk7.github.io/ongoing-projects/agent-lab/</link><pubDate>Sun, 02 Feb 2025 00:00:00 +0000</pubDate><guid>https://spidermonk7.github.io/ongoing-projects/agent-lab/</guid><description>&lt;p>Milestones:&lt;/p>
+&lt;ul>
+&lt;li>Tooling adapters for papers/arXiv, code execution, and plotting.&lt;/li>
+&lt;li>Debate/critique loop templates for hypothesis refinement.&lt;/li>
+&lt;li>Case study: drafting a neuroscience experiment protocol end-to-end.&lt;/li>
+&lt;/ul></description></item></channel></rss>

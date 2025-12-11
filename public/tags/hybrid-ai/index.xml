@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hybrid AI | Shaoyang's Page</title><link>https://spidermonk7.github.io/tags/hybrid-ai/</link><atom:link href="https://spidermonk7.github.io/tags/hybrid-ai/index.xml" rel="self" type="application/rss+xml"/><description>Hybrid AI</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Mon, 10 Feb 2025 00:00:00 +0000</lastBuildDate><image><url>https://spidermonk7.github.io/media/icon_hu7729264130191091259.png</url><title>Hybrid AI</title><link>https://spidermonk7.github.io/tags/hybrid-ai/</link></image><item><title>Bio-Symbolic Embeddings for Cognitive Tasks</title><link>https://spidermonk7.github.io/ongoing-projects/bio-embeddings/</link><pubDate>Mon, 10 Feb 2025 00:00:00 +0000</pubDate><guid>https://spidermonk7.github.io/ongoing-projects/bio-embeddings/</guid><description>&lt;p>Milestones:&lt;/p>
+&lt;ul>
+&lt;li>Prototype embedding fusion of spiking traces + semantic graphs.&lt;/li>
+&lt;li>Evaluate on toy cognitive benchmarks (memory, planning).&lt;/li>
+&lt;li>Compare against baseline LLM embeddings for transfer and robustness.&lt;/li>
+&lt;/ul></description></item></channel></rss>
