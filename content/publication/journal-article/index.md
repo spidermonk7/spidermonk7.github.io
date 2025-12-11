@@ -27,7 +27,7 @@ publication_types: ["article-journal"]
 publication: "*Science China Technological Sciences* (JCR Q1, in press)"
 publication_short: "Sci China Tech Sci"
 
-abstract: This paper presents the first systematic exploration of the structure of task-ability space and its connection to task difficulty in the context of artificial general intelligence (AGI) evaluation. We propose TADDL-V, a novel framework for quantifying the difficulty of visual tasks to support comprehensive AGI evaluation. Our approach decomposes complex visual tasks into fundamental ability components and establishes quantitative measures of task difficulty. Additionally, we release AGI-V70, a curated benchmark set designed for testing diverse visual abilities across multiple domains. This work provides essential theoretical foundations and practical tools for advancing AGI evaluation methodologies.
+abstract: We introduce TADDL-V, a framework that decomposes visual tasks into atomic ability dimensions and assigns quantitative difficulty scores, enabling more principled AGI evaluation. The framework maps abilities to task structure, measures how difficulty shifts under transformations, and links difficulty to model performance. We also release AGI-V70, a curated benchmark spanning diverse visual abilities, to support reproducible comparisons and future research on task difficulty.
 
 # Summary. An optional shortened abstract.
 summary: First systematic exploration of task-ability space structure and its link to task difficulty. Proposed TADDL-V framework for quantifying visual task difficulty and released AGI-V70 benchmark for AGI evaluation.
@@ -58,7 +58,7 @@ image:
   caption: 'TADDL-V framework overview'
   focal_point: ""
   preview_only: false
-  filename: Figure2.png
+  filename: featured.png
 
 # Associated Projects (optional).
 #   Associate this publication with one or more of your projects.
@@ -91,8 +91,6 @@ This research addresses a critical gap in AGI evaluation by providing rigorous t
 
 The TADDL-V framework and AGI-V70 benchmark are freely available to the research community, promoting open science and collaborative advancement in AGI evaluation.
 
-## Visual teasers
+## Visual teaser
 
 ![TADDL-V Framework](Figure2.png)
-
-![Abstract snapshot](abstract.png)
