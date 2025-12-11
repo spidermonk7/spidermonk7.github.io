@@ -45,6 +45,16 @@ sections:
     design:
       columns: '1'
   - block: collection
+    content:
+      title: Ongoing Projects
+      subtitle: Follow the active experiments and builds.
+      filters:
+        folders:
+          - ongoing-projects
+    design:
+      view: article-grid
+      columns: 3
+  - block: collection
     id: papers
     content:
       title: Featured Publications
