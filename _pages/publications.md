@@ -13,7 +13,7 @@ feature_row_tradecraft:
   - image_path: /assets/images/pubs/tradecraft.png
     alt: "TradeCraft"
     title: "Implicit Theory of Mind in LLM Agent Decision-Making"
-    excerpt: "Under review at **ICLR 2026**. <br>A multi-agent trade-and-craft game for probing Theory of Mind in LLM agents."
+    excerpt: "Under review at **ICML 2026**. <br>A multi-agent trade-and-craft game for probing Theory of Mind in LLM agents."
     url: "/publications/tradecraft/"
     btn_label: "Read More"
     btn_class: "btn--primary"
