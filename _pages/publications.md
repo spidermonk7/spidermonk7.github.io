@@ -6,7 +6,7 @@ feature_row_taddlv:
     alt: "TADDL-V"
     title: "Task Ability Decomposition and Difficulty Quantification of Visual Tasks for AGI Evaluation"
     excerpt: "**Cui, S. Y.**, He, X. Y., Han, J. H., Zhang, Z. L., & Peng, Y. J. <br>*Science China Technological Sciences* (JCR Q1), 2025."
-    url: "/publications/taddlv/"
+    url: "http://engine.scichina.com/doi/10.1007/s11431-025-3090-5"
     btn_label: "Read More"
     btn_class: "btn--primary"
 feature_row_tradecraft:
