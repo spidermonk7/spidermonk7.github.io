@@ -1,6 +1,6 @@
 ---
-permalink: /cv/
-title: "CV"
+permalink: /About me/
+title: "About me"
 ---
 
 You can download my full CV here: [CV (PDF)](/docs/cv_shaoyang_cui-1.pdf)
@@ -14,5 +14,5 @@ You can download my full CV here: [CV (PDF)](/docs/cv_shaoyang_cui-1.pdf)
 
 ## Skills
 
-- **Technical:** PyTorch, NEURON, Git, GitHub
+- **Technical:** PyTorch, NEURON, Git
 - **Language:** IELTS 7.5

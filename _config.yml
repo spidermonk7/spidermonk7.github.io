@@ -14,7 +14,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: Shaoyang Cui (Joey)
-email: JoeyCui2024@163.com
+email: sy-cui@tsinghua.edu.cn
 description: >-
   Personal academic page of Shaoyang Cui (Joey). Research on AGI,
   computational neuroscience, brain-inspired AI, and multi-agent systems.
