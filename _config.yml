@@ -58,7 +58,7 @@ plugins:
 author:
   name   : "Shaoyang Cui (Joey)"
   avatar : "/assets/images/csy.jpg"
-  bio    : "Research Assistant @ Tsinghua University. B.E. in AI from Peking University. Interested in AGI, computational neuroscience, and brain-inspired AI."
+  bio    : "Research Assistant @ Tsinghua University<br>B.E. in AI, Peking University"
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope"
@@ -66,6 +66,14 @@ author:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/spidermonk7"
+    - label: "AGI"
+      icon: "fas fa-fw fa-brain"
+    - label: "Comp. Neuroscience"
+      icon: "fas fa-fw fa-microscope"
+    - label: "Brain-Inspired AI"
+      icon: "fas fa-fw fa-network-wired"
+    - label: "Multi-Agent Systems"
+      icon: "fas fa-fw fa-users"
 
 footer:
   links:
@@ -94,7 +102,7 @@ defaults:
       type: pages
     values:
       layout: single
-      author_profile: true
+      author_profile: false
 
 category_archive:
   type: liquid

@@ -1,6 +1,7 @@
 ---
 permalink: /About me/
 title: "About me"
+author_profile: true
 ---
 
 You can download my full CV here: [CV (PDF)](/docs/cv_shaoyang_cui-1.pdf)
