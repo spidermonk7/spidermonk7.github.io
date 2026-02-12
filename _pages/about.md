@@ -30,7 +30,7 @@ My research interests lie at the intersection of Artificial Intelligence and Neu
 
 | | |
 |---|---|
-| Champion, 2nd AI Cup Badminton Tournament, Institute for AI, PKU | Jun 2025 |
 | IJCAI Mahjong AI Competition --- 10th (2022), 7th (2023), invited to present at IJCAI 2023 | 2022--2023 |
+| Champion, 2nd AI Cup Badminton Tournament, Institute for AI, PKU | Jun 2025 |
 | Team Manager & Coach, Women's Football Team, Yuanpei College | 2022--2024 |
 | Member of the Tennis Team, Yuanpei College | 2022--2025 |
