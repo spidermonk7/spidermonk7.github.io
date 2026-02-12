@@ -1,6 +1,6 @@
 ---
-permalink: /about/
-title: "About"
+permalink: /cv/
+title: "CV"
 ---
 
 I am a Research Assistant at the Brain-Inspired Algorithmic Modeling Lab, Department of Psychological and Cognitive Sciences, Tsinghua University. I received my B.E. in Artificial Intelligence from Yuanpei College, Peking University (2021--2025), where I was a member of the Tong Class, an honorary pilot program specializing in AI.

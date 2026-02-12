@@ -1,11 +1,14 @@
 ---
 permalink: /publications/taddlv/
-title: "TADDL-V: Task Ability Decomposition and Difficulty Quantification of Visual Tasks for AGI Evaluation"
+title: "Task Ability Decomposition and Difficulty Quantification of Visual Tasks for AGI Evaluation"
 ---
 
-**Cui, S. Y.**, He, X. Y., Han, J. H., Zhang, Z. L., & Peng, Y. J.
+**Accepted**{: .notice--success}
 
-*Science China Technological Sciences* (JCR Q1), 2025. **Accepted (in press).**
+**Cui, S. Y.**, He, X. Y., Han, J. H., Zhang, Z. L., & Peng, Y. J.
+<br>*Science China Technological Sciences* (JCR Q1), 2025.
+
+---
 
 ## Abstract
 
@@ -17,4 +20,4 @@ This work proposes TADDL-V, a framework for quantifying the difficulty of visual
 - Proposed TADDL-V: a framework for quantifying difficulty of visual tasks to support AGI evaluation
 - Released AGI-V70: a curated benchmark set for testing diverse visual abilities
 
-See the benchmark on [GitHub](https://github.com/spidermonk7).
+[GitHub](https://github.com/spidermonk7){: .btn .btn--primary .btn--small}

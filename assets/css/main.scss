@@ -1,0 +1,113 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+
+@charset "utf-8";
+
+@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}";
+@import "minimal-mistakes";
+
+/* ===== Typography Hierarchy ===== */
+
+/* Page title (h1) - large and prominent */
+.page__title {
+  font-size: 2em !important;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+}
+
+/* Section headings */
+.page__content h2 {
+  font-size: 1.4em;
+  font-weight: 600;
+  margin-top: 2em;
+  margin-bottom: 0.6em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid #e1e4e8;
+}
+
+.page__content h3 {
+  font-size: 1.15em;
+  font-weight: 600;
+  margin-top: 1.5em;
+  margin-bottom: 0.4em;
+}
+
+/* Body text */
+.page__content p,
+.page__content li {
+  font-size: 0.92em;
+  line-height: 1.7;
+}
+
+/* Feature row (publications listing) */
+.feature__item {
+  margin-bottom: 1.5em;
+
+  .archive__item-title {
+    font-size: 1.05em;
+    font-weight: 600;
+  }
+
+  .archive__item-excerpt {
+    font-size: 0.85em;
+    line-height: 1.6;
+  }
+
+  .btn {
+    font-size: 0.8em;
+  }
+}
+
+/* Left-aligned feature row (accepted paper) */
+.feature__item--left {
+  .archive__item-title {
+    font-size: 1.1em;
+  }
+
+  .archive__item-excerpt {
+    font-size: 0.88em;
+  }
+}
+
+/* Author sidebar bio */
+.author__bio {
+  font-size: 0.82em;
+  line-height: 1.5;
+}
+
+/* Navigation links */
+.greedy-nav a {
+  font-size: 0.9em;
+}
+
+/* Metadata (dates, venues) */
+.page__meta {
+  font-size: 0.75em;
+}
+
+/* Consistent link styling in content */
+.page__content a:not(.btn) {
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-bottom-color 0.2s;
+
+  &:hover {
+    border-bottom-color: currentColor;
+  }
+}
+
+/* Better spacing for bullet lists */
+.page__content ul {
+  margin-top: 0.3em;
+
+  li {
+    margin-bottom: 0.3em;
+  }
+}
+
+/* Publication subpage styling */
+.page__content .btn--primary {
+  font-size: 0.85em;
+  padding: 0.4em 1em;
+}
