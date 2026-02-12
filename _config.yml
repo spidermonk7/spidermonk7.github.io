@@ -13,7 +13,7 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: Shaoyang Cui (Joey)
+title: Joey Cui
 email: sy-cui@tsinghua.edu.cn
 description: >-
   Personal academic page of Shaoyang Cui (Joey). Research on AGI,

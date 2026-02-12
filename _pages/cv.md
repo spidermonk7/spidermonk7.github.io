@@ -16,9 +16,5 @@ author_profile: true
 | GPA | 3.52 / 4.0 (86/100) |
 | Program | *Tong Class*, honorary pilot program in AI |
 
-## Skills
-
-| | |
-|---|---|
-| Technical | PyTorch, NEURON, Git |
-| Language | IELTS 7.5 |
+## Language
+IELTS 7.5
