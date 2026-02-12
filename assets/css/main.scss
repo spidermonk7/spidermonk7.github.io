@@ -6,27 +6,60 @@
 
 /* Override layout variables BEFORE importing theme */
 $max-width: 1600px;
-$right-sidebar-width-narrow: 200px;
-$right-sidebar-width: 250px;
+$right-sidebar-width-narrow: 260px;
+$right-sidebar-width: 280px;
 
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}";
 @import "minimal-mistakes";
 
-/* ===== Wider content area ===== */
+/* ===== Layout: wider content, balanced spacing ===== */
 
-.page {
-  float: left;
-  width: calc(100% - 200px);
+.sidebar {
+  padding-right: 2em;
+  opacity: 1 !important;
 
   @media (min-width: 64em) {
-    width: calc(100% - 200px);
-    padding-right: 0;
+    padding-left: 0.5em;
   }
 }
 
-.sidebar.sticky {
-  width: 180px;
-  min-width: 180px;
+/* ===== Profile sidebar ===== */
+
+/* Larger profile image, no hover effects */
+.author__avatar img {
+  max-width: 180px !important;
+  border-radius: 50%;
+  filter: none !important;
+  transition: none !important;
+
+  &:hover {
+    filter: none !important;
+  }
+}
+
+.author__avatar {
+  &:hover img {
+    filter: none !important;
+  }
+}
+
+/* Cleaner bio text */
+.author__bio {
+  font-size: 0.85em;
+  line-height: 1.6;
+  margin-top: 0.5em;
+}
+
+/* Author links as neat keyword tags */
+.author__urls-wrapper {
+  .author__urls {
+    li {
+      a {
+        font-size: 0.82em;
+        padding: 0.15em 0;
+      }
+    }
+  }
 }
 
 /* Full-width images in content */
@@ -37,84 +70,71 @@ $right-sidebar-width: 250px;
 
 /* ===== Typography Hierarchy ===== */
 
-/* Page title (h1) - large and prominent */
+/* Page title (h1) */
 .page__title {
-  font-size: 2em !important;
+  font-size: 1.8em !important;
   font-weight: 700;
   margin-bottom: 0.5em;
 }
 
 /* Section headings */
 .page__content h2 {
-  font-size: 1.4em;
+  font-size: 1.25em;
   font-weight: 600;
-  margin-top: 2em;
-  margin-bottom: 0.6em;
-  padding-bottom: 0.3em;
+  margin-top: 1.8em;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.25em;
   border-bottom: 1px solid #e1e4e8;
 }
 
 .page__content h3 {
-  font-size: 1.15em;
+  font-size: 1.05em;
   font-weight: 600;
-  margin-top: 1.5em;
-  margin-bottom: 0.4em;
+  margin-top: 1.3em;
+  margin-bottom: 0.3em;
 }
 
-/* Body text */
+/* Body text - smaller */
 .page__content p,
 .page__content li {
-  font-size: 0.92em;
-  line-height: 1.7;
+  font-size: 0.88em;
+  line-height: 1.65;
 }
 
-/* Feature row (publications listing) */
-.feature__item {
-  margin-bottom: 1.5em;
+/* ===== Publications listing - compact ===== */
+
+.feature__item,
+.feature__item--left {
+  margin-bottom: 1em;
 
   .archive__item-title {
-    font-size: 1.05em;
+    font-size: 0.92em !important;
     font-weight: 600;
+    margin-bottom: 0.2em;
   }
 
   .archive__item-excerpt {
-    font-size: 0.85em;
-    line-height: 1.6;
+    font-size: 0.78em !important;
+    line-height: 1.5;
   }
 
   .btn {
-    font-size: 0.8em;
+    font-size: 0.72em;
+    padding: 0.3em 0.8em;
   }
-}
-
-/* Left-aligned feature row (accepted paper) */
-.feature__item--left {
-  .archive__item-title {
-    font-size: 1.1em;
-  }
-
-  .archive__item-excerpt {
-    font-size: 0.88em;
-  }
-}
-
-/* Author sidebar bio */
-.author__bio {
-  font-size: 0.82em;
-  line-height: 1.5;
 }
 
 /* Navigation links */
 .greedy-nav a {
-  font-size: 0.9em;
+  font-size: 0.88em;
 }
 
-/* Metadata (dates, venues) */
+/* Metadata */
 .page__meta {
-  font-size: 0.75em;
+  font-size: 0.72em;
 }
 
-/* Consistent link styling in content */
+/* Link styling */
 .page__content a:not(.btn) {
   text-decoration: none;
   border-bottom: 1px solid transparent;
@@ -125,17 +145,25 @@ $right-sidebar-width: 250px;
   }
 }
 
-/* Better spacing for bullet lists */
+/* Bullet lists */
 .page__content ul {
   margin-top: 0.3em;
 
   li {
-    margin-bottom: 0.3em;
+    margin-bottom: 0.25em;
   }
 }
 
-/* Publication subpage styling */
-.page__content .btn--primary {
+/* Buttons */
+.page__content .btn--primary,
+.page__content .btn--info {
+  font-size: 0.78em;
+  padding: 0.35em 0.9em;
+}
+
+/* Notice boxes (status badges) */
+.notice--warning,
+.notice--success {
   font-size: 0.85em;
-  padding: 0.4em 1em;
+  padding: 0.4em 0.8em;
 }
