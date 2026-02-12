@@ -3,6 +3,29 @@ permalink: /about/
 title: "About"
 ---
 
-Tempor velit sint sunt ipsum tempor enim ad qui ullamco. Est dolore anim ad velit duis dolore minim sunt aliquip amet commodo labore. Ut eu pariatur aute ea aute excepteur laborum. Esse ea esse excepteur minim mollit qui cillum excepteur ex dolore magna. Labore deserunt fugiat incididunt incididunt sint ea. Consequat dolore aute laboris quis proident quis non et est consectetur ex eiusmod sit culpa.
+I am a Research Assistant at the Brain-Inspired Algorithmic Modeling Lab, Department of Psychological and Cognitive Sciences, Tsinghua University. I received my B.E. in Artificial Intelligence from Yuanpei College, Peking University (2021--2025), where I was a member of the Tong Class, an honorary pilot program specializing in AI.
 
-Cupidatat ea do et in excepteur in. Ad nostrud ut est esse eu duis ea sunt eiusmod. Aliquip tempor veniam sint elit fugiat. Velit incididunt laboris amet incididunt labore dolore irure velit excepteur commodo deserunt laborum. Consectetur eu fugiat veniam veniam Lorem labore magna eiusmod. Ea occaecat reprehenderit pariatur consectetur minim labore ut aliquip.
+## Research Interests
+
+My research centers on understanding and explaining the essence of intelligence, with the long-term aspiration of creating Artificial General Intelligence (AGI). I approach this from two complementary perspectives:
+
+- **Top-down:** Investigating intelligence from a macroscopic perspective, with a focus on intention, consciousness, and world models. I aim to leverage existing AI technologies to analyze, explain, and replicate intelligent phenomena.
+- **Bottom-up:** Drawing on computational neuroscience, I seek to mimic the computational logic of biological intelligence through detailed models --- studying brain-inspired architectures, analyzing brain regions, and simulating biophysically detailed neuron models.
+
+## Experience
+
+**Research Assistant**, Brain-Inspired Algorithmic Modeling Lab, Tsinghua University (Jul 2025 -- Present)
+- Work on brain-inspired AI algorithms bridging neuroscience and machine learning
+- Develop and evaluate manifold-analysis agents for characterizing representational geometry in neural networks
+
+**Research Intern**, Computational Neuroscience Team (PI: Dr. Kai Du), Institute for AI, Peking University (Jul 2023 -- Jul 2025)
+- Conducted research on biophysically detailed neuron models, focusing on robustness and computational properties of layer 5 pyramidal cells (L5PC)
+- Implemented simulations in the NEURON environment examining dendritic morphology and active ion channel dynamics
+- Explored candidate synaptic learning rules for biophysical neural networks
+
+## Awards & Activities
+
+- Champion, 2nd AI Cup Badminton Tournament, Institute for AI, Peking University (Jun 2025)
+- IJCAI 2022--2023 Special Track: Chinese Standard Mahjong AI Competition --- 10th place (2022), 7th place (2023), invited to present at IJCAI 2023
+- Team Manager and Coach, Women's Football Team, Yuanpei College (2022--2024)
+- Member of the Tennis Team, Yuanpei College (2022--2025)
