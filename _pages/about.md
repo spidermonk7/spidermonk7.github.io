@@ -12,14 +12,14 @@ My research interests lie at the intersection of Artificial Intelligence and Neu
 
 ## Experience
 
-**Research Assistant** | Department of Psychological and Cognitive Sciences, Tsinghua University
+**Research Assistant** | *Department of Psychological and Cognitive Sciences*, **Tsinghua University**
 <br>*Jul 2025 -- Present*
 
 - Work on brain-inspired AI algorithms bridging neuroscience and machine learning
 - Engineered an automated AI agent for the construction and optimization of biophysically detailed neuron models
 - Pioneering a novel diagnostic framework for **Epilepsy** by integrating whole-brain simulation (The Virtual Brain) with the reasoning capabilities of Large Language Models (LLMs).
 
-**Research Intern** | Computational Neuroscience Team (PI: Dr. Kai Du), Institute for AI, Peking University
+**Research Intern** | *Computational Neuroscience Team (PI: Dr. Kai Du), Institute for AI*,**Peking University**
 <br>*Jul 2023 -- Jul 2025*
 
 - Conducted research on biophysically detailed neuron models, focusing on robustness and computational properties of layer 5 pyramidal cells (L5PC)
