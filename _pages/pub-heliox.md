@@ -7,14 +7,24 @@ title: "HelioX: A GPU-Native Framework for Simulation and Training of Biophysica
 
 ---
 
-## Abstract
+## System Architecture
 
-Biophysically detailed neural networks represent a promising frontier for brain-inspired AI, offering intrinsic spatio-temporal dynamics to enhance the expressivity and computational density of deep learning systems. However, general-purpose deep learning frameworks suffer from a fundamental mismatch between their dense parallel optimizations and the irregular, tree-structured complexity of biological mechanisms.
+![HelioX Architecture](/Papers/UnderReview/HelioX/heliox.png)
 
-HelioX is a GPU-native framework designed to unify high-performance simulation with scalable training. Unlike approaches that adapt biology to existing deep learning tools, HelioX adopts a "GPU-to-Biophysics" paradigm --- tailoring the underlying GPU parallelism to biological structures by implementing custom-fused CUDA kernels.
+Biophysically detailed neural networks (BDNs) are a promising frontier for brain-inspired AI, but general-purpose deep learning frameworks suffer from a fundamental mismatch with their irregular, tree-structured biological complexity. HelioX is a GPU-native engine that bridges this gap with a "GPU-to-Biophysics" paradigm.
 
-## Key Contributions
+The architecture above shows three tightly integrated layers:
 
-- **GPU Native Simulation Engine:** Custom CUDA kernels based on the DHS method, maximizing hardware utilization for complex dendritic structures
-- **Effective Training Module:** GPU-native support for specialized gradient algorithms of detailed neurons, with a modular Python API for constructing multi-layer biophysical architectures
-- **System Validation:** Outperforms standard simulators (NEURON) by orders of magnitude; successfully trains deep biophysical MLPs and organism-scale networks (e.g., BAAIWorm C. elegans) on a single consumer GPU
+**Top: C++ Template Abstraction Layer and Multi-Stream Execution.** A unified single-source code base is specialized at compile time into GPU (via NVCC) and CPU (via GCC/Clang) objects, which are combined into a heterogeneous application. On the GPU side, multiple CUDA streams execute ionic current calculations, ODE construction, and conductance calculations concurrently, maximizing hardware utilization.
+
+**Middle: Simulation and Training Pipeline.** Starting from a Python interface, users build biophysically detailed neural network models and preprocess spike inputs. The pipeline flows through spike processing, ODE construction, ODE solving, and state variable updates (simulation), followed by analytical gradient calculation and optimizer steps (training). The simulation and model parameters update in a closed loop.
+
+**Bottom: Efficient Spike Handling and Unified Framework.** A fast-path spike delivery mechanism checks a 4-byte spike counter on the GPU --- if no spikes occurred (the common case), the cost is O(1) with no host involvement. Only when spikes are detected does the system fall back to host-mediated transfer at O(#spikes) cost. The right panel shows how the simulation framework and learning framework share efficient variable access, enabling seamless end-to-end differentiable training.
+
+## Key Results
+
+- Outperforms standard simulators (NEURON) by **orders of magnitude** in both speed and scalability
+- Surpasses prior GPU-based solvers through custom-fused CUDA kernels for the Dendritic Hierarchical Scheduling (DHS) algorithm
+- Successfully trains **deep biophysical MLPs** (3--5 layer) on MNIST with stable accuracy
+- Trains the **BAAIWorm C. elegans** organism-scale model on a single consumer GPU, reducing memory from ~32GB to ~6GB
+- Provides a modular Python API for constructing multi-layer biophysical architectures with ease
