@@ -19,7 +19,7 @@ description: >-
   Personal academic page of Shaoyang Cui (Joey). Research on AGI,
   computational neuroscience, brain-inspired AI, and multi-agent systems.
 github_username: spidermonk7
-minimal_mistakes_skin: default
+minimal_mistakes_skin: "air"
 search: true
 
 # Build settings
