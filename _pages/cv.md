@@ -13,7 +13,6 @@ author_profile: true
 
 | | |
 |---|---|
-| GPA | 3.52 / 4.0 (86/100) |
 | Program | *Tong Class*, honorary pilot program in AI |
 
 ## Language
