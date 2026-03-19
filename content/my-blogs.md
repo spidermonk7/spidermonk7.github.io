@@ -23,6 +23,7 @@ sections:
 
         每篇都尽量简短、具体、可复用。
     design:
+      css_class: page-intro
       columns: '1'
 
   - block: collection
@@ -32,7 +33,7 @@ sections:
         folders:
           - post
     design:
-      css_class: scholar-list
+      css_class: entry-list
       view: article-grid
       columns: 1
 ---

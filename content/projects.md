@@ -6,9 +6,19 @@ aliases:
   - /project/
 
 design:
-  spacing: '5rem'
+  spacing: '4.5rem'
 
 sections:
+  - block: markdown
+    content:
+      title: Projects
+      subtitle: Selected builds across AI systems, neuroscience, and evaluation.
+      text: |-
+        A focused index of the projects I consider most representative.
+    design:
+      css_class: page-intro
+      columns: '1'
+
   - block: collection
     content:
       title: Selected Projects
@@ -17,7 +27,7 @@ sections:
         folders:
           - project
     design:
-      css_class: scholar-list
+      css_class: entry-list
       view: article-grid
       fill_image: false
       columns: 1

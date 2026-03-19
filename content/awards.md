@@ -16,6 +16,7 @@ sections:
       text: |-
         Selected recognitions and competition results across AI research and systems work.
     design:
+      css_class: page-intro
       columns: '1'
 
   - block: collection
@@ -25,7 +26,7 @@ sections:
         folders:
           - award
     design:
-      css_class: scholar-list
+      css_class: entry-list
       view: article-grid
       columns: 1
 ---

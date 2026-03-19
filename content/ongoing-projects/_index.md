@@ -14,6 +14,7 @@ sections:
       text: |-
         Live projects I am iterating on now. If you are interested in collaboration or feedback, feel free to reach out.
     design:
+      css_class: page-intro
       columns: '1'
 
   - block: collection
@@ -23,7 +24,7 @@ sections:
         folders:
           - ongoing-projects
     design:
-      css_class: scholar-list
+      css_class: entry-list
       view: article-grid
       columns: 1
 ---

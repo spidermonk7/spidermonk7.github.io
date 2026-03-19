@@ -16,6 +16,7 @@ sections:
       text: |-
         This page gathers core research outputs, including representative papers and supporting resources.
     design:
+      css_class: page-intro
       columns: '1'
 
   - block: collection
@@ -25,7 +26,7 @@ sections:
         folders:
           - publication
     design:
-      css_class: scholar-list
+      css_class: entry-list
       view: article-grid
       columns: 1
 ---

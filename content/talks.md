@@ -16,6 +16,7 @@ sections:
       text: |-
         A curated timeline of talks, invited sessions, and workshop presentations.
     design:
+      css_class: page-intro
       columns: '1'
 
   - block: collection
@@ -25,7 +26,7 @@ sections:
         folders:
           - event
     design:
-      css_class: scholar-list
+      css_class: entry-list
       view: article-grid
       columns: 1
 ---

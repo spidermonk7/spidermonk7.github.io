@@ -5,7 +5,7 @@ date: 2022-10-24
 type: landing
 
 design:
-  spacing: "5rem"
+  spacing: "4rem"
 
 sections:
   - block: resume-biography-3
@@ -16,7 +16,7 @@ sections:
         text: Download CV
         url: uploads/cv_shaoyang_cui.pdf
     design:
-      css_class: dark
+      css_class: "dark home-hero"
       background:
         color: black
         image:
@@ -41,30 +41,8 @@ sections:
 
         I am open to collaborations and internship opportunities in neuroscience and NeuroAI.
     design:
+      css_class: home-research
       columns: "1"
-
-  - block: collection
-    content:
-      title: Ongoing Projects
-      subtitle: Follow active experiments and current builds.
-      filters:
-        folders:
-          - ongoing-projects
-    design:
-      view: article-grid
-      columns: 3
-
-  - block: collection
-    content:
-      title: Latest from My Blogs
-      subtitle: Recent notes on what I read, practiced, and learned.
-      filters:
-        folders:
-          - post
-      count: 3
-    design:
-      view: article-grid
-      columns: 3
 
   - block: collection
     content:
@@ -74,6 +52,32 @@ sections:
           - publication
         featured_only: true
     design:
+      css_class: home-featured
       view: article-grid
       columns: 1
+
+  - block: collection
+    content:
+      title: Ongoing Projects
+      subtitle: Follow active experiments and current builds.
+      filters:
+        folders:
+          - ongoing-projects
+    design:
+      css_class: home-stream
+      view: article-grid
+      columns: 2
+
+  - block: collection
+    content:
+      title: Latest from My Blogs
+      subtitle: Recent notes on what I read, practiced, and learned.
+      filters:
+        folders:
+          - post
+      count: 4
+    design:
+      css_class: "home-stream home-stream-alt"
+      view: article-grid
+      columns: 2
 ---

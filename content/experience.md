@@ -9,6 +9,15 @@ design:
 sections:
   - block: markdown
     content:
+      title: Experience
+      text: |-
+        A concise overview of my academic background, research work, and operating style.
+    design:
+      css_class: page-intro
+      columns: '1'
+
+  - block: markdown
+    content:
       title: Education
       text: |-
         **BSc in Artificial Intelligence**, Peking University
@@ -21,6 +30,7 @@ sections:
         - CORE (Prof. Yixin Zhu)
         - Neuroscience: from Brain Simulation to NeuroAI (Prof. Kai Du)
     design:
+      css_class: page-notes
       columns: '1'
 
   - block: markdown
@@ -39,6 +49,7 @@ sections:
         - Coordinated with club management for resource support.
         - Designed weekly training plans and provided player feedback.
     design:
+      css_class: page-notes
       columns: '1'
 
   - block: markdown
@@ -58,5 +69,6 @@ sections:
         **Languages**
         - English (IELTS 7.5)
     design:
+      css_class: page-notes
       columns: '1'
 ---
