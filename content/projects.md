@@ -11,7 +11,7 @@ design:
 sections:
   - block: collection
     content:
-      title: ""
+      title: "Projects"
       filters:
         folders:
           - project

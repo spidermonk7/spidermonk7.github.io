@@ -11,7 +11,7 @@ design:
 sections:
   - block: collection
     content:
-      title: ""
+      title: "My Blogs"
       filters:
         folders:
           - post

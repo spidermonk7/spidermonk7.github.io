@@ -11,7 +11,7 @@ design:
 sections:
   - block: collection
     content:
-      title: ""
+      title: "Papers"
       filters:
         folders:
           - publication

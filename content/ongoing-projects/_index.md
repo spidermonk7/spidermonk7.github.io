@@ -10,7 +10,7 @@ design:
 sections:
   - block: collection
     content:
-      title: ""
+      title: "Ongoing Projects"
       filters:
         folders:
           - ongoing-projects
