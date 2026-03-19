@@ -144,7 +144,7 @@ Instead of materializing the whole attention matrix in GPU memory, *FlashAttenti
 
 In other words, *FlashAttention* does not change the mathematics of attention.
 It changes the order of computation, so that the GPU does much less memory movement and avoids storing those massive intermediate tensors.
-
+<!-- 
 # Flash Attention
 
 The natural question is: if each softmax entry depends on the whole row, how can we avoid storing the full $L \times L$ matrix?
@@ -457,4 +457,4 @@ The standard implementation stores the full attention score matrix because it co
 
 *FlashAttention* notices that this is not mathematically necessary. If we maintain the right running statistics for each row, we can compute exactly the same softmax and exactly the same output while processing the sequence block by block.
 
-So the real optimization is not "changing softmax into something cheaper." The real optimization is changing **how softmax is executed**, so that the GPU avoids writing and reading enormous $L \times L$ intermediates.
+So the real optimization is not "changing softmax into something cheaper." The real optimization is changing **how softmax is executed**, so that the GPU avoids writing and reading enormous $L \times L$ intermediates. -->
