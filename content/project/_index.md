@@ -1,6 +1,5 @@
 ﻿---
-title: Publications
-cms_exclude: true
+title: Projects
 outputs: []
 _build:
   render: never
