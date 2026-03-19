@@ -9,19 +9,9 @@ design:
   spacing: '4.5rem'
 
 sections:
-  - block: markdown
-    content:
-      title: Awards
-      subtitle: Honors and recognitions.
-      text: |-
-        Selected recognitions and competition results across AI research and systems work.
-    design:
-      css_class: page-intro
-      columns: '1'
-
   - block: collection
     content:
-      title: Awards & Honors
+      title: ""
       filters:
         folders:
           - award

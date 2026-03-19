@@ -9,19 +9,9 @@ design:
   spacing: '4.5rem'
 
 sections:
-  - block: markdown
-    content:
-      title: Talks
-      subtitle: Recent and invited presentations.
-      text: |-
-        A curated timeline of talks, invited sessions, and workshop presentations.
-    design:
-      css_class: page-intro
-      columns: '1'
-
   - block: collection
     content:
-      title: Talk Records
+      title: ""
       filters:
         folders:
           - event
