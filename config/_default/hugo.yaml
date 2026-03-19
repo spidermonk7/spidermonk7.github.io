@@ -48,6 +48,21 @@ taxonomies:
   publication_type: publication_types
 markup:
   _merge: deep
+  goldmark:
+    extensions:
+      passthrough:
+        enable: true
+        delimiters:
+          block:
+            - - \[
+              - \]
+            - - $$
+              - $$
+          inline:
+            - - \(
+              - \)
+            - - $
+              - $
   highlight:
     lineNos: false
 security:

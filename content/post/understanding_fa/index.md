@@ -1,6 +1,7 @@
 ﻿---
 title: Learning Notes - the Flash-Attention  
 date: 2026-03-19
+math: true
 summary: Why flash attention helps the inferences of Large Language Models.
 tags:
   - Design
@@ -41,32 +42,32 @@ At a high level, self-attention works like this: for each token, the model compu
 
 More concretely, given query, key, and value matrices $Q$, $K$, and $V$, the attention scores are:
 
-$$
+\[
 S = \frac{QK^\top}{\sqrt{d_k}}
-$$
+\]
 
 
 where $M_{ij} = -\infty$ for positions that should be masked.
 
 Then softmax is applied **row by row** over the key dimension:
 
-$$
+\[
 P_{ij} = \frac{\exp(S_{ij})}{\sum_j \exp(S_{ij})}
-$$
+\]
 
 This step converts the raw scores into normalized attention weights. Each row now sums to 1, which means the model can interpret them as "how much this token attends to each previous token."
 
 Finally, these attention weights are used to combine the value vectors:
 
-$$
+\[
 O = PV
-$$
+\]
 
 So the full attention pipeline is:
 
-$$
+\[
 \mathrm{Attention}(Q, K, V) = \mathrm{softmax}\left(\frac{QK^\top}{\sqrt{d_k}}\right)V
-$$
+\]
 
 ## What softmax is doing here
 
@@ -90,5 +91,3 @@ So when people say FlashAttention reduces memory usage, they do **not** mean it 
 
 
 # Flash Attention
-
-
