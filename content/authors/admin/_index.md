@@ -8,7 +8,7 @@ last_name: Cui
 superuser: true
 highlight_name: true
 
-role: NeuroAI Researcher
+role: Research Assistant
 
 organizations:
   - name: Peking University
@@ -16,15 +16,15 @@ organizations:
 
 profiles:
   - icon: at-symbol
-    url: 'mailto:JoeyCui2024@163.com'
+    url: 'mailto:sy-cui@thu.edu.cn'
     label: Email
   - icon: brands/github
     url: https://github.com/spidermonk7/
 
 interests:
-  - NeuroAI
+  - Neuro + AI
   - Computational Neuroscience
-  - Agentic Systems
+  - LLMs and Agentic Systems
 
 education:
   - area: BSc Artificial Intelligence
