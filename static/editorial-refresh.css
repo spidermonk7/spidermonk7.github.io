@@ -221,12 +221,16 @@ time,
 
 .home-hero #profile,
 .home-hero .portrait-title {
-  text-align: left;
+  text-align: center;
+}
+
+.home-hero #profile {
+  align-items: center;
 }
 
 .home-hero .avatar-wrapper {
-  width: min(100%, 185px);
-  margin: 0 auto 1.35rem 0;
+  width: min(100%, 152px);
+  margin: 0 auto 1.1rem;
 }
 
 .home-hero .avatar {
@@ -242,11 +246,11 @@ time,
 .home-hero .portrait-title > div:first-child {
   margin: 0 0 0.95rem !important;
   color: #f8f4ee !important;
-  font-size: clamp(3.1rem, 5vw, 4.6rem) !important;
+  font-size: clamp(2.2rem, 3vw, 3rem) !important;
   font-style: italic;
   font-weight: 600;
-  line-height: 0.9;
-  letter-spacing: -0.04em;
+  line-height: 0.96;
+  letter-spacing: -0.02em;
 }
 
 .home-hero .portrait-title h3 {
@@ -265,7 +269,7 @@ time,
 }
 
 .home-hero .network-icon {
-  justify-content: flex-start;
+  justify-content: center;
   gap: 0.75rem;
 }
 
@@ -290,15 +294,35 @@ time,
 }
 
 .home-hero .bio-text p {
-  color: var(--ink-soft);
+  color: var(--ink) !important;
   font-size: 1.06rem;
   line-height: 1.86;
 }
 
 .home-hero .bio-text p:first-child {
-  color: var(--ink-strong);
+  color: var(--ink-strong) !important;
   font-size: clamp(1.2rem, 2vw, 1.42rem);
   line-height: 1.55;
+}
+
+.home-hero .bio-text,
+.home-hero .grid.grid-cols-1.md\:grid-cols-2 li,
+.home-hero .grid.grid-cols-1.md\:grid-cols-2 p,
+.home-hero .grid.grid-cols-1.md\:grid-cols-2 .text-sm,
+.home-hero .grid.grid-cols-1.md\:grid-cols-2.gap-4 li,
+.home-hero .grid.grid-cols-1.md\:grid-cols-2.gap-4 p,
+.home-hero .grid.grid-cols-1.md\:grid-cols-2.gap-4 .text-sm {
+  color: var(--ink-soft) !important;
+}
+
+.home-hero .section-subheading {
+  color: var(--accent-deep) !important;
+}
+
+.home-hero .course,
+.home-hero .description,
+.home-hero .description p:first-child {
+  color: var(--ink-strong) !important;
 }
 
 .home-hero .inline-flex.items-center {
@@ -511,6 +535,35 @@ time,
 
 .entry-list .flex.flex-col.items-center.max-w-prose.mx-auto.gap-3.justify-center.px-6.md\:px-0:has(.mb-6:empty) {
   display: none;
+}
+
+.entry-list .flex.flex-col.items-center.max-w-prose.mx-auto.gap-3.justify-center.px-6.md\:px-0 {
+  align-items: center !important;
+  text-align: center !important;
+  padding-bottom: 0.85rem;
+}
+
+.entry-list .mb-6.text-3xl {
+  display: inline-block;
+  margin: 0 auto;
+  color: var(--ink-strong);
+  font-size: clamp(1.75rem, 2.4vw, 2.15rem);
+  font-weight: 600;
+  line-height: 1.05;
+}
+
+.entry-list .mb-6.text-3xl::before {
+  content: none;
+  display: none;
+}
+
+.entry-list .mb-6.text-3xl::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin: 0.42rem auto 0;
+  background: linear-gradient(90deg, rgba(138, 98, 61, 0), rgba(138, 98, 61, 0.9), rgba(138, 98, 61, 0));
 }
 
 .home-stream .group .flex.gap-3 {
@@ -771,7 +824,7 @@ time,
 
   .home-hero .portrait-title .text-3xl,
   .home-hero .portrait-title > div:first-child {
-    font-size: clamp(2.8rem, 16vw, 3.7rem) !important;
+    font-size: clamp(2rem, 12vw, 2.65rem) !important;
   }
 
   .home-stream .group.cursor-pointer::before {
