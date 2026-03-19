@@ -90,4 +90,30 @@ FlashAttention does **not** change the mathematical definition of softmax. Inste
 So when people say FlashAttention reduces memory usage, they do **not** mean it removes softmax. They mean it computes the same softmax-based attention more efficiently.
 
 
+
+At first glance, a single attention head does not seem too expensive.
+
+For example, if $L=512$ and each number takes 2 bytes, then one $L \times L$ score matrix costs:
+
+$$
+512 \times 512 \times 2 = 524288 \text{ bytes} \approx 0.5 \text{ MB}
+$$
+
+So it is definitely not 0.5 GB.
+
+However, in a real transformer we usually have multiple heads, multiple layers, and additional tensors such as attention probabilities, Q/K/V activations, and KV cache.
+
+If we include the head dimension, the score matrix memory for one layer is roughly:
+
+$$
+B \times H \times L^2 \times \text{bytes per element}
+$$
+
+For example, with $B=1$, $H=32$, $L=4096$, and 2 bytes per element, the attention score matrix alone is already about 1 GB for a single layer.
+
+And this is only one intermediate tensor. That is why attention becomes a serious memory bottleneck for long sequences.
+
+
+
+
 # Flash Attention
