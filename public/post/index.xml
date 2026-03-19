@@ -1,1 +1,64 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Recent News | Shaoyang's Page</title><link>https://spidermonk7.github.io/post/</link><atom:link href="https://spidermonk7.github.io/post/index.xml" rel="self" type="application/rss+xml"/><description>Recent News</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><image><url>https://spidermonk7.github.io/media/icon_hu7729264130191091259.png</url><title>Recent News</title><link>https://spidermonk7.github.io/post/</link></image></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>My Blogs | Shaoyang&#39;s Page</title>
+    <link>https://spidermonk7.github.io/post/</link>
+      <atom:link href="https://spidermonk7.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <description>My Blogs</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Wed, 18 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://spidermonk7.github.io/media/icon_hu7729264130191091259.png</url>
+      <title>My Blogs</title>
+      <link>https://spidermonk7.github.io/post/</link>
+    </image>
+    
+    <item>
+      <title>Learning Notes - Building Reliable Agent Workflows</title>
+      <link>https://spidermonk7.github.io/post/learning-notes-agent-workflow/</link>
+      <pubDate>Wed, 18 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://spidermonk7.github.io/post/learning-notes-agent-workflow/</guid>
+      <description>&lt;p&gt;This week I focused on one practical question: how to make agent workflows reliable enough for repeated use.&lt;/p&gt;
+&lt;p&gt;Key takeaways:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Keep each step narrow and testable instead of writing one huge prompt.&lt;/li&gt;
+&lt;li&gt;Add explicit handoff artifacts between steps (notes, constraints, output format).&lt;/li&gt;
+&lt;li&gt;Evaluate outputs with a checklist before moving to the next step.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I am now turning this into a reusable template for literature review and experiment planning.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Reading Notes - Neuroscience Inspirations for AI</title>
+      <link>https://spidermonk7.github.io/post/reading-notes-neuroscience-ai/</link>
+      <pubDate>Thu, 12 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://spidermonk7.github.io/post/reading-notes-neuroscience-ai/</guid>
+      <description>&lt;p&gt;I reviewed several materials on cortical computation and noise robustness.&lt;/p&gt;
+&lt;p&gt;What stood out:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Biological systems rely on redundancy and local adaptation, not only scale.&lt;/li&gt;
+&lt;li&gt;Robustness is often an emergent property of system design, not a single trick.&lt;/li&gt;
+&lt;li&gt;Interpretability improves when models are constrained by plausible mechanisms.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Next step: prototype a small benchmark that compares standard and bio-inspired architectures under perturbations.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Build Log - Redesigning My Personal Website</title>
+      <link>https://spidermonk7.github.io/post/build-log-personal-site/</link>
+      <pubDate>Sun, 08 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://spidermonk7.github.io/post/build-log-personal-site/</guid>
+      <description>&lt;p&gt;I redesigned my homepage with one goal: minimal but high-end.&lt;/p&gt;
+&lt;p&gt;Changes I made:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Introduced a cleaner visual system with stronger typography hierarchy.&lt;/li&gt;
+&lt;li&gt;Unified cards, spacing, and section rhythm for better readability.&lt;/li&gt;
+&lt;li&gt;Added a dedicated &lt;code&gt;My Blogs&lt;/code&gt; page to track what I read and learn.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This page will continue to serve as a public learning journal.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

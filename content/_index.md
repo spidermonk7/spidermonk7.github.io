@@ -1,4 +1,4 @@
----
+﻿---
 # Leave the homepage title empty to use the site title
 title: ""
 date: 2022-10-24
@@ -6,7 +6,7 @@ type: landing
 
 design:
   # Default section spacing
-  spacing: "6rem"
+  spacing: "5rem"
 
 sections:
   - block: resume-biography-3
@@ -30,20 +30,22 @@ sections:
           size: cover
           position: center
           parallax: false
+
   - block: markdown
     content:
-      title: '📚 My Research'
-      subtitle: ''
+      title: Research Focus
+      subtitle: ""
       text: |-
-        My research focuses on understanding and explaining the essence of Intelligence, aspiring to create Artificial General Intelligence (AGI). I pursue this goal through two complementary approaches:
+        I focus on understanding how intelligence emerges and how to build AI systems that are explainable, robust, and genuinely useful.
 
-        **Top-down**: Analyzing and interpreting intelligence from a macroscopic perspective, focusing on studies of intention, consciousness, and world models. I leverage existing AI technologies to explain and replicate intelligent phenomena.
+        **Top-down**: Investigating high-level cognitive phenomena such as intention, consciousness, and world modeling.
 
-        **Bottom-up**: Based on computational neuroscience, I aim to mimic the computational logic of biological intelligence through detailed models, including brain-like architectures, brain region analysis, and simulation of detailed neuron models.
-        
-        I am actively seeking internship opportunities in neuroscience laboratories to gain hands-on experimental experience. Please reach out to collaborate! 🧠
+        **Bottom-up**: Building biologically grounded computational models inspired by neural systems and circuit-level mechanisms.
+
+        I am open to collaborations and internship opportunities in neuroscience and NeuroAI.
     design:
-      columns: '1'
+      columns: "1"
+
   - block: collection
     content:
       title: Ongoing Projects
@@ -54,6 +56,19 @@ sections:
     design:
       view: article-grid
       columns: 3
+
+  - block: collection
+    id: myblogs
+    content:
+      title: My Blogs
+      subtitle: Notes on what I recently read, practiced, and learned.
+      filters:
+        folders:
+          - post
+    design:
+      view: article-grid
+      columns: 3
+
   - block: collection
     id: papers
     content:
@@ -65,6 +80,7 @@ sections:
     design:
       view: article-grid
       columns: 1
+
   - block: collection
     content:
       title: Recent Publications
@@ -75,6 +91,7 @@ sections:
         exclude_featured: false
     design:
       view: citation
+
   - block: collection
     id: talks
     content:
@@ -85,6 +102,7 @@ sections:
     design:
       view: article-grid
       columns: 1
+
   - block: collection
     id: awards
     content:

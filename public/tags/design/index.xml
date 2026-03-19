@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Design | Shaoyang&#39;s Page</title>
+    <link>https://spidermonk7.github.io/tags/design/</link>
+      <atom:link href="https://spidermonk7.github.io/tags/design/index.xml" rel="self" type="application/rss+xml" />
+    <description>Design</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 08 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://spidermonk7.github.io/media/icon_hu7729264130191091259.png</url>
+      <title>Design</title>
+      <link>https://spidermonk7.github.io/tags/design/</link>
+    </image>
+    
+    <item>
+      <title>Build Log - Redesigning My Personal Website</title>
+      <link>https://spidermonk7.github.io/post/build-log-personal-site/</link>
+      <pubDate>Sun, 08 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://spidermonk7.github.io/post/build-log-personal-site/</guid>
+      <description>&lt;p&gt;I redesigned my homepage with one goal: minimal but high-end.&lt;/p&gt;
+&lt;p&gt;Changes I made:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Introduced a cleaner visual system with stronger typography hierarchy.&lt;/li&gt;
+&lt;li&gt;Unified cards, spacing, and section rhythm for better readability.&lt;/li&gt;
+&lt;li&gt;Added a dedicated &lt;code&gt;My Blogs&lt;/code&gt; page to track what I read and learn.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This page will continue to serve as a public learning journal.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

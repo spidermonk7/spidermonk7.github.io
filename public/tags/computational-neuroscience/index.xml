@@ -1,1 +1,40 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Computational Neuroscience | Shaoyang's Page</title><link>https://spidermonk7.github.io/tags/computational-neuroscience/</link><atom:link href="https://spidermonk7.github.io/tags/computational-neuroscience/index.xml" rel="self" type="application/rss+xml"/><description>Computational Neuroscience</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Thu, 01 Sep 2022 00:00:00 +0000</lastBuildDate><image><url>https://spidermonk7.github.io/media/icon_hu7729264130191091259.png</url><title>Computational Neuroscience</title><link>https://spidermonk7.github.io/tags/computational-neuroscience/</link></image><item><title>Computational Robustness of Tall Pyramidal Cells</title><link>https://spidermonk7.github.io/project/neuronal-robustness/</link><pubDate>Thu, 01 Sep 2022 00:00:00 +0000</pubDate><guid>https://spidermonk7.github.io/project/neuronal-robustness/</guid><description>&lt;p>Conducted independent exploration on the robustness of L5PC neuronal cells&amp;rsquo; response to noise of different distributions. Proposed new perspectives on the differences between biological intelligence and mainstream artificial intelligence paradigms.&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Computational Neuroscience | Shaoyang&#39;s Page</title>
+    <link>https://spidermonk7.github.io/tags/computational-neuroscience/</link>
+      <atom:link href="https://spidermonk7.github.io/tags/computational-neuroscience/index.xml" rel="self" type="application/rss+xml" />
+    <description>Computational Neuroscience</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Thu, 12 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://spidermonk7.github.io/media/icon_hu7729264130191091259.png</url>
+      <title>Computational Neuroscience</title>
+      <link>https://spidermonk7.github.io/tags/computational-neuroscience/</link>
+    </image>
+    
+    <item>
+      <title>Reading Notes - Neuroscience Inspirations for AI</title>
+      <link>https://spidermonk7.github.io/post/reading-notes-neuroscience-ai/</link>
+      <pubDate>Thu, 12 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://spidermonk7.github.io/post/reading-notes-neuroscience-ai/</guid>
+      <description>&lt;p&gt;I reviewed several materials on cortical computation and noise robustness.&lt;/p&gt;
+&lt;p&gt;What stood out:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Biological systems rely on redundancy and local adaptation, not only scale.&lt;/li&gt;
+&lt;li&gt;Robustness is often an emergent property of system design, not a single trick.&lt;/li&gt;
+&lt;li&gt;Interpretability improves when models are constrained by plausible mechanisms.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Next step: prototype a small benchmark that compares standard and bio-inspired architectures under perturbations.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Computational Robustness of Tall Pyramidal Cells</title>
+      <link>https://spidermonk7.github.io/project/neuronal-robustness/</link>
+      <pubDate>Thu, 01 Sep 2022 00:00:00 +0000</pubDate>
+      <guid>https://spidermonk7.github.io/project/neuronal-robustness/</guid>
+      <description>&lt;p&gt;Conducted independent exploration on the robustness of L5PC neuronal cells&amp;rsquo; response to noise of different distributions. Proposed new perspectives on the differences between biological intelligence and mainstream artificial intelligence paradigms.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

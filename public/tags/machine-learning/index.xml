@@ -1,18 +1,66 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Machine Learning | Shaoyang's Page</title><link>https://spidermonk7.github.io/tags/machine-learning/</link><atom:link href="https://spidermonk7.github.io/tags/machine-learning/index.xml" rel="self" type="application/rss+xml"/><description>Machine Learning</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Thu, 01 Aug 2024 00:00:00 +0000</lastBuildDate><image><url>https://spidermonk7.github.io/media/icon_hu7729264130191091259.png</url><title>Machine Learning</title><link>https://spidermonk7.github.io/tags/machine-learning/</link></image><item><title>TradeCraft - AI Trading System</title><link>https://spidermonk7.github.io/project/tradecraft/</link><pubDate>Thu, 01 Aug 2024 00:00:00 +0000</pubDate><guid>https://spidermonk7.github.io/project/tradecraft/</guid><description>&lt;p>An intelligent trading system that leverages advanced AI algorithms for market analysis and automated trading strategies. TradeCraft combines machine learning models with real-time market data processing to identify trading opportunities and execute trades with optimal timing.&lt;/p></description></item><item><title>IJCAI Chinese Standard Mahjong AI Competition</title><link>https://spidermonk7.github.io/award/ijcai-mahjong/</link><pubDate>Thu, 01 Jun 2023 00:00:00 +0000</pubDate><guid>https://spidermonk7.github.io/award/ijcai-mahjong/</guid><description>&lt;p>Achieved outstanding performance in the prestigious IJCAI Chinese Standard Mahjong AI Competition across two consecutive years:&lt;/p>
-&lt;p>&lt;strong>2023&lt;/strong>: &lt;strong>7th Place&lt;/strong> - IJCAI2023 Special Track
-&lt;strong>2022&lt;/strong>: &lt;strong>10th Place&lt;/strong> - IJCAI2022 Competition&lt;/p>
-&lt;h2 id="technical-approach">Technical Approach&lt;/h2>
-&lt;p>Our solution applied Deep Residual Networks to Mahjong strategy learning:&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>Architecture&lt;/strong>: Implemented CNNs based on ResNet, Res2Net, and DenseNet architectures&lt;/li>
-&lt;li>&lt;strong>Learning Method&lt;/strong>: Used supervised learning algorithms for feature extraction and strategy learning&lt;/li>
-&lt;li>&lt;strong>Training Data&lt;/strong>: Leveraged large amounts of expert game-play data&lt;/li>
-&lt;li>&lt;strong>Performance&lt;/strong>: Demonstrated consistent improvement and competitive ranking&lt;/li>
-&lt;/ul>
-&lt;h2 id="recognition">Recognition&lt;/h2>
-&lt;ul>
-&lt;li>Invited to present at the IJCAI2023 special track&lt;/li>
-&lt;li>Recognized among top performers in international AI gaming competition&lt;/li>
-&lt;li>Contributed to advancing AI applications in complex strategic games&lt;/li>
-&lt;/ul>
-&lt;p>This achievement demonstrates proficiency in applying state-of-the-art deep learning techniques to complex strategic decision-making problems and competitive performance in international AI competitions.&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Machine Learning | Shaoyang&#39;s Page</title>
+    <link>https://spidermonk7.github.io/tags/machine-learning/</link>
+      <atom:link href="https://spidermonk7.github.io/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" />
+    <description>Machine Learning</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Thu, 12 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://spidermonk7.github.io/media/icon_hu7729264130191091259.png</url>
+      <title>Machine Learning</title>
+      <link>https://spidermonk7.github.io/tags/machine-learning/</link>
+    </image>
+    
+    <item>
+      <title>Reading Notes - Neuroscience Inspirations for AI</title>
+      <link>https://spidermonk7.github.io/post/reading-notes-neuroscience-ai/</link>
+      <pubDate>Thu, 12 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://spidermonk7.github.io/post/reading-notes-neuroscience-ai/</guid>
+      <description>&lt;p&gt;I reviewed several materials on cortical computation and noise robustness.&lt;/p&gt;
+&lt;p&gt;What stood out:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Biological systems rely on redundancy and local adaptation, not only scale.&lt;/li&gt;
+&lt;li&gt;Robustness is often an emergent property of system design, not a single trick.&lt;/li&gt;
+&lt;li&gt;Interpretability improves when models are constrained by plausible mechanisms.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Next step: prototype a small benchmark that compares standard and bio-inspired architectures under perturbations.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>TradeCraft - AI Trading System</title>
+      <link>https://spidermonk7.github.io/project/tradecraft/</link>
+      <pubDate>Thu, 01 Aug 2024 00:00:00 +0000</pubDate>
+      <guid>https://spidermonk7.github.io/project/tradecraft/</guid>
+      <description>&lt;p&gt;An intelligent trading system that leverages advanced AI algorithms for market analysis and automated trading strategies. TradeCraft combines machine learning models with real-time market data processing to identify trading opportunities and execute trades with optimal timing.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>IJCAI Chinese Standard Mahjong AI Competition</title>
+      <link>https://spidermonk7.github.io/award/ijcai-mahjong/</link>
+      <pubDate>Thu, 01 Jun 2023 00:00:00 +0000</pubDate>
+      <guid>https://spidermonk7.github.io/award/ijcai-mahjong/</guid>
+      <description>&lt;p&gt;Achieved outstanding performance in the prestigious IJCAI Chinese Standard Mahjong AI Competition across two consecutive years:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2023&lt;/strong&gt;: &lt;strong&gt;7th Place&lt;/strong&gt; - IJCAI2023 Special Track
+&lt;strong&gt;2022&lt;/strong&gt;: &lt;strong&gt;10th Place&lt;/strong&gt; - IJCAI2022 Competition&lt;/p&gt;
+&lt;h2 id=&#34;technical-approach&#34;&gt;Technical Approach&lt;/h2&gt;
+&lt;p&gt;Our solution applied Deep Residual Networks to Mahjong strategy learning:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Architecture&lt;/strong&gt;: Implemented CNNs based on ResNet, Res2Net, and DenseNet architectures&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Learning Method&lt;/strong&gt;: Used supervised learning algorithms for feature extraction and strategy learning&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Training Data&lt;/strong&gt;: Leveraged large amounts of expert game-play data&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Performance&lt;/strong&gt;: Demonstrated consistent improvement and competitive ranking&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;recognition&#34;&gt;Recognition&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Invited to present at the IJCAI2023 special track&lt;/li&gt;
+&lt;li&gt;Recognized among top performers in international AI gaming competition&lt;/li&gt;
+&lt;li&gt;Contributed to advancing AI applications in complex strategic games&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This achievement demonstrates proficiency in applying state-of-the-art deep learning techniques to complex strategic decision-making problems and competitive performance in international AI competitions.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

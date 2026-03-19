@@ -1,11 +1,11 @@
-# SITE SETUP
+﻿# SITE SETUP
 # Guide: https://docs.hugoblox.com/tutorial/
 # Documentation: https://docs.hugoblox.com/
 # This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
 
 # Appearance
 appearance:
-  mode: system
+  mode: light
   color: emerald
 
 # SEO
@@ -14,7 +14,7 @@ marketing:
     site_type: Person
     local_business_type: ''
     org_name: ''
-    description: 'Joey Cui — Neuro-inspired AI, computational models of intelligence, and agentic systems.'
+    description: 'Joey Cui - Neuro-inspired AI, computational models of intelligence, and agentic systems.'
     twitter: ''
   analytics:
     google_analytics: ''
@@ -33,14 +33,14 @@ header:
     blox: "navbar"
     fixed_to_top: true
     show_search: true
-    show_theme_chooser: true
+    show_theme_chooser: false
     logo:
       text: "Joey Cui | NeuroAI"
 
 # Site footer
 footer:
   copyright:
-    notice: '© {year} Me. This work is licensed under {license}'
+    notice: 'Copyright {year} Me. This work is licensed under {license}'
     license:
       enable: true
       allow_derivatives: false
