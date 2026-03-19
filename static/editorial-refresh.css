@@ -683,6 +683,74 @@ time,
   box-shadow: 0 0 0 6px rgba(138, 98, 61, 0.12);
 }
 
+.entry-list .container {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.entry-list .grid {
+  display: block;
+}
+
+.entry-list .group.cursor-pointer {
+  margin: 0 !important;
+  padding: 1.45rem 0 1.3rem !important;
+  border: 0 !important;
+  border-top: 1px solid var(--line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.entry-list .group.cursor-pointer:last-child {
+  border-bottom: 1px solid var(--line) !important;
+}
+
+.entry-list .group.cursor-pointer::before {
+  display: none !important;
+}
+
+.entry-list .group.cursor-pointer:hover {
+  transform: none !important;
+  background: rgba(255, 255, 255, 0.18) !important;
+  box-shadow: none !important;
+}
+
+.entry-list .group .overflow-hidden.rounded-md {
+  display: none !important;
+}
+
+.entry-list .group .flex.gap-3 {
+  margin-bottom: 0.45rem;
+  padding-right: 0 !important;
+}
+
+.entry-list .group h2 {
+  margin: 0;
+  font-size: clamp(1.58rem, 2.15vw, 2rem);
+  line-height: 1.1;
+}
+
+.entry-list .group h2 a,
+.entry-list .group h2 span {
+  color: var(--ink-strong) !important;
+}
+
+.entry-list .group .grow p {
+  max-width: 980px;
+  margin-top: 0.55rem;
+  font-size: 1rem;
+  line-height: 1.72;
+}
+
+.entry-list time {
+  color: var(--ink-muted);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
 .experience-flow .home-section-bg {
   display: none;
 }
