@@ -42,32 +42,32 @@ At a high level, self-attention works like this: for each token, the model compu
 
 More concretely, given query, key, and value matrices $Q$, $K$, and $V$, the attention scores are:
 
-\[
+$$
 S = \frac{QK^\top}{\sqrt{d_k}}
-\]
+$$
 
 
 where $M_{ij} = -\infty$ for positions that should be masked.
 
 Then softmax is applied **row by row** over the key dimension:
 
-\[
+$$
 P_{ij} = \frac{\exp(S_{ij})}{\sum_j \exp(S_{ij})}
-\]
+$$
 
 This step converts the raw scores into normalized attention weights. Each row now sums to 1, which means the model can interpret them as "how much this token attends to each previous token."
 
 Finally, these attention weights are used to combine the value vectors:
 
-\[
+$$
 O = PV
-\]
+$$
 
 So the full attention pipeline is:
 
-\[
+$$
 \mathrm{Attention}(Q, K, V) = \mathrm{softmax}\left(\frac{QK^\top}{\sqrt{d_k}}\right)V
-\]
+$$
 
 ## What softmax is doing here
 
@@ -111,34 +111,8 @@ For example, with $B=1$, $H=32$, $L=4096$, and 2 bytes per element, the attentio
 And this is only one intermediate tensor. That is why attention becomes a serious memory bottleneck for long sequences.
 
 
+**Why do we have to store such a large tensor?**
 
-
-# Flash Attention
-
-# Flash Attention
-
-Why do we have to store such a large tensor?
-
-At first, this confused me too. The attention formula itself looks pretty clean:
-
-$$
-\mathrm{Attention}(Q, K, V) = \mathrm{softmax}\left(\frac{QK^\top}{\sqrt{d_k}}\right)V
-$$
-
-It does not explicitly say, "please allocate a huge $L \times L$ matrix in GPU memory."
-But in the standard implementation, that is more or less what happens.
-
-The reason is simple: before we can multiply by $V$, we first need the attention weights.
-And before we get the attention weights, we need the raw score matrix:
-
-$$
-S = \frac{QK^\top}{\sqrt{d_k}}
-$$
-
-
-That means every token compares itself with every other token, which is exactly where the quadratic memory cost comes from.
-
-Then we apply softmax row by row:
 
 $$
 P_{ij} = \frac{\exp(S_{ij})}{\sum_j \exp(S_{ij})}
@@ -170,3 +144,5 @@ Instead of materializing the whole attention matrix in GPU memory, *FlashAttenti
 
 In other words, *FlashAttention* does not change the mathematics of attention.
 It changes the order of computation, so that the GPU does much less memory movement and avoids storing those massive intermediate tensors.
+
+# Flash Attention
