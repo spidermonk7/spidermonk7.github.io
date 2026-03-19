@@ -754,6 +754,7 @@ time,
 
 .page-body.my-10 main {
   max-width: none !important;
+  padding-top: clamp(1.6rem, 3vw, 2.4rem) !important;
   padding-left: 20px !important;
   padding-right: 20px !important;
 }
