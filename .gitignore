@@ -1,0 +1,15 @@
+﻿# OS
+.DS_Store
+
+# Hugo build outputs and cache
+/public/
+/resources/
+.hugo_build.lock
+hugo_stats.json
+
+# Local tooling archives
+go.zip
+hugo.zip
+
+# Optional local binary (keep if you build locally)
+# hugo.exe
