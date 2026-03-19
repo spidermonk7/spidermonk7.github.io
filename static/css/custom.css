@@ -80,6 +80,18 @@ body {
   background: rgba(255, 255, 255, 0.88);
 }
 
+/* Bio block text must stay readable on dark hero background */
+#section-resume-biography-3.dark,
+#section-resume-biography-3.dark .portrait-title,
+#section-resume-biography-3.dark .portrait-title h3,
+#section-resume-biography-3.dark .bio-text,
+#section-resume-biography-3.dark .bio-text p,
+#section-resume-biography-3.dark .section-subheading,
+#section-resume-biography-3.dark li,
+#section-resume-biography-3.dark a {
+  color: #f7f8fa !important;
+}
+
 #section-markdown .max-w-prose,
 .blox-collection .container,
 .page-body .container,
@@ -93,6 +105,12 @@ body {
 
 #section-markdown .max-w-prose {
   padding: 1.8rem;
+}
+
+/* Research Focus width: around 3/5 of page */
+#research-focus .max-w-prose {
+  max-width: min(60vw, 980px) !important;
+  width: 100%;
 }
 
 .page-body .my-10 article > main {
@@ -132,6 +150,46 @@ body {
 .group.cursor-pointer:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 22px rgba(17, 21, 26, 0.08);
+}
+
+/* Scholar-like item list for non-home pages */
+.scholar-list .grid {
+  display: block;
+}
+
+.scholar-list .group.cursor-pointer {
+  padding: 0.95rem 0.2rem;
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.scholar-list .group.cursor-pointer:hover {
+  transform: none;
+  box-shadow: none;
+  background: rgba(17, 21, 26, 0.02);
+}
+
+.scholar-list .group.cursor-pointer:last-child {
+  border-bottom: 0;
+}
+
+.scholar-list .group .overflow-hidden.rounded-md,
+.scholar-list .group .flex.gap-3 {
+  display: none;
+}
+
+.scholar-list h2 {
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+  font-size: 1.2rem;
+}
+
+.scholar-list .grow p {
+  margin-top: 0.4rem;
+  color: #555;
 }
 
 .text-3xl,
@@ -184,6 +242,10 @@ time {
   #section-markdown .max-w-prose {
     padding: 1.2rem 1rem;
   }
+
+  #research-focus .max-w-prose {
+    max-width: 92vw !important;
+  }
 }
 
 html.dark,
@@ -210,6 +272,18 @@ html.dark .page-body .my-10 article > main,
 html.dark .group.cursor-pointer {
   background: rgba(21, 28, 35, 0.84);
   border-color: rgba(226, 232, 238, 0.14);
+}
+
+html.dark .scholar-list .group.cursor-pointer {
+  border-bottom-color: rgba(226, 232, 238, 0.18);
+}
+
+html.dark .scholar-list .group.cursor-pointer:hover {
+  background: rgba(226, 232, 238, 0.04);
+}
+
+html.dark .scholar-list .grow p {
+  color: #c8d0d9;
 }
 
 html.dark .page-body .my-10 .hb-attachment-link,
