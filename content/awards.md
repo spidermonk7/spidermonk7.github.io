@@ -25,6 +25,7 @@ sections:
         folders:
           - award
     design:
+      css_class: scholar-list
       view: article-grid
-      columns: 2
+      columns: 1
 ---

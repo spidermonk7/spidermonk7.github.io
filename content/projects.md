@@ -17,7 +17,8 @@ sections:
         folders:
           - project
     design:
+      css_class: scholar-list
       view: article-grid
       fill_image: false
-      columns: 3
+      columns: 1
 ---

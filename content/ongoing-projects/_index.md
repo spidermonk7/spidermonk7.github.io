@@ -23,6 +23,7 @@ sections:
         folders:
           - ongoing-projects
     design:
+      css_class: scholar-list
       view: article-grid
-      columns: 3
+      columns: 1
 ---

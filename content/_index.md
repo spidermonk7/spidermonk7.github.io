@@ -28,6 +28,7 @@ sections:
           parallax: false
 
   - block: markdown
+    id: research-focus
     content:
       title: Research Focus
       subtitle: ""
@@ -67,7 +68,7 @@ sections:
 
   - block: collection
     content:
-      title: Selected Publications
+      title: Featured Publications
       filters:
         folders:
           - publication
