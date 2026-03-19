@@ -2,8 +2,6 @@
 title: Shaoyang Cui
 slug: joey-cui
 
-name_pronunciation: Shaoyang Cui
-
 first_name: Shaoyang
 last_name: Cui
 

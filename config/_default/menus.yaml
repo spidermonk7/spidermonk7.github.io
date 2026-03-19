@@ -1,6 +1,6 @@
 ﻿# Navigation Links
 main:
-  - name: Bio
+  - name: About
     url: /
     weight: 10
   - name: Experience
