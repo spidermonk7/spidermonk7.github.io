@@ -206,17 +206,18 @@ time,
   display: inline-flex;
   grid-column: 1 / 2;
   width: max-content;
-  margin-bottom: 1rem;
-  padding: 0.44rem 0.72rem;
-  border: 1px solid rgba(138, 98, 61, 0.18);
+  margin-bottom: 1.15rem;
+  padding: 0.3rem 0 0.45rem;
+  border: 0;
+  border-bottom: 1px solid rgba(138, 98, 61, 0.24);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.64);
+  background: transparent;
   color: var(--accent-deep);
-  font-family: 'Source Sans 3', 'Segoe UI', sans-serif;
-  font-size: 0.74rem;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.02rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-transform: none;
 }
 
 .home-hero #profile,
@@ -293,16 +294,26 @@ time,
   padding-top: 0 !important;
 }
 
+.home-hero .bio-text {
+  max-width: 60ch;
+}
+
 .home-hero .bio-text p {
   color: var(--ink) !important;
-  font-size: 1.06rem;
-  line-height: 1.86;
+  margin-bottom: 1.2rem;
+  font-size: 1.12rem;
+  line-height: 1.92;
+  letter-spacing: 0;
 }
 
 .home-hero .bio-text p:first-child {
   color: var(--ink-strong) !important;
-  font-size: clamp(1.2rem, 2vw, 1.42rem);
-  line-height: 1.55;
+  font-size: clamp(1.26rem, 2vw, 1.52rem);
+  line-height: 1.58;
+}
+
+.home-hero .bio-text p:last-child {
+  margin-bottom: 0;
 }
 
 .home-hero .bio-text,
@@ -317,12 +328,77 @@ time,
 
 .home-hero .section-subheading {
   color: var(--accent-deep) !important;
+  margin-bottom: 0.9rem;
+  font-family: 'Source Sans 3', 'Segoe UI', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
 }
 
 .home-hero .course,
 .home-hero .description,
 .home-hero .description p:first-child {
   color: var(--ink-strong) !important;
+}
+
+.home-hero .grid.grid-cols-1.md\:grid-cols-2 ul,
+.home-hero .grid.grid-cols-1.md\:grid-cols-2.gap-4 ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-hero .grid.grid-cols-1.md\:grid-cols-2 > div:first-child li,
+.home-hero .grid.grid-cols-1.md\:grid-cols-2.gap-4 > div:first-child li {
+  position: relative;
+  margin: 0;
+  padding: 0.7rem 0 0.7rem 1rem;
+  color: var(--ink) !important;
+  font-size: 1.04rem;
+  font-weight: 500;
+  line-height: 1.45;
+  border-top: 1px solid rgba(19, 32, 51, 0.08);
+}
+
+.home-hero .grid.grid-cols-1.md\:grid-cols-2 > div:first-child li:first-child,
+.home-hero .grid.grid-cols-1.md\:grid-cols-2.gap-4 > div:first-child li:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.home-hero .grid.grid-cols-1.md\:grid-cols-2 > div:first-child li::before,
+.home-hero .grid.grid-cols-1.md\:grid-cols-2.gap-4 > div:first-child li::before {
+  content: '';
+  position: absolute;
+  top: 1.3rem;
+  left: 0;
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.home-hero .grid.grid-cols-1.md\:grid-cols-2 > div:first-child li:first-child::before,
+.home-hero .grid.grid-cols-1.md\:grid-cols-2.gap-4 > div:first-child li:first-child::before {
+  top: 0.55rem;
+}
+
+.home-hero .grid.grid-cols-1.md\:grid-cols-2 > div:last-child li,
+.home-hero .grid.grid-cols-1.md\:grid-cols-2.gap-4 > div:last-child li {
+  margin: 0;
+}
+
+.home-hero .grid.grid-cols-1.md\:grid-cols-2 > div:last-child svg,
+.home-hero .grid.grid-cols-1.md\:grid-cols-2.gap-4 > div:last-child svg {
+  color: var(--accent-deep);
+  opacity: 0.8;
+}
+
+.home-hero .description p:last-child,
+.home-hero .text-sm {
+  color: var(--ink-soft) !important;
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
 
 .home-hero .inline-flex.items-center {
@@ -338,10 +414,10 @@ time,
 
 .home-hero .grid.grid-cols-1.md\:grid-cols-2 > div,
 .home-hero .grid.grid-cols-1.md\:grid-cols-2.gap-4 > div {
-  border-color: var(--line);
-  border-radius: 24px;
-  background: var(--surface-strong);
-  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(19, 32, 51, 0.08);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 12px 28px rgba(19, 32, 51, 0.06);
 }
 
 .home-hero .grid.grid-cols-1.md\:grid-cols-2,
@@ -357,12 +433,14 @@ time,
 
 .home-hero .grid.grid-cols-1.md\:grid-cols-2 > div:first-child,
 .home-hero .grid.grid-cols-1.md\:grid-cols-2.gap-4 > div:first-child {
-  background: linear-gradient(180deg, rgba(255, 249, 241, 0.96), rgba(247, 239, 226, 0.9));
+  padding: 1.2rem 1.25rem 1.15rem;
+  background: linear-gradient(180deg, rgba(255, 249, 241, 0.98), rgba(247, 239, 226, 0.92));
 }
 
 .home-hero .grid.grid-cols-1.md\:grid-cols-2 > div:last-child,
 .home-hero .grid.grid-cols-1.md\:grid-cols-2.gap-4 > div:last-child {
-  background: rgba(255, 255, 255, 0.82);
+  padding: 1.15rem 1.25rem;
+  background: rgba(255, 255, 255, 0.88);
 }
 
 .home-hero .section-subheading,
@@ -378,8 +456,12 @@ time,
 
 .home-hero .course {
   color: var(--ink-strong);
-  font-size: 1.45rem;
-  line-height: 1;
+  margin: 0 0 0.2rem;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
 }
 
 .home-research .home-section-bg,
