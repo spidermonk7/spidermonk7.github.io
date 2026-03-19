@@ -13,40 +13,31 @@ sections:
       username: admin
       text: ""
       button:
-        text: Download CV
+        text: View CV
         url: uploads/cv_shaoyang_cui.pdf
     design:
-      css_class: "dark home-hero"
-      background:
-        color: black
-        image:
-          filename: background.png
-          filters:
-            brightness: 1.0
-          size: cover
-          position: center
-          parallax: false
+      css_class: "home-hero"
 
   - block: markdown
     id: research-focus
     content:
-      title: Research Focus
+      title: Current Directions
       subtitle: ""
       text: |-
-        I focus on understanding how intelligence emerges and how to build AI systems that are explainable, robust, and genuinely useful.
+        I study the structure of intelligence from both the cognitive and the circuit level, with an emphasis on systems that stay interpretable, robust, and experimentally grounded.
 
-        **Top-down**: investigating high-level cognition such as intention, consciousness, and world models.
+        - **Cognitive Models**: top-down work on intention, consciousness, internal representations, and world-model-like structure.
+        - **Neural Computation**: bottom-up models inspired by neural circuits, detailed neuron dynamics, and biologically grounded computation.
+        - **Agentic Systems**: practical research on LLM agents, workflow design, evaluation, and failure analysis in real tasks.
 
-        **Bottom-up**: developing biologically grounded computational models inspired by neural systems and circuit-level mechanisms.
-
-        I am open to collaborations and internship opportunities in neuroscience and NeuroAI.
+        I am open to collaborations and internship opportunities in NeuroAI, computational neuroscience, and agentic AI systems.
     design:
       css_class: home-research
       columns: "1"
 
   - block: collection
     content:
-      title: Featured Publications
+      title: Selected Publication
       filters:
         folders:
           - publication
@@ -58,7 +49,7 @@ sections:
 
   - block: collection
     content:
-      title: Ongoing Projects
+      title: Current Projects
       subtitle: Follow active experiments and current builds.
       filters:
         folders:
@@ -70,7 +61,7 @@ sections:
 
   - block: collection
     content:
-      title: Latest from My Blogs
+      title: Recent Notes
       subtitle: Recent notes on what I read, practiced, and learned.
       filters:
         folders:

@@ -8,7 +8,7 @@ last_name: Cui
 superuser: true
 highlight_name: true
 
-role: Neuro-inspired AI Researcher
+role: NeuroAI Researcher
 
 organizations:
   - name: Peking University
@@ -20,13 +20,11 @@ profiles:
     label: Email
   - icon: brands/github
     url: https://github.com/spidermonk7/
-  - icon: brands/instagram
-    url: https://www.instagram.com/
 
 interests:
+  - NeuroAI
   - Computational Neuroscience
-  - Artificial Intelligence
-  - LLM and Agentic Systems
+  - Agentic Systems
 
 education:
   - area: BSc Artificial Intelligence
@@ -63,8 +61,8 @@ languages:
 
 ## About Me
 
-I am Shaoyang Cui, an undergraduate researcher at Peking University working at the intersection of NeuroAI, computational neuroscience, and agentic AI systems.
+I study how intelligence emerges, fails, and generalizes across biological and artificial systems.
 
-My long-term goal is to understand the structure of intelligence and to build systems that are not only capable, but also interpretable, robust, and grounded in better computational principles.
+My work sits at the intersection of NeuroAI, computational neuroscience, and agentic AI, with a focus on interpretable reasoning, robustness under perturbation, and experimentally grounded system design.
 
-I am particularly interested in two complementary directions: high-level models of cognition such as intention, consciousness, and world models, and low-level biologically inspired computation based on neural circuits and detailed neuron dynamics.
+I care about both top-down cognitive structure and bottom-up circuit dynamics, and I use each perspective to pressure-test the other.
