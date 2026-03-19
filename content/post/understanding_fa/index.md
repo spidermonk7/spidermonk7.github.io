@@ -145,7 +145,7 @@ P_{ij} = \frac{\exp(S_{ij})}{\sum_j \exp(S_{ij})}
 $$
 
 In a naive implementation, we usually store both $S$ and the normalized matrix $P$.
-Why? Because softmax is not just a pointwise operation. For each row, it needs to look at all the elements in that row, compute their relative scale, and normalize them.
+**Why? Because softmax is not just a pointwise operation. For each row, it needs to look at all the elements in that row, compute their relative scale, and normalize them.**
 So the implementation often materializes the whole matrix first, and only then moves on to the next step.
 
 After that, we compute:
