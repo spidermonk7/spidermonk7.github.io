@@ -15,7 +15,7 @@ sections:
       filters:
         folders:
           - my-blog-collections
-      count: 1
+      count: 10
     design:
       css_class: entry-list
       view: article-grid
