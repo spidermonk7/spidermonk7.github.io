@@ -1,20 +1,17 @@
 ﻿---
-title: Learning Notes - Building Reliable Agent Workflows
+title: Learning Notes - Grid Cell Coding Theory
 date: 2026-03-18
-summary: What I learned about turning LLM prompts into stable multi-step research workflows.
+summary: Notes for grid cell coding, preperation for my further project about the topology transfer coding in Hippo or EC. 
 tags:
-  - LLM Agents
-  - AI Systems
-  - Workflow Design
+  - Grid Cell
+  - Cognitive Map
+  - World Modeling
 authors:
   - admin
 ---
 
-This week I focused on one practical question: how to make agent workflows reliable enough for repeated use.
 
-Key takeaways:
-- Keep each step narrow and testable instead of writing one huge prompt.
-- Add explicit handoff artifacts between steps (notes, constraints, output format).
-- Evaluate outputs with a checklist before moving to the next step.
+# Date: 2026-3-27
+An overview of grid cell. 
 
-I am now turning this into a reusable template for literature review and experiment planning.
+### Discovery and Observations

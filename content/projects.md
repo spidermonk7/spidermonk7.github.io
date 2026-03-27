@@ -9,15 +9,27 @@ design:
   spacing: '4.5rem'
 
 sections:
-  - block: collection
+  - block: markdown
     content:
       title: "Projects"
-      filters:
-        folders:
-          - project
+      text: |-
+        ### Projects for Fun
+
+        - [TradeCraft - AI Trading System](/project/tradecraft/)
+
+        ### Projects About LLM / AI Agent
+
+        - [FAB - Factory of Abstract-style Benchmark](/project/fab/)
+        - [TADDL-V - Task Ability Decomposition and Difficulty Quantification](/project/taddl-v/)
+
+        ### Projects About Neuroscience
+
+        - [Computational Robustness of Tall Pyramidal Cells](/project/neuronal-robustness/)
+
+        ### Projects About Cognition
+
+        - [Self-Awareness in Conscious Turing Machines](/project/ctm/)
     design:
-      css_class: entry-list
-      view: article-grid
-      fill_image: false
+      css_class: "entry-list"
       columns: 1
 ---
