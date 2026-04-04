@@ -18,7 +18,7 @@ sections:
 
         **Selected Coursework:**
         - Consciouse Turing Machine (Prof. Lenore Blum & Prof. Manuel Blum)
-        - CORE (Prof. Yixin Zhu[https://yzhu.io])
+        - CORE ([Yixin Zhu](https://yzhu.io))
         - Neuroscience: from Brain Simulation to NeuroAI (Prof. Kai Du)
     design:
       css_class: experience-flow
@@ -28,7 +28,8 @@ sections:
     content:
       title: Research & Leadership
       text: |-
-        **Research Assistant**, Tsinghua University (Department of Psychological and Cognitive Sciences)
+        **Research Assistant**, **Tsinghua University** 
+        Department of Psychological and Cognitive Sciences
         **Sep-2025 - Presents**
         - Project: TradeCraft(on-going)
         - Project: Heliox(submitted to ICML2026)
