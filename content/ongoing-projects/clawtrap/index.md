@@ -1,7 +1,7 @@
 ---
 title: ClawTrap - MITM-Based Red-Teaming for OpenClaw Security Evaluation
 date: 2026-04-02
-summary: Project website for ClawTrap.
+# summary: Project website for ClawTrap.
 status: in-progress
 tags:
   - AI Security
