@@ -1,7 +1,7 @@
 ---
 title: VidNum1.4K - A Comprehensive Benchmark for Video-based Numerical Reasoning
 date: 2026-04-03
-summary: Project website for the VidNum-1.4K initiative.
+# summary: Project website for the VidNum-1.4K initiative.
 status: in-progress
 tags:
   - Multimodal AI
