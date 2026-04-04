@@ -4,7 +4,7 @@ title: Possible Models of Self-Awareness in Conscious Turing Machines
 event: IJTCS2023 Workshop
 event_url: https://ijtcs.fudan.edu.cn/
 
-location: Online
+location: University of Macau
 address:
   street: ""
   city: ""
@@ -28,10 +28,9 @@ authors:
 
 tags:
   - Consciousness
-  - Turing Machines
+  - Consciouse Turing Machines
   - Cognitive Science
   - Self-Awareness
-  - AI Theory
 
 # Is this a featured talk? (true/false)
 featured: true
@@ -49,8 +48,8 @@ url_video: ''
 slides: ""
 
 # Projects (optional).
-projects:
-  - ctm
+# projects:
+#   - ctm
 ---
 
 This invited talk presented our research on consciousness and self-awareness models within the Conscious Turing Machine (CTM) framework. We explored fundamental questions about machine consciousness and proposed the "MIT" model to understand consciousness generation phenomena in computational systems.
@@ -58,7 +57,7 @@ This invited talk presented our research on consciousness and self-awareness mod
 The presentation covered:
 - Clear definitions of consciousness and self-consciousness in CTM
 - Analysis of how the CTM framework aligns with human consciousness theories
-- The "MIT" model for understanding illusion and disorder phenomena
+- The "MIT" model for understanding(or possibly explaining) illusion and disorder phenomena
 - Implications for artificial general intelligence development
 
 This work contributes to the theoretical foundations of machine consciousness and provides insights into the computational basis of awareness.

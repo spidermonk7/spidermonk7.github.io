@@ -36,7 +36,6 @@ tags:
 - AGI Evaluation
 - Computer Vision
 - Task Decomposition
-- Artificial Intelligence
 - Benchmark
 featured: true
 
@@ -54,11 +53,11 @@ url_video: ''
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder. 
-image:
-  caption: 'TADDL-V framework overview'
-  focal_point: ""
-  preview_only: false
-  filename: featured.png
+# image:
+#   caption: 'TADDL-V framework overview'
+#   focal_point: ""
+#   preview_only: false
+#   filename: featured.png
 
 # Associated Projects (optional).
 #   Associate this publication with one or more of your projects.
