@@ -11,6 +11,7 @@ sections:
   - block: collection
     content:
       title: "Ongoing Projects"
+      count: 0
       filters:
         folders:
           - ongoing-projects

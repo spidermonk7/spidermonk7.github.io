@@ -30,7 +30,7 @@ sections:
         - **Neural Computation**: bottom-up models inspired by neural circuits, detailed neuron dynamics, and biologically grounded computation.
         - **Agentic Systems**: practical research on LLM agents, workflow design, evaluation, and failure analysis in real tasks.
 
-        I am open to collaborations and internship opportunities in NeuroAI, computational neuroscience, and agentic AI systems.
+        I am open to collaborations and internship opportunities in Cognitive Science, Artificial Intelligence and computational neuroscience.
     design:
       css_class: home-research
       columns: "1"

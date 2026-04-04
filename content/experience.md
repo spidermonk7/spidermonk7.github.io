@@ -17,7 +17,7 @@ sections:
         **GPA:** 3.521 / 4.0
 
         **Selected Coursework:**
-        - Computer Vision (Prof. SC Zhu)
+        - Consciouse Turing Machine (Prof. Lenore Blum & Prof. Manuel Blum)
         - CORE (Prof. Yixin Zhu)
         - Neuroscience: from Brain Simulation to NeuroAI (Prof. Kai Du)
     design:
