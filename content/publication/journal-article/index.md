@@ -49,7 +49,7 @@ url_dataset: 'https://github.com/spidermonk7/AGI-V70'
 url_poster: ''
 url_project: ''
 url_slides: ''
-url_source: ''
+url_source: 'https://link.springer.com/article/10.1007/s11431-025-3090-5'
 url_video: ''
 
 # Featured image
