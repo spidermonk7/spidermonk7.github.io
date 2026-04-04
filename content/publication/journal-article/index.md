@@ -12,11 +12,11 @@ author_notes:
 - ""
 - ""
 - "Corresponding author"
-date: "2024-03-01T00:00:00Z"
-doi: ""
+date: "2025-10-27T00:00:00Z"
+doi: "10.1007/s11431-025-3090-5"
 
 # Schedule page publish date (NOT publication's date).
-publishDate: "2024-03-01T00:00:00Z"
+publishDate: "2025-10-27T00:00:00Z"
 
 # Publication type.
 # Accepts a single type but formatted as a YAML list (for Hugo requirements).
@@ -45,7 +45,7 @@ featured: true
 #   url: ""
 url_pdf: ''
 url_code: 'https://github.com/spidermonk7/TADDL-V'
-url_dataset: 'https://github.com/spidermonk7/AGI-V70'
+# url_dataset: 'https://github.com/spidermonk7/AGI-V70'
 url_poster: ''
 url_project: ''
 url_slides: ''
@@ -65,8 +65,8 @@ image:
 #   Simply enter your project's folder or file name without extension.
 #   E.g. `internal-project` references `content/project/internal-project/index.md`.
 #   Otherwise, set `projects: []`.
-projects: 
-- taddl-v
+# projects: 
+# - taddl-v
 
 # Slides (optional).
 #   Associate this publication with Markdown slides.
