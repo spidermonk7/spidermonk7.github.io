@@ -22,7 +22,7 @@ profiles:
     url: https://github.com/spidermonk7/
 
 interests:
-  - Neuro + AI
+  - Cognitive Sciences
   - Computational Neuroscience
   - LLMs and Agentic Systems
 
@@ -35,17 +35,11 @@ education:
       GPA: 3.521 / 4.0
 
       Selected coursework:
-      - Computer Vision
+      - Conscious Turing Machine
       - CORE
       - Neuroscience: from Brain Simulation to NeuroAI
 
 work:
-  - position: Team Manager and Coach
-    company_name: Women's Football Team, Yuanpei College
-    date_start: 2022-10-01
-    date_end: 2024-06-01
-    summary: |-
-      Managed training schedules, coordinated with the club, and designed weekly plans for player development.
   - position: Research Assistant
     company_name: Peking University, Kai Du Lab
     company_url: 'https://www.pku.edu.cn'
@@ -53,6 +47,13 @@ work:
     date_end: 2023-01-01
     summary: |-
       Explored robustness in detailed neuronal models and studied how biological computation differs from artificial systems under noise and perturbation.
+
+  - position: Team Manager and Coach
+    company_name: Women's Football Team, Yuanpei College
+    date_start: 2022-10-01
+    date_end: 2024-06-01
+    summary: |-
+      Managed training schedules, coordinated with the club, and designed weekly plans for player development.
 
 languages:
   - name: English (IELTS 7.5)
