@@ -1,5 +1,5 @@
 ---
-title: ClawTrap: An red-teaminig framework for OpenClaw
+title: "ClawTrap: An red-teaminig framework for OpenClaw"
 date: 2022-09-01
 tags:
   - OpenClaw
