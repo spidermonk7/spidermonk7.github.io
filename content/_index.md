@@ -14,7 +14,7 @@ sections:
       text: ""
       button:
         text: View CV
-        url: uploads/cv_shaoyang_cui.pdf
+        url: uploads/cv_shaoyang_cui-3.pdf
     design:
       css_class: "home-hero"
 
