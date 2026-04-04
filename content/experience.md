@@ -28,13 +28,14 @@ sections:
     content:
       title: Research & Leadership
       text: |-
-        **Research Assistant**, **Tsinghua University**    
-        Department of Psychological and Cognitive Sciences   
+        **Research Assistant**    
+        **Tsinghua University**, Department of Psychological and Cognitive Sciences   
         **Sep-2025 - Presents**
         - Project: TradeCraft(on-going)
         - Project: Heliox(submitted to ICML2026)
 
-        **Internship**, Peking University (Dr. Kai Du's Lab)  
+        **Internship**     
+        **Peking University (Dr. Kai Du's Lab)**     
         **Sep 2022 - Jan 2023**
         - Studied computational characteristics of detailed neuron models.
         - Compared biological and artificial intelligence from robustness perspectives.
@@ -51,15 +52,8 @@ sections:
       title: Skills & Languages
       text: |-
         **Technical Skills**
-        - Python
-        - Data Science
-        - SQL
-
-        # **Research Interests**
-        # - Cognitive Science
-        # - Computational Neuroscience
-        # - LLM and Agentic Systems
-        # - Artificial Intelligence
+        - Python(torch，NEURON)
+        - Codex and ClaudeCode(Yes, we finished this page together😂). 
 
         **Languages**
         - English (IELTS 7.5)
