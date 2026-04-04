@@ -61,8 +61,8 @@ languages:
 
 ## About Me
 
-I study how intelligence emerges, fails, and generalizes across biological and artificial systems.
+My interest sits at the intersection of Cognitive Science, Computational Neuroscience, and AI. 
 
-My work sits at the intersection of NeuroAI, computational neuroscience, and agentic AI, with a focus on interpretable reasoning, robustness under perturbation, and experimentally grounded system design.
+I want to figure out how intelligence emerges, fails, and generalizes across biological and artificial systems.
 
-I care about both top-down cognitive structure and bottom-up circuit dynamics, and I use each perspective to pressure-test the other.
+I'm curious about both top-down cognitive structure and bottom-up circuit dynamics. 
