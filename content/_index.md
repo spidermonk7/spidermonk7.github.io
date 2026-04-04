@@ -24,11 +24,11 @@ sections:
       title: Current Directions
       subtitle: ""
       text: |-
-        My core interest lies in deconstructing the concept of **"Intelligence"** through the lens of **Cognitive Science** and **Neuroscience** to architect next-generation AI and step towards AGI. 
+        My core interest lies in deconstructing the concept of intelligence through the lens of Cognitive Science and Neuroscience to architect next-generation AI and step towards AGI. 
 
-        - **Cognitive Models**: top-down work on theory-of-mind(ToM), consciousness, internal representations, and world-model-like structure.
-        - **Neural Computation**: bottom-up models inspired by neural circuits and detailed neuron dynamics.
-        - **Agentic Systems**: practical research on LLM agents, workflow design, evaluation, and failure analysis in real tasks.
+        - **Cognitive Models** top-down work on theory-of-mind(ToM), consciousness, internal representations, and world-model-like structure.
+        - **Neural Computation** bottom-up models inspired by neural circuits and detailed neuron dynamics.
+        - **Agentic Systems** practical research on LLM agents, workflow design, evaluation, and failure analysis in real tasks.
 
         Currently, I am focused on bridging these disciplines to investigate the functional mechanisms of Theory-of-Mind (ToM) within Large Language Models, seeking to discern whether their emergent behaviors stem from genuine cognitive reasoning or sophisticated statistical mimicry.
 
