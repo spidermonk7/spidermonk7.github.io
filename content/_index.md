@@ -26,8 +26,8 @@ sections:
       text: |-
         I study the structure of intelligence from both the cognitive and the circuit level, with an emphasis on systems that stay interpretable, robust, and experimentally grounded.
 
-        - **Cognitive Models**: top-down work on intention, consciousness, internal representations, and world-model-like structure.
-        - **Neural Computation**: bottom-up models inspired by neural circuits, detailed neuron dynamics, and biologically grounded computation.
+        - **Cognitive Models**: top-down work on theory-of-mind(ToM), consciousness, internal representations, and world-model-like structure.
+        - **Neural Computation**: bottom-up models inspired by neural circuits and detailed neuron dynamics.
         - **Agentic Systems**: practical research on LLM agents, workflow design, evaluation, and failure analysis in real tasks.
 
         I am open to collaborations and internship opportunities in Cognitive Science, Artificial Intelligence and computational neuroscience.
