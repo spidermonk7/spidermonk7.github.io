@@ -12,15 +12,12 @@ main:
   - name: Ongoing Projects
     url: /ongoing-projects/
     weight: 40
-  - name: Projects
-    url: /projects/
-    weight: 50
   - name: Papers
     url: /papers/
-    weight: 60
+    weight: 50
   - name: Talks
     url: /talks/
-    weight: 70
+    weight: 60
   - name: Awards
     url: /awards/
-    weight: 80
+    weight: 70
