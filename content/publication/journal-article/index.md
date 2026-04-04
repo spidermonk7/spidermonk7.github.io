@@ -27,7 +27,7 @@ publication_types: ["article-journal"]
 publication: "*Science China Technological Sciences* (JCR Q1, in press)"
 publication_short: "Sci China Tech Sci"
 
-abstract: We introduce TADDL-V, a framework that decomposes visual tasks into atomic ability dimensions and assigns quantitative difficulty scores, enabling more principled AGI evaluation. The framework maps abilities to task structure, measures how difficulty shifts under transformations, and links difficulty to model performance. We also release AGI-V70, a curated benchmark spanning diverse visual abilities, to support reproducible comparisons and future research on task difficulty.
+abstract: With the rapid development of multi-modal foundation models and the pursuit of artificial general intelligence (AGD),there is a growing need for corresponding evaluation systems. Systematic AGI evaluation requires tasks that encompass a widerange of ability dimensions and difficulty levels. However, although many benchmarks exist, the field still lacks a quantificationsystem to assess ability decompositions or dificulty levels. Here, we took the visual domain as a starting point and proposed anexplainable system for task ability decomposition and dificulty level quantification of vision (TADDL-V). Using large languagemodels, TADDL-V decomposed the visual abilities required for a given task and leveraged statistical data to map between abilitysets and task difficulty levels. The estimated ability masses align with human intuition, and TADDL-V's task difficulty estimatesare empirically validated against aggregated human comparisons of task difficulty. Furthermore, we proposed an AGI visualevaluation task set, AGI-V70, comprising 70 composite visual tasks that incorporate visual abilities across a broad spectrum oftask difficulties. Together, TADDL-V serves as a prototype for ability decomposition and task difficulty level quantification, whichare essential for future AGI evaluations.
 
 # Summary. An optional shortened abstract.
 summary: First systematic exploration of task-ability space structure and its link to task difficulty. Proposed TADDL-V framework for quantifying visual task difficulty and released AGI-V70 benchmark for AGI evaluation.
@@ -85,11 +85,11 @@ This work represents a significant advance in AGI evaluation methodology by prov
 - **AGI-V70 Benchmark**: Curated dataset for testing diverse visual abilities
 - **Practical Impact**: Tools and methods that advance the field of AGI evaluation
 
-## Significance
+## Motivation
 
-This research addresses a critical gap in AGI evaluation by providing rigorous theoretical foundations and practical tools for assessing artificial intelligence capabilities across visual domains. The work has been accepted for publication in Science China Technological Sciences, a prestigious Q1 journal, reflecting its contribution to the field.
+Using the visual domain as a starting point, this research addresses a critical gap in AGI evaluation by introducing a methodology to quantify the difficulty levels of composite tasks. This quantification is crucial for conducting a more comprehensive and fine-grained assessment of AGI systems. 
 
-The TADDL-V framework and AGI-V70 benchmark are freely available to the research community, promoting open science and collaborative advancement in AGI evaluation.
+To promote open science and collaborative advancement, the TADDL-V framework and the AGI-V70 benchmark are made freely available to the research community.
 
 ## Visual teaser
 
