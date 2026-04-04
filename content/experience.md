@@ -19,7 +19,7 @@ sections:
         **Selected Coursework:**
         - Consciouse Turing Machine (Prof. Lenore Blum & Prof. Manuel Blum)
         - CORE ([Yixin Zhu](https://yzhu.io))
-        - Neuroscience: from Brain Simulation to NeuroAI (Prof. Kai Du)
+        - Neuroscience: from Brain Simulation to NeuroAI (Prof. [Kai Du](https://scholar.google.com/citations?user=jkAOvWkAAAAJ&hl=zh-CN))
     design:
       css_class: experience-flow
       columns: '1'
