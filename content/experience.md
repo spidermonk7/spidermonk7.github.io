@@ -18,7 +18,7 @@ sections:
 
         **Selected Coursework:**
         - Consciouse Turing Machine (Prof. Lenore Blum & Prof. Manuel Blum)
-        - CORE (Prof. Yixin Zhu)
+        - CORE (Prof. Yixin Zhu[https://yzhu.io])
         - Neuroscience: from Brain Simulation to NeuroAI (Prof. Kai Du)
     design:
       css_class: experience-flow
@@ -28,17 +28,19 @@ sections:
     content:
       title: Research & Leadership
       text: |-
-        **Research Assistant**, Peking University (Dr. Kai Du's Lab)  
+        **Research Assistant**, Tsinghua University (Department of Psychological and Cognitive Sciences)
+        **Sep-2025 - Presents**
+        - Project: TradeCraft(on-going)
+        - Project: Heliox(submitted to ICML2026)
+
+        **Internship**, Peking University (Dr. Kai Du's Lab)  
         **Sep 2022 - Jan 2023**
-        - Explored robustness of L5PC neuronal cells under diverse noise settings.
         - Studied computational characteristics of detailed neuron models.
         - Compared biological and artificial intelligence from robustness perspectives.
 
         **Team Manager and Coach**, Women's Football Team, Yuanpei College  
         **Oct 2022 - Jun 2024**
-        - Managed training sessions and competition schedules.
-        - Coordinated with club management for resource support.
-        - Designed weekly training plans and provided player feedback.
+
     design:
       css_class: experience-flow
       columns: '1'
@@ -53,9 +55,10 @@ sections:
         - SQL
 
         **Research Interests**
+        - Cognitive Science
         - Computational Neuroscience
-        - Artificial Intelligence
         - LLM and Agentic Systems
+        - Artificial Intelligence
 
         **Languages**
         - English (IELTS 7.5)

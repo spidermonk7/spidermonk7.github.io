@@ -9,9 +9,9 @@ tags:
   - LLM Safety
 authors:
   - admin
-external_link: https://clawtrap.github.io
+external_link: https://ClawTrap.github.io
 ---
 
-Official page: <https://clawtrap.github.io>
+Official page: <https://ClawTrap.github.io>
 
 <!--more-->
