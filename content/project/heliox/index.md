@@ -1,13 +1,22 @@
 ---
-title: Heliox - A GPU-Native framework for the simulation and training of biophsically detailed nueral networks
-date: 2022-09-01
+title: HelioX - A GPU-Native Framework for Simulation and Training of Biophysically Detailed Networks
+date: 2026-05-10
 tags:
-  - Biophysically detailed neurons. 
-  - Simulation and Training 
-  - GPU-Native. 
+  - ICML 2026
+  - Publication
+  - Computational Neuroscience
+  - GPU Systems
 ---
 
-Based on the framework of Conscious Turing Machines (CTM), discussed consciousness and self-consciousness of a CTM with clear definitions. Examined whether the CTM framework aligns with key definitions of human consciousness and created the 'MIT' model to understand consciousness generation phenomena. Invited to present at IJTCS2023 workshop.
-Repository: <https://github.com/spidermonk7/conscious-turing-machine>
+Accepted at **ICML 2026**.
+
+HelioX is a GPU-native framework for simulation and training of biophysically detailed neural networks. It targets the mismatch between irregular dendritic computation and conventional deep learning stacks, and provides an end-to-end pipeline for both forward simulation and gradient-based training.
+
+Highlights:
+
+- Multi-stream GPU execution for ionic current calculation, ODE construction, and conductance update
+- Efficient spike handling path designed for sparse spike events
+- End-to-end differentiable training for deep biophysical neural architectures
+- Strong runtime and scalability gains over traditional simulators in large-scale settings
 
 <!--more-->

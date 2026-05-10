@@ -25,7 +25,7 @@ sections:
         - [TADDL-V - Task Ability Decomposition and Difficulty Quantification](/project/taddl-v/)
 
         ### Projects About Neuroscience
-        - [Heliox - GPU-Native framework for Biophysically detailed Neuron Simulation/Training](/project/heliox/)
+        - [HelioX (ICML 2026) - GPU-Native framework for Biophysically detailed Neuron Simulation/Training](/project/heliox/)
         - [Computational Robustness of Tall Pyramidal Cells](/project/neuronal-robustness/)
 
         ### Projects About Cognition
