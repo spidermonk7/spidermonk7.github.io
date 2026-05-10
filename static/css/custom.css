@@ -341,8 +341,8 @@ body::before {
 
 .home-featured .group.cursor-pointer {
   display: grid;
-  grid-template-columns: minmax(340px, 0.95fr) minmax(0, 1.05fr);
-  gap: clamp(1.4rem, 3vw, 2.4rem);
+  grid-template-columns: 1fr;
+  gap: 1rem;
   align-items: stretch;
   padding: 1.2rem;
   border: 1px solid rgba(19, 21, 24, 0.1);
@@ -359,7 +359,7 @@ body::before {
 }
 
 .home-featured .group .aspect-video {
-  min-height: 320px;
+  min-height: 250px;
 }
 
 .home-featured .group h2 {
@@ -756,4 +756,3 @@ html.dark .home-hero .network-icon a {
   border-color: rgba(233, 238, 242, 0.2);
   color: #eef1f4 !important;
 }
-
