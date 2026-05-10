@@ -10,7 +10,7 @@ publication_short: "ICML 2026"
 
 abstract: Biophysically detailed neural networks provide intrinsic spatio-temporal structure for brain-inspired AI, but their irregular dendritic topology is poorly matched to dense deep learning runtimes. HelioX is a GPU-native framework that unifies high-performance simulation and scalable training for biophysically detailed models via custom-fused CUDA kernels, analytical gradient propagation, and multi-stream concurrency. Across numerical and learning benchmarks, HelioX achieves strong speed and memory efficiency while preserving simulation fidelity, and enables deep biophysical MLP training and organism-scale C. elegans model fitting on consumer GPUs.
 
-summary: Accepted at ICML 2026. HelioX provides a GPU-native simulation-and-training stack for biophysically detailed neural networks, with substantial improvements in throughput, memory efficiency, and scalability.
+summary: "**Accepted at ICML 2026.** HelioX provides a GPU-native simulation-and-training stack for biophysically detailed neural networks, with substantial improvements in throughput, memory efficiency, and scalability."
 
 tags:
 - Computational Neuroscience

@@ -1,5 +1,5 @@
 ﻿---
-title: Papers
+title: Publications
 date: 2026-03-18
 type: landing
 aliases:
@@ -11,7 +11,7 @@ design:
 sections:
   - block: collection
     content:
-      title: "Papers"
+      title: "Publications"
       filters:
         folders:
           - publication
