@@ -26,6 +26,8 @@ url_project: '/project/heliox/'
 url_slides: ''
 url_source: ''
 url_video: ''
+image:
+  filename: featured.jpg
 
 slides: ""
 ---
@@ -34,12 +36,24 @@ Accepted at **ICML 2026**.
 
 HelioX introduces a GPU-native path to train and simulate biophysically detailed neural networks at practical scale. Instead of forcing biological models into dense ANN-oriented execution paths, it aligns runtime design with dendritic structure and simulation dynamics.
 
+## Teaser
+
+![HelioX Teaser](/project/heliox/Figures/teasor.jpg)
+
 ## Key Contributions
 
 - **GPU-to-Biophysics Design**: Custom-fused CUDA kernels for dendritic hierarchical scheduling and gradient propagation
 - **Unified Simulation + Training Runtime**: End-to-end loop from simulation state updates to parameter optimization
 - **Efficiency at Scale**: Significant improvements in throughput and memory usage across simulation and training workloads
 - **Large-Scale Feasibility**: Demonstrated on deep biophysical MLPs and organism-scale *C. elegans* fitting tasks on consumer GPUs
+
+## Numerical Fidelity and Throughput
+
+![HelioX Figure 2 Results](/project/heliox/Figures/Figure2.jpg)
+
+## Organism-Scale Training
+
+![HelioX Worm Training Results](/project/heliox/Figures/worm.jpg)
 
 ## Why It Matters
 
