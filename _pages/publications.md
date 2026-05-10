@@ -29,7 +29,7 @@ feature_row_heliox:
   - image_path: /assets/images/pubs/heliox.png
     alt: "HelioX"
     title: "HelioX: A GPU-Native Framework for Simulation and Training of Biophysically Detailed Networks"
-    excerpt: "Under review at **ICML 2026**. <br>A GPU-native engine outperforming NEURON by orders of magnitude."
+    excerpt: "Accepted at **ICML 2026**. <br>A GPU-native engine outperforming NEURON by orders of magnitude."
     url: "/publications/heliox/"
     btn_label: "Read More"
     btn_class: "btn--primary"
@@ -39,10 +39,10 @@ feature_row_heliox:
 
 {% include feature_row id="feature_row_taddlv" type="left" %}
 
+{% include feature_row id="feature_row_heliox" type="left" %}
+
 ## Under Review
 
 {% include feature_row id="feature_row_tradecraft" type="left" %}
 
 {% include feature_row id="feature_row_researchgym" type="left" %}
-
-{% include feature_row id="feature_row_heliox" type="left" %}

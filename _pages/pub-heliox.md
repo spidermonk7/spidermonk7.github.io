@@ -3,13 +3,13 @@ permalink: /publications/heliox/
 title: "HelioX: A GPU-Native Framework for Simulation and Training of Biophysically Detailed Networks"
 ---
 
-**Under Review — ICML 2026**{: .notice--warning}
+**Accepted — ICML 2026**{: .notice--success}
 
 ---
 
 ## System Architecture
 
-![HelioX Architecture](/Papers/UnderReview/HelioX/heliox.png)
+![HelioX Architecture](/Papers/Published/HelioX/heliox.png)
 
 Biophysically detailed neural networks (BDNs) are a promising frontier for brain-inspired AI, but general-purpose deep learning frameworks suffer from a fundamental mismatch with their irregular, tree-structured biological complexity. HelioX is a GPU-native engine that bridges this gap with a "GPU-to-Biophysics" paradigm.
 
