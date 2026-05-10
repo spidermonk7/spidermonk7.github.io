@@ -12,7 +12,7 @@ main:
   - name: Ongoing Projects
     url: /ongoing-projects/
     weight: 40
-  - name: Papers
+  - name: Publications
     url: /papers/
     weight: 50
   - name: Talks

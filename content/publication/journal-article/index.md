@@ -33,10 +33,7 @@ abstract: With the rapid development of multi-modal foundation models and the pu
 summary: "**Published in Science China Technological Sciences (JCR Q1, 2025).** First systematic exploration of task-ability space structure and its link to task difficulty. Proposed TADDL-V framework for quantifying visual task difficulty and released AGI-V70 benchmark for AGI evaluation."
 
 tags:
-- AGI Evaluation
-- Computer Vision
-- Task Decomposition
-- Benchmark
+- Science China Technological Sciences (2025)
 featured: true
 
 # links:

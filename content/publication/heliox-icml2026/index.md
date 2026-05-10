@@ -13,10 +13,7 @@ abstract: Biophysically detailed neural networks provide intrinsic spatio-tempor
 summary: "**Accepted at ICML 2026.** HelioX provides a GPU-native simulation-and-training stack for biophysically detailed neural networks, with substantial improvements in throughput, memory efficiency, and scalability."
 
 tags:
-- Computational Neuroscience
-- Brain-Inspired AI
-- GPU Systems
-- Biophysical Neural Networks
+- ICML 2026
 featured: true
 
 url_pdf: '20412_HelioX_A_GPU_Native_Fram.pdf'
