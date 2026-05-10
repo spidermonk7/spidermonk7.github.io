@@ -14,7 +14,7 @@ sections:
         **BSc in Artificial Intelligence**, Peking University
 
         **Duration:** September 2021 - July 2025  
-        **GPA:** 3.521 / 4.0
+     
 
         **Selected Coursework:**
         - Consciouse Turing Machine (Prof. Lenore Blum & Prof. Manuel Blum)
