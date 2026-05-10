@@ -39,7 +39,7 @@ sections:
 
   - block: collection
     content:
-      title: Selected Publication
+      title: Selected Publications
       filters:
         folders:
           - publication
@@ -47,7 +47,7 @@ sections:
     design:
       css_class: home-featured
       view: article-grid
-      columns: 1
+      columns: 2
 
   - block: collection
     content:
