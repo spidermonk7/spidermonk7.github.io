@@ -53,7 +53,7 @@ sections:
       text: |-
         **Technical Skills**
         - Python(torch，NEURON)
-        - Codex and ClaudeCode(Yes, we finished this page together😂). 
+        - Vibe Coding😂(Hats off to Codex and Claude Code🫡). 
 
         **Languages**
         - English (IELTS 7.5)
