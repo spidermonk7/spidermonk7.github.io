@@ -1,7 +1,7 @@
 ---
 title: IJCAI Chinese Standard Mahjong AI Competition
 date: 2023-06-01
-summary: '7th place in IJCAI2023 and 10th place in IJCAI2022 Chinese Standard Mahjong AI Competition'
+summary: '7th place in IJCAI 2023 Chinese Standard Mahjong AI Competition'
 
 # Optional image
 image:
@@ -36,10 +36,9 @@ url_video: ''
 #   icon: twitter
 ---
 
-Achieved outstanding performance in the prestigious IJCAI Chinese Standard Mahjong AI Competition across two consecutive years:
+Achieved strong performance in the IJCAI 2023 Chinese Standard Mahjong AI Competition:
 
-**2023**: **7th Place** - IJCAI2023 Special Track
-**2022**: **10th Place** - IJCAI2022 Competition
+**2023**: **7th Place** - IJCAI 2023 Special Track
 
 ## Technical Approach
 
@@ -52,7 +51,7 @@ Our solution applied Deep Residual Networks to Mahjong strategy learning:
 
 ## Recognition
 
-- Invited to present at the IJCAI2023 special track
+- Invited to present at the IJCAI 2023 special track
 - Recognized among top performers in international AI gaming competition
 - Contributed to advancing AI applications in complex strategic games
 
