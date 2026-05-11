@@ -1,5 +1,5 @@
 ---
-title: Peking University Institute for Artificial Intelligence AI Cup Badminton Tournament
+title: Team Champion - Peking University Institute for Artificial Intelligence AI Cup Badminton Tournament
 date: 2024-01-01
 summary: 'Team Champion'
 

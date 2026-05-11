@@ -1,5 +1,5 @@
 ---
-title: IJCAI Chinese Standard Mahjong AI Competition
+title: 7th Place - IJCAI 2023 Chinese Standard Mahjong AI Competition
 date: 2023-06-01
 summary: '7th place in IJCAI 2023 Chinese Standard Mahjong AI Competition'
 

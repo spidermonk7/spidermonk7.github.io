@@ -1,5 +1,5 @@
 ---
-title: IJCAI Chinese Standard Mahjong AI Competition
+title: 10th Place - IJCAI 2022 Chinese Standard Mahjong AI Competition
 date: 2022-06-01
 summary: '10th place in IJCAI 2022 Chinese Standard Mahjong AI Competition'
 
