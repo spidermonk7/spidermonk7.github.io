@@ -1,8 +1,8 @@
 ---
-title: "Grid Cell Notes 01: Lattice Intuition from Three Plane Waves"
+title: "Grid Cell Notes 01: Oscillatory Interference, Phase Drift, and Grid Spacing"
 date: 2026-05-12
 math: true
-summary: "A first note on how hexagonal grid-like fields can emerge from the interference of three oriented periodic components."
+summary: "A first note on oscillatory interference notation, phase drift relative to a pacemaker, and why the spatial scale can become a cell-specific constant."
 tags:
   - Grid Cell
   - Computational Neuroscience
@@ -13,79 +13,157 @@ authors:
 
 This column is meant to be a running notebook. I do not want it to be limited to prose. For grid cells, intuition often becomes much clearer when formulas and visual structure are placed side by side, and even clearer when some parameters can be manipulated directly.
 
-This first note starts from a more basic hypothesis: grid-like firing may emerge progressively as theta-related plane waves are introduced one by one, and the relative phase of each wave with respect to the theta rhythm changes where constructive interference produces strong firing.
+This first note starts from a more specific oscillatory-interference hypothesis: each direction-tuned wave is compared against a background pacemaker, and motion changes the frequency of the direction-tuned wave. That frequency shift produces a time-varying phase difference, and the repeated realignment of phases gives a spatial firing scale.
 
-## A minimal interference model
+## Symbol setup
 
-Let the 2D position be $x \in \mathbb{R}^2$. A simple way to write each traveling component is:
+To keep the notation fixed, I will use:
 
-$$
-w_k(x) = \cos\left( \frac{2\pi}{\lambda} u_k^\top x + \varphi_k \right),
-$$
+- $\theta_i$: the preferred direction of wave $i$
+- $\Phi_0$: the phase of the background pacemaker in the brain
+- $\Phi_i$: the phase of wave $i$
+- $\omega_0$: the baseline angular frequency of the pacemaker
+- $\beta$: the gain that converts velocity projection into frequency shift
+- $v(t)$: the animal's instantaneous speed
 
-where:
-
-- $\lambda$ controls the spatial scale
-- $\varphi_k$ is the phase of the $k$-th wave relative to the theta rhythm
-- $u_k$ are unit vectors pointing in three preferred directions
-
-One common choice is
+If the animal moves with heading $\psi(t)$, then the velocity component projected onto wave $i$ is proportional to
 
 $$
-u_k =
-\begin{bmatrix}
-\cos(\theta + 2\pi k / 3) \\
-\sin(\theta + 2\pi k / 3)
-\end{bmatrix},
-\qquad k = 0,1,2
+v(t)\cos(\psi(t)-\theta_i).
 $$
 
-Each wave by itself only creates a periodic stripe-like modulation. The key step is the accumulation:
+So a more precise version of the frequency rule is
 
 $$
-s(x) = \frac{1}{3} \sum_{k=1}^{3} w_k(x),
+\omega_i(t) = \omega_0 + \beta\, v(t)\cos(\psi(t)-\theta_i).
 $$
 
-followed by a simple firing readout
+If I specialize to motion along the preferred direction of wave 1, then $\psi(t)=\theta_1$, so for that wave:
 
 $$
-g(x) = f(s(x)),
+\omega_1(t) = \omega_0 + \beta\, v(t).
 $$
 
-where $f$ is a thresholding or sharpening nonlinearity. In that sense, the conceptual order is:
+This is the cleanest case, and it matches the intuition you were aiming at.
 
-- introduce one wave and inspect its firing effect
-- introduce a second wave and observe how phase difference creates interference
-- introduce a third wave and see how the firing map becomes more grid-like
+## Phase drift relative to the pacemaker
 
-This is still not a full grid-cell theory, but it is a clean way to visualize how relative phase can sculpt the final firing map.
+The key quantity is not just the absolute phase of a wave, but the phase difference relative to the background pacemaker:
 
-## What to look for
+$$
+\Delta \Phi_i(t)=\Phi_i(t)-\Phi_0(t).
+$$
 
-The main qualitative effects are:
+Its time derivative is
 
-- With only wave 1, the firing result is still stripe-like.
-- Adding wave 2 introduces interference structure, and the phase difference between the two waves begins to matter.
-- Adding wave 3 makes the full interference geometry available and can support localized grid-like peaks.
-- Changing a wave's phase relative to theta shifts where constructive interference lands in space.
-- Changing wave orientation changes the geometry of the interference pattern itself.
-- Increasing the readout nonlinearity sharpens peaks and makes the firing map look more cell-like.
+$$
+\frac{d}{dt}\Delta \Phi_i(t)=\omega_i(t)-\omega_0.
+$$
+
+Therefore,
+
+$$
+\frac{d}{dt}\Delta \Phi_i(t)=\beta\, v(t)\cos(\psi(t)-\theta_i).
+$$
+
+So your basic intuition is correct: once movement changes the frequency of wave $i$, the phase difference $\Phi_i-\Phi_0$ is no longer fixed and starts drifting over time.
+
+For constant speed and constant heading, this becomes
+
+$$
+\Delta \Phi_i(t)=\Delta \Phi_i(0)+\beta\, v\cos(\psi-\theta_i)t.
+$$
+
+## Re-alignment period
+
+Constructive re-alignment happens whenever the phase difference changes by another multiple of $2\pi$. If speed and heading are constant, then the time between successive re-alignments is
+
+$$
+T_i = \frac{2\pi}{\beta\, v\cos(\psi-\theta_i)}.
+$$
+
+Here I would slightly correct your notation:
+
+- If $\Delta \Phi_i$ means the phase difference itself, then it changes with time and should not appear directly in the denominator.
+- The denominator should be the **rate of phase drift**, i.e. $\dot{\Delta \Phi_i}$, equivalently the frequency difference $\omega_i-\omega_0$.
+
+So the precise statement is:
+
+$$
+T_i=\frac{2\pi}{\omega_i-\omega_0}
+=\frac{2\pi}{\beta\, v\cos(\psi-\theta_i)}.
+$$
+
+This part of your reasoning is essentially right once that notation is cleaned up.
+
+## Spatial spacing: one important distinction
+
+This is the place where I would make the biggest correction.
+
+If you ask for the **distance traveled by the animal along its actual trajectory** between two re-alignments, then
+
+$$
+d_{\text{traj},i}=vT_i=\frac{2\pi}{\beta\cos(\psi-\theta_i)}.
+$$
+
+This is **not** generally a constant. It depends on the angle between the movement direction and the preferred direction of the wave.
+
+But if you ask for the **projected displacement along the preferred axis of wave $i$**, then
+
+$$
+d_{\parallel,i}=v\cos(\psi-\theta_i)\,T_i
+=v\cos(\psi-\theta_i)\frac{2\pi}{\beta\, v\cos(\psi-\theta_i)}
+=\frac{2\pi}{\beta}.
+$$
+
+This quantity is indeed a constant, determined only by $\beta$.
+
+So your final statement is correct in a slightly more precise form:
+
+- $2\pi/\beta$ is the spacing measured along the wave's preferred axis
+- it is not, in general, the distance traveled along an arbitrary trajectory
+- if the animal moves exactly along the preferred direction, then the two notions coincide
+
+That distinction is important, because it is exactly what lets the same mechanism create direction-dependent stripe periodicity that later combines into a 2D grid pattern.
+
+## From one wave to grid-cell firing
+
+For one wave alone, repeated phase realignment gives a direction-dependent stripe-like firing pattern.
+
+If I write the wave activity abstractly as
+
+$$
+w_i(x)=\cos\!\big(k_i^\top x+\phi_i\big),
+$$
+
+then one wave gives only one family of stripes. Two waves introduce interference between stripe families. Three waves with different preferred directions make it possible for repeated constructive overlap to localize into grid-like firing peaks.
+
+So the conceptual progression is:
+
+1. Motion changes oscillator frequency through velocity projection.
+2. Frequency mismatch with the pacemaker creates phase drift.
+3. Repeated phase realignment sets a spatial scale.
+4. One wave gives stripes, while multiple direction-tuned waves can combine into a 2D grid-like firing pattern.
 
 ## Interactive sketch
 
-Use the tabs below to progressively introduce wave 1, wave 2, and wave 3. For each active wave, you can set its orientation, amplitude, and phase relative to theta. The upper region now shows a 1D wave plot on Cartesian axes, including the active component waves and their superposition, while the lower region shows the 2D grid cell firing map produced after the firing readout. This keeps the progression from plane waves to firing explicit.
+The current demo still uses a simplified geometric wave-superposition picture. I am keeping it for now, because it is useful for intuition about how one wave, two waves, and three waves change the resulting pattern.
+
+Later, I want to add a more faithful demo: control a moving rat in a 2D scene, update the three direction-tuned waves according to velocity-dependent phase drift, and then simulate the resulting grid-cell firing pattern over the trajectory.
 
 {{< gridcell-lattice-demo >}}
 
 ## Why this is only a starting point
 
-This picture is helpful, but it is incomplete.
+This picture is still incomplete.
 
 Real grid-cell theory quickly brings in questions such as:
 
+- How should the pacemaker itself be modeled?
+- How exactly do three or more direction-tuned oscillators interact?
 - Why are multiple modules needed?
 - How does path integration update phase over time?
 - What dynamical mechanism stabilizes the lattice?
 - How does a population of grid cells support decoding?
 
-Those are the questions I want this column to gradually move toward. For now, the point is narrower: build a manipulable geometric intuition before moving into full coding theory or attractor dynamics.
+Those are the questions I want this column to gradually move toward. For now, the point is narrower: make the phase-drift logic precise before moving into a full spatial simulation.
