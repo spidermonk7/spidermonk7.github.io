@@ -314,11 +314,29 @@ body::before {
   padding: 0 1.25rem 1.25rem;
 }
 
+.gridcell-demo-panels {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.gridcell-demo-panel {
+  margin: 0;
+}
+
+.gridcell-demo-panel figcaption {
+  margin-bottom: 0.65rem;
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--accent);
+}
+
 .gridcell-demo canvas {
   width: 100%;
-  max-width: 520px;
   display: block;
-  margin: 0 auto;
   border-radius: 18px;
   border: 1px solid rgba(19, 21, 24, 0.08);
   background: #f9f6f0;
@@ -333,6 +351,10 @@ body::before {
 
 @media (max-width: 700px) {
   .gridcell-demo-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .gridcell-demo-panels {
     grid-template-columns: 1fr;
   }
 }

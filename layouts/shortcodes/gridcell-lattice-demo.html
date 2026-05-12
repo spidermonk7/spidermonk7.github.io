@@ -1,37 +1,54 @@
-{{ $id := printf "gridcell-demo-%d" .Ordinal }}
-<div id="{{ $id }}" class="gridcell-demo">
+<div class="gridcell-demo">
   <div class="gridcell-demo-controls">
     <label>
-      <span>Scale</span>
-      <input type="range" min="18" max="80" value="42" step="1" data-role="scale">
-      <output data-role="scale-value">42</output>
+      <span>Wavelength</span>
+      <input type="range" min="20" max="90" value="44" step="1" data-role="scale">
+      <output data-role="scale-value">44</output>
     </label>
     <label>
       <span>Orientation</span>
       <input type="range" min="0" max="180" value="18" step="1" data-role="orientation">
-      <output data-role="orientation-value">18°</output>
+      <output data-role="orientation-value">18 deg</output>
     </label>
     <label>
-      <span>Phase X</span>
-      <input type="range" min="-40" max="40" value="0" step="1" data-role="phaseX">
-      <output data-role="phaseX-value">0</output>
+      <span>Theta phase 1</span>
+      <input type="range" min="0" max="360" value="0" step="1" data-role="phase1">
+      <output data-role="phase1-value">0 deg</output>
     </label>
     <label>
-      <span>Phase Y</span>
-      <input type="range" min="-40" max="40" value="0" step="1" data-role="phaseY">
-      <output data-role="phaseY-value">0</output>
+      <span>Theta phase 2</span>
+      <input type="range" min="0" max="360" value="70" step="1" data-role="phase2">
+      <output data-role="phase2-value">70 deg</output>
     </label>
     <label>
-      <span>Sharpness</span>
-      <input type="range" min="0.6" max="3.6" value="1.6" step="0.1" data-role="sharpness">
-      <output data-role="sharpness-value">1.6</output>
+      <span>Theta phase 3</span>
+      <input type="range" min="0" max="360" value="140" step="1" data-role="phase3">
+      <output data-role="phase3-value">140 deg</output>
+    </label>
+    <label>
+      <span>Firing sharpness</span>
+      <input type="range" min="0.8" max="4.0" value="1.8" step="0.1" data-role="sharpness">
+      <output data-role="sharpness-value">1.8</output>
     </label>
   </div>
 
   <div class="gridcell-demo-stage">
-    <canvas width="520" height="520" data-role="canvas"></canvas>
+    <div class="gridcell-demo-panels">
+      <figure class="gridcell-demo-panel">
+        <figcaption>1 wave</figcaption>
+        <canvas width="300" height="300" data-role="canvas-1"></canvas>
+      </figure>
+      <figure class="gridcell-demo-panel">
+        <figcaption>2 waves</figcaption>
+        <canvas width="300" height="300" data-role="canvas-2"></canvas>
+      </figure>
+      <figure class="gridcell-demo-panel">
+        <figcaption>3 waves -> firing</figcaption>
+        <canvas width="300" height="300" data-role="canvas-3"></canvas>
+      </figure>
+    </div>
     <div class="gridcell-demo-caption">
-      Three plane waves at 60-degree offsets generate a hexagonal interference pattern.
+      The first panel shows one traveling component, the second shows pairwise interference, and the third applies a simple nonlinear firing readout after three-wave superposition.
     </div>
   </div>
 </div>
@@ -44,74 +61,95 @@
   const controls = {
     scale: root.querySelector('[data-role="scale"]'),
     orientation: root.querySelector('[data-role="orientation"]'),
-    phaseX: root.querySelector('[data-role="phaseX"]'),
-    phaseY: root.querySelector('[data-role="phaseY"]'),
+    phase1: root.querySelector('[data-role="phase1"]'),
+    phase2: root.querySelector('[data-role="phase2"]'),
+    phase3: root.querySelector('[data-role="phase3"]'),
     sharpness: root.querySelector('[data-role="sharpness"]')
   };
 
   const outputs = {
     scale: root.querySelector('[data-role="scale-value"]'),
     orientation: root.querySelector('[data-role="orientation-value"]'),
-    phaseX: root.querySelector('[data-role="phaseX-value"]'),
-    phaseY: root.querySelector('[data-role="phaseY-value"]'),
+    phase1: root.querySelector('[data-role="phase1-value"]'),
+    phase2: root.querySelector('[data-role="phase2-value"]'),
+    phase3: root.querySelector('[data-role="phase3-value"]'),
     sharpness: root.querySelector('[data-role="sharpness-value"]')
   };
 
-  const canvas = root.querySelector('[data-role="canvas"]');
-  const ctx = canvas.getContext('2d');
-  const width = canvas.width;
-  const height = canvas.height;
-  const image = ctx.createImageData(width, height);
+  const canvases = [
+    root.querySelector('[data-role="canvas-1"]'),
+    root.querySelector('[data-role="canvas-2"]'),
+    root.querySelector('[data-role="canvas-3"]')
+  ];
+  const contexts = canvases.map((canvas) => canvas.getContext('2d'));
+  const images = canvases.map((canvas, index) => contexts[index].createImageData(canvas.width, canvas.height));
 
   function clamp01(x) {
     return Math.max(0, Math.min(1, x));
   }
 
-  function sample(x, y, scale, theta, phaseX, phaseY, sharpness) {
-    let sum = 0;
-    for (let k = 0; k < 3; k += 1) {
-      const angle = theta + k * Math.PI / 3;
-      const ux = Math.cos(angle);
-      const uy = Math.sin(angle);
-      const proj = ((x - phaseX) * ux + (y - phaseY) * uy) / scale;
-      sum += Math.cos(2 * Math.PI * proj);
-    }
-    const normalized = (sum + 3) / 6;
-    return Math.pow(clamp01(normalized), sharpness);
+  function degToRad(deg) {
+    return deg * Math.PI / 180;
   }
 
-  function colorize(value) {
-    const t = clamp01(value);
-    const r = Math.round(245 - 180 * t);
-    const g = Math.round(239 - 120 * t);
-    const b = Math.round(229 - 18 * t);
+  function buildWaves(theta, phase1, phase2, phase3) {
+    return [
+      { angle: theta, phase: phase1 },
+      { angle: theta + Math.PI / 3, phase: phase2 },
+      { angle: theta + 2 * Math.PI / 3, phase: phase3 }
+    ];
+  }
+
+  function waveValue(x, y, scale, wave) {
+    const ux = Math.cos(wave.angle);
+    const uy = Math.sin(wave.angle);
+    const projection = (x * ux + y * uy) / scale;
+    return Math.cos(2 * Math.PI * projection + wave.phase);
+  }
+
+  function cumulativeValue(x, y, scale, waves, count) {
+    let sum = 0;
+    for (let i = 0; i < count; i += 1) {
+      sum += waveValue(x, y, scale, waves[i]);
+    }
+    return sum / count;
+  }
+
+  function firingValue(raw, sharpness) {
+    const thresholded = clamp01((raw + 1) / 2);
+    return Math.pow(thresholded, sharpness);
+  }
+
+  function colorizeWave(value) {
+    const t = clamp01((value + 1) / 2);
+    const r = Math.round(36 + 205 * t);
+    const g = Math.round(86 + 145 * (1 - Math.abs(0.5 - t) * 2));
+    const b = Math.round(94 + 135 * (1 - t));
     return [r, g, b];
   }
 
-  function render() {
-    const scale = Number(controls.scale.value);
-    const theta = Number(controls.orientation.value) * Math.PI / 180;
-    const phaseX = Number(controls.phaseX.value);
-    const phaseY = Number(controls.phaseY.value);
-    const sharpness = Number(controls.sharpness.value);
+  function colorizeFiring(value) {
+    const t = clamp01(value);
+    const r = Math.round(250 - 175 * t);
+    const g = Math.round(244 - 130 * t);
+    const b = Math.round(231 - 28 * t);
+    return [r, g, b];
+  }
 
-    outputs.scale.textContent = `${scale}`;
-    outputs.orientation.textContent = `${controls.orientation.value}°`;
-    outputs.phaseX.textContent = `${phaseX}`;
-    outputs.phaseY.textContent = `${phaseY}`;
-    outputs.sharpness.textContent = sharpness.toFixed(1);
-
-    const data = image.data;
-    let ptr = 0;
+  function renderPanel(ctx, image, sampler, palette) {
+    const width = image.width;
+    const height = image.height;
     const xCenter = width / 2;
     const yCenter = height / 2;
+    const data = image.data;
+    let ptr = 0;
 
     for (let py = 0; py < height; py += 1) {
       for (let px = 0; px < width; px += 1) {
         const x = px - xCenter;
         const y = py - yCenter;
-        const value = sample(x, y, scale, theta, phaseX, phaseY, sharpness);
-        const [r, g, b] = colorize(value);
+        const value = sampler(x, y);
+        const [r, g, b] = palette(value);
         data[ptr] = r;
         data[ptr + 1] = g;
         data[ptr + 2] = b;
@@ -121,7 +159,6 @@
     }
 
     ctx.putImageData(image, 0, 0);
-
     ctx.save();
     ctx.strokeStyle = 'rgba(15, 23, 42, 0.16)';
     ctx.lineWidth = 1;
@@ -132,6 +169,46 @@
     ctx.lineTo(width, height / 2);
     ctx.stroke();
     ctx.restore();
+  }
+
+  function render() {
+    const scale = Number(controls.scale.value);
+    const theta = degToRad(Number(controls.orientation.value));
+    const sharpness = Number(controls.sharpness.value);
+    const waves = buildWaves(
+      theta,
+      degToRad(Number(controls.phase1.value)),
+      degToRad(Number(controls.phase2.value)),
+      degToRad(Number(controls.phase3.value))
+    );
+
+    outputs.scale.textContent = `${scale}`;
+    outputs.orientation.textContent = `${controls.orientation.value} deg`;
+    outputs.phase1.textContent = `${controls.phase1.value} deg`;
+    outputs.phase2.textContent = `${controls.phase2.value} deg`;
+    outputs.phase3.textContent = `${controls.phase3.value} deg`;
+    outputs.sharpness.textContent = sharpness.toFixed(1);
+
+    renderPanel(
+      contexts[0],
+      images[0],
+      (x, y) => cumulativeValue(x, y, scale, waves, 1),
+      colorizeWave
+    );
+
+    renderPanel(
+      contexts[1],
+      images[1],
+      (x, y) => cumulativeValue(x, y, scale, waves, 2),
+      colorizeWave
+    );
+
+    renderPanel(
+      contexts[2],
+      images[2],
+      (x, y) => firingValue(cumulativeValue(x, y, scale, waves, 3), sharpness),
+      colorizeFiring
+    );
   }
 
   Object.values(controls).forEach((input) => {
