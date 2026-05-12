@@ -1,0 +1,196 @@
+<div class="gridcell-demo">
+  <div class="gridcell-demo-intro">
+    <p class="gridcell-demo-stage-note">
+      This demo keeps only one wave, and assumes the movement direction is parallel to that wave's preferred direction.
+    </p>
+  </div>
+
+  <div class="gridcell-demo-controls">
+    <label>
+      <span>beta</span>
+      <input type="range" min="0.06" max="0.28" value="0.14" step="0.005" data-role="beta">
+      <output data-role="beta-value">0.140</output>
+    </label>
+    <label>
+      <span>theta_1</span>
+      <input type="range" min="0" max="180" value="0" step="1" data-role="theta1">
+      <output data-role="theta1-value">0 deg</output>
+    </label>
+  </div>
+
+  <div class="gridcell-demo-stage gridcell-demo-stage-split">
+    <div class="gridcell-demo-visual-block">
+      <h4>Wave</h4>
+      <canvas width="520" height="320" data-role="wave-canvas"></canvas>
+      <div class="gridcell-demo-caption">
+        A single oscillatory component along the preferred direction.
+      </div>
+    </div>
+    <div class="gridcell-demo-visual-block">
+      <h4>Grid Cell Firing</h4>
+      <canvas width="520" height="520" data-role="firing-canvas"></canvas>
+      <div class="gridcell-demo-caption">
+        With only one wave, the firing pattern is a stripe-like grating rather than a full 2D hexagonal grid.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const root = document.currentScript.previousElementSibling;
+  if (!root || !root.classList.contains('gridcell-demo')) return;
+
+  const controls = {
+    beta: root.querySelector('[data-role="beta"]'),
+    theta1: root.querySelector('[data-role="theta1"]')
+  };
+
+  const outputs = {
+    beta: root.querySelector('[data-role="beta-value"]'),
+    theta1: root.querySelector('[data-role="theta1-value"]')
+  };
+
+  const waveCanvas = root.querySelector('[data-role="wave-canvas"]');
+  const waveCtx = waveCanvas.getContext('2d');
+  const firingCanvas = root.querySelector('[data-role="firing-canvas"]');
+  const firingCtx = firingCanvas.getContext('2d');
+  const firingImage = firingCtx.createImageData(firingCanvas.width, firingCanvas.height);
+
+  function clamp01(x) {
+    return Math.max(0, Math.min(1, x));
+  }
+
+  function degToRad(deg) {
+    return deg * Math.PI / 180;
+  }
+
+  function waveValue(x, y, beta, theta) {
+    const ux = Math.cos(theta);
+    const uy = Math.sin(theta);
+    return Math.cos(beta * (x * ux + y * uy));
+  }
+
+  function firingValue(raw) {
+    const normalized = clamp01((raw + 1) / 2);
+    return Math.pow(normalized, 1.9);
+  }
+
+  function colorizeFiring(value) {
+    const t = clamp01(value);
+    const r = Math.round(247 - 182 * t);
+    const g = Math.round(242 - 132 * t);
+    const b = Math.round(231 - 24 * t);
+    return [r, g, b];
+  }
+
+  function renderFiringMap(beta, theta) {
+    const width = firingImage.width;
+    const height = firingImage.height;
+    const data = firingImage.data;
+    const xCenter = width / 2;
+    const yCenter = height / 2;
+    let ptr = 0;
+
+    for (let py = 0; py < height; py += 1) {
+      for (let px = 0; px < width; px += 1) {
+        const x = px - xCenter;
+        const y = py - yCenter;
+        const raw = waveValue(x, y, beta, theta);
+        const value = firingValue(raw);
+        const [r, g, b] = colorizeFiring(value);
+        data[ptr] = r;
+        data[ptr + 1] = g;
+        data[ptr + 2] = b;
+        data[ptr + 3] = 255;
+        ptr += 4;
+      }
+    }
+
+    firingCtx.putImageData(firingImage, 0, 0);
+    firingCtx.save();
+    firingCtx.strokeStyle = 'rgba(15, 23, 42, 0.16)';
+    firingCtx.lineWidth = 1;
+    firingCtx.beginPath();
+    firingCtx.moveTo(width / 2, 0);
+    firingCtx.lineTo(width / 2, height);
+    firingCtx.moveTo(0, height / 2);
+    firingCtx.lineTo(width, height / 2);
+    firingCtx.stroke();
+    firingCtx.restore();
+  }
+
+  function drawWavePlot(beta, theta) {
+    const width = waveCanvas.width;
+    const height = waveCanvas.height;
+    const paddingX = 36;
+    const paddingY = 28;
+    const plotWidth = width - paddingX * 2;
+    const plotHeight = height - paddingY * 2;
+    const baselineY = paddingY + plotHeight / 2;
+    const xMin = -120;
+    const xMax = 120;
+
+    waveCtx.clearRect(0, 0, width, height);
+    waveCtx.fillStyle = '#f9f6f0';
+    waveCtx.fillRect(0, 0, width, height);
+
+    waveCtx.strokeStyle = 'rgba(19, 21, 24, 0.12)';
+    waveCtx.lineWidth = 1;
+    waveCtx.beginPath();
+    waveCtx.moveTo(paddingX, baselineY);
+    waveCtx.lineTo(width - paddingX, baselineY);
+    waveCtx.moveTo(width / 2, paddingY);
+    waveCtx.lineTo(width / 2, height - paddingY);
+    waveCtx.stroke();
+
+    waveCtx.fillStyle = 'rgba(19, 21, 24, 0.58)';
+    waveCtx.font = '12px Instrument Sans, Segoe UI, sans-serif';
+    waveCtx.fillText('x', width - paddingX + 8, baselineY + 4);
+    waveCtx.fillText('wave', width / 2 + 8, paddingY - 4);
+
+    function projectX(x) {
+      return paddingX + ((x - xMin) / (xMax - xMin)) * plotWidth;
+    }
+
+    function projectY(v) {
+      return baselineY - v * (plotHeight * 0.36);
+    }
+
+    waveCtx.save();
+    waveCtx.strokeStyle = '#153a63';
+    waveCtx.lineWidth = 3;
+    waveCtx.beginPath();
+    for (let i = 0; i <= 240; i += 1) {
+      const x = xMin + (i / 240) * (xMax - xMin);
+      const y = waveValue(x, 0, beta, theta);
+      const px = projectX(x);
+      const py = projectY(y);
+      if (i === 0) {
+        waveCtx.moveTo(px, py);
+      } else {
+        waveCtx.lineTo(px, py);
+      }
+    }
+    waveCtx.stroke();
+    waveCtx.restore();
+  }
+
+  function render() {
+    const beta = Number(controls.beta.value);
+    const theta = degToRad(Number(controls.theta1.value));
+
+    outputs.beta.textContent = beta.toFixed(3);
+    outputs.theta1.textContent = `${controls.theta1.value} deg`;
+
+    drawWavePlot(beta, theta);
+    renderFiringMap(beta, theta);
+  }
+
+  Object.values(controls).forEach((input) => {
+    input.addEventListener('input', render);
+  });
+
+  render();
+})();
+</script>

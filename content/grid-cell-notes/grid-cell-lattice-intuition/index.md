@@ -130,11 +130,11 @@ So one wave already gives a stripe-like periodic firing structure with a spacing
 
 ## Interactive sketch
 
-The current demo still uses a simplified geometric wave-superposition picture rather than a full phase-evolution simulation. I am keeping it for now because it is useful for intuition about how one wave, two waves, and three waves change the resulting pattern.
+The demo for this note is intentionally restricted to the one-wave case. It keeps only one preferred direction and assumes the movement direction is parallel to it, matching the assumptions of the derivation above.
 
-Later, I want to add a more faithful demo: control a moving rat in a 2D scene, update the three direction-tuned waves according to velocity-dependent phase drift, and then simulate the resulting grid-cell firing pattern over the trajectory.
+{{< gridcell-single-wave-demo >}}
 
-{{< gridcell-lattice-demo >}}
+Later, I want to add a more faithful demo: control a moving rat in a 2D scene, update several direction-tuned waves according to velocity-dependent phase drift, and then simulate the resulting grid-cell firing pattern over the trajectory.
 
 ## Why this is only a starting point
 
