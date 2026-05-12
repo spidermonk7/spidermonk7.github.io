@@ -41,7 +41,7 @@
   
     
   
-  <meta name="description" content="A first note on how hexagonal grid-like fields can emerge from the interference of three oriented periodic components." />
+  <meta name="description" content="A first note on oscillatory interference when motion is aligned with a wave&#39;s preferred direction, and why the resulting firing spacing becomes a cell-specific constant." />
 
   
   <link rel="alternate" hreflang="en-us" href="https://spidermonk7.github.io/grid-cell-notes/grid-cell-lattice-intuition/" />
@@ -185,8 +185,8 @@
   
   <meta property="og:site_name" content="Shaoyang Cui" />
   <meta property="og:url" content="https://spidermonk7.github.io/grid-cell-notes/grid-cell-lattice-intuition/" />
-  <meta property="og:title" content="Grid Cell Notes 01: Lattice Intuition from Three Plane Waves | Shaoyang Cui" />
-  <meta property="og:description" content="A first note on how hexagonal grid-like fields can emerge from the interference of three oriented periodic components." /><meta property="og:image" content="https://spidermonk7.github.io/media/icon_hu7729264130191091259.png" />
+  <meta property="og:title" content="Grid Cell Notes 01: Oscillatory Interference Along a Preferred Direction | Shaoyang Cui" />
+  <meta property="og:description" content="A first note on oscillatory interference when motion is aligned with a wave&#39;s preferred direction, and why the resulting firing spacing becomes a cell-specific constant." /><meta property="og:image" content="https://spidermonk7.github.io/media/icon_hu7729264130191091259.png" />
     <meta property="twitter:image" content="https://spidermonk7.github.io/media/icon_hu7729264130191091259.png" /><meta property="og:locale" content="en-us" />
   
     
@@ -205,7 +205,7 @@
   
 
 
-  <title>Grid Cell Notes 01: Lattice Intuition from Three Plane Waves | Shaoyang Cui</title>
+  <title>Grid Cell Notes 01: Oscillatory Interference Along a Preferred Direction | Shaoyang Cui</title>
 
   
   
@@ -1105,20 +1105,38 @@
       sidebar-active-item bg-primary-100 font-semibold text-primary-800 dark:bg-primary-300 dark:text-primary-900"
     href="/grid-cell-notes/grid-cell-lattice-intuition/"
     
-  >Grid Cell Notes 01: Lattice Intuition from Three Plane Waves
+  >Grid Cell Notes 01: Oscillatory Interference Along a Preferred Direction
     </a>
   
     <ul class="hb-sidebar-mobile-toc"><li>
               <a
-                href="#a-minimal-interference-model"
+                href="#symbol-setup"
                 class="hb-docs-link"
-              >A minimal interference model</a>
+              >Symbol setup</a>
             </li>
           <li>
               <a
-                href="#what-to-look-for"
+                href="#phase-drift-relative-to-the-pacemaker"
                 class="hb-docs-link"
-              >What to look for</a>
+              >Phase drift relative to the pacemaker</a>
+            </li>
+          <li>
+              <a
+                href="#re-alignment-period"
+                class="hb-docs-link"
+              >Re-alignment period</a>
+            </li>
+          <li>
+              <a
+                href="#spatial-spacing"
+                class="hb-docs-link"
+              >Spatial spacing</a>
+            </li>
+          <li>
+              <a
+                href="#interpretation"
+                class="hb-docs-link"
+              >Interpretation</a>
             </li>
           <li>
               <a
@@ -1280,10 +1298,19 @@
 
   <div class="hb-scrollbar text-sm [hyphens:auto] sticky top-16 overflow-y-auto pr-4 pt-6 max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] -mr-4 rtl:-ml-4"><p class="mb-4 font-semibold tracking-tight">On this page</p><ul>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 w-full break-words" href="#a-minimal-interference-model">A minimal interference model</a>
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 w-full break-words" href="#symbol-setup">Symbol setup</a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 w-full break-words" href="#what-to-look-for">What to look for</a>
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 w-full break-words" href="#phase-drift-relative-to-the-pacemaker">Phase drift relative to the pacemaker</a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 w-full break-words" href="#re-alignment-period">Re-alignment period</a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 w-full break-words" href="#spatial-spacing">Spatial spacing</a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 w-full break-words" href="#interpretation">Interpretation</a>
       </li>
       <li class="my-2 scroll-my-6 scroll-py-6">
         <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 w-full break-words" href="#interactive-sketch">Interactive sketch</a>
@@ -1322,7 +1349,7 @@
 
       
 
-      <h1 class="mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Grid Cell Notes 01: Lattice Intuition from Three Plane Waves</h1>
+      <h1 class="mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Grid Cell Notes 01: Oscillatory Interference Along a Preferred Direction</h1>
 
       <div class="mt-4 mb-16">
       <div class="text-gray-500 dark:text-gray-300 text-sm flex items-center flex-wrap gap-y-2"><span class="mr-1">May 12, 2026</span><span class="mx-1">·</span>
@@ -1368,50 +1395,86 @@
 
       <div class="prose prose-slate lg:prose-xl dark:prose-invert">
         <p>This column is meant to be a running notebook. I do not want it to be limited to prose. For grid cells, intuition often becomes much clearer when formulas and visual structure are placed side by side, and even clearer when some parameters can be manipulated directly.</p>
-<p>This first note starts from a more basic hypothesis: grid-like firing may emerge progressively as theta-related plane waves are introduced one by one, and the relative phase of each wave with respect to the theta rhythm changes where constructive interference produces strong firing.</p>
-<h2 id="a-minimal-interference-model">A minimal interference model</h2>
-<p>Let the 2D position be $x \in \mathbb{R}^2$. A simple way to write each traveling component is:</p>
-$$
-w_k(x) = \cos\left( \frac{2\pi}{\lambda} u_k^\top x + \varphi_k \right),
-$$<p>where:</p>
+<p>This first note focuses on the simplest case of the oscillatory-interference picture: the animal moves along the preferred direction of one wave, that wave changes frequency relative to a background pacemaker, and the drifting phase difference generates a fixed firing spacing.</p>
+<h2 id="symbol-setup">Symbol setup</h2>
+<p>To keep the notation fixed, I will use:</p>
 <ul>
-<li>$\lambda$ controls the spatial scale</li>
-<li>$\varphi_k$ is the phase of the $k$-th wave relative to the theta rhythm</li>
-<li>$u_k$ are unit vectors pointing in three preferred directions</li>
+<li>$\theta_i$: the preferred direction of wave $i$</li>
+<li>$\Phi_0$: the phase of the background pacemaker in the brain</li>
+<li>$\Phi_i$: the phase of wave $i$</li>
+<li>$\omega_0$: the baseline angular frequency of the pacemaker</li>
+<li>$\beta$: the gain that converts motion into frequency shift</li>
+<li>$v(t)$: the animal&rsquo;s instantaneous speed</li>
 </ul>
-<p>One common choice is</p>
+<p>In this note, I only consider the case where the animal is moving exactly along the preferred direction of wave $i$. Under that assumption, the frequency of the wave changes according to</p>
 $$
-u_k =
-\begin{bmatrix}
-\cos(\theta + 2\pi k / 3) \\
-\sin(\theta + 2\pi k / 3)
-\end{bmatrix},
-\qquad k = 0,1,2
-$$<p>Each wave by itself only creates a periodic stripe-like modulation. The key step is the accumulation:</p>
+\omega_i(t)=\omega_0+\beta v(t).
+$$<p>So the directional dependence is absorbed into the assumption itself: I am already on the preferred axis of this wave.</p>
+<h2 id="phase-drift-relative-to-the-pacemaker">Phase drift relative to the pacemaker</h2>
+<p>The key quantity is not just the absolute phase of a wave, but the phase difference relative to the background pacemaker:</p>
 $$
-s(x) = \frac{1}{3} \sum_{k=1}^{3} w_k(x),
-$$<p>followed by a simple firing readout</p>
+\Delta \Phi_i(t)=\Phi_i(t)-\Phi_0(t).
+$$<p>Its time derivative is</p>
 $$
-g(x) = f(s(x)),
-$$<p>where $f$ is a thresholding or sharpening nonlinearity. In that sense, the conceptual order is:</p>
+\frac{d}{dt}\Delta \Phi_i(t)=\omega_i(t)-\omega_0.
+$$<p>Therefore,</p>
+$$
+\frac{d}{dt}\Delta \Phi_i(t)=\beta\, v(t).
+$$<p>So your basic intuition is correct: once movement changes the frequency of wave $i$, the phase difference $\Phi_i-\Phi_0$ is no longer fixed and starts drifting over time.</p>
+<p>If the speed is constant, this becomes</p>
+$$
+\Delta \Phi_i(t)=\Delta \Phi_i(0)+\beta vt.
+$$<h2 id="re-alignment-period">Re-alignment period</h2>
+<p>Constructive re-alignment happens whenever the phase difference changes by another multiple of $2\pi$. If the speed is constant, then the time between successive re-alignments is</p>
+$$
+T_i = \frac{2\pi}{\beta v}.
+$$<p>This is the one place where I would still correct the notation slightly:</p>
 <ul>
-<li>introduce one wave and inspect its firing effect</li>
-<li>introduce a second wave and observe how phase difference creates interference</li>
-<li>introduce a third wave and see how the firing map becomes more grid-like</li>
+<li>If $\Delta \Phi_i$ means the phase difference itself, then it changes with time and should not appear directly in the denominator.</li>
+<li>The denominator should be the <strong>rate of phase drift</strong>, i.e. $\dot{\Delta \Phi_i}$, equivalently the frequency difference $\omega_i-\omega_0$.</li>
 </ul>
-<p>This is still not a full grid-cell theory, but it is a clean way to visualize how relative phase can sculpt the final firing map.</p>
-<h2 id="what-to-look-for">What to look for</h2>
-<p>The main qualitative effects are:</p>
+<p>So the precise statement is:</p>
+$$
+T_i=\frac{2\pi}{\omega_i-\omega_0}
+=\frac{2\pi}{\beta v}.
+$$<p>So under the aligned-motion assumption, your expression is right after this notation cleanup.</p>
+<h2 id="spatial-spacing">Spatial spacing</h2>
+<p>Now the key point is very clean. During one re-alignment period, the animal moves a distance</p>
+$$
+d=vT_i.
+$$<p>Substituting the expression for $T_i$ gives</p>
+$$
+d=v\frac{2\pi}{\beta v}=\frac{2\pi}{\beta}.
+$$<p>So in the aligned-direction case, your conclusion is correct:</p>
 <ul>
-<li>With only wave 1, the firing result is still stripe-like.</li>
-<li>Adding wave 2 introduces interference structure, and the phase difference between the two waves begins to matter.</li>
-<li>Adding wave 3 makes the full interference geometry available and can support localized grid-like peaks.</li>
-<li>Changing a wave&rsquo;s phase relative to theta shifts where constructive interference lands in space.</li>
-<li>Changing wave orientation changes the geometry of the interference pattern itself.</li>
-<li>Increasing the readout nonlinearity sharpens peaks and makes the firing map look more cell-like.</li>
+<li>the firing spacing is a constant</li>
+<li>this constant is
+$$
+  d=\frac{2\pi}{\beta}
+  $$</li>
+<li>it depends only on the cell parameter $\beta$</li>
+<li>it does not depend on the current speed $v$</li>
 </ul>
+<p>This is exactly the clean result you were aiming for.</p>
+<h2 id="interpretation">Interpretation</h2>
+<p>The logic can now be summarized very compactly:</p>
+<ol>
+<li>The background pacemaker oscillates at $\omega_0$.</li>
+<li>Motion along the preferred direction changes the wave frequency to $\omega_0+\beta v$.</li>
+<li>That creates a phase drift rate of $\beta v$ relative to the pacemaker.</li>
+<li>Re-alignment happens every
+$$
+   T=\frac{2\pi}{\beta v}.
+   $$</li>
+<li>In that time the animal travels
+$$
+   d=\frac{2\pi}{\beta}.
+   $$</li>
+</ol>
+<p>So one wave already gives a stripe-like periodic firing structure with a spacing fixed by $\beta$. The next conceptual step is then to ask how several direction-tuned waves, each with its own preferred direction, can combine to form a 2D grid-like firing pattern.</p>
 <h2 id="interactive-sketch">Interactive sketch</h2>
-<p>Use the tabs below to progressively introduce wave 1, wave 2, and wave 3. For each active wave, you can set its orientation, amplitude, and phase relative to theta. The upper region now shows a 1D wave plot on Cartesian axes, including the active component waves and their superposition, while the lower region shows the 2D grid cell firing map produced after the firing readout. This keeps the progression from plane waves to firing explicit.</p>
+<p>The current demo still uses a simplified geometric wave-superposition picture rather than a full phase-evolution simulation. I am keeping it for now because it is useful for intuition about how one wave, two waves, and three waves change the resulting pattern.</p>
+<p>Later, I want to add a more faithful demo: control a moving rat in a 2D scene, update the three direction-tuned waves according to velocity-dependent phase drift, and then simulate the resulting grid-cell firing pattern over the trajectory.</p>
 <div class="gridcell-demo">
   <div class="gridcell-demo-intro">
     <div class="gridcell-demo-tabs" role="tablist" aria-label="Wave introduction stages">
@@ -1420,20 +1483,15 @@ $$<p>where $f$ is a thresholding or sharpening nonlinearity. In that sense, the 
       <button type="button" class="gridcell-demo-tab" data-role="stage" data-stage="3">Introduce wave 3</button>
     </div>
     <p class="gridcell-demo-stage-note" data-role="stage-note">
-      One plane wave alone produces only a striped modulation, so the firing map is still far from a grid code.
+      With only wave 1 active, the model produces a stripe-like periodic structure set by beta and theta_1.
     </p>
   </div>
 
   <div class="gridcell-demo-controls">
     <label>
-      <span>Wavelength</span>
-      <input type="range" min="20" max="90" value="44" step="1" data-role="scale">
-      <output data-role="scale-value">44</output>
-    </label>
-    <label>
-      <span>Firing sharpness</span>
-      <input type="range" min="0.8" max="4.0" value="1.8" step="0.1" data-role="sharpness">
-      <output data-role="sharpness-value">1.8</output>
+      <span>beta</span>
+      <input type="range" min="0.06" max="0.28" value="0.14" step="0.005" data-role="beta">
+      <output data-role="beta-value">0.140</output>
     </label>
   </div>
 
@@ -1441,74 +1499,44 @@ $$<p>where $f$ is a thresholding or sharpening nonlinearity. In that sense, the 
     <section class="gridcell-demo-wave-card" data-wave-card="1">
       <h4>Wave 1</h4>
       <label>
-        <span>Orientation</span>
-        <input type="range" min="0" max="180" value="0" step="1" data-role="orientation1">
-        <output data-role="orientation1-value">0 deg</output>
-      </label>
-      <label>
-        <span>Phase vs theta</span>
-        <input type="range" min="0" max="360" value="0" step="1" data-role="phase1">
-        <output data-role="phase1-value">0 deg</output>
-      </label>
-      <label>
-        <span>Amplitude</span>
-        <input type="range" min="0.2" max="1.4" value="1.0" step="0.05" data-role="amplitude1">
-        <output data-role="amplitude1-value">1.00</output>
+        <span>theta_1</span>
+        <input type="range" min="0" max="180" value="0" step="1" data-role="theta1">
+        <output data-role="theta1-value">0 deg</output>
       </label>
     </section>
 
     <section class="gridcell-demo-wave-card is-muted" data-wave-card="2">
       <h4>Wave 2</h4>
       <label>
-        <span>Orientation</span>
-        <input type="range" min="0" max="180" value="60" step="1" data-role="orientation2">
-        <output data-role="orientation2-value">60 deg</output>
-      </label>
-      <label>
-        <span>Phase vs theta</span>
-        <input type="range" min="0" max="360" value="90" step="1" data-role="phase2">
-        <output data-role="phase2-value">90 deg</output>
-      </label>
-      <label>
-        <span>Amplitude</span>
-        <input type="range" min="0.2" max="1.4" value="1.0" step="0.05" data-role="amplitude2">
-        <output data-role="amplitude2-value">1.00</output>
+        <span>theta_2</span>
+        <input type="range" min="0" max="180" value="60" step="1" data-role="theta2">
+        <output data-role="theta2-value">60 deg</output>
       </label>
     </section>
 
     <section class="gridcell-demo-wave-card is-muted" data-wave-card="3">
       <h4>Wave 3</h4>
       <label>
-        <span>Orientation</span>
-        <input type="range" min="0" max="180" value="120" step="1" data-role="orientation3">
-        <output data-role="orientation3-value">120 deg</output>
-      </label>
-      <label>
-        <span>Phase vs theta</span>
-        <input type="range" min="0" max="360" value="180" step="1" data-role="phase3">
-        <output data-role="phase3-value">180 deg</output>
-      </label>
-      <label>
-        <span>Amplitude</span>
-        <input type="range" min="0.2" max="1.4" value="1.0" step="0.05" data-role="amplitude3">
-        <output data-role="amplitude3-value">1.00</output>
+        <span>theta_3</span>
+        <input type="range" min="0" max="180" value="120" step="1" data-role="theta3">
+        <output data-role="theta3-value">120 deg</output>
       </label>
     </section>
   </div>
 
-  <div class="gridcell-demo-stage">
+  <div class="gridcell-demo-stage gridcell-demo-stage-split">
     <div class="gridcell-demo-visual-block">
-      <h4>Region 1: wave superposition</h4>
+      <h4>Wave</h4>
       <canvas width="520" height="320" data-role="wave-canvas"></canvas>
       <div class="gridcell-demo-caption">
-        This panel shows a 1D spatial slice: the active plane waves and their summed superposition on Cartesian axes.
+        A 1D spatial slice showing the active waves and their superposition under the current beta and theta_i values.
       </div>
     </div>
     <div class="gridcell-demo-visual-block">
-      <h4>Region 2: grid cell firing</h4>
+      <h4>Grid Cell Firing</h4>
       <canvas width="520" height="520" data-role="firing-canvas"></canvas>
       <div class="gridcell-demo-caption">
-        This panel applies the firing readout to the superposed field, producing the resulting grid-cell-like firing map.
+        A 2D firing map generated by combining the currently introduced waves and applying a fixed firing readout.
       </div>
     </div>
   </div>
@@ -1524,42 +1552,27 @@ $$<p>where $f$ is a thresholding or sharpening nonlinearity. In that sense, the 
   const waveCards = [1, 2, 3].map((index) => root.querySelector(`[data-wave-card="${index}"]`));
 
   const controls = {
-    scale: root.querySelector('[data-role="scale"]'),
-    sharpness: root.querySelector('[data-role="sharpness"]'),
-    orientation1: root.querySelector('[data-role="orientation1"]'),
-    orientation2: root.querySelector('[data-role="orientation2"]'),
-    orientation3: root.querySelector('[data-role="orientation3"]'),
-    phase1: root.querySelector('[data-role="phase1"]'),
-    phase2: root.querySelector('[data-role="phase2"]'),
-    phase3: root.querySelector('[data-role="phase3"]'),
-    amplitude1: root.querySelector('[data-role="amplitude1"]'),
-    amplitude2: root.querySelector('[data-role="amplitude2"]'),
-    amplitude3: root.querySelector('[data-role="amplitude3"]')
+    beta: root.querySelector('[data-role="beta"]'),
+    theta1: root.querySelector('[data-role="theta1"]'),
+    theta2: root.querySelector('[data-role="theta2"]'),
+    theta3: root.querySelector('[data-role="theta3"]')
   };
 
   const outputs = {
-    scale: root.querySelector('[data-role="scale-value"]'),
-    sharpness: root.querySelector('[data-role="sharpness-value"]'),
-    orientation1: root.querySelector('[data-role="orientation1-value"]'),
-    orientation2: root.querySelector('[data-role="orientation2-value"]'),
-    orientation3: root.querySelector('[data-role="orientation3-value"]'),
-    phase1: root.querySelector('[data-role="phase1-value"]'),
-    phase2: root.querySelector('[data-role="phase2-value"]'),
-    phase3: root.querySelector('[data-role="phase3-value"]'),
-    amplitude1: root.querySelector('[data-role="amplitude1-value"]'),
-    amplitude2: root.querySelector('[data-role="amplitude2-value"]'),
-    amplitude3: root.querySelector('[data-role="amplitude3-value"]')
+    beta: root.querySelector('[data-role="beta-value"]'),
+    theta1: root.querySelector('[data-role="theta1-value"]'),
+    theta2: root.querySelector('[data-role="theta2-value"]'),
+    theta3: root.querySelector('[data-role="theta3-value"]')
   };
 
   const stageNotes = {
-    1: 'One plane wave alone produces only a striped modulation, so the firing map is still far from a grid code.',
-    2: 'After introducing wave 2, relative phase begins to matter through interference, but the result is still not yet hexagonal.',
-    3: 'With wave 3 added, phase relationships across all three components can support localized peaks that resemble grid-cell firing.'
+    1: 'With only wave 1 active, the model produces a stripe-like periodic structure set by beta and theta_1.',
+    2: 'After adding wave 2, the interference geometry depends on beta together with the angle between theta_1 and theta_2.',
+    3: 'After adding wave 3, the three preferred directions theta_1, theta_2, and theta_3 can support a grid-like firing layout.'
   };
 
   const waveCanvas = root.querySelector('[data-role="wave-canvas"]');
   const waveCtx = waveCanvas.getContext('2d');
-  const waveImage = waveCtx.createImageData(waveCanvas.width, waveCanvas.height);
   const firingCanvas = root.querySelector('[data-role="firing-canvas"]');
   const firingCtx = firingCanvas.getContext('2d');
   const firingImage = firingCtx.createImageData(firingCanvas.width, firingCanvas.height);
@@ -1575,40 +1588,27 @@ $$<p>where $f$ is a thresholding or sharpening nonlinearity. In that sense, the 
 
   function readWaves() {
     return [1, 2, 3].map((index) => ({
-      angle: degToRad(Number(controls[`orientation${index}`].value)),
-      phase: degToRad(Number(controls[`phase${index}`].value)),
-      amplitude: Number(controls[`amplitude${index}`].value)
+      angle: degToRad(Number(controls[`theta${index}`].value))
     }));
   }
 
-  function waveValue(x, y, scale, wave) {
+  function waveValue(x, y, beta, wave) {
     const ux = Math.cos(wave.angle);
     const uy = Math.sin(wave.angle);
-    const projection = (x * ux + y * uy) / scale;
-    return wave.amplitude * Math.cos(2 * Math.PI * projection + wave.phase);
+    return Math.cos(beta * (x * ux + y * uy));
   }
 
-  function interferenceValue(x, y, scale, waves, count) {
+  function interferenceValue(x, y, beta, waves, count) {
     let sum = 0;
-    let amplitudeSum = 0;
     for (let i = 0; i < count; i += 1) {
-      sum += waveValue(x, y, scale, waves[i]);
-      amplitudeSum += waves[i].amplitude;
+      sum += waveValue(x, y, beta, waves[i]);
     }
-    return amplitudeSum > 0 ? sum / amplitudeSum : 0;
+    return sum / count;
   }
 
-  function firingValue(raw, sharpness) {
+  function firingValue(raw) {
     const normalized = clamp01((raw + 1) / 2);
-    return Math.pow(normalized, sharpness);
-  }
-
-  function colorizeWaveField(value) {
-    const t = clamp01((value + 1) / 2);
-    const r = Math.round(36 + 205 * t);
-    const g = Math.round(92 + 120 * (1 - Math.abs(0.5 - t) * 2));
-    const b = Math.round(110 + 120 * (1 - t));
-    return [r, g, b];
+    return Math.pow(normalized, 1.9);
   }
 
   function colorizeFiring(value) {
@@ -1619,10 +1619,10 @@ $$<p>where $f$ is a thresholding or sharpening nonlinearity. In that sense, the 
     return [r, g, b];
   }
 
-  function renderCanvas(ctx, image, sampler, colorizer) {
-    const width = image.width;
-    const height = image.height;
-    const data = image.data;
+  function renderFiringMap(beta, waves, count) {
+    const width = firingImage.width;
+    const height = firingImage.height;
+    const data = firingImage.data;
     const xCenter = width / 2;
     const yCenter = height / 2;
     let ptr = 0;
@@ -1631,8 +1631,9 @@ $$<p>where $f$ is a thresholding or sharpening nonlinearity. In that sense, the 
       for (let px = 0; px < width; px += 1) {
         const x = px - xCenter;
         const y = py - yCenter;
-        const value = sampler(x, y);
-        const [r, g, b] = colorizer(value);
+        const raw = interferenceValue(x, y, beta, waves, count);
+        const value = firingValue(raw);
+        const [r, g, b] = colorizeFiring(value);
         data[ptr] = r;
         data[ptr + 1] = g;
         data[ptr + 2] = b;
@@ -1641,20 +1642,22 @@ $$<p>where $f$ is a thresholding or sharpening nonlinearity. In that sense, the 
       }
     }
 
-    ctx.putImageData(image, 0, 0);
-    ctx.save();
-    ctx.strokeStyle = 'rgba(15, 23, 42, 0.16)';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(width / 2, 0);
-    ctx.lineTo(width / 2, height);
-    ctx.moveTo(0, height / 2);
-    ctx.lineTo(width, height / 2);
-    ctx.stroke();
-    ctx.restore();
+    firingCtx.putImageData(firingImage, 0, 0);
+    firingCtx.save();
+    firingCtx.strokeStyle = 'rgba(15, 23, 42, 0.16)';
+    firingCtx.lineWidth = 1;
+    firingCtx.beginPath();
+    firingCtx.moveTo(width / 2, 0);
+    firingCtx.lineTo(width / 2, height);
+    firingCtx.moveTo(0, height / 2);
+    firingCtx.lineTo(width, height / 2);
+    firingCtx.stroke();
+    firingCtx.restore();
   }
 
-  function drawWavePlot(ctx, canvas, scale, waves, count) {
+  function drawWavePlot(beta, waves, count) {
+    const ctx = waveCtx;
+    const canvas = waveCanvas;
     const width = canvas.width;
     const height = canvas.height;
     const paddingX = 36;
@@ -1683,7 +1686,7 @@ $$<p>where $f$ is a thresholding or sharpening nonlinearity. In that sense, the 
     ctx.fillStyle = 'rgba(19, 21, 24, 0.58)';
     ctx.font = '12px Instrument Sans, Segoe UI, sans-serif';
     ctx.fillText('x', width - paddingX + 8, baselineY + 4);
-    ctx.fillText('y', width / 2 + 6, paddingY - 4);
+    ctx.fillText('wave', width / 2 + 8, paddingY - 4);
 
     function projectX(x) {
       return paddingX + ((x - xMin) / (xMax - xMin)) * plotWidth;
@@ -1715,20 +1718,10 @@ $$<p>where $f$ is a thresholding or sharpening nonlinearity. In that sense, the 
     }
 
     for (let i = 0; i < count; i += 1) {
-      drawCurve(
-        (x) => waveValue(x, 0, scale, waves[i]),
-        waveColors[i],
-        2,
-        0.95
-      );
+      drawCurve((x) => waveValue(x, 0, beta, waves[i]), waveColors[i], 2, 0.95);
     }
 
-    drawCurve(
-      (x) => interferenceValue(x, 0, scale, waves, count),
-      sumColor,
-      3,
-      1
-    );
+    drawCurve((x) => interferenceValue(x, 0, beta, waves, count), sumColor, 3, 1);
 
     const legend = [
       ...Array.from({ length: count }, (_, index) => ({ label: `wave ${index + 1}`, color: waveColors[index] })),
@@ -1747,12 +1740,9 @@ $$<p>where $f$ is a thresholding or sharpening nonlinearity. In that sense, the 
   }
 
   function refreshLabels() {
-    outputs.scale.textContent = controls.scale.value;
-    outputs.sharpness.textContent = Number(controls.sharpness.value).toFixed(1);
+    outputs.beta.textContent = Number(controls.beta.value).toFixed(3);
     [1, 2, 3].forEach((index) => {
-      outputs[`orientation${index}`].textContent = `${controls[`orientation${index}`].value} deg`;
-      outputs[`phase${index}`].textContent = `${controls[`phase${index}`].value} deg`;
-      outputs[`amplitude${index}`].textContent = Number(controls[`amplitude${index}`].value).toFixed(2);
+      outputs[`theta${index}`].textContent = `${controls[`theta${index}`].value} deg`;
     });
   }
 
@@ -1777,18 +1767,11 @@ $$<p>where $f$ is a thresholding or sharpening nonlinearity. In that sense, the 
     refreshLabels();
     refreshStageUI();
 
-    const scale = Number(controls.scale.value);
-    const sharpness = Number(controls.sharpness.value);
+    const beta = Number(controls.beta.value);
     const waves = readWaves();
 
-    drawWavePlot(waveCtx, waveCanvas, scale, waves, activeStage);
-
-    renderCanvas(
-      firingCtx,
-      firingImage,
-      (x, y) => firingValue(interferenceValue(x, y, scale, waves, activeStage), sharpness),
-      colorizeFiring
-    );
+    drawWavePlot(beta, waves, activeStage);
+    renderFiringMap(beta, waves, activeStage);
   }
 
   stageButtons.forEach((button) => {
@@ -1807,15 +1790,17 @@ $$<p>where $f$ is a thresholding or sharpening nonlinearity. In that sense, the 
 </script>
 
 <h2 id="why-this-is-only-a-starting-point">Why this is only a starting point</h2>
-<p>This picture is helpful, but it is incomplete.</p>
+<p>This picture is still incomplete, even in the aligned-direction case.</p>
 <p>Real grid-cell theory quickly brings in questions such as:</p>
 <ul>
+<li>How should the pacemaker itself be modeled?</li>
+<li>How exactly do several direction-tuned oscillators interact?</li>
 <li>Why are multiple modules needed?</li>
 <li>How does path integration update phase over time?</li>
 <li>What dynamical mechanism stabilizes the lattice?</li>
 <li>How does a population of grid cells support decoding?</li>
 </ul>
-<p>Those are the questions I want this column to gradually move toward. For now, the point is narrower: build a manipulable geometric intuition before moving into full coding theory or attractor dynamics.</p>
+<p>Those are the questions I want this column to gradually move toward. For now, the point is narrower: make the one-direction phase-drift logic precise before moving into a full spatial simulation.</p>
 
       </div>
 
@@ -1856,7 +1841,7 @@ $$<p>where $f$ is a thresholding or sharpening nonlinearity. In that sense, the 
   <a
     target="_blank" rel="noopener"
     class="m-1 rounded-md bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral-300 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-    href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fspidermonk7.github.io%2Fgrid-cell-notes%2Fgrid-cell-lattice-intuition%2F&amp;text=Grid&#43;Cell&#43;Notes&#43;01%3A&#43;Lattice&#43;Intuition&#43;from&#43;Three&#43;Plane&#43;Waves"
+    href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fspidermonk7.github.io%2Fgrid-cell-notes%2Fgrid-cell-lattice-intuition%2F&amp;text=Grid&#43;Cell&#43;Notes&#43;01%3A&#43;Oscillatory&#43;Interference&#43;Along&#43;a&#43;Preferred&#43;Direction"
     title="X"
     aria-label="X"
     id="share-link-x"
@@ -1874,7 +1859,7 @@ $$<p>where $f$ is a thresholding or sharpening nonlinearity. In that sense, the 
   <a
     target="_blank" rel="noopener"
     class="m-1 rounded-md bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral-300 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-    href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fspidermonk7.github.io%2Fgrid-cell-notes%2Fgrid-cell-lattice-intuition%2F&amp;t=Grid&#43;Cell&#43;Notes&#43;01%3A&#43;Lattice&#43;Intuition&#43;from&#43;Three&#43;Plane&#43;Waves"
+    href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fspidermonk7.github.io%2Fgrid-cell-notes%2Fgrid-cell-lattice-intuition%2F&amp;t=Grid&#43;Cell&#43;Notes&#43;01%3A&#43;Oscillatory&#43;Interference&#43;Along&#43;a&#43;Preferred&#43;Direction"
     title="Facebook"
     aria-label="Facebook"
     id="share-link-facebook"
@@ -1894,7 +1879,7 @@ $$<p>where $f$ is a thresholding or sharpening nonlinearity. In that sense, the 
   <a
     target="_blank" rel="noopener"
     class="m-1 rounded-md bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral-300 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-    href="mailto:?subject=Grid%20Cell%20Notes%2001%3A%20Lattice%20Intuition%20from%20Three%20Plane%20Waves&amp;body=https%3A%2F%2Fspidermonk7.github.io%2Fgrid-cell-notes%2Fgrid-cell-lattice-intuition%2F"
+    href="mailto:?subject=Grid%20Cell%20Notes%2001%3A%20Oscillatory%20Interference%20Along%20a%20Preferred%20Direction&amp;body=https%3A%2F%2Fspidermonk7.github.io%2Fgrid-cell-notes%2Fgrid-cell-lattice-intuition%2F"
     title="Email"
     aria-label="Email"
     id="share-link-email"
@@ -1912,7 +1897,7 @@ $$<p>where $f$ is a thresholding or sharpening nonlinearity. In that sense, the 
   <a
     target="_blank" rel="noopener"
     class="m-1 rounded-md bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral-300 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-    href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fspidermonk7.github.io%2Fgrid-cell-notes%2Fgrid-cell-lattice-intuition%2F&amp;title=Grid&#43;Cell&#43;Notes&#43;01%3A&#43;Lattice&#43;Intuition&#43;from&#43;Three&#43;Plane&#43;Waves"
+    href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fspidermonk7.github.io%2Fgrid-cell-notes%2Fgrid-cell-lattice-intuition%2F&amp;title=Grid&#43;Cell&#43;Notes&#43;01%3A&#43;Oscillatory&#43;Interference&#43;Along&#43;a&#43;Preferred&#43;Direction"
     title="LinkedIn"
     aria-label="LinkedIn"
     id="share-link-linkedin"
@@ -1930,7 +1915,7 @@ $$<p>where $f$ is a thresholding or sharpening nonlinearity. In that sense, the 
   <a
     target="_blank" rel="noopener"
     class="m-1 rounded-md bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral-300 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-    href="whatsapp://send?text=Grid&#43;Cell&#43;Notes&#43;01%3A&#43;Lattice&#43;Intuition&#43;from&#43;Three&#43;Plane&#43;Waves%20https%3A%2F%2Fspidermonk7.github.io%2Fgrid-cell-notes%2Fgrid-cell-lattice-intuition%2F"
+    href="whatsapp://send?text=Grid&#43;Cell&#43;Notes&#43;01%3A&#43;Oscillatory&#43;Interference&#43;Along&#43;a&#43;Preferred&#43;Direction%20https%3A%2F%2Fspidermonk7.github.io%2Fgrid-cell-notes%2Fgrid-cell-lattice-intuition%2F"
     title="WhatsApp"
     aria-label="WhatsApp"
     id="share-link-whatsapp"

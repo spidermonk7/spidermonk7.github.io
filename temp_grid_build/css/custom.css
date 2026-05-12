@@ -350,6 +350,13 @@ body::before {
   padding: 0 1.25rem 1.25rem;
 }
 
+.gridcell-demo-stage-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.2rem;
+  align-items: start;
+}
+
 .gridcell-demo-visual-block {
   margin-bottom: 1.35rem;
 }
@@ -399,13 +406,9 @@ body::before {
 .gridcell-demo-wave-card label {
   display: grid;
   gap: 0.35rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0;
   font-size: 0.84rem;
   color: var(--ink-soft);
-}
-
-.gridcell-demo-wave-card label:last-child {
-  margin-bottom: 0;
 }
 
 .gridcell-demo-wave-card span {
@@ -446,6 +449,10 @@ body::before {
   }
 
   .gridcell-demo-wave-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gridcell-demo-stage-split {
     grid-template-columns: 1fr;
   }
 }
