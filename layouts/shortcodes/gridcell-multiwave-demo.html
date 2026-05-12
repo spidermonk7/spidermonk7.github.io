@@ -17,8 +17,8 @@
       <output data-role="beta-value">0.140</output>
     </label>
     <label>
-      <span>grid lines</span>
-      <button type="button" class="gridcell-demo-tab" data-role="grid-toggle">Show grid</button>
+      <span>wave grids</span>
+      <button type="button" class="gridcell-demo-tab" data-role="grid-toggle">Fade grids</button>
     </label>
   </div>
 
@@ -105,7 +105,7 @@
   const firingCtx = firingCanvas.getContext('2d');
   const firingImage = firingCtx.createImageData(firingCanvas.width, firingCanvas.height);
   let activeStage = 1;
-  let showGrid = true;
+  let fadeWaveGrids = false;
   const stripeColors = [
     [21, 58, 99],
     [176, 106, 43],
@@ -166,9 +166,10 @@
           const strength = stripeStrength(waveValue(x, y, beta, waves[i]));
           strengths.push(strength);
           if (strength > 0) {
-            r -= stripeColors[i][0] * strength * 0.68;
-            g -= stripeColors[i][1] * strength * 0.68;
-            b -= stripeColors[i][2] * strength * 0.68;
+            const stripeOpacity = fadeWaveGrids ? 0.22 : 0.68;
+            r -= stripeColors[i][0] * strength * stripeOpacity;
+            g -= stripeColors[i][1] * strength * stripeOpacity;
+            b -= stripeColors[i][2] * strength * stripeOpacity;
           }
         }
 
@@ -203,28 +204,26 @@
 
     firingCtx.putImageData(firingImage, 0, 0);
     firingCtx.save();
-    if (showGrid) {
-      firingCtx.strokeStyle = 'rgba(15, 23, 42, 0.07)';
-      firingCtx.lineWidth = 1;
-      firingCtx.beginPath();
-      firingCtx.moveTo(width / 2, 0);
-      firingCtx.lineTo(width / 2, height);
-      firingCtx.moveTo(0, height / 2);
-      firingCtx.lineTo(width, height / 2);
-      firingCtx.stroke();
+    firingCtx.strokeStyle = 'rgba(15, 23, 42, 0.07)';
+    firingCtx.lineWidth = 1;
+    firingCtx.beginPath();
+    firingCtx.moveTo(width / 2, 0);
+    firingCtx.lineTo(width / 2, height);
+    firingCtx.moveTo(0, height / 2);
+    firingCtx.lineTo(width, height / 2);
+    firingCtx.stroke();
 
-      firingCtx.strokeStyle = 'rgba(15, 23, 42, 0.04)';
-      firingCtx.beginPath();
-      for (let step = 1; step < 4; step += 1) {
-        const x = (width / 4) * step;
-        const y = (height / 4) * step;
-        firingCtx.moveTo(x, 0);
-        firingCtx.lineTo(x, height);
-        firingCtx.moveTo(0, y);
-        firingCtx.lineTo(width, y);
-      }
-      firingCtx.stroke();
+    firingCtx.strokeStyle = 'rgba(15, 23, 42, 0.04)';
+    firingCtx.beginPath();
+    for (let step = 1; step < 4; step += 1) {
+      const x = (width / 4) * step;
+      const y = (height / 4) * step;
+      firingCtx.moveTo(x, 0);
+      firingCtx.lineTo(x, height);
+      firingCtx.moveTo(0, y);
+      firingCtx.lineTo(width, y);
     }
+    firingCtx.stroke();
     firingCtx.restore();
   }
 
@@ -334,8 +333,8 @@
     });
 
     stageNote.textContent = stageNotes[activeStage];
-    gridToggle.classList.toggle('is-active', showGrid);
-    gridToggle.textContent = showGrid ? 'Hide grid' : 'Show grid';
+    gridToggle.classList.toggle('is-active', fadeWaveGrids);
+    gridToggle.textContent = fadeWaveGrids ? 'Show grids' : 'Fade grids';
   }
 
   function render() {
@@ -357,7 +356,7 @@
   });
 
   gridToggle.addEventListener('click', () => {
-    showGrid = !showGrid;
+    fadeWaveGrids = !fadeWaveGrids;
     render();
   });
 
