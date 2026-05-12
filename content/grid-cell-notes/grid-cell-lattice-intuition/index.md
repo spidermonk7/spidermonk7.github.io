@@ -80,53 +80,108 @@ $$
 \Delta \Phi_i(t)=\Delta \Phi_i(0)+\beta vt.
 $$
 
-## Re-alignment period
+## Re-alignment: first think with constant speed
 
-Constructive re-alignment happens whenever the phase difference changes by another multiple of $2\pi$. If the speed is constant, then the time between successive re-alignments is
+The next question is: when do the two waves meet again at their peaks?
+
+The clean way to say it is not “when $\Delta\Phi_i(t)=2\pi$”, because the initial relative phase may not be zero. What matters is that the **change** in relative phase reaches another full cycle:
+
+$$
+\Delta\Phi_i(t)-\Delta\Phi_i(0)=2\pi.
+$$
+
+Under the constant-speed assumption,
+
+$$
+\Delta \Phi_i(t)=\Delta \Phi_i(0)+\beta vt,
+$$
+
+so the re-alignment condition becomes
+
+$$
+\beta vt = 2\pi.
+$$
+
+From this, the time between successive peak re-alignments is
 
 $$
 T_i = \frac{2\pi}{\beta v}.
 $$
 
-This is the one place where I would still correct the notation slightly:
+This is the first way to think about the problem:
 
-- If $\Delta \Phi_i$ means the phase difference itself, then it changes with time and should not appear directly in the denominator.
-- The denominator should be the **rate of phase drift**, i.e. $\dot{\Delta \Phi_i}$, equivalently the frequency difference $\omega_i-\omega_0$.
+1. Assume $v$ is constant.
+2. Solve for the time it takes the relative phase to accumulate another $2\pi$.
+3. Convert that time interval into a traveled distance.
 
-So the precise statement is:
-
-$$
-T_i=\frac{2\pi}{\omega_i-\omega_0}
-=\frac{2\pi}{\beta v}.
-$$
-
-So under the aligned-motion assumption, your expression is right after this notation cleanup.
-
-## Spatial spacing
-
-Now the key point is very clean. During one re-alignment period, the animal moves a distance
+In one such period, the animal moves
 
 $$
-d=vT_i.
+d=vT_i=v\frac{2\pi}{\beta v}=\frac{2\pi}{\beta}.
 $$
 
-Substituting the expression for $T_i$ gives
+So under constant speed, the firing spacing is already a constant determined only by $\beta$.
+
+## Re-alignment: now remove the constant-speed assumption
+
+The more interesting question is whether this result depends on $v$ being constant.
+
+It turns out that it does not.
+
+Instead of solving for a fixed period $T_i$, we can directly track accumulated phase drift:
 
 $$
-d=v\frac{2\pi}{\beta v}=\frac{2\pi}{\beta}.
+\frac{d}{dt}\Delta\Phi_i(t)=\beta v(t).
 $$
 
-So in the aligned-direction case, your conclusion is correct:
+Integrating from time $0$ to time $t$ gives
 
-- the firing spacing is a constant
-- this constant is
-  $$
-  d=\frac{2\pi}{\beta}
-  $$
-- it depends only on the cell parameter $\beta$
-- it does not depend on the current speed $v$
+$$
+\Delta\Phi_i(t)-\Delta\Phi_i(0)=\int_0^t \beta v(\tau)\, d\tau.
+$$
 
-This is exactly the clean result you were aiming for.
+If we ask for the next firing event, we impose the same re-alignment condition:
+
+$$
+\Delta\Phi_i(t)-\Delta\Phi_i(0)=2\pi.
+$$
+
+So we obtain
+
+$$
+\int_0^t \beta v(\tau)\, d\tau = 2\pi.
+$$
+
+Pulling $\beta$ out,
+
+$$
+\beta \int_0^t v(\tau)\, d\tau = 2\pi.
+$$
+
+But
+
+$$
+\int_0^t v(\tau)\, d\tau
+$$
+
+is exactly the distance traveled along this direction during that interval. Therefore the firing distance satisfies
+
+$$
+d=\int_0^t v(\tau)\, d\tau=\frac{2\pi}{\beta}.
+$$
+
+This is the more robust formulation:
+
+- it does not require constant speed
+- it only requires that movement stays along the preferred direction
+- it shows directly that the relevant spatial spacing is fixed by $\beta$
+
+So the realignment story can be understood in two equivalent ways:
+
+1. Constant-speed view: solve for the re-alignment period first, then multiply by speed.
+2. Integral view: accumulate phase drift until it reaches $2\pi$, and read off the distance directly.
+
+The second view is the stronger one, because the conclusion survives even when $v(t)$ changes over time.
 
 ## Interpretation
 
@@ -134,12 +189,9 @@ The logic can now be summarized very compactly:
 
 1. The background pacemaker oscillates at $\omega_0$.
 2. Motion along the preferred direction changes the wave frequency to $\omega_0+\beta v$.
-3. That creates a phase drift rate of $\beta v$ relative to the pacemaker.
-4. Re-alignment happens every
-   $$
-   T=\frac{2\pi}{\beta v}.
-   $$
-5. In that time the animal travels
+3. That creates a phase drift rate of $\beta v(t)$ relative to the pacemaker.
+4. Each time the accumulated phase drift reaches another $2\pi$, the peaks re-align.
+5. The traveled distance associated with that re-alignment is
    $$
    d=\frac{2\pi}{\beta}.
    $$
