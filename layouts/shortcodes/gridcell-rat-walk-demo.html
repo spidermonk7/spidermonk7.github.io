@@ -1,7 +1,7 @@
 <div class="gridcell-dynamic-demo">
   <div class="gridcell-dynamic-demo__header">
     <p class="gridcell-dynamic-demo__intro">
-      Click inside the arena, then use <strong>W</strong>, <strong>A</strong>, <strong>S</strong>, <strong>D</strong> to move the rat. The center panel accumulates firing over time, while the right column shows the live theta wave, three direction-tuned waves, and their interference.
+      Click inside the arena and drag with the mouse to move the rat. The center panel fires only when the three direction-tuned waves simultaneously enter a near-peak overlap region, while the right column shows the live theta wave, three direction-tuned waves, and their interference.
     </p>
     <div class="gridcell-dynamic-demo__actions">
       <button type="button" data-role="reset">Reset trail</button>
@@ -13,7 +13,7 @@
       <h4>Rat in 2 x 2 Arena</h4>
       <canvas width="360" height="360" data-role="arena-canvas"></canvas>
       <p class="gridcell-dynamic-demo__caption">
-        The rat moves inside a square world. Its current velocity drives phase accumulation in the directional waves.
+        The rat moves continuously inside a square world. Its instantaneous velocity drives phase accumulation in the directional waves.
       </p>
     </section>
 
@@ -21,7 +21,7 @@
       <h4>Grid Cell Firing</h4>
       <canvas width="360" height="360" data-role="heatmap-canvas"></canvas>
       <p class="gridcell-dynamic-demo__caption">
-        Firing is deposited at the rat's current position and remains in the map until you reset the demo.
+        A firing mark is deposited only when all three directional waves are simultaneously close to their peaks, and remains until you reset the demo.
       </p>
     </section>
 
@@ -63,7 +63,6 @@
   const trail = [];
   const heatSize = 72;
   const heat = new Float32Array(heatSize * heatSize);
-  const keys = new Set();
   const waveAngles = [0, Math.PI / 3, (2 * Math.PI) / 3];
   const waveColors = ['#153a63', '#b06a2b', '#2f6a4f'];
   const state = {
@@ -71,16 +70,20 @@
     y: 1,
     vx: 0,
     vy: 0,
+    targetX: 1,
+    targetY: 1,
+    dragging: false,
     thetaPhase: 0,
     directionalPhases: [0, 0, 0],
     lastTime: null
   };
 
   const settings = {
-    speed: 0.78,
+    speed: 1.28,
     omega0: 5.8,
     beta: 15.4,
-    depositRadius: 3
+    depositRadius: 3,
+    peakThreshold: 0.95
   };
 
   function clamp(value, min, max) {
@@ -100,32 +103,37 @@
     return height - (y / arenaSize) * height;
   }
 
-  function handleKeyDown(event) {
-    const key = event.key.toLowerCase();
-    if (!['w', 'a', 's', 'd'].includes(key)) return;
-    keys.add(key);
-    event.preventDefault();
+  function syncTargetFromEvent(event) {
+    const rect = arenaCanvas.getBoundingClientRect();
+    const localX = clamp((event.clientX - rect.left) / rect.width, 0, 1);
+    const localY = clamp((event.clientY - rect.top) / rect.height, 0, 1);
+    state.targetX = localX * arenaSize;
+    state.targetY = (1 - localY) * arenaSize;
   }
 
-  function handleKeyUp(event) {
-    const key = event.key.toLowerCase();
-    if (!['w', 'a', 's', 'd'].includes(key)) return;
-    keys.delete(key);
-    event.preventDefault();
-  }
+  function updateMotion(dt) {
+    if (!state.dragging) {
+      state.vx = 0;
+      state.vy = 0;
+      return;
+    }
 
-  function readVelocity() {
-    let dx = 0;
-    let dy = 0;
-    if (keys.has('a')) dx -= 1;
-    if (keys.has('d')) dx += 1;
-    if (keys.has('w')) dy += 1;
-    if (keys.has('s')) dy -= 1;
-    const norm = Math.hypot(dx, dy) || 1;
-    return {
-      x: (dx / norm) * settings.speed,
-      y: (dy / norm) * settings.speed
-    };
+    const dx = state.targetX - state.x;
+    const dy = state.targetY - state.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance < 1e-4) {
+      state.vx = 0;
+      state.vy = 0;
+      return;
+    }
+
+    const stepSize = Math.min(distance, settings.speed * dt);
+    const ux = dx / distance;
+    const uy = dy / distance;
+    state.vx = ux * (stepSize / Math.max(dt, 1e-6));
+    state.vy = uy * (stepSize / Math.max(dt, 1e-6));
+    state.x = clamp(state.x + ux * stepSize, 0, arenaSize);
+    state.y = clamp(state.y + uy * stepSize, 0, arenaSize);
   }
 
   function depositHeat(x, y, amount) {
@@ -145,20 +153,24 @@
     }
   }
 
+  function directionalWavePeaks() {
+    return state.directionalPhases.map((phase) => 0.5 * (1 + Math.cos(phase)));
+  }
+
   function currentWaveSignals() {
     const theta = Math.sin(state.thetaPhase);
+    const peaks = directionalWavePeaks();
     const waves = state.directionalPhases.map((phase) => Math.sin(phase));
     const raw = (waves[0] + waves[1] + waves[2] + 0.75 * theta) / 3.75;
-    const firing = Math.pow(clamp((raw - 0.18) / 0.82, 0, 1), 2.4);
-    return { theta, waves, raw, firing };
+    const overlap = Math.min(peaks[0], peaks[1], peaks[2]);
+    const firing = overlap >= settings.peakThreshold
+      ? Math.pow((overlap - settings.peakThreshold) / (1 - settings.peakThreshold), 0.45)
+      : 0;
+    return { theta, waves, raw, firing, overlap };
   }
 
   function step(dt) {
-    const velocity = readVelocity();
-    state.vx = velocity.x;
-    state.vy = velocity.y;
-    state.x = clamp(state.x + state.vx * dt, 0, arenaSize);
-    state.y = clamp(state.y + state.vy * dt, 0, arenaSize);
+    updateMotion(dt);
     state.thetaPhase += settings.omega0 * dt;
 
     for (let i = 0; i < waveAngles.length; i += 1) {
@@ -169,7 +181,7 @@
     }
 
     const { firing } = currentWaveSignals();
-    depositHeat(state.x, state.y, firing * 0.22);
+    depositHeat(state.x, state.y, firing * 0.32);
 
     trail.push({ x: state.x, y: state.y });
     if (trail.length > 260) trail.shift();
@@ -225,6 +237,15 @@
     arenaCtx.beginPath();
     arenaCtx.arc(ratX, ratY, 8, 0, Math.PI * 2);
     arenaCtx.fill();
+
+    if (state.dragging) {
+      arenaCtx.strokeStyle = 'rgba(21, 58, 99, 0.35)';
+      arenaCtx.lineWidth = 1.5;
+      arenaCtx.beginPath();
+      arenaCtx.moveTo(ratX, ratY);
+      arenaCtx.lineTo(toPixelX(state.targetX, width), toPixelY(state.targetY, height));
+      arenaCtx.stroke();
+    }
 
     arenaCtx.fillStyle = 'rgba(19, 21, 24, 0.64)';
     arenaCtx.font = '12px Instrument Sans, Segoe UI, sans-serif';
@@ -356,12 +377,32 @@
   }
 
   resetButton.addEventListener('click', clearHeat);
-  arenaCanvas.addEventListener('pointerdown', () => arenaCanvas.focus());
+  arenaCanvas.addEventListener('pointerdown', (event) => {
+    state.dragging = true;
+    syncTargetFromEvent(event);
+    arenaCanvas.setPointerCapture(event.pointerId);
+  });
+  arenaCanvas.addEventListener('pointermove', (event) => {
+    if (!state.dragging) return;
+    syncTargetFromEvent(event);
+  });
+  arenaCanvas.addEventListener('pointerup', (event) => {
+    state.dragging = false;
+    state.targetX = state.x;
+    state.targetY = state.y;
+    arenaCanvas.releasePointerCapture(event.pointerId);
+  });
+  arenaCanvas.addEventListener('pointercancel', () => {
+    state.dragging = false;
+    state.targetX = state.x;
+    state.targetY = state.y;
+  });
+  arenaCanvas.addEventListener('pointerleave', () => {
+    state.dragging = false;
+    state.targetX = state.x;
+    state.targetY = state.y;
+  });
   arenaCanvas.setAttribute('tabindex', '0');
-  arenaCanvas.addEventListener('keydown', handleKeyDown);
-  arenaCanvas.addEventListener('keyup', handleKeyUp);
-  window.addEventListener('keydown', handleKeyDown);
-  window.addEventListener('keyup', handleKeyUp);
 
   clearHeat();
   window.requestAnimationFrame(renderFrame);
