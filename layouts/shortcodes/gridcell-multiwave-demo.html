@@ -16,6 +16,10 @@
       <input type="range" min="0.06" max="0.28" value="0.14" step="0.005" data-role="beta">
       <output data-role="beta-value">0.140</output>
     </label>
+    <label>
+      <span>grid lines</span>
+      <button type="button" class="gridcell-demo-tab" data-role="grid-toggle">Show grid</button>
+    </label>
   </div>
 
   <div class="gridcell-demo-wave-grid">
@@ -80,6 +84,7 @@
     theta2: root.querySelector('[data-role="theta2"]'),
     theta3: root.querySelector('[data-role="theta3"]')
   };
+  const gridToggle = root.querySelector('[data-role="grid-toggle"]');
 
   const outputs = {
     beta: root.querySelector('[data-role="beta-value"]'),
@@ -100,6 +105,7 @@
   const firingCtx = firingCanvas.getContext('2d');
   const firingImage = firingCtx.createImageData(firingCanvas.width, firingCanvas.height);
   let activeStage = 1;
+  let showGrid = true;
   const stripeColors = [
     [21, 58, 99],
     [176, 106, 43],
@@ -197,26 +203,28 @@
 
     firingCtx.putImageData(firingImage, 0, 0);
     firingCtx.save();
-    firingCtx.strokeStyle = 'rgba(15, 23, 42, 0.07)';
-    firingCtx.lineWidth = 1;
-    firingCtx.beginPath();
-    firingCtx.moveTo(width / 2, 0);
-    firingCtx.lineTo(width / 2, height);
-    firingCtx.moveTo(0, height / 2);
-    firingCtx.lineTo(width, height / 2);
-    firingCtx.stroke();
+    if (showGrid) {
+      firingCtx.strokeStyle = 'rgba(15, 23, 42, 0.07)';
+      firingCtx.lineWidth = 1;
+      firingCtx.beginPath();
+      firingCtx.moveTo(width / 2, 0);
+      firingCtx.lineTo(width / 2, height);
+      firingCtx.moveTo(0, height / 2);
+      firingCtx.lineTo(width, height / 2);
+      firingCtx.stroke();
 
-    firingCtx.strokeStyle = 'rgba(15, 23, 42, 0.04)';
-    firingCtx.beginPath();
-    for (let step = 1; step < 4; step += 1) {
-      const x = (width / 4) * step;
-      const y = (height / 4) * step;
-      firingCtx.moveTo(x, 0);
-      firingCtx.lineTo(x, height);
-      firingCtx.moveTo(0, y);
-      firingCtx.lineTo(width, y);
+      firingCtx.strokeStyle = 'rgba(15, 23, 42, 0.04)';
+      firingCtx.beginPath();
+      for (let step = 1; step < 4; step += 1) {
+        const x = (width / 4) * step;
+        const y = (height / 4) * step;
+        firingCtx.moveTo(x, 0);
+        firingCtx.lineTo(x, height);
+        firingCtx.moveTo(0, y);
+        firingCtx.lineTo(width, y);
+      }
+      firingCtx.stroke();
     }
-    firingCtx.stroke();
     firingCtx.restore();
   }
 
@@ -326,6 +334,8 @@
     });
 
     stageNote.textContent = stageNotes[activeStage];
+    gridToggle.classList.toggle('is-active', showGrid);
+    gridToggle.textContent = showGrid ? 'Hide grid' : 'Show grid';
   }
 
   function render() {
@@ -344,6 +354,11 @@
       activeStage = Number(button.dataset.stage);
       render();
     });
+  });
+
+  gridToggle.addEventListener('click', () => {
+    showGrid = !showGrid;
+    render();
   });
 
   Object.values(controls).forEach((input) => {
