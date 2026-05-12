@@ -17,6 +17,6 @@ sections:
           - publication
     design:
       css_class: entry-list
-      view: article-grid
+      view: publication-list
       columns: 1
 ---
