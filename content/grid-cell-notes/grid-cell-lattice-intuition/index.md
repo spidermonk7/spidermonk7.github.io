@@ -1,8 +1,8 @@
 ---
-title: "Grid Cell Notes 01: Oscillatory Interference, Phase Drift, and Grid Spacing"
+title: "Grid Cell Notes 01: Oscillatory Interference Along a Preferred Direction"
 date: 2026-05-12
 math: true
-summary: "A first note on oscillatory interference notation, phase drift relative to a pacemaker, and why the spatial scale can become a cell-specific constant."
+summary: "A first note on oscillatory interference when motion is aligned with a wave's preferred direction, and why the resulting firing spacing becomes a cell-specific constant."
 tags:
   - Grid Cell
   - Computational Neuroscience
@@ -13,7 +13,7 @@ authors:
 
 This column is meant to be a running notebook. I do not want it to be limited to prose. For grid cells, intuition often becomes much clearer when formulas and visual structure are placed side by side, and even clearer when some parameters can be manipulated directly.
 
-This first note starts from a more specific oscillatory-interference hypothesis: each direction-tuned wave is compared against a background pacemaker, and motion changes the frequency of the direction-tuned wave. That frequency shift produces a time-varying phase difference, and the repeated realignment of phases gives a spatial firing scale.
+This first note focuses on the simplest case of the oscillatory-interference picture: the animal moves along the preferred direction of one wave, that wave changes frequency relative to a background pacemaker, and the drifting phase difference generates a fixed firing spacing.
 
 ## Symbol setup
 
@@ -23,28 +23,16 @@ To keep the notation fixed, I will use:
 - $\Phi_0$: the phase of the background pacemaker in the brain
 - $\Phi_i$: the phase of wave $i$
 - $\omega_0$: the baseline angular frequency of the pacemaker
-- $\beta$: the gain that converts velocity projection into frequency shift
+- $\beta$: the gain that converts motion into frequency shift
 - $v(t)$: the animal's instantaneous speed
 
-If the animal moves with heading $\psi(t)$, then the velocity component projected onto wave $i$ is proportional to
+In this note, I only consider the case where the animal is moving exactly along the preferred direction of wave $i$. Under that assumption, the frequency of the wave changes according to
 
 $$
-v(t)\cos(\psi(t)-\theta_i).
+\omega_i(t)=\omega_0+\beta v(t).
 $$
 
-So a more precise version of the frequency rule is
-
-$$
-\omega_i(t) = \omega_0 + \beta\, v(t)\cos(\psi(t)-\theta_i).
-$$
-
-If I specialize to motion along the preferred direction of wave 1, then $\psi(t)=\theta_1$, so for that wave:
-
-$$
-\omega_1(t) = \omega_0 + \beta\, v(t).
-$$
-
-This is the cleanest case, and it matches the intuition you were aiming at.
+So the directional dependence is absorbed into the assumption itself: I am already on the preferred axis of this wave.
 
 ## Phase drift relative to the pacemaker
 
@@ -63,26 +51,26 @@ $$
 Therefore,
 
 $$
-\frac{d}{dt}\Delta \Phi_i(t)=\beta\, v(t)\cos(\psi(t)-\theta_i).
+\frac{d}{dt}\Delta \Phi_i(t)=\beta\, v(t).
 $$
 
 So your basic intuition is correct: once movement changes the frequency of wave $i$, the phase difference $\Phi_i-\Phi_0$ is no longer fixed and starts drifting over time.
 
-For constant speed and constant heading, this becomes
+If the speed is constant, this becomes
 
 $$
-\Delta \Phi_i(t)=\Delta \Phi_i(0)+\beta\, v\cos(\psi-\theta_i)t.
+\Delta \Phi_i(t)=\Delta \Phi_i(0)+\beta vt.
 $$
 
 ## Re-alignment period
 
-Constructive re-alignment happens whenever the phase difference changes by another multiple of $2\pi$. If speed and heading are constant, then the time between successive re-alignments is
+Constructive re-alignment happens whenever the phase difference changes by another multiple of $2\pi$. If the speed is constant, then the time between successive re-alignments is
 
 $$
-T_i = \frac{2\pi}{\beta\, v\cos(\psi-\theta_i)}.
+T_i = \frac{2\pi}{\beta v}.
 $$
 
-Here I would slightly correct your notation:
+This is the one place where I would still correct the notation slightly:
 
 - If $\Delta \Phi_i$ means the phase difference itself, then it changes with time and should not appear directly in the denominator.
 - The denominator should be the **rate of phase drift**, i.e. $\dot{\Delta \Phi_i}$, equivalently the frequency difference $\omega_i-\omega_0$.
@@ -91,63 +79,58 @@ So the precise statement is:
 
 $$
 T_i=\frac{2\pi}{\omega_i-\omega_0}
-=\frac{2\pi}{\beta\, v\cos(\psi-\theta_i)}.
+=\frac{2\pi}{\beta v}.
 $$
 
-This part of your reasoning is essentially right once that notation is cleaned up.
+So under the aligned-motion assumption, your expression is right after this notation cleanup.
 
-## Spatial spacing: one important distinction
+## Spatial spacing
 
-This is the place where I would make the biggest correction.
-
-If you ask for the **distance traveled by the animal along its actual trajectory** between two re-alignments, then
+Now the key point is very clean. During one re-alignment period, the animal moves a distance
 
 $$
-d_{\text{traj},i}=vT_i=\frac{2\pi}{\beta\cos(\psi-\theta_i)}.
+d=vT_i.
 $$
 
-This is **not** generally a constant. It depends on the angle between the movement direction and the preferred direction of the wave.
-
-But if you ask for the **projected displacement along the preferred axis of wave $i$**, then
+Substituting the expression for $T_i$ gives
 
 $$
-d_{\parallel,i}=v\cos(\psi-\theta_i)\,T_i
-=v\cos(\psi-\theta_i)\frac{2\pi}{\beta\, v\cos(\psi-\theta_i)}
-=\frac{2\pi}{\beta}.
+d=v\frac{2\pi}{\beta v}=\frac{2\pi}{\beta}.
 $$
 
-This quantity is indeed a constant, determined only by $\beta$.
+So in the aligned-direction case, your conclusion is correct:
 
-So your final statement is correct in a slightly more precise form:
+- the firing spacing is a constant
+- this constant is
+  $$
+  d=\frac{2\pi}{\beta}
+  $$
+- it depends only on the cell parameter $\beta$
+- it does not depend on the current speed $v$
 
-- $2\pi/\beta$ is the spacing measured along the wave's preferred axis
-- it is not, in general, the distance traveled along an arbitrary trajectory
-- if the animal moves exactly along the preferred direction, then the two notions coincide
+This is exactly the clean result you were aiming for.
 
-That distinction is important, because it is exactly what lets the same mechanism create direction-dependent stripe periodicity that later combines into a 2D grid pattern.
+## Interpretation
 
-## From one wave to grid-cell firing
+The logic can now be summarized very compactly:
 
-For one wave alone, repeated phase realignment gives a direction-dependent stripe-like firing pattern.
+1. The background pacemaker oscillates at $\omega_0$.
+2. Motion along the preferred direction changes the wave frequency to $\omega_0+\beta v$.
+3. That creates a phase drift rate of $\beta v$ relative to the pacemaker.
+4. Re-alignment happens every
+   $$
+   T=\frac{2\pi}{\beta v}.
+   $$
+5. In that time the animal travels
+   $$
+   d=\frac{2\pi}{\beta}.
+   $$
 
-If I write the wave activity abstractly as
-
-$$
-w_i(x)=\cos\!\big(k_i^\top x+\phi_i\big),
-$$
-
-then one wave gives only one family of stripes. Two waves introduce interference between stripe families. Three waves with different preferred directions make it possible for repeated constructive overlap to localize into grid-like firing peaks.
-
-So the conceptual progression is:
-
-1. Motion changes oscillator frequency through velocity projection.
-2. Frequency mismatch with the pacemaker creates phase drift.
-3. Repeated phase realignment sets a spatial scale.
-4. One wave gives stripes, while multiple direction-tuned waves can combine into a 2D grid-like firing pattern.
+So one wave already gives a stripe-like periodic firing structure with a spacing fixed by $\beta$. The next conceptual step is then to ask how several direction-tuned waves, each with its own preferred direction, can combine to form a 2D grid-like firing pattern.
 
 ## Interactive sketch
 
-The current demo still uses a simplified geometric wave-superposition picture. I am keeping it for now, because it is useful for intuition about how one wave, two waves, and three waves change the resulting pattern.
+The current demo still uses a simplified geometric wave-superposition picture rather than a full phase-evolution simulation. I am keeping it for now because it is useful for intuition about how one wave, two waves, and three waves change the resulting pattern.
 
 Later, I want to add a more faithful demo: control a moving rat in a 2D scene, update the three direction-tuned waves according to velocity-dependent phase drift, and then simulate the resulting grid-cell firing pattern over the trajectory.
 
@@ -155,15 +138,15 @@ Later, I want to add a more faithful demo: control a moving rat in a 2D scene, u
 
 ## Why this is only a starting point
 
-This picture is still incomplete.
+This picture is still incomplete, even in the aligned-direction case.
 
 Real grid-cell theory quickly brings in questions such as:
 
 - How should the pacemaker itself be modeled?
-- How exactly do three or more direction-tuned oscillators interact?
+- How exactly do several direction-tuned oscillators interact?
 - Why are multiple modules needed?
 - How does path integration update phase over time?
 - What dynamical mechanism stabilizes the lattice?
 - How does a population of grid cells support decoding?
 
-Those are the questions I want this column to gradually move toward. For now, the point is narrower: make the phase-drift logic precise before moving into a full spatial simulation.
+Those are the questions I want this column to gradually move toward. For now, the point is narrower: make the one-direction phase-drift logic precise before moving into a full spatial simulation.
