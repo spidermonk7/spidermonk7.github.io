@@ -61,7 +61,7 @@ $$&lt;p&gt;where $f$ is a thresholding or sharpening nonlinearity. In that sense
 &lt;li&gt;Increasing the readout nonlinearity sharpens peaks and makes the firing map look more cell-like.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;interactive-sketch&#34;&gt;Interactive sketch&lt;/h2&gt;
-&lt;p&gt;Use the tabs below to progressively introduce wave 1, wave 2, and wave 3. For each active wave, you can set its orientation, amplitude, and phase relative to theta. The upper region visualizes the raw wave superposition, while the lower region shows the grid cell firing map produced after the firing readout. This keeps the progression from plane waves to firing explicit.&lt;/p&gt;
+&lt;p&gt;Use the tabs below to progressively introduce wave 1, wave 2, and wave 3. For each active wave, you can set its orientation, amplitude, and phase relative to theta. The upper region now shows a 1D wave plot on Cartesian axes, including the active component waves and their superposition, while the lower region shows the 2D grid cell firing map produced after the firing readout. This keeps the progression from plane waves to firing explicit.&lt;/p&gt;
 &lt;div class=&#34;gridcell-demo&#34;&gt;
   &lt;div class=&#34;gridcell-demo-intro&#34;&gt;
     &lt;div class=&#34;gridcell-demo-tabs&#34; role=&#34;tablist&#34; aria-label=&#34;Wave introduction stages&#34;&gt;
@@ -151,7 +151,7 @@ $$&lt;p&gt;where $f$ is a thresholding or sharpening nonlinearity. In that sense
       &lt;h4&gt;Region 1: wave superposition&lt;/h4&gt;
       &lt;canvas width=&#34;520&#34; height=&#34;320&#34; data-role=&#34;wave-canvas&#34;&gt;&lt;/canvas&gt;
       &lt;div class=&#34;gridcell-demo-caption&#34;&gt;
-        This panel shows the raw superposed wave field after introducing only the waves active in the current stage.
+        This panel shows a 1D spatial slice: the active plane waves and their summed superposition on Cartesian axes.
       &lt;/div&gt;
     &lt;/div&gt;
     &lt;div class=&#34;gridcell-demo-visual-block&#34;&gt;
@@ -304,6 +304,98 @@ $$&lt;p&gt;where $f$ is a thresholding or sharpening nonlinearity. In that sense
     ctx.restore();
   }
 
+  function drawWavePlot(ctx, canvas, scale, waves, count) {
+    const width = canvas.width;
+    const height = canvas.height;
+    const paddingX = 36;
+    const paddingY = 28;
+    const plotWidth = width - paddingX * 2;
+    const plotHeight = height - paddingY * 2;
+    const baselineY = paddingY + plotHeight / 2;
+    const xMin = -120;
+    const xMax = 120;
+    const waveColors = [&#39;#153a63&#39;, &#39;#b06a2b&#39;, &#39;#2f6a4f&#39;];
+    const sumColor = &#39;#8f1d1d&#39;;
+
+    ctx.clearRect(0, 0, width, height);
+    ctx.fillStyle = &#39;#f9f6f0&#39;;
+    ctx.fillRect(0, 0, width, height);
+
+    ctx.strokeStyle = &#39;rgba(19, 21, 24, 0.12)&#39;;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(paddingX, baselineY);
+    ctx.lineTo(width - paddingX, baselineY);
+    ctx.moveTo(width / 2, paddingY);
+    ctx.lineTo(width / 2, height - paddingY);
+    ctx.stroke();
+
+    ctx.fillStyle = &#39;rgba(19, 21, 24, 0.58)&#39;;
+    ctx.font = &#39;12px Instrument Sans, Segoe UI, sans-serif&#39;;
+    ctx.fillText(&#39;x&#39;, width - paddingX + 8, baselineY + 4);
+    ctx.fillText(&#39;y&#39;, width / 2 + 6, paddingY - 4);
+
+    function projectX(x) {
+      return paddingX + ((x - xMin) / (xMax - xMin)) * plotWidth;
+    }
+
+    function projectY(v) {
+      return baselineY - v * (plotHeight * 0.36);
+    }
+
+    function drawCurve(sampleFn, color, lineWidth, alpha) {
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = lineWidth;
+      ctx.globalAlpha = alpha;
+      ctx.beginPath();
+      for (let i = 0; i &lt;= 240; i += 1) {
+        const x = xMin + (i / 240) * (xMax - xMin);
+        const y = sampleFn(x);
+        const px = projectX(x);
+        const py = projectY(y);
+        if (i === 0) {
+          ctx.moveTo(px, py);
+        } else {
+          ctx.lineTo(px, py);
+        }
+      }
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    for (let i = 0; i &lt; count; i += 1) {
+      drawCurve(
+        (x) =&gt; waveValue(x, 0, scale, waves[i]),
+        waveColors[i],
+        2,
+        0.95
+      );
+    }
+
+    drawCurve(
+      (x) =&gt; interferenceValue(x, 0, scale, waves, count),
+      sumColor,
+      3,
+      1
+    );
+
+    const legend = [
+      ...Array.from({ length: count }, (_, index) =&gt; ({ label: `wave ${index + 1}`, color: waveColors[index] })),
+      { label: &#39;sum&#39;, color: sumColor }
+    ];
+    let legendX = paddingX;
+    const legendY = height - 10;
+    ctx.font = &#39;12px Instrument Sans, Segoe UI, sans-serif&#39;;
+    legend.forEach((item) =&gt; {
+      ctx.fillStyle = item.color;
+      ctx.fillRect(legendX, legendY - 10, 14, 3);
+      ctx.fillStyle = &#39;rgba(19, 21, 24, 0.68)&#39;;
+      ctx.fillText(item.label, legendX + 20, legendY - 6);
+      legendX += 68;
+    });
+  }
+
   function refreshLabels() {
     outputs.scale.textContent = controls.scale.value;
     outputs.sharpness.textContent = Number(controls.sharpness.value).toFixed(1);
@@ -339,12 +431,7 @@ $$&lt;p&gt;where $f$ is a thresholding or sharpening nonlinearity. In that sense
     const sharpness = Number(controls.sharpness.value);
     const waves = readWaves();
 
-    renderCanvas(
-      waveCtx,
-      waveImage,
-      (x, y) =&gt; interferenceValue(x, y, scale, waves, activeStage),
-      colorizeWaveField
-    );
+    drawWavePlot(waveCtx, waveCanvas, scale, waves, activeStage);
 
     renderCanvas(
       firingCtx,

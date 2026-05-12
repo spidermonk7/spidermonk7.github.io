@@ -73,7 +73,7 @@ The main qualitative effects are:
 
 ## Interactive sketch
 
-Use the tabs below to progressively introduce wave 1, wave 2, and wave 3. For each active wave, you can set its orientation, amplitude, and phase relative to theta. The upper region visualizes the raw wave superposition, while the lower region shows the grid cell firing map produced after the firing readout. This keeps the progression from plane waves to firing explicit.
+Use the tabs below to progressively introduce wave 1, wave 2, and wave 3. For each active wave, you can set its orientation, amplitude, and phase relative to theta. The upper region now shows a 1D wave plot on Cartesian axes, including the active component waves and their superposition, while the lower region shows the 2D grid cell firing map produced after the firing readout. This keeps the progression from plane waves to firing explicit.
 
 {{< gridcell-lattice-demo >}}
 
