@@ -104,8 +104,295 @@ $$
 &lt;/ol&gt;
 &lt;p&gt;So one wave already gives a stripe-like periodic firing structure with a spacing fixed by $\beta$. The next conceptual step is then to ask how several direction-tuned waves, each with its own preferred direction, can combine to form a 2D grid-like firing pattern.&lt;/p&gt;
 &lt;h2 id=&#34;interactive-sketch&#34;&gt;Interactive sketch&lt;/h2&gt;
-&lt;p&gt;The current demo still uses a simplified geometric wave-superposition picture rather than a full phase-evolution simulation. I am keeping it for now because it is useful for intuition about how one wave, two waves, and three waves change the resulting pattern.&lt;/p&gt;
-&lt;p&gt;Later, I want to add a more faithful demo: control a moving rat in a 2D scene, update the three direction-tuned waves according to velocity-dependent phase drift, and then simulate the resulting grid-cell firing pattern over the trajectory.&lt;/p&gt;
+&lt;p&gt;The demo for this note is intentionally restricted to the one-wave case. It keeps only one preferred direction and assumes the movement direction is parallel to it, matching the assumptions of the derivation above.&lt;/p&gt;
+&lt;div class=&#34;gridcell-demo&#34;&gt;
+  &lt;div class=&#34;gridcell-demo-intro&#34;&gt;
+    &lt;p class=&#34;gridcell-demo-stage-note&#34;&gt;
+      This demo keeps only one wave, and assumes the movement direction is parallel to that wave&#39;s preferred direction.
+    &lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&#34;gridcell-demo-controls&#34;&gt;
+    &lt;label&gt;
+      &lt;span&gt;beta&lt;/span&gt;
+      &lt;input type=&#34;range&#34; min=&#34;0.06&#34; max=&#34;0.28&#34; value=&#34;0.14&#34; step=&#34;0.005&#34; data-role=&#34;beta&#34;&gt;
+      &lt;output data-role=&#34;beta-value&#34;&gt;0.140&lt;/output&gt;
+    &lt;/label&gt;
+    &lt;label&gt;
+      &lt;span&gt;theta_1&lt;/span&gt;
+      &lt;input type=&#34;range&#34; min=&#34;0&#34; max=&#34;180&#34; value=&#34;0&#34; step=&#34;1&#34; data-role=&#34;theta1&#34;&gt;
+      &lt;output data-role=&#34;theta1-value&#34;&gt;0 deg&lt;/output&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&#34;gridcell-demo-stage gridcell-demo-stage-split&#34;&gt;
+    &lt;div class=&#34;gridcell-demo-visual-block&#34;&gt;
+      &lt;h4&gt;Wave&lt;/h4&gt;
+      &lt;canvas width=&#34;520&#34; height=&#34;320&#34; data-role=&#34;wave-canvas&#34;&gt;&lt;/canvas&gt;
+      &lt;div class=&#34;gridcell-demo-caption&#34;&gt;
+        A single oscillatory component along the preferred direction.
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;gridcell-demo-visual-block&#34;&gt;
+      &lt;h4&gt;Grid Cell Firing&lt;/h4&gt;
+      &lt;canvas width=&#34;520&#34; height=&#34;520&#34; data-role=&#34;firing-canvas&#34;&gt;&lt;/canvas&gt;
+      &lt;div class=&#34;gridcell-demo-caption&#34;&gt;
+        With only one wave, the firing pattern is a stripe-like grating rather than a full 2D hexagonal grid.
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(() =&gt; {
+  const root = document.currentScript.previousElementSibling;
+  if (!root || !root.classList.contains(&#39;gridcell-demo&#39;)) return;
+
+  const controls = {
+    beta: root.querySelector(&#39;[data-role=&#34;beta&#34;]&#39;),
+    theta1: root.querySelector(&#39;[data-role=&#34;theta1&#34;]&#39;)
+  };
+
+  const outputs = {
+    beta: root.querySelector(&#39;[data-role=&#34;beta-value&#34;]&#39;),
+    theta1: root.querySelector(&#39;[data-role=&#34;theta1-value&#34;]&#39;)
+  };
+
+  const waveCanvas = root.querySelector(&#39;[data-role=&#34;wave-canvas&#34;]&#39;);
+  const waveCtx = waveCanvas.getContext(&#39;2d&#39;);
+  const firingCanvas = root.querySelector(&#39;[data-role=&#34;firing-canvas&#34;]&#39;);
+  const firingCtx = firingCanvas.getContext(&#39;2d&#39;);
+  const firingImage = firingCtx.createImageData(firingCanvas.width, firingCanvas.height);
+
+  function clamp01(x) {
+    return Math.max(0, Math.min(1, x));
+  }
+
+  function degToRad(deg) {
+    return deg * Math.PI / 180;
+  }
+
+  function waveValue(x, y, beta, theta) {
+    const ux = Math.cos(theta);
+    const uy = Math.sin(theta);
+    return Math.cos(beta * (x * ux + y * uy));
+  }
+
+  function firingValue(raw) {
+    const normalized = clamp01((raw + 1) / 2);
+    return Math.pow(normalized, 1.9);
+  }
+
+  function colorizeFiring(value) {
+    const t = clamp01(value);
+    const r = Math.round(247 - 182 * t);
+    const g = Math.round(242 - 132 * t);
+    const b = Math.round(231 - 24 * t);
+    return [r, g, b];
+  }
+
+  function renderFiringMap(beta, theta) {
+    const width = firingImage.width;
+    const height = firingImage.height;
+    const data = firingImage.data;
+    const xCenter = width / 2;
+    const yCenter = height / 2;
+    let ptr = 0;
+
+    for (let py = 0; py &lt; height; py += 1) {
+      for (let px = 0; px &lt; width; px += 1) {
+        const x = px - xCenter;
+        const y = py - yCenter;
+        const raw = waveValue(x, y, beta, theta);
+        const value = firingValue(raw);
+        const [r, g, b] = colorizeFiring(value);
+        data[ptr] = r;
+        data[ptr + 1] = g;
+        data[ptr + 2] = b;
+        data[ptr + 3] = 255;
+        ptr += 4;
+      }
+    }
+
+    firingCtx.putImageData(firingImage, 0, 0);
+    firingCtx.save();
+    firingCtx.strokeStyle = &#39;rgba(15, 23, 42, 0.16)&#39;;
+    firingCtx.lineWidth = 1;
+    firingCtx.beginPath();
+    firingCtx.moveTo(width / 2, 0);
+    firingCtx.lineTo(width / 2, height);
+    firingCtx.moveTo(0, height / 2);
+    firingCtx.lineTo(width, height / 2);
+    firingCtx.stroke();
+    firingCtx.restore();
+  }
+
+  function drawWavePlot(beta, theta) {
+    const width = waveCanvas.width;
+    const height = waveCanvas.height;
+    const paddingX = 36;
+    const paddingY = 28;
+    const plotWidth = width - paddingX * 2;
+    const plotHeight = height - paddingY * 2;
+    const baselineY = paddingY + plotHeight / 2;
+    const xMin = -120;
+    const xMax = 120;
+
+    waveCtx.clearRect(0, 0, width, height);
+    waveCtx.fillStyle = &#39;#f9f6f0&#39;;
+    waveCtx.fillRect(0, 0, width, height);
+
+    waveCtx.strokeStyle = &#39;rgba(19, 21, 24, 0.12)&#39;;
+    waveCtx.lineWidth = 1;
+    waveCtx.beginPath();
+    waveCtx.moveTo(paddingX, baselineY);
+    waveCtx.lineTo(width - paddingX, baselineY);
+    waveCtx.moveTo(width / 2, paddingY);
+    waveCtx.lineTo(width / 2, height - paddingY);
+    waveCtx.stroke();
+
+    waveCtx.fillStyle = &#39;rgba(19, 21, 24, 0.58)&#39;;
+    waveCtx.font = &#39;12px Instrument Sans, Segoe UI, sans-serif&#39;;
+    waveCtx.fillText(&#39;x&#39;, width - paddingX + 8, baselineY + 4);
+    waveCtx.fillText(&#39;wave&#39;, width / 2 + 8, paddingY - 4);
+
+    function projectX(x) {
+      return paddingX + ((x - xMin) / (xMax - xMin)) * plotWidth;
+    }
+
+    function projectY(v) {
+      return baselineY - v * (plotHeight * 0.36);
+    }
+
+    waveCtx.save();
+    waveCtx.strokeStyle = &#39;#153a63&#39;;
+    waveCtx.lineWidth = 3;
+    waveCtx.beginPath();
+    for (let i = 0; i &lt;= 240; i += 1) {
+      const x = xMin + (i / 240) * (xMax - xMin);
+      const y = waveValue(x, 0, beta, theta);
+      const px = projectX(x);
+      const py = projectY(y);
+      if (i === 0) {
+        waveCtx.moveTo(px, py);
+      } else {
+        waveCtx.lineTo(px, py);
+      }
+    }
+    waveCtx.stroke();
+    waveCtx.restore();
+  }
+
+  function render() {
+    const beta = Number(controls.beta.value);
+    const theta = degToRad(Number(controls.theta1.value));
+
+    outputs.beta.textContent = beta.toFixed(3);
+    outputs.theta1.textContent = `${controls.theta1.value} deg`;
+
+    drawWavePlot(beta, theta);
+    renderFiringMap(beta, theta);
+  }
+
+  Object.values(controls).forEach((input) =&gt; {
+    input.addEventListener(&#39;input&#39;, render);
+  });
+
+  render();
+})();
+&lt;/script&gt;
+
+&lt;p&gt;Later, I want to add a more faithful demo: control a moving rat in a 2D scene, update several direction-tuned waves according to velocity-dependent phase drift, and then simulate the resulting grid-cell firing pattern over the trajectory.&lt;/p&gt;
+&lt;h2 id=&#34;why-this-is-only-a-starting-point&#34;&gt;Why this is only a starting point&lt;/h2&gt;
+&lt;p&gt;This picture is still incomplete, even in the aligned-direction case.&lt;/p&gt;
+&lt;p&gt;Real grid-cell theory quickly brings in questions such as:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;How should the pacemaker itself be modeled?&lt;/li&gt;
+&lt;li&gt;How exactly do several direction-tuned oscillators interact?&lt;/li&gt;
+&lt;li&gt;Why are multiple modules needed?&lt;/li&gt;
+&lt;li&gt;How does path integration update phase over time?&lt;/li&gt;
+&lt;li&gt;What dynamical mechanism stabilizes the lattice?&lt;/li&gt;
+&lt;li&gt;How does a population of grid cells support decoding?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Those are the questions I want this column to gradually move toward. For now, the point is narrower: make the one-direction phase-drift logic precise before moving into a full spatial simulation.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Grid Cell Notes 02: Multiple Waves and Velocity Projection</title>
+      <link>https://spidermonk7.github.io/grid-cell-notes/grid-cell-multiwave-projections/</link>
+      <pubDate>Tue, 12 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://spidermonk7.github.io/grid-cell-notes/grid-cell-multiwave-projections/</guid>
+      <description>&lt;p&gt;In the first note, I only kept the simplest aligned case: one wave, one preferred direction, and motion parallel to that direction. That already gives a clean stripe-like firing periodicity with spacing&lt;/p&gt;
+$$
+d=\frac{2\pi}{\beta}.
+$$&lt;p&gt;Now I want to move one step closer to the full grid-cell picture by introducing multiple waves.&lt;/p&gt;
+&lt;h2 id=&#34;fixed-movement-direction-multiple-preferred-directions&#34;&gt;Fixed movement direction, multiple preferred directions&lt;/h2&gt;
+&lt;p&gt;I now assume:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;the animal moves at constant speed $v$&lt;/li&gt;
+&lt;li&gt;the movement direction is fixed&lt;/li&gt;
+&lt;li&gt;wave $i$ has preferred direction $\theta_i$&lt;/li&gt;
+&lt;li&gt;$\Phi_0$ is still the background pacemaker phase&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The projection of velocity onto wave $i$ is&lt;/p&gt;
+$$
+v\cos\theta_i,
+$$&lt;p&gt;where $\theta_i$ is the angular difference between the fixed movement direction and the preferred direction of wave $i$.&lt;/p&gt;
+&lt;p&gt;So the frequency of wave $i$ becomes&lt;/p&gt;
+$$
+\omega_i=\omega_0+\beta v\cos\theta_i.
+$$&lt;p&gt;The relative phase drift satisfies&lt;/p&gt;
+$$
+\frac{d}{dt}\Delta\Phi_i=\omega_i-\omega_0=\beta v\cos\theta_i.
+$$&lt;p&gt;Therefore, the re-alignment period of wave $i$ is&lt;/p&gt;
+$$
+T_i=\frac{2\pi}{\beta v\cos\theta_i}.
+$$&lt;p&gt;And along the actual movement direction, the spacing associated with wave $i$ is&lt;/p&gt;
+$$
+d_i=vT_i=\frac{2\pi}{\beta\cos\theta_i}.
+$$&lt;p&gt;So once multiple preferred directions are present, the effective spatial periodicity is no longer the same for all waves. It is modulated by the projection factor $\cos\theta_i$.&lt;/p&gt;
+&lt;h2 id=&#34;one-wave&#34;&gt;One wave&lt;/h2&gt;
+&lt;p&gt;With only one wave, the result is still a stripe-like grating. The firing field is periodic in one direction only, so this is not yet a full 2D grid.&lt;/p&gt;
+&lt;h2 id=&#34;two-waves&#34;&gt;Two waves&lt;/h2&gt;
+&lt;p&gt;With two waves, two stripe families interfere.&lt;/p&gt;
+&lt;p&gt;Qualitatively, this gives:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;crossings between the two stripe systems&lt;/li&gt;
+&lt;li&gt;elongated or rhombic interference structure&lt;/li&gt;
+&lt;li&gt;stronger spatial localization than one wave alone&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;But in general, two waves are still not enough to produce the familiar hexagonal grid-cell pattern. The geometry remains too anisotropic.&lt;/p&gt;
+&lt;h2 id=&#34;three-waves&#34;&gt;Three waves&lt;/h2&gt;
+&lt;p&gt;With three waves, the picture changes qualitatively.&lt;/p&gt;
+&lt;p&gt;If the three preferred directions are arranged with roughly symmetric angular offsets, then the stripe families can overlap in a much more balanced way. In that case, constructive interference can recur at localized positions across the plane, producing a grid-like firing layout.&lt;/p&gt;
+&lt;p&gt;This is the core geometric intuition:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;one wave gives one stripe family&lt;/li&gt;
+&lt;li&gt;two waves give crossings and interference structure&lt;/li&gt;
+&lt;li&gt;three appropriately arranged waves can support a 2D grid-like firing pattern&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;a-geometric-superposition-picture&#34;&gt;A geometric superposition picture&lt;/h2&gt;
+&lt;p&gt;A simple geometric way to write the multi-wave field is&lt;/p&gt;
+$$
+w_i(x)=\cos(k_i^\top x+\phi_i),
+$$&lt;p&gt;where the orientation of $k_i$ is tied to $\theta_i$.&lt;/p&gt;
+&lt;p&gt;Then the combined field is&lt;/p&gt;
+$$
+s(x)=\frac{1}{N}\sum_{i=1}^{N} w_i(x),
+$$&lt;p&gt;and the firing map is produced through a readout&lt;/p&gt;
+$$
+g(x)=f(s(x)).
+$$&lt;p&gt;This is still a simplified spatial picture, but it is a useful bridge between the oscillatory phase-drift intuition and the 2D firing pattern we want to understand.&lt;/p&gt;
+&lt;h2 id=&#34;interactive-sketch&#34;&gt;Interactive sketch&lt;/h2&gt;
+&lt;p&gt;The demo below keeps the model at this geometric-superposition level. You can introduce one wave, then two, then three, while adjusting the key parameters:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$\beta$&lt;/li&gt;
+&lt;li&gt;$\theta_1$&lt;/li&gt;
+&lt;li&gt;$\theta_2$&lt;/li&gt;
+&lt;li&gt;$\theta_3$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The left panel shows the active waves and their superposition in a 1D slice. The right panel shows the corresponding 2D firing pattern.&lt;/p&gt;
 &lt;div class=&#34;gridcell-demo&#34;&gt;
   &lt;div class=&#34;gridcell-demo-intro&#34;&gt;
     &lt;div class=&#34;gridcell-demo-tabs&#34; role=&#34;tablist&#34; aria-label=&#34;Wave introduction stages&#34;&gt;
@@ -420,18 +707,15 @@ $$
 })();
 &lt;/script&gt;
 
-&lt;h2 id=&#34;why-this-is-only-a-starting-point&#34;&gt;Why this is only a starting point&lt;/h2&gt;
-&lt;p&gt;This picture is still incomplete, even in the aligned-direction case.&lt;/p&gt;
-&lt;p&gt;Real grid-cell theory quickly brings in questions such as:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;How should the pacemaker itself be modeled?&lt;/li&gt;
-&lt;li&gt;How exactly do several direction-tuned oscillators interact?&lt;/li&gt;
-&lt;li&gt;Why are multiple modules needed?&lt;/li&gt;
-&lt;li&gt;How does path integration update phase over time?&lt;/li&gt;
-&lt;li&gt;What dynamical mechanism stabilizes the lattice?&lt;/li&gt;
-&lt;li&gt;How does a population of grid cells support decoding?&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Those are the questions I want this column to gradually move toward. For now, the point is narrower: make the one-direction phase-drift logic precise before moving into a full spatial simulation.&lt;/p&gt;
+&lt;h2 id=&#34;what-this-note-adds&#34;&gt;What this note adds&lt;/h2&gt;
+&lt;p&gt;Compared with Note 01, the conceptual change is small but important:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Motion is no longer assumed to be aligned with every wave.&lt;/li&gt;
+&lt;li&gt;Each wave sees only the projected component $v\cos\theta_i$.&lt;/li&gt;
+&lt;li&gt;Different waves therefore drift against the pacemaker at different rates.&lt;/li&gt;
+&lt;li&gt;Their combined interference can move from stripes to crossings and eventually to grid-like firing.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The next step after this note is to stop treating the pattern as static geometry and instead directly simulate phase accumulation while a rat moves through space.&lt;/p&gt;
 </description>
     </item>
     
