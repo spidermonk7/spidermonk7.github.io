@@ -15,6 +15,22 @@ This column is meant to be a running notebook. I do not want it to be limited to
 
 This first note focuses on the simplest case of the oscillatory-interference picture: the animal moves along the preferred direction of one wave, that wave changes frequency relative to a background pacemaker, and the drifting phase difference generates a fixed firing spacing.
 
+## Why focus on relative phase
+
+Before writing down formulas, the key intuition is this: in an oscillatory-interference view of grid cells, what matters is not an isolated wave by itself, but how one oscillation lines up against another.
+
+Here the background pacemaker provides one oscillatory reference, and the direction-tuned wave provides another. If their peaks keep overlapping, the interference is strong. If they drift apart, the interference weakens.
+
+So if we assume that a grid cell tends to fire when wave peaks align strongly enough, then the central object to track is not the absolute phase of either oscillation alone, but their **relative phase**.
+
+That is why the quantity
+
+$$
+\Phi_i - \Phi_0
+$$
+
+becomes the natural variable. Once motion changes the frequency of the direction-tuned wave, this relative phase starts to drift. Every time the two waves come back into peak alignment, the interference becomes strong again, and that repeated re-alignment is what sets a spatial firing period.
+
 ## Symbol setup
 
 To keep the notation fixed, I will use:
