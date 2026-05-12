@@ -21,7 +21,7 @@
       <h4>Grid Cell Firing</h4>
       <canvas width="360" height="360" data-role="heatmap-canvas"></canvas>
       <p class="gridcell-dynamic-demo__caption">
-        Firing is deposited at the rat's current position and earlier activity fades gradually, leaving a dynamic heat trace.
+        Firing is deposited at the rat's current position and remains in the map until you reset the demo.
       </p>
     </section>
 
@@ -80,8 +80,7 @@
     speed: 0.42,
     omega0: 5.8,
     beta: 15.4,
-    depositRadius: 3,
-    fadePerSecond: 0.38
+    depositRadius: 3
   };
 
   function clamp(value, min, max) {
@@ -171,11 +170,6 @@
 
     const { firing } = currentWaveSignals();
     depositHeat(state.x, state.y, firing * 0.22);
-
-    const fade = Math.exp(-settings.fadePerSecond * dt);
-    for (let i = 0; i < heat.length; i += 1) {
-      heat[i] *= fade;
-    }
 
     trail.push({ x: state.x, y: state.y });
     if (trail.length > 260) trail.shift();

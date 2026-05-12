@@ -1,5 +1,5 @@
 ---
-title: "demo1"
+title: "Grid Cell Notes 03: Rat Walk Demo in a 2 x 2 Arena"
 date: 2026-05-12
 summary: "A first dynamic demo: steer a rat through a 2x2 arena, watch phase-driven waves evolve, and accumulate a fading grid-cell firing map."
 tags:
@@ -19,6 +19,6 @@ The setup is intentionally simple:
 - the right side shows four moving waves: `theta`, `wave 1`, `wave 2`, `wave 3`
 - the middle panel accumulates the cell's firing as the rat moves
 
-The heatmap keeps earlier firing locations, but gradually fades them, so the spatial pattern can emerge from the trajectory itself rather than from a pre-drawn lattice.
+The heatmap keeps the full firing history until you reset it, so the spatial pattern emerges directly from the trajectory itself rather than from a pre-drawn lattice.
 
 {{< gridcell-rat-walk-demo >}}
