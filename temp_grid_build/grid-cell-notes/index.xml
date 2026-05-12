@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Grid-Cell-Notes | Shaoyang Cui</title>
+    <link>https://spidermonk7.github.io/grid-cell-notes/</link>
+      <atom:link href="https://spidermonk7.github.io/grid-cell-notes/index.xml" rel="self" type="application/rss+xml" />
+    <description>Grid-Cell-Notes</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Tue, 12 May 2026 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://spidermonk7.github.io/media/icon_hu7729264130191091259.png</url>
+      <title>Grid-Cell-Notes</title>
+      <link>https://spidermonk7.github.io/grid-cell-notes/</link>
+    </image>
+    
+    <item>
+      <title>Grid Cell Notes 01: Lattice Intuition from Three Plane Waves</title>
+      <link>https://spidermonk7.github.io/grid-cell-notes/grid-cell-lattice-intuition/</link>
+      <pubDate>Tue, 12 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://spidermonk7.github.io/grid-cell-notes/grid-cell-lattice-intuition/</guid>
+      <description>&lt;p&gt;This column is meant to be a running notebook. I do not want it to be limited to prose. For grid cells, intuition often becomes much clearer when formulas and visual structure are placed side by side, and even clearer when some parameters can be manipulated directly.&lt;/p&gt;
+&lt;p&gt;This first note starts from a more basic hypothesis: grid-like firing may emerge progressively as theta-related plane waves are introduced one by one, and the relative phase of each wave with respect to the theta rhythm changes where constructive interference produces strong firing.&lt;/p&gt;
+&lt;h2 id=&#34;a-minimal-interference-model&#34;&gt;A minimal interference model&lt;/h2&gt;
+&lt;p&gt;Let the 2D position be $x \in \mathbb{R}^2$. A simple way to write each traveling component is:&lt;/p&gt;
+$$
+w_k(x) = \cos\left( \frac{2\pi}{\lambda} u_k^\top x + \varphi_k \right),
+$$&lt;p&gt;where:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$\lambda$ controls the spatial scale&lt;/li&gt;
+&lt;li&gt;$\varphi_k$ is the phase of the $k$-th wave relative to the theta rhythm&lt;/li&gt;
+&lt;li&gt;$u_k$ are unit vectors pointing in three preferred directions&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;One common choice is&lt;/p&gt;
+$$
+u_k =
+\begin{bmatrix}
+\cos(\theta + 2\pi k / 3) \\
+\sin(\theta + 2\pi k / 3)
+\end{bmatrix},
+\qquad k = 0,1,2
+$$&lt;p&gt;Each wave by itself only creates a periodic stripe-like modulation. The key step is the accumulation:&lt;/p&gt;
+$$
+s(x) = \frac{1}{3} \sum_{k=1}^{3} w_k(x),
+$$&lt;p&gt;followed by a simple firing readout&lt;/p&gt;
+$$
+g(x) = f(s(x)),
+$$&lt;p&gt;where $f$ is a thresholding or sharpening nonlinearity. In that sense, the conceptual order is:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;introduce one wave and inspect its firing effect&lt;/li&gt;
+&lt;li&gt;introduce a second wave and observe how phase difference creates interference&lt;/li&gt;
+&lt;li&gt;introduce a third wave and see how the firing map becomes more grid-like&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This is still not a full grid-cell theory, but it is a clean way to visualize how relative phase can sculpt the final firing map.&lt;/p&gt;
+&lt;h2 id=&#34;what-to-look-for&#34;&gt;What to look for&lt;/h2&gt;
+&lt;p&gt;The main qualitative effects are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;With only wave 1, the firing result is still stripe-like.&lt;/li&gt;
+&lt;li&gt;Adding wave 2 introduces interference structure, and the phase difference between the two waves begins to matter.&lt;/li&gt;
+&lt;li&gt;Adding wave 3 makes the full interference geometry available and can support localized grid-like peaks.&lt;/li&gt;
+&lt;li&gt;Changing a wave&amp;rsquo;s phase relative to theta shifts where constructive interference lands in space.&lt;/li&gt;
+&lt;li&gt;Changing wave orientation changes the geometry of the interference pattern itself.&lt;/li&gt;
+&lt;li&gt;Increasing the readout nonlinearity sharpens peaks and makes the firing map look more cell-like.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;interactive-sketch&#34;&gt;Interactive sketch&lt;/h2&gt;
+&lt;p&gt;Use the tabs below to progressively introduce wave 1, wave 2, and wave 3. For each active wave, you can set its orientation, amplitude, and phase relative to theta. The upper region visualizes the raw wave superposition, while the lower region shows the grid cell firing map produced after the firing readout. This keeps the progression from plane waves to firing explicit.&lt;/p&gt;
+&lt;div class=&#34;gridcell-demo&#34;&gt;
+  &lt;div class=&#34;gridcell-demo-intro&#34;&gt;
+    &lt;div class=&#34;gridcell-demo-tabs&#34; role=&#34;tablist&#34; aria-label=&#34;Wave introduction stages&#34;&gt;
+      &lt;button type=&#34;button&#34; class=&#34;gridcell-demo-tab is-active&#34; data-role=&#34;stage&#34; data-stage=&#34;1&#34;&gt;Introduce wave 1&lt;/button&gt;
+      &lt;button type=&#34;button&#34; class=&#34;gridcell-demo-tab&#34; data-role=&#34;stage&#34; data-stage=&#34;2&#34;&gt;Introduce wave 2&lt;/button&gt;
+      &lt;button type=&#34;button&#34; class=&#34;gridcell-demo-tab&#34; data-role=&#34;stage&#34; data-stage=&#34;3&#34;&gt;Introduce wave 3&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;p class=&#34;gridcell-demo-stage-note&#34; data-role=&#34;stage-note&#34;&gt;
+      One plane wave alone produces only a striped modulation, so the firing map is still far from a grid code.
+    &lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&#34;gridcell-demo-controls&#34;&gt;
+    &lt;label&gt;
+      &lt;span&gt;Wavelength&lt;/span&gt;
+      &lt;input type=&#34;range&#34; min=&#34;20&#34; max=&#34;90&#34; value=&#34;44&#34; step=&#34;1&#34; data-role=&#34;scale&#34;&gt;
+      &lt;output data-role=&#34;scale-value&#34;&gt;44&lt;/output&gt;
+    &lt;/label&gt;
+    &lt;label&gt;
+      &lt;span&gt;Firing sharpness&lt;/span&gt;
+      &lt;input type=&#34;range&#34; min=&#34;0.8&#34; max=&#34;4.0&#34; value=&#34;1.8&#34; step=&#34;0.1&#34; data-role=&#34;sharpness&#34;&gt;
+      &lt;output data-role=&#34;sharpness-value&#34;&gt;1.8&lt;/output&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&#34;gridcell-demo-wave-grid&#34;&gt;
+    &lt;section class=&#34;gridcell-demo-wave-card&#34; data-wave-card=&#34;1&#34;&gt;
+      &lt;h4&gt;Wave 1&lt;/h4&gt;
+      &lt;label&gt;
+        &lt;span&gt;Orientation&lt;/span&gt;
+        &lt;input type=&#34;range&#34; min=&#34;0&#34; max=&#34;180&#34; value=&#34;0&#34; step=&#34;1&#34; data-role=&#34;orientation1&#34;&gt;
+        &lt;output data-role=&#34;orientation1-value&#34;&gt;0 deg&lt;/output&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        &lt;span&gt;Phase vs theta&lt;/span&gt;
+        &lt;input type=&#34;range&#34; min=&#34;0&#34; max=&#34;360&#34; value=&#34;0&#34; step=&#34;1&#34; data-role=&#34;phase1&#34;&gt;
+        &lt;output data-role=&#34;phase1-value&#34;&gt;0 deg&lt;/output&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        &lt;span&gt;Amplitude&lt;/span&gt;
+        &lt;input type=&#34;range&#34; min=&#34;0.2&#34; max=&#34;1.4&#34; value=&#34;1.0&#34; step=&#34;0.05&#34; data-role=&#34;amplitude1&#34;&gt;
+        &lt;output data-role=&#34;amplitude1-value&#34;&gt;1.00&lt;/output&gt;
+      &lt;/label&gt;
+    &lt;/section&gt;
+
+    &lt;section class=&#34;gridcell-demo-wave-card is-muted&#34; data-wave-card=&#34;2&#34;&gt;
+      &lt;h4&gt;Wave 2&lt;/h4&gt;
+      &lt;label&gt;
+        &lt;span&gt;Orientation&lt;/span&gt;
+        &lt;input type=&#34;range&#34; min=&#34;0&#34; max=&#34;180&#34; value=&#34;60&#34; step=&#34;1&#34; data-role=&#34;orientation2&#34;&gt;
+        &lt;output data-role=&#34;orientation2-value&#34;&gt;60 deg&lt;/output&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        &lt;span&gt;Phase vs theta&lt;/span&gt;
+        &lt;input type=&#34;range&#34; min=&#34;0&#34; max=&#34;360&#34; value=&#34;90&#34; step=&#34;1&#34; data-role=&#34;phase2&#34;&gt;
+        &lt;output data-role=&#34;phase2-value&#34;&gt;90 deg&lt;/output&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        &lt;span&gt;Amplitude&lt;/span&gt;
+        &lt;input type=&#34;range&#34; min=&#34;0.2&#34; max=&#34;1.4&#34; value=&#34;1.0&#34; step=&#34;0.05&#34; data-role=&#34;amplitude2&#34;&gt;
+        &lt;output data-role=&#34;amplitude2-value&#34;&gt;1.00&lt;/output&gt;
+      &lt;/label&gt;
+    &lt;/section&gt;
+
+    &lt;section class=&#34;gridcell-demo-wave-card is-muted&#34; data-wave-card=&#34;3&#34;&gt;
+      &lt;h4&gt;Wave 3&lt;/h4&gt;
+      &lt;label&gt;
+        &lt;span&gt;Orientation&lt;/span&gt;
+        &lt;input type=&#34;range&#34; min=&#34;0&#34; max=&#34;180&#34; value=&#34;120&#34; step=&#34;1&#34; data-role=&#34;orientation3&#34;&gt;
+        &lt;output data-role=&#34;orientation3-value&#34;&gt;120 deg&lt;/output&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        &lt;span&gt;Phase vs theta&lt;/span&gt;
+        &lt;input type=&#34;range&#34; min=&#34;0&#34; max=&#34;360&#34; value=&#34;180&#34; step=&#34;1&#34; data-role=&#34;phase3&#34;&gt;
+        &lt;output data-role=&#34;phase3-value&#34;&gt;180 deg&lt;/output&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        &lt;span&gt;Amplitude&lt;/span&gt;
+        &lt;input type=&#34;range&#34; min=&#34;0.2&#34; max=&#34;1.4&#34; value=&#34;1.0&#34; step=&#34;0.05&#34; data-role=&#34;amplitude3&#34;&gt;
+        &lt;output data-role=&#34;amplitude3-value&#34;&gt;1.00&lt;/output&gt;
+      &lt;/label&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&#34;gridcell-demo-stage&#34;&gt;
+    &lt;div class=&#34;gridcell-demo-visual-block&#34;&gt;
+      &lt;h4&gt;Region 1: wave superposition&lt;/h4&gt;
+      &lt;canvas width=&#34;520&#34; height=&#34;320&#34; data-role=&#34;wave-canvas&#34;&gt;&lt;/canvas&gt;
+      &lt;div class=&#34;gridcell-demo-caption&#34;&gt;
+        This panel shows the raw superposed wave field after introducing only the waves active in the current stage.
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;gridcell-demo-visual-block&#34;&gt;
+      &lt;h4&gt;Region 2: grid cell firing&lt;/h4&gt;
+      &lt;canvas width=&#34;520&#34; height=&#34;520&#34; data-role=&#34;firing-canvas&#34;&gt;&lt;/canvas&gt;
+      &lt;div class=&#34;gridcell-demo-caption&#34;&gt;
+        This panel applies the firing readout to the superposed field, producing the resulting grid-cell-like firing map.
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(() =&gt; {
+  const root = document.currentScript.previousElementSibling;
+  if (!root || !root.classList.contains(&#39;gridcell-demo&#39;)) return;
+
+  const stageButtons = Array.from(root.querySelectorAll(&#39;[data-role=&#34;stage&#34;]&#39;));
+  const stageNote = root.querySelector(&#39;[data-role=&#34;stage-note&#34;]&#39;);
+  const waveCards = [1, 2, 3].map((index) =&gt; root.querySelector(`[data-wave-card=&#34;${index}&#34;]`));
+
+  const controls = {
+    scale: root.querySelector(&#39;[data-role=&#34;scale&#34;]&#39;),
+    sharpness: root.querySelector(&#39;[data-role=&#34;sharpness&#34;]&#39;),
+    orientation1: root.querySelector(&#39;[data-role=&#34;orientation1&#34;]&#39;),
+    orientation2: root.querySelector(&#39;[data-role=&#34;orientation2&#34;]&#39;),
+    orientation3: root.querySelector(&#39;[data-role=&#34;orientation3&#34;]&#39;),
+    phase1: root.querySelector(&#39;[data-role=&#34;phase1&#34;]&#39;),
+    phase2: root.querySelector(&#39;[data-role=&#34;phase2&#34;]&#39;),
+    phase3: root.querySelector(&#39;[data-role=&#34;phase3&#34;]&#39;),
+    amplitude1: root.querySelector(&#39;[data-role=&#34;amplitude1&#34;]&#39;),
+    amplitude2: root.querySelector(&#39;[data-role=&#34;amplitude2&#34;]&#39;),
+    amplitude3: root.querySelector(&#39;[data-role=&#34;amplitude3&#34;]&#39;)
+  };
+
+  const outputs = {
+    scale: root.querySelector(&#39;[data-role=&#34;scale-value&#34;]&#39;),
+    sharpness: root.querySelector(&#39;[data-role=&#34;sharpness-value&#34;]&#39;),
+    orientation1: root.querySelector(&#39;[data-role=&#34;orientation1-value&#34;]&#39;),
+    orientation2: root.querySelector(&#39;[data-role=&#34;orientation2-value&#34;]&#39;),
+    orientation3: root.querySelector(&#39;[data-role=&#34;orientation3-value&#34;]&#39;),
+    phase1: root.querySelector(&#39;[data-role=&#34;phase1-value&#34;]&#39;),
+    phase2: root.querySelector(&#39;[data-role=&#34;phase2-value&#34;]&#39;),
+    phase3: root.querySelector(&#39;[data-role=&#34;phase3-value&#34;]&#39;),
+    amplitude1: root.querySelector(&#39;[data-role=&#34;amplitude1-value&#34;]&#39;),
+    amplitude2: root.querySelector(&#39;[data-role=&#34;amplitude2-value&#34;]&#39;),
+    amplitude3: root.querySelector(&#39;[data-role=&#34;amplitude3-value&#34;]&#39;)
+  };
+
+  const stageNotes = {
+    1: &#39;One plane wave alone produces only a striped modulation, so the firing map is still far from a grid code.&#39;,
+    2: &#39;After introducing wave 2, relative phase begins to matter through interference, but the result is still not yet hexagonal.&#39;,
+    3: &#39;With wave 3 added, phase relationships across all three components can support localized peaks that resemble grid-cell firing.&#39;
+  };
+
+  const waveCanvas = root.querySelector(&#39;[data-role=&#34;wave-canvas&#34;]&#39;);
+  const waveCtx = waveCanvas.getContext(&#39;2d&#39;);
+  const waveImage = waveCtx.createImageData(waveCanvas.width, waveCanvas.height);
+  const firingCanvas = root.querySelector(&#39;[data-role=&#34;firing-canvas&#34;]&#39;);
+  const firingCtx = firingCanvas.getContext(&#39;2d&#39;);
+  const firingImage = firingCtx.createImageData(firingCanvas.width, firingCanvas.height);
+  let activeStage = 1;
+
+  function clamp01(x) {
+    return Math.max(0, Math.min(1, x));
+  }
+
+  function degToRad(deg) {
+    return deg * Math.PI / 180;
+  }
+
+  function readWaves() {
+    return [1, 2, 3].map((index) =&gt; ({
+      angle: degToRad(Number(controls[`orientation${index}`].value)),
+      phase: degToRad(Number(controls[`phase${index}`].value)),
+      amplitude: Number(controls[`amplitude${index}`].value)
+    }));
+  }
+
+  function waveValue(x, y, scale, wave) {
+    const ux = Math.cos(wave.angle);
+    const uy = Math.sin(wave.angle);
+    const projection = (x * ux + y * uy) / scale;
+    return wave.amplitude * Math.cos(2 * Math.PI * projection + wave.phase);
+  }
+
+  function interferenceValue(x, y, scale, waves, count) {
+    let sum = 0;
+    let amplitudeSum = 0;
+    for (let i = 0; i &lt; count; i += 1) {
+      sum += waveValue(x, y, scale, waves[i]);
+      amplitudeSum += waves[i].amplitude;
+    }
+    return amplitudeSum &gt; 0 ? sum / amplitudeSum : 0;
+  }
+
+  function firingValue(raw, sharpness) {
+    const normalized = clamp01((raw + 1) / 2);
+    return Math.pow(normalized, sharpness);
+  }
+
+  function colorizeWaveField(value) {
+    const t = clamp01((value + 1) / 2);
+    const r = Math.round(36 + 205 * t);
+    const g = Math.round(92 + 120 * (1 - Math.abs(0.5 - t) * 2));
+    const b = Math.round(110 + 120 * (1 - t));
+    return [r, g, b];
+  }
+
+  function colorizeFiring(value) {
+    const t = clamp01(value);
+    const r = Math.round(247 - 182 * t);
+    const g = Math.round(242 - 132 * t);
+    const b = Math.round(231 - 24 * t);
+    return [r, g, b];
+  }
+
+  function renderCanvas(ctx, image, sampler, colorizer) {
+    const width = image.width;
+    const height = image.height;
+    const data = image.data;
+    const xCenter = width / 2;
+    const yCenter = height / 2;
+    let ptr = 0;
+
+    for (let py = 0; py &lt; height; py += 1) {
+      for (let px = 0; px &lt; width; px += 1) {
+        const x = px - xCenter;
+        const y = py - yCenter;
+        const value = sampler(x, y);
+        const [r, g, b] = colorizer(value);
+        data[ptr] = r;
+        data[ptr + 1] = g;
+        data[ptr + 2] = b;
+        data[ptr + 3] = 255;
+        ptr += 4;
+      }
+    }
+
+    ctx.putImageData(image, 0, 0);
+    ctx.save();
+    ctx.strokeStyle = &#39;rgba(15, 23, 42, 0.16)&#39;;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(width / 2, 0);
+    ctx.lineTo(width / 2, height);
+    ctx.moveTo(0, height / 2);
+    ctx.lineTo(width, height / 2);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function refreshLabels() {
+    outputs.scale.textContent = controls.scale.value;
+    outputs.sharpness.textContent = Number(controls.sharpness.value).toFixed(1);
+    [1, 2, 3].forEach((index) =&gt; {
+      outputs[`orientation${index}`].textContent = `${controls[`orientation${index}`].value} deg`;
+      outputs[`phase${index}`].textContent = `${controls[`phase${index}`].value} deg`;
+      outputs[`amplitude${index}`].textContent = Number(controls[`amplitude${index}`].value).toFixed(2);
+    });
+  }
+
+  function refreshStageUI() {
+    stageButtons.forEach((button) =&gt; {
+      const isActive = Number(button.dataset.stage) === activeStage;
+      button.classList.toggle(&#39;is-active&#39;, isActive);
+    });
+
+    waveCards.forEach((card, index) =&gt; {
+      const enabled = index + 1 &lt;= activeStage;
+      card.classList.toggle(&#39;is-muted&#39;, !enabled);
+      Array.from(card.querySelectorAll(&#39;input&#39;)).forEach((input) =&gt; {
+        input.disabled = !enabled;
+      });
+    });
+
+    stageNote.textContent = stageNotes[activeStage];
+  }
+
+  function render() {
+    refreshLabels();
+    refreshStageUI();
+
+    const scale = Number(controls.scale.value);
+    const sharpness = Number(controls.sharpness.value);
+    const waves = readWaves();
+
+    renderCanvas(
+      waveCtx,
+      waveImage,
+      (x, y) =&gt; interferenceValue(x, y, scale, waves, activeStage),
+      colorizeWaveField
+    );
+
+    renderCanvas(
+      firingCtx,
+      firingImage,
+      (x, y) =&gt; firingValue(interferenceValue(x, y, scale, waves, activeStage), sharpness),
+      colorizeFiring
+    );
+  }
+
+  stageButtons.forEach((button) =&gt; {
+    button.addEventListener(&#39;click&#39;, () =&gt; {
+      activeStage = Number(button.dataset.stage);
+      render();
+    });
+  });
+
+  Object.values(controls).forEach((input) =&gt; {
+    input.addEventListener(&#39;input&#39;, render);
+  });
+
+  render();
+})();
+&lt;/script&gt;
+
+&lt;h2 id=&#34;why-this-is-only-a-starting-point&#34;&gt;Why this is only a starting point&lt;/h2&gt;
+&lt;p&gt;This picture is helpful, but it is incomplete.&lt;/p&gt;
+&lt;p&gt;Real grid-cell theory quickly brings in questions such as:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Why are multiple modules needed?&lt;/li&gt;
+&lt;li&gt;How does path integration update phase over time?&lt;/li&gt;
+&lt;li&gt;What dynamical mechanism stabilizes the lattice?&lt;/li&gt;
+&lt;li&gt;How does a population of grid cells support decoding?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Those are the questions I want this column to gradually move toward. For now, the point is narrower: build a manipulable geometric intuition before moving into full coding theory or attractor dynamics.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

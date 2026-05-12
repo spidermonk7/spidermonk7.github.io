@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ongoing Projects | Shaoyang Cui</title>
+    <link>https://spidermonk7.github.io/ongoing-projects/</link>
+      <atom:link href="https://spidermonk7.github.io/ongoing-projects/index.xml" rel="self" type="application/rss+xml" />
+    <description>Ongoing Projects</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Fri, 03 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://spidermonk7.github.io/media/icon_hu7729264130191091259.png</url>
+      <title>Ongoing Projects</title>
+      <link>https://spidermonk7.github.io/ongoing-projects/</link>
+    </image>
+    
+    <item>
+      <title>VidNum1.4K - A Comprehensive Benchmark for Video-based Numerical Reasoning</title>
+      <link>https://spidermonk7.github.io/ongoing-projects/vidnum-1-4k/</link>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://spidermonk7.github.io/ongoing-projects/vidnum-1-4k/</guid>
+      <description>&lt;p&gt;This research introduces VNum, a comprehensive VideoQA benchmark containing 1,379 human-annotated video-question pairs designed to test multi-step numerical reasoning in Vision-Language Models (VLMs). Moving beyond simple counting, VNum spans diverse real-world environments to quantify objects, actions, and events through a unique three-level hierarchy.&lt;/p&gt;
+&lt;!-- Official page: &lt;https://vidnumteam.github.io&gt; --&gt;</description>
+    </item>
+    
+    <item>
+      <title>ClawTrap - MITM-Based Red-Teaming for OpenClaw Security Evaluation</title>
+      <link>https://spidermonk7.github.io/ongoing-projects/clawtrap/</link>
+      <pubDate>Thu, 02 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://spidermonk7.github.io/ongoing-projects/clawtrap/</guid>
+      <description>&lt;p&gt;This research introduces ClawTrap, a MITM-based red-teaming framework designed for the real-world security evaluation of autonomous web agents like OpenClaw. To bridge the gap between static sandbox testing and live network threats, ClawTrap provides a reproducible pipeline for rule-driven interception, transformation, and auditing at the network layer.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>TradeCraft - Exploring Theory of Mind in LLM Agents&#39; Strategic Decision-Making and Communication</title>
+      <link>https://spidermonk7.github.io/ongoing-projects/tradecraft/</link>
+      <pubDate>Mon, 01 Dec 2025 00:00:00 +0000</pubDate>
+      <guid>https://spidermonk7.github.io/ongoing-projects/tradecraft/</guid>
+      <description>&lt;p&gt;LLM agents’ reliance on implicit Theory of Mind (ToM) during strategic decision-making remains debated. We investigate this using a Minecraft-inspired &amp;ldquo;trade-and-craft&amp;rdquo; game requiring goal inference and item exchange. By augmenting agents with explicit ToM scaffolding—where players report multi-order beliefs about opponents—we evaluate the alignment between inferred mental states and behavioral outcomes.&lt;/p&gt;
+&lt;!-- Official page: &lt;https://tradecraft26.github.io&gt; --&gt;
+&lt;!-- Repository: &lt;https://github.com/spidermonk7/tradecraft&gt; --&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

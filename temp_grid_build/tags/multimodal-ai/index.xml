@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Multimodal AI | Shaoyang Cui</title>
+    <link>https://spidermonk7.github.io/tags/multimodal-ai/</link>
+      <atom:link href="https://spidermonk7.github.io/tags/multimodal-ai/index.xml" rel="self" type="application/rss+xml" />
+    <description>Multimodal AI</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Fri, 03 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://spidermonk7.github.io/media/icon_hu7729264130191091259.png</url>
+      <title>Multimodal AI</title>
+      <link>https://spidermonk7.github.io/tags/multimodal-ai/</link>
+    </image>
+    
+    <item>
+      <title>VidNum1.4K - A Comprehensive Benchmark for Video-based Numerical Reasoning</title>
+      <link>https://spidermonk7.github.io/ongoing-projects/vidnum-1-4k/</link>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://spidermonk7.github.io/ongoing-projects/vidnum-1-4k/</guid>
+      <description>&lt;p&gt;This research introduces VNum, a comprehensive VideoQA benchmark containing 1,379 human-annotated video-question pairs designed to test multi-step numerical reasoning in Vision-Language Models (VLMs). Moving beyond simple counting, VNum spans diverse real-world environments to quantify objects, actions, and events through a unique three-level hierarchy.&lt;/p&gt;
+&lt;!-- Official page: &lt;https://vidnumteam.github.io&gt; --&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

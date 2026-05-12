@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Science China Technological Sciences | Shaoyang Cui</title>
+    <link>https://spidermonk7.github.io/tags/science-china-technological-sciences/</link>
+      <atom:link href="https://spidermonk7.github.io/tags/science-china-technological-sciences/index.xml" rel="self" type="application/rss+xml" />
+    <description>Science China Technological Sciences</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Mon, 27 Oct 2025 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://spidermonk7.github.io/media/icon_hu7729264130191091259.png</url>
+      <title>Science China Technological Sciences</title>
+      <link>https://spidermonk7.github.io/tags/science-china-technological-sciences/</link>
+    </image>
+    
+    <item>
+      <title>Task Ability Decomposition and Difficulty Quantification of Visual Tasks for AGI Evaluation</title>
+      <link>https://spidermonk7.github.io/publication/journal-article/</link>
+      <pubDate>Mon, 27 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>https://spidermonk7.github.io/publication/journal-article/</guid>
+      <description>&lt;p&gt;This work represents a significant advance in AGI evaluation methodology by providing the first comprehensive framework for understanding and quantifying visual task difficulty.&lt;/p&gt;
+&lt;h2 id=&#34;key-contributions&#34;&gt;Key Contributions&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Novel Theoretical Framework&lt;/strong&gt;: First exploration of task-ability space structure and its relationship to task difficulty&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;TADDL-V Framework&lt;/strong&gt;: Systematic approach for quantifying difficulty of visual tasks&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;AGI-V70 Benchmark&lt;/strong&gt;: Curated dataset for testing diverse visual abilities&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Practical Impact&lt;/strong&gt;: Tools and methods that advance the field of AGI evaluation&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;motivation&#34;&gt;Motivation&lt;/h2&gt;
+&lt;p&gt;Using the visual domain as a starting point, this research addresses a critical gap in AGI evaluation by introducing a methodology to quantify the difficulty levels of composite tasks. This quantification is crucial for conducting a more comprehensive and fine-grained assessment of AGI systems.&lt;/p&gt;
+&lt;p&gt;To promote open science and collaborative advancement, the TADDL-V framework and the AGI-V70 benchmark are made freely available to the research community.&lt;/p&gt;
+&lt;h2 id=&#34;visual-teaser&#34;&gt;Visual teaser&lt;/h2&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;flex justify-center	&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;TADDL-V Framework&#34; srcset=&#34;
+               /publication/journal-article/Figure2_hu9988009891898041773.webp 400w,
+               /publication/journal-article/Figure2_hu8423423888724899641.webp 760w,
+               /publication/journal-article/Figure2_hu12456530112026025648.webp 1200w&#34;
+               src=&#34;https://spidermonk7.github.io/publication/journal-article/Figure2_hu9988009891898041773.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;387&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

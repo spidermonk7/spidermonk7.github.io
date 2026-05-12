@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ICML 2026 | Shaoyang Cui</title>
+    <link>https://spidermonk7.github.io/tags/icml-2026/</link>
+      <atom:link href="https://spidermonk7.github.io/tags/icml-2026/index.xml" rel="self" type="application/rss+xml" />
+    <description>ICML 2026</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 10 May 2026 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://spidermonk7.github.io/media/icon_hu7729264130191091259.png</url>
+      <title>ICML 2026</title>
+      <link>https://spidermonk7.github.io/tags/icml-2026/</link>
+    </image>
+    
+    <item>
+      <title>HelioX - A GPU-Native Framework for Simulation and Training of Biophysically Detailed Networks</title>
+      <link>https://spidermonk7.github.io/project/heliox/</link>
+      <pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://spidermonk7.github.io/project/heliox/</guid>
+      <description>&lt;p&gt;Accepted at &lt;strong&gt;ICML 2026&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;HelioX is a GPU-native framework for simulation and training of biophysically detailed neural networks. It targets the mismatch between irregular dendritic computation and conventional deep learning stacks, and provides an end-to-end pipeline for both forward simulation and gradient-based training.&lt;/p&gt;
+&lt;p&gt;Highlights:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Multi-stream GPU execution for ionic current calculation, ODE construction, and conductance update&lt;/li&gt;
+&lt;li&gt;Efficient spike handling path designed for sparse spike events&lt;/li&gt;
+&lt;li&gt;End-to-end differentiable training for deep biophysical neural architectures&lt;/li&gt;
+&lt;li&gt;Strong runtime and scalability gains over traditional simulators in large-scale settings&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>HelioX: A GPU-Native Framework for Simulation and Training of Biophysically Detailed Networks</title>
+      <link>https://spidermonk7.github.io/publication/heliox-icml2026/</link>
+      <pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://spidermonk7.github.io/publication/heliox-icml2026/</guid>
+      <description>&lt;p&gt;Accepted at &lt;strong&gt;ICML 2026&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;HelioX introduces a GPU-native path to train and simulate biophysically detailed neural networks at practical scale. Instead of forcing biological models into dense ANN-oriented execution paths, it aligns runtime design with dendritic structure and simulation dynamics.&lt;/p&gt;
+&lt;h2 id=&#34;teaser&#34;&gt;Teaser&lt;/h2&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;flex justify-center	&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;https://spidermonk7.github.io/project/heliox/Figures/teasor.jpg&#34; alt=&#34;HelioX Teaser&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;key-contributions&#34;&gt;Key Contributions&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;GPU-to-Biophysics Design&lt;/strong&gt;: Custom-fused CUDA kernels for dendritic hierarchical scheduling and gradient propagation&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Unified Simulation + Training Runtime&lt;/strong&gt;: End-to-end loop from simulation state updates to parameter optimization&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Efficiency at Scale&lt;/strong&gt;: Significant improvements in throughput and memory usage across simulation and training workloads&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Large-Scale Feasibility&lt;/strong&gt;: Demonstrated on deep biophysical MLPs and organism-scale &lt;em&gt;C. elegans&lt;/em&gt; fitting tasks on consumer GPUs&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;numerical-fidelity-and-throughput&#34;&gt;Numerical Fidelity and Throughput&lt;/h2&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;flex justify-center	&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;https://spidermonk7.github.io/project/heliox/Figures/Figure2.jpg&#34; alt=&#34;HelioX Figure 2 Results&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;organism-scale-training&#34;&gt;Organism-Scale Training&lt;/h2&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;flex justify-center	&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;https://spidermonk7.github.io/project/heliox/Figures/worm.jpg&#34; alt=&#34;HelioX Worm Training Results&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;why-it-matters&#34;&gt;Why It Matters&lt;/h2&gt;
+&lt;p&gt;Biophysically detailed neurons carry rich temporal and spatial computation that point-neuron abstractions cannot directly capture. HelioX lowers the engineering and hardware barriers for using these models in trainable AI systems, making detailed-neuron research more practical for both computational neuroscience and brain-inspired learning.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

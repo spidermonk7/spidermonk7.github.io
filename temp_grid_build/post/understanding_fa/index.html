@@ -1,0 +1,2108 @@
+<!doctype html>
+<!-- This site was created with Hugo Blox. https://hugoblox.com -->
+<!-- Last Published: May 12, 2026 --><html lang="en-us" dir="ltr"
+      data-wc-theme-default="light">
+  
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="generator" content="Hugo Blox Builder 0.3.1" />
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Shaoyang Cui" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Why flash attention helps the inferences of Large Language Models." />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://spidermonk7.github.io/post/understanding_fa/" />
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="/css/themes/emerald.min.css" />
+  
+
+  
+  
+    
+    <link href="/dist/wc.min.css" rel="stylesheet" />
+  
+
+  
+  
+  
+
+  
+
+  <script>
+     
+    window.hbb = {
+       defaultTheme: document.documentElement.dataset.wcThemeDefault,
+       setDarkTheme: () => {
+        document.documentElement.classList.add("dark");
+        document.documentElement.style.colorScheme = "dark";
+      },
+       setLightTheme: () => {
+        document.documentElement.classList.remove("dark");
+        document.documentElement.style.colorScheme = "light";
+      }
+    }
+
+    console.debug(`Default Hugo Blox Builder theme is ${window.hbb.defaultTheme}`);
+
+    if ("wc-color-theme" in localStorage) {
+      localStorage.getItem("wc-color-theme") === "dark" ? window.hbb.setDarkTheme() : window.hbb.setLightTheme();
+    } else {
+      window.hbb.defaultTheme === "dark" ? window.hbb.setDarkTheme() : window.hbb.setLightTheme();
+      if (window.hbb.defaultTheme === "system") {
+        window.matchMedia("(prefers-color-scheme: dark)").matches ? window.hbb.setDarkTheme() : window.hbb.setLightTheme();
+      }
+    }
+  </script>
+
+  <script>
+    
+    document.addEventListener('DOMContentLoaded', function () {
+      
+      let checkboxes = document.querySelectorAll('li input[type=\'checkbox\'][disabled]');
+      checkboxes.forEach(e => {
+        e.parentElement.parentElement.classList.add('task-list');
+      });
+
+      
+      const liNodes = document.querySelectorAll('.task-list li');
+      liNodes.forEach(nodes => {
+        let textNodes = Array.from(nodes.childNodes).filter(node => node.nodeType === 3 && node.textContent.trim().length > 1);
+        if (textNodes.length > 0) {
+          const span = document.createElement('label');
+          textNodes[0].after(span);  
+          span.appendChild(nodes.querySelector('input[type=\'checkbox\']'));
+          span.appendChild(textNodes[0]);
+        }
+      });
+    });
+  </script>
+
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+  <link rel="icon" type="image/png" href="/media/icon_hu3247630877640252165.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu4166356570829923896.png" />
+
+  <link rel="canonical" href="https://spidermonk7.github.io/post/understanding_fa/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary" />
+  
+  <meta property="og:site_name" content="Shaoyang Cui" />
+  <meta property="og:url" content="https://spidermonk7.github.io/post/understanding_fa/" />
+  <meta property="og:title" content="Learning Notes - the Flash-Attention | Shaoyang Cui" />
+  <meta property="og:description" content="Why flash attention helps the inferences of Large Language Models." /><meta property="og:image" content="https://spidermonk7.github.io/media/icon_hu7729264130191091259.png" />
+    <meta property="twitter:image" content="https://spidermonk7.github.io/media/icon_hu7729264130191091259.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2026-03-19T00:00:00&#43;00:00"
+      />
+    
+    <meta property="article:modified_time" content="2026-03-19T00:00:00&#43;00:00">
+  
+
+  
+
+
+
+  
+
+
+  <title>Learning Notes - the Flash-Attention | Shaoyang Cui</title>
+
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <style>
+    @font-face {
+      font-family: 'Inter var';
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url(/dist/font/Inter.var.woff2) format(woff2);
+    }
+  </style>
+
+  
+
+  
+  
+
+
+  
+  
+  
+  
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+  
+  
+  
+  
+  
+  
+  
+  
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+  
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+  
+  
+  
+  
+  
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+  
+  
+  
+  
+  
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+  
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+  
+  
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+  
+  
+  
+  
+  
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+      
+      
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        
+        
+      
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link type="text/css" rel="stylesheet" href="/dist/lib/katex/katex.min.505d5f829022bb7b4f24dfee0aa1141cd7bba67afe411d1240335f820960b5c3.css" integrity="sha256-UF1fgpAiu3tPJN/uCqEUHNe7pnr&#43;QR0SQDNfgglgtcM=" />
+  
+  
+  <script defer src="/dist/lib/katex/katex.min.dc84b296ec3e884de093158f760fd9d45b6c7abe58b5381557f4e138f46a58ae.js" integrity="sha256-3ISyluw&#43;iE3gkxWPdg/Z1Ftser5YtTgVV/ThOPRqWK4="></script>
+  
+  
+  
+  
+  <script defer src="/js/katex-renderer.6579ec9683211cfb952064aedf3a3baea5eeb17a061775b32b70917474637c80.js" integrity="sha256-ZXnsloMhHPuVIGSu3zo7rqXusXoGF3WzK3CRdHRjfIA="></script>
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  <script
+    defer
+    src="/js/hugo-blox-en.min.8c8ea06bd0420f5067e52fa727b9f92303757322ba4431774153d59a9735eadb.js"
+    integrity="sha256-jI6ga9BCD1Bn5S&#43;nJ7n5IwN1cyK6RDF3QVPVmpc16ts="
+  ></script>
+
+  
+  
+
+
+
+
+
+
+
+
+  
+    
+      
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+      
+    
+  
+    
+      
+      <link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/editorial-refresh.css">
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+      
+    
+  
+
+
+
+
+</head>
+
+  <body class="dark:bg-hb-dark dark:text-white page-wrapper" id="top">
+    <div id="page-bg"></div>
+    <div class="page-header sticky top-0 z-30">
+      
+      
+      
+        
+        
+        
+          <header id="site-header" class="header">
+  <nav class="navbar px-3 flex justify-left">
+    <div class="order-0 h-100">
+      
+      <a class="navbar-brand" href="/" title="Shaoyang Cui">
+        Shaoyang Cui
+      </a>
+    </div>
+    
+    <input id="nav-toggle" type="checkbox" class="hidden" />
+    <label
+      for="nav-toggle"
+      class="order-3 cursor-pointer flex items-center lg:hidden text-dark dark:text-white lg:order-1">
+      <svg id="show-button" class="h-6 fill-current block" viewBox="0 0 20 20">
+        <title>Open Menu</title>
+        <path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z"></path>
+      </svg>
+      <svg id="hide-button" class="h-6 fill-current hidden" viewBox="0 0 20 20">
+        <title>Close Menu</title>
+        <polygon
+          points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2"
+          transform="rotate(45 10 10)"></polygon>
+      </svg>
+    </label>
+    
+
+    
+    
+    <ul
+      id="nav-menu"
+      class="navbar-nav order-3 hidden lg:flex w-full pb-6 lg:order-1 lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8 justify-left
+      ">
+      
+      
+      
+      
+      
+      
+      <li class="nav-item">
+        <a
+          class="nav-link "
+          
+          href="/"
+        >About</a
+        >
+      </li>
+      
+      
+      
+      
+      
+      
+      <li class="nav-item">
+        <a
+          class="nav-link "
+          
+          href="/experience/"
+        >Experience</a
+        >
+      </li>
+      
+      
+      
+      
+      
+      
+      <li class="nav-item">
+        <a
+          class="nav-link "
+          
+          href="/my-blogs/"
+        >My Blogs</a
+        >
+      </li>
+      
+      
+      
+      
+      
+      
+      <li class="nav-item">
+        <a
+          class="nav-link "
+          
+          href="/ongoing-projects/"
+        >Ongoing Projects</a
+        >
+      </li>
+      
+      
+      
+      
+      
+      
+      <li class="nav-item">
+        <a
+          class="nav-link "
+          
+          href="/papers/"
+        >Publications</a
+        >
+      </li>
+      
+      
+      
+      
+      
+      
+      <li class="nav-item">
+        <a
+          class="nav-link "
+          
+          href="/talks/"
+        >Talks</a
+        >
+      </li>
+      
+      
+      
+      
+      
+      
+      <li class="nav-item">
+        <a
+          class="nav-link "
+          
+          href="/awards/"
+        >Awards</a
+        >
+      </li>
+      
+      
+      
+    </ul>
+
+    <div class="order-1 ml-auto flex items-center md:order-2 lg:ml-0">
+
+      
+      
+      
+
+      
+      
+
+      
+      
+
+      
+      
+    </div>
+  </nav>
+</header>
+
+
+
+        
+      
+    </div>
+    <div class="page-body  my-10">
+      
+
+
+
+
+
+<div class="mx-auto flex max-w-screen-xl">
+  
+
+
+
+<aside class="hb-sidebar-container max-lg:[transform:translate3d(0,-100%,0)] lg:hidden xl:block">
+  
+  <div class="px-4 pt-4 lg:hidden">
+    
+    
+  </div>
+  <div class="hb-scrollbar lg:h-[calc(100vh-var(--navbar-height))]">
+    <ul class="flex flex-col gap-1 lg:hidden">
+      
+      
+        <li class=""><a
+    class="hb-sidebar-custom-link
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
+    href="/grid-cell-notes/"
+    
+  >Grid-Cell-Notes
+        <span data-hb-sidebar-toggle>
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-[18px] min-w-[18px] rounded-sm p-0.5 hover:bg-gray-800/5 dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="origin-center transition-transform rtl:-rotate-180"></path></svg>
+        </span>
+    </a><div class="ltr:pr-0 overflow-hidden">
+        <ul class="hb-sidebar-list"><li class="flex flex-col "><a
+    class="hb-sidebar-custom-link
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
+    href="/grid-cell-notes/grid-cell-lattice-intuition/"
+    
+  >Grid Cell Notes 01: Lattice Intuition from Three Plane Waves
+    </a>
+              
+            </li></ul>
+      </div></li>
+        <li class=""><a
+    class="hb-sidebar-custom-link
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
+    href="/my-blog-collections/"
+    
+  >My-Blog-Collections
+        <span data-hb-sidebar-toggle>
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-[18px] min-w-[18px] rounded-sm p-0.5 hover:bg-gray-800/5 dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="origin-center transition-transform rtl:-rotate-180"></path></svg>
+        </span>
+    </a><div class="ltr:pr-0 overflow-hidden">
+        <ul class="hb-sidebar-list"><li class="flex flex-col "><a
+    class="hb-sidebar-custom-link
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
+    href="/my-blog-collections/grid-cell-notes/"
+    
+  >Grid Cell Notes
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="hb-sidebar-custom-link
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
+    href="/my-blog-collections/my-failures/"
+    
+  >My Failures
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="hb-sidebar-custom-link
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
+    href="/my-blog-collections/persistence-never-goes-unrewarded/"
+    
+  >日拱一卒,功不唐捐
+    </a>
+              
+            </li></ul>
+      </div></li>
+        <li class=""><a
+    class="hb-sidebar-custom-link
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
+    href="/ongoing-projects/"
+    
+  >Ongoing Projects
+        <span data-hb-sidebar-toggle>
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-[18px] min-w-[18px] rounded-sm p-0.5 hover:bg-gray-800/5 dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="origin-center transition-transform rtl:-rotate-180"></path></svg>
+        </span>
+    </a><div class="ltr:pr-0 overflow-hidden">
+        <ul class="hb-sidebar-list"><li class="flex flex-col "><a
+    class="hb-sidebar-custom-link
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
+    href="/ongoing-projects/vidnum-1-4k/"
+    
+  >VidNum1.4K - A Comprehensive Benchmark for Video-based Numerical Reasoning
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="hb-sidebar-custom-link
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
+    href="/ongoing-projects/clawtrap/"
+    
+  >ClawTrap - MITM-Based Red-Teaming for OpenClaw Security Evaluation
+    </a>
+              
+            </li><li class="flex flex-col "><a
+    class="hb-sidebar-custom-link
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
+    href="/ongoing-projects/tradecraft/"
+    
+  >TradeCraft - Exploring Theory of Mind in LLM Agents&#39; Strategic Decision-Making and Communication
+    </a>
+              
+            </li></ul>
+      </div></li>
+        <li class=""><a
+    class="hb-sidebar-custom-link
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
+    href="/awards/"
+    
+  >Awards
+    </a></li>
+        <li class=""><a
+    class="hb-sidebar-custom-link
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
+    href="/my-blogs/"
+    
+  >My Blogs
+    </a></li>
+        <li class=""><a
+    class="hb-sidebar-custom-link
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
+    href="/papers/"
+    
+  >Publications
+    </a></li>
+        <li class=""><a
+    class="hb-sidebar-custom-link
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
+    href="/talks/"
+    
+  >Talks
+    </a></li>
+        <li class=""><a
+    class="hb-sidebar-custom-link
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
+    href="/projects/"
+    
+  >Projects
+    </a></li>
+        <li class=""><a
+    class="hb-sidebar-custom-link
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
+    href="/experience/"
+    
+  >Experience
+    </a></li>
+        <li class=""><a
+    class="hb-sidebar-custom-link
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
+    href="/my-failures/"
+    
+  >My Failures
+    </a></li>
+    </ul>
+
+    <div class="max-xl:hidden h-0 w-64 shrink-0"></div></div>
+
+</aside>
+  
+
+<nav class="hb-toc order-last hidden w-64 shrink-0 xl:block print:hidden px-4" aria-label="table of contents">
+  
+
+
+
+
+
+
+
+
+
+
+
+  <div class="hb-scrollbar text-sm [hyphens:auto] sticky top-16 overflow-y-auto pr-4 pt-6 max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] -mr-4 rtl:-ml-4"><p class="mb-4 font-semibold tracking-tight">On this page</p><ul></ul><ul>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 w-full break-words" href="#what-softmax-is-doing-here">What softmax is doing here</a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 w-full break-words" href="#why-this-matters-for-flashattention">Why this matters for FlashAttention</a>
+      </li></ul>
+
+  
+  
+    
+    
+  
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+  </nav>
+
+
+  <article class="w-full break-words flex min-h-[calc(100vh-var(--navbar-height))] min-w-0 justify-center pb-8 pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+    <main class="w-full min-w-0 max-w-6xl px-6 pt-4 md:px-12">
+
+      
+
+      <h1 class="mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Learning Notes - the Flash-Attention</h1>
+
+      <div class="mt-4 mb-16">
+      <div class="text-gray-500 dark:text-gray-300 text-sm flex items-center flex-wrap gap-y-2"><span class="mr-1">Mar 19, 2026</span><span class="mx-1">·</span>
+        
+          
+          
+          <div class="group inline-flex items-center text-current gap-x-1.5 mx-1">
+            
+            
+            <img src="/author/joey-cui/avatar_hu14100427073325629180.webp" alt="Shaoyang Cui" class="inline-block h-4 w-4 rounded-full border border-current" loading="lazy" />
+            
+            <div >Shaoyang Cui</div>
+          </div>
+          
+        
+
+        
+        <span class="mx-1">·</span>
+        <span class="mx-1">
+          5 min read
+        </span>
+        
+        </div>
+
+        <div class="mt-3">
+          
+
+
+
+
+
+        </div>
+      </div>
+
+
+
+      
+      
+      
+
+      
+      
+
+      <div class="prose prose-slate lg:prose-xl dark:prose-invert">
+        <h1 id="motivation">Motivation</h1>
+<p>Everything started with a phone call. My girlfriend asked me:</p>
+<p>&ldquo;Honey, you&rsquo;ve mentioned that you successfully installed <em>FlashAttention</em> on your new cluster. What is that?&rdquo;</p>
+<p>&ldquo;Oh, it&rsquo;s a Python library that helps with LLM inference, and maybe training too. Without <em>FlashAttention</em>, LLMs can easily run into CUDA OOM during inference.&rdquo;</p>
+<p>I answered without really thinking.</p>
+<p>&ldquo;Cool. How does it work?&rdquo;</p>
+<p>&ldquo;&hellip;&rdquo;</p>
+<p>And then I realized: I actually had no idea how <em>FlashAttention</em> works, or why it reduces the memory complexity of LLM inference.</p>
+<p>That was the moment I decided to really look into <em>FlashAttention</em>, build my own blog page, and start recording the important technical ideas I learn along the way.</p>
+<p>And also, always remember to be someone who keeps asking why.</p>
+<h1 id="background">Background</h1>
+<p>After searching, I found that <em>FlashAttention</em> reduce the memory complexity of LLM inference mainly through optimize the calculation of [Softmax]</p>
+<p>In LLMs, softmax appears in more than one place, but the one that matters most for understanding <em>FlashAttention</em> is the softmax inside the attention mechanism.</p>
+<p>At a high level, self-attention works like this: for each token, the model computes how much attention it should pay to every previous token. Those raw attention scores are first computed, and then softmax turns them into a proper probability distribution.</p>
+<p>More concretely, given query, key, and value matrices $Q$, $K$, and $V$, the attention scores are:</p>
+$$
+S = \frac{QK^\top}{\sqrt{d_k}}
+$$<p>where $M_{ij} = -\infty$ for positions that should be masked.</p>
+<p>Then softmax is applied <strong>row by row</strong> over the key dimension:</p>
+$$
+P_{ij} = \frac{\exp(S_{ij})}{\sum_j \exp(S_{ij})}
+$$<p>This step converts the raw scores into normalized attention weights. Each row now sums to 1, which means the model can interpret them as &ldquo;how much this token attends to each previous token.&rdquo;</p>
+<p>Finally, these attention weights are used to combine the value vectors:</p>
+$$
+O = PV
+$$<p>So the full attention pipeline is:</p>
+$$
+\mathrm{Attention}(Q, K, V) = \mathrm{softmax}\left(\frac{QK^\top}{\sqrt{d_k}}\right)V
+$$<h2 id="what-softmax-is-doing-here">What softmax is doing here</h2>
+<p>The role of softmax is simple but important:</p>
+<ul>
+<li>It turns arbitrary similarity scores into non-negative <strong>normalized</strong> weights.</li>
+<li>It amplifies larger scores and suppresses smaller ones.</li>
+<li>It makes the model focus on the most relevant context tokens when forming the output.</li>
+</ul>
+<p>Without softmax, the attention scores would just be raw numbers. The model would have no clean way to interpret them as relative importance.</p>
+<h2 id="why-this-matters-for-flashattention">Why this matters for <em>FlashAttention</em></h2>
+<p>This is exactly the expensive part in standard attention.</p>
+<p>To compute attention in the usual way, we often materialize the full score matrix $QK^\top$ and then the full softmax result. If the sequence length is $N$, then this matrix is of size $N \times N$, which leads to very high memory cost.</p>
+<p><em>FlashAttention</em> does <strong>not</strong> change the mathematical definition of softmax. Instead, it computes the same result more carefully, in a tiled / blockwise way, so that it avoids storing the full attention matrix in GPU memory.</p>
+<p>So when people say <em>FlashAttention</em> reduces memory usage, they do <strong>not</strong> mean it removes softmax. They mean it computes the same softmax-based attention more efficiently.</p>
+<p>At first glance, a single attention head does not seem too expensive.</p>
+<p>For example, if $L=512$ and each number takes 2 bytes, then one $L \times L$ score matrix costs:</p>
+$$
+512 \times 512 \times 2 = 524288 \text{ bytes} \approx 0.5 \text{ MB}
+$$<p>However, in a real transformer we usually have multiple heads, multiple layers, and additional tensors such as attention probabilities, Q/K/V activations, and KV cache.</p>
+<p>If we include the head dimension, the score matrix memory for one layer is roughly:</p>
+$$
+B \times H \times L^2 \times \text{bytes per element}
+$$<p>For example, with $B=1$, $H=32$, $L=4096$, and 2 bytes per element, the attention score matrix alone is already about 1 GB for a single layer.</p>
+<p>And this is only one intermediate tensor. That is why attention becomes a serious memory bottleneck for long sequences.</p>
+<p><strong>Why do we have to store such a large tensor?</strong></p>
+$$
+P_{ij} = \frac{\exp(S_{ij})}{\sum_j \exp(S_{ij})}
+$$<p>In a naive implementation, we usually store both $S$ and the normalized matrix $P$.
+<strong>Why? Because softmax is not just a pointwise operation. For each row, it needs to look at all the elements in that row, compute their relative scale, and normalize them.</strong>
+So the implementation often materializes the whole matrix first, and only then moves on to the next step.</p>
+<p>After that, we compute:</p>
+$$
+O = PV
+$$<p>So in the standard pipeline, the model often stores large intermediate tensors such as:</p>
+<ul>
+<li>the score matrix $S$</li>
+<li>the softmax result $P$</li>
+<li>and sometimes extra temporary values used for numerical stability</li>
+</ul>
+<p>This is why attention becomes so memory-hungry.
+The real issue is not just the formula itself, but the way the computation is scheduled and stored in memory.</p>
+<p>And this is exactly where <em>FlashAttention</em> comes in.</p>
+<p>The key idea of <em>FlashAttention</em> is: maybe we do not need to store the full $L \times L$ matrix at all.
+Instead of materializing the whole attention matrix in GPU memory, <em>FlashAttention</em> computes attention block by block, while still producing the exact same final result.</p>
+<p>In other words, <em>FlashAttention</em> does not change the mathematics of attention.
+It changes the order of computation, so that the GPU does much less memory movement and avoids storing those massive intermediate tensors.</p>
+<!-- 
+# Flash Attention
+
+The natural question is: if each softmax entry depends on the whole row, how can we avoid storing the full $L \times L$ matrix?
+
+The answer is that we do **not** need to store the whole row forever. We only need enough information to keep softmax numerically correct while we process the row block by block.
+
+## Step 1: Rewrite attention for one row
+
+Let us focus on a single query row $i$. Denote its query vector by $q_i$. For every key $k_j$, we compute a score:
+
+$$
+s_{ij} = \frac{q_i k_j^\top}{\sqrt{d_k}}
+$$
+
+Then the attention probability is:
+
+$$
+p_{ij} = \frac{\exp(s_{ij})}{\sum_{t=1}^{L}\exp(s_{it})}
+$$
+
+And the final output vector for this row is:
+
+$$
+o_i = \sum_{j=1}^{L} p_{ij} v_j
+$$
+
+Substituting the definition of $p_{ij}$ gives:
+
+$$
+o_i = \frac{\sum_{j=1}^{L}\exp(s_{ij})v_j}{\sum_{j=1}^{L}\exp(s_{ij})}
+$$
+
+This form is already very useful. It tells us that to compute $o_i$, we do not really need the whole softmax matrix itself. What we need is:
+
+- the denominator $\sum_j \exp(s_{ij})$
+- the weighted numerator $\sum_j \exp(s_{ij}) v_j$
+
+For numerical stability, we should not use $\exp(s_{ij})$ directly. We first subtract the row maximum:
+
+$$
+m_i = \max_j s_{ij}
+$$
+
+Then we rewrite the denominator as:
+
+$$
+\ell_i = \sum_{j=1}^{L}\exp(s_{ij} - m_i)
+$$
+
+and the numerator as:
+
+$$
+u_i = \sum_{j=1}^{L}\exp(s_{ij} - m_i)v_j
+$$
+
+So the row output becomes:
+
+$$
+o_i = \frac{u_i}{\ell_i}
+$$
+
+This is the key observation: for one row, we only need to keep track of three things:
+
+- the running max $m_i$
+- the running normalizer $\ell_i$
+- the running weighted sum $u_i$
+
+## Step 2: Split keys and values into blocks
+
+Now suppose we split the keys and values into blocks:
+
+$$
+K = [K^{(1)}, K^{(2)}, \dots, K^{(T)}], \qquad
+V = [V^{(1)}, V^{(2)}, \dots, V^{(T)}]
+$$
+
+For the same query row $q_i$, block $t$ produces a local score vector:
+
+$$
+s_i^{(t)} = \frac{q_i (K^{(t)})^\top}{\sqrt{d_k}}
+$$
+
+Inside this block, define:
+
+$$
+m_i^{(t)} = \max s_i^{(t)}
+$$
+
+$$
+\ell_i^{(t)} = \sum_{j \in \text{block } t}\exp(s_{ij} - m_i^{(t)})
+$$
+
+$$
+u_i^{(t)} = \sum_{j \in \text{block } t}\exp(s_{ij} - m_i^{(t)})v_j
+$$
+
+If we only looked at block $t$ in isolation, then its local output would be:
+
+$$
+o_i^{(t)} = \frac{u_i^{(t)}}{\ell_i^{(t)}}
+$$
+
+The problem is that local softmax values are not the final global softmax values, because the true denominator should include **all** blocks. This is exactly why we need an online update rule.
+
+## Step 3: Online softmax
+
+Suppose we have already processed blocks $1, \dots, t-1$, and we keep three running statistics:
+
+$$
+m_i^{\text{old}}, \qquad \ell_i^{\text{old}}, \qquad u_i^{\text{old}}
+$$
+
+Now we read the next block $t$, which gives:
+
+$$
+m_i^{(t)}, \qquad \ell_i^{(t)}, \qquad u_i^{(t)}
+$$
+
+The new global max after merging old information with the new block is:
+
+$$
+m_i^{\text{new}} = \max\left(m_i^{\text{old}}, m_i^{(t)}\right)
+$$
+
+Now look at the new denominator over all scores seen so far:
+
+$$
+\ell_i^{\text{new}} = \sum_{\text{old}} \exp(s_{ij} - m_i^{\text{new}})
++ \sum_{\text{block } t} \exp(s_{ij} - m_i^{\text{new}})
+$$
+
+For the old blocks, we factor out the change of reference point from $m_i^{\text{old}}$ to $m_i^{\text{new}}$:
+
+$$
+\sum_{\text{old}} \exp(s_{ij} - m_i^{\text{new}})
+= \exp(m_i^{\text{old}} - m_i^{\text{new}})
+\sum_{\text{old}} \exp(s_{ij} - m_i^{\text{old}})
+= \exp(m_i^{\text{old}} - m_i^{\text{new}})\ell_i^{\text{old}}
+$$
+
+For the new block:
+
+$$
+\sum_{\text{block } t} \exp(s_{ij} - m_i^{\text{new}})
+= \exp(m_i^{(t)} - m_i^{\text{new}})
+\sum_{\text{block } t} \exp(s_{ij} - m_i^{(t)})
+= \exp(m_i^{(t)} - m_i^{\text{new}})\ell_i^{(t)}
+$$
+
+Putting them together:
+
+$$
+\ell_i^{\text{new}}
+= \exp(m_i^{\text{old}} - m_i^{\text{new}})\ell_i^{\text{old}}
++ \exp(m_i^{(t)} - m_i^{\text{new}})\ell_i^{(t)}
+$$
+
+The numerator is updated in exactly the same way:
+
+$$
+u_i^{\text{new}}
+= \exp(m_i^{\text{old}} - m_i^{\text{new}})u_i^{\text{old}}
++ \exp(m_i^{(t)} - m_i^{\text{new}})u_i^{(t)}
+$$
+
+and therefore:
+
+$$
+o_i^{\text{new}} = \frac{u_i^{\text{new}}}{\ell_i^{\text{new}}}
+$$
+
+This is the central derivation behind *FlashAttention*. We never need the full row of $P$, and we never need the full matrix $S$ in GPU memory. We only need the current block and the running statistics $(m_i, \ell_i, u_i)$ for each row.
+
+## Step 4: What FlashAttention is actually optimizing
+
+The important thing is that *FlashAttention* does **not** approximate softmax. The final answer is mathematically the same as standard attention.
+
+What changes is the execution order:
+
+1. load a small block of $Q$, $K$, and $V$
+2. compute a block of scores
+3. update the running softmax statistics
+4. immediately accumulate the output
+5. move on to the next block
+
+The large $L \times L$ score matrix never has to be written out to high-bandwidth memory, and the large $L \times L$ probability matrix never has to be materialized there either.
+
+## Memory cost of standard attention
+
+Now let us compare the memory cost more concretely.
+
+For standard attention, a forward pass usually materializes:
+
+- $Q$, $K$, and $V$, each of shape $B \times H \times L \times d$
+- the score matrix $S$, of shape $B \times H \times L \times L$
+- the probability matrix $P$, also of shape $B \times H \times L \times L$
+- the output $O$, of shape $B \times H \times L \times d$
+
+If each element takes $b$ bytes, then the total memory just for these tensors is roughly:
+
+$$
+M_{\text{standard}} \approx b\left(4BHLd + 2BHL^2\right)
+$$
+
+The important part is the $2BHL^2$ term. Once $L$ becomes large, it dominates everything else.
+
+For example, let:
+
+- $B = 1$
+- $H = 32$
+- $L = 4096$
+- $d = 128$
+- $b = 2$ bytes
+
+Then:
+
+$$
+\text{size}(Q) = \text{size}(K) = \text{size}(V) = \text{size}(O)
+= 1 \times 32 \times 4096 \times 128 \times 2
+\approx 32 \text{ MB}
+$$
+
+So $Q$, $K$, $V$, and $O$ together are about:
+
+$$
+4 \times 32 \text{ MB} = 128 \text{ MB}
+$$
+
+Now look at one of the $L \times L$ tensors:
+
+$$
+\text{size}(S)
+= 1 \times 32 \times 4096^2 \times 2
+\approx 1 \text{ GB}
+$$
+
+and $P$ costs about another 1 GB.
+
+So standard attention is already at roughly:
+
+$$
+128 \text{ MB} + 1 \text{ GB} + 1 \text{ GB}
+\approx 2.1 \text{ GB}
+$$
+
+for just one layer's major forward tensors.
+
+If $L$ doubles from $4096$ to $8192$, the $L^2$ part becomes four times larger, so the $S$ and $P$ tensors jump from about 1 GB each to about 4 GB each. That is why long-context attention becomes painful so quickly.
+
+## Memory cost of FlashAttention
+
+With *FlashAttention*, we still need to store $Q$, $K$, $V$, and the final output $O$ in GPU memory. So the $BHLd$ part does not disappear.
+
+What disappears from high-bandwidth memory is the need to materialize the full $S$ and $P$ tensors.
+
+Instead, *FlashAttention* keeps:
+
+- blocks of $Q$, $K$, and $V$ in fast on-chip SRAM / shared memory
+- a running max $m$ for each row
+- a running normalizer $\ell$ for each row
+- the running output accumulator
+
+From the perspective of GPU global memory, the main footprint becomes:
+
+$$
+M_{\text{flash}} \approx b\left(4BHLd\right) + \text{small row-wise statistics}
+$$
+
+The row-wise statistics are only $O(BHL)$, which is tiny compared with $O(BHL^2)$.
+
+Using the same example as above:
+
+- $Q$, $K$, $V$, and $O$ are still about 128 MB in total
+- the extra running statistics are tiny compared with gigabytes
+- the giant $S$ and $P$ tensors are no longer stored in HBM
+
+So the memory bottleneck changes from:
+
+$$
+O(BHL^2)
+$$
+
+to:
+
+$$
+O(BHLd)
+$$
+
+with respect to the main attention activations.
+
+## Why this matters so much in practice
+
+This also explains why the gain is most dramatic when the sequence length is large.
+
+If $L$ is small, then $L^2$ is still manageable, and *FlashAttention* mainly helps by reducing memory traffic.
+
+But when $L$ becomes large, standard attention spends huge memory on $S$ and $P$, while *FlashAttention* keeps memory growth much closer to the size of $Q$, $K$, $V$, and $O$.
+
+There is one subtle point here: in autoregressive decoding with only **one new token**, the attention score shape is more like $1 \times L$ rather than $L \times L$, so the softmax matrix itself is not the main bottleneck. In that setting, the KV cache is often the bigger memory cost.
+
+The biggest win of *FlashAttention* shows up in:
+
+- training
+- long-context prefilling
+- full-sequence attention where many query positions are processed together
+
+## Final takeaway
+
+The standard implementation stores the full attention score matrix because it computes softmax in a materialize-first way: first build $S$, then build $P$, and only then multiply by $V$.
+
+*FlashAttention* notices that this is not mathematically necessary. If we maintain the right running statistics for each row, we can compute exactly the same softmax and exactly the same output while processing the sequence block by block.
+
+So the real optimization is not "changing softmax into something cheaper." The real optimization is changing **how softmax is executed**, so that the GPU avoids writing and reading enormous $L \times L$ intermediates. -->
+
+      </div>
+
+      
+  <time class="mt-12 mb-8 block text-xs text-gray-500 ltr:text-right rtl:text-left dark:text-gray-400" datetime="2026-03-19T00:00:00.000Z">
+    <span>Last updated on</span>
+    Mar 19, 2026</time>
+
+      <div class="container mx-auto prose prose-slate lg:prose-xl dark:prose-invert mt-5">
+        
+        <div class="max-w-prose print:hidden">
+  
+  
+
+  
+
+<div class="flex justify-center">
+  
+  <a class="no-underline bg-primary-100 hover:bg-primary-300 text-primary-800 text-xs font-medium mr-2 px-2.5 py-0.5 lg:px-5 lg:py-2 rounded dark:bg-primary-900 dark:hover:bg-primary-700 dark:text-primary-300" href="/tags/design/">Design</a>
+  
+  <a class="no-underline bg-primary-100 hover:bg-primary-300 text-primary-800 text-xs font-medium mr-2 px-2.5 py-0.5 lg:px-5 lg:py-2 rounded dark:bg-primary-900 dark:hover:bg-primary-700 dark:text-primary-300" href="/tags/hugo/">Hugo</a>
+  
+  <a class="no-underline bg-primary-100 hover:bg-primary-300 text-primary-800 text-xs font-medium mr-2 px-2.5 py-0.5 lg:px-5 lg:py-2 rounded dark:bg-primary-900 dark:hover:bg-primary-700 dark:text-primary-300" href="/tags/personal-branding/">Personal Branding</a>
+  
+</div>
+
+
+  
+<section class="flex flex-row flex-wrap justify-center pt-4 text-xl">
+  
+
+  
+  
+  
+  
+  
+  
+  <a
+    target="_blank" rel="noopener"
+    class="m-1 rounded-md bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral-300 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+    href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fspidermonk7.github.io%2Fpost%2Funderstanding_fa%2F&amp;text=Learning&#43;Notes&#43;-&#43;the&#43;Flash-Attention"
+    title="X"
+    aria-label="X"
+    id="share-link-x"
+  >
+    <svg style="height: 1em;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg>
+  </a>
+  
+
+  
+  
+  
+  
+  
+  
+  <a
+    target="_blank" rel="noopener"
+    class="m-1 rounded-md bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral-300 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+    href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fspidermonk7.github.io%2Fpost%2Funderstanding_fa%2F&amp;t=Learning&#43;Notes&#43;-&#43;the&#43;Flash-Attention"
+    title="Facebook"
+    aria-label="Facebook"
+    id="share-link-facebook"
+  >
+    <svg style="height: 1em;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+  </a>
+  
+
+  
+  
+  
+  
+  
+  
+    
+  
+  <a
+    target="_blank" rel="noopener"
+    class="m-1 rounded-md bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral-300 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+    href="mailto:?subject=Learning%20Notes%20-%20the%20Flash-Attention&amp;body=https%3A%2F%2Fspidermonk7.github.io%2Fpost%2Funderstanding_fa%2F"
+    title="Email"
+    aria-label="Email"
+    id="share-link-email"
+  >
+    <svg style="height: 1em;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M16.5 12a4.5 4.5 0 1 1-9 0a4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25"/></svg>
+  </a>
+  
+
+  
+  
+  
+  
+  
+  
+  <a
+    target="_blank" rel="noopener"
+    class="m-1 rounded-md bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral-300 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+    href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fspidermonk7.github.io%2Fpost%2Funderstanding_fa%2F&amp;title=Learning&#43;Notes&#43;-&#43;the&#43;Flash-Attention"
+    title="LinkedIn"
+    aria-label="LinkedIn"
+    id="share-link-linkedin"
+  >
+    <svg style="height: 1em;" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+  </a>
+  
+
+  
+  
+  
+  
+  
+  
+  <a
+    target="_blank" rel="noopener"
+    class="m-1 rounded-md bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral-300 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+    href="whatsapp://send?text=Learning&#43;Notes&#43;-&#43;the&#43;Flash-Attention%20https%3A%2F%2Fspidermonk7.github.io%2Fpost%2Funderstanding_fa%2F"
+    title="WhatsApp"
+    aria-label="WhatsApp"
+    id="share-link-whatsapp"
+  >
+    <svg style="height: 1em;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="m187.58 144.84-32-16a8 8 0 0 0-8 .5l-14.69 9.8a40.55 40.55 0 0 1-16-16l9.8-14.69a8 8 0 0 0 .5-8l-16-32A8 8 0 0 0 104 64a40 40 0 0 0-40 40 88.1 88.1 0 0 0 88 88 40 40 0 0 0 40-40 8 8 0 0 0-4.42-7.16ZM152 176a72.08 72.08 0 0 1-72-72 24 24 0 0 1 19.29-23.54l11.48 23L101 118a8 8 0 0 0-.73 7.51 56.47 56.47 0 0 0 30.15 30.15A8 8 0 0 0 138 155l14.61-9.74 23 11.48A24 24 0 0 1 152 176ZM128 24a104 104 0 0 0-91.82 152.88l-11.35 34.05a16 16 0 0 0 20.24 20.24l34.05-11.35A104 104 0 1 0 128 24Zm0 192a87.87 87.87 0 0 1-44.06-11.81 8 8 0 0 0-6.54-.67L40 216l12.47-37.4a8 8 0 0 0-.66-6.54A88 88 0 1 1 128 216Z"/></svg>
+  </a>
+  
+</section>
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+    
+
+
+
+  
+  
+  
+    
+  
+  
+  
+
+<div class="flex pt-12 pb-4">
+  
+  
+  <img
+    class="mr-4 h-24 w-24 rounded-full"
+    width="96"
+    height="96"
+    alt="Shaoyang Cui"
+  src="/author/joey-cui/avatar_hu6936837893285623220.jpg"
+  loading="lazy"
+  />
+  
+  <div class="place-self-center">
+    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+      Authors
+    </div>
+    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+      <a href="https://spidermonk7.github.io/" class="no-underline">
+      Shaoyang Cui
+      </a>
+    </div>
+
+    
+    <div class="text-sm font-bold text-neutral-700 dark:text-neutral-300">
+    Research Assistant
+    </div>
+    
+
+
+    
+
+    <div class="text-2xl sm:text-lg pt-1">
+
+      
+<div class="flex flex-wrap text-neutral-500 dark:text-neutral-300">
+  
+    
+    
+    
+    
+    <a
+      class="pr-2 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+      style="will-change:transform;"
+      href="mailto:sy-cui@thu.edu.cn"
+      
+      aria-label="At-Symbol"
+    ><svg style="height: 1em;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M16.5 12a4.5 4.5 0 1 1-9 0a4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25"/></svg></a>
+  
+    
+    
+    
+    
+      
+    
+    <a
+      class="pr-2 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+      style="will-change:transform;"
+      href="https://github.com/spidermonk7/"
+      target="_blank" rel="noopener" rel="me noopener noreferrer"
+      aria-label="Brands/Github"
+    ><svg style="height: 1em;" fill="currentColor" viewBox="3 3 18 18"><path d="M12 3C7.0275 3 3 7.12937 3 12.2276C3 16.3109 5.57625 19.7597 9.15374 20.9824C9.60374 21.0631 9.77249 20.7863 9.77249 20.5441C9.77249 20.3249 9.76125 19.5982 9.76125 18.8254C7.5 19.2522 6.915 18.2602 6.735 17.7412C6.63375 17.4759 6.19499 16.6569 5.8125 16.4378C5.4975 16.2647 5.0475 15.838 5.80124 15.8264C6.51 15.8149 7.01625 16.4954 7.18499 16.7723C7.99499 18.1679 9.28875 17.7758 9.80625 17.5335C9.885 16.9337 10.1212 16.53 10.38 16.2993C8.3775 16.0687 6.285 15.2728 6.285 11.7432C6.285 10.7397 6.63375 9.9092 7.20749 9.26326C7.1175 9.03257 6.8025 8.08674 7.2975 6.81794C7.2975 6.81794 8.05125 6.57571 9.77249 7.76377C10.4925 7.55615 11.2575 7.45234 12.0225 7.45234C12.7875 7.45234 13.5525 7.55615 14.2725 7.76377C15.9937 6.56418 16.7475 6.81794 16.7475 6.81794C17.2424 8.08674 16.9275 9.03257 16.8375 9.26326C17.4113 9.9092 17.76 10.7281 17.76 11.7432C17.76 15.2843 15.6563 16.0687 13.6537 16.2993C13.98 16.5877 14.2613 17.1414 14.2613 18.0065C14.2613 19.2407 14.25 20.2326 14.25 20.5441C14.25 20.7863 14.4188 21.0746 14.8688 20.9824C16.6554 20.364 18.2079 19.1866 19.3078 17.6162C20.4077 16.0457 20.9995 14.1611 21 12.2276C21 7.12937 16.9725 3 12 3Z"></path></svg></a>
+  
+</div>
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+
+
+
+
+  
+  
+    
+    
+    
+      
+      
+    
+<div class="pt-1 no-prose w-full">
+  <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+  <div class="flex flex-col md:flex-row flex-nowrap justify-between gap-5 pt-2">
+    <div class="">
+      
+    </div>
+    <div class="">
+      
+        <a class="group flex text-right no-underline" href="/post/learning-notes-criticality/">
+          <span class="flex flex-col">
+            <span
+              class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+            >Learning Notes - Criticality Stage</span
+            >
+            <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+              
+                Mar 18, 2026
+              
+            </span>
+          </span>
+          <span
+            class="mt-[-0.3rem] ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+          ><span class="ltr:inline">&rarr;</span></span>
+        </a>
+      
+    </div>
+  </div>
+</div>
+
+
+
+  
+
+
+  
+
+
+
+</div>
+
+      </div>
+
+    </main>
+  </article>
+</div>
+
+    </div>
+    <div class="page-footer">
+      <footer class="container mx-auto flex flex-col justify-items-center text-sm leading-6 mt-24 mb-4 text-slate-700 dark:text-slate-200">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+    
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by text-center">
+    Copyright 2026 Shaoyang Cui. This work is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank">CC BY NC ND 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      
+        <i class="fab fa-creative-commons-nc fa-2x" aria-hidden="true"></i>
+      
+      
+        <i class="fab fa-creative-commons-nd fa-2x" aria-hidden="true"></i>
+      
+    </a>
+  </p>
+
+
+
+
+
+  <p class="powered-by text-center">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://hugoblox.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Hugo Blox Builder</a> — the free, <a href="https://github.com/HugoBlox/hugo-blox-builder" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+
+</footer>
+
+    </div>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

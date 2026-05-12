@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AI Theory | Shaoyang Cui</title>
+    <link>https://spidermonk7.github.io/tags/ai-theory/</link>
+      <atom:link href="https://spidermonk7.github.io/tags/ai-theory/index.xml" rel="self" type="application/rss+xml" />
+    <description>AI Theory</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Thu, 01 Sep 2022 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://spidermonk7.github.io/media/icon_hu7729264130191091259.png</url>
+      <title>AI Theory</title>
+      <link>https://spidermonk7.github.io/tags/ai-theory/</link>
+    </image>
+    
+    <item>
+      <title>Self-Awareness in Conscious Turing Machines</title>
+      <link>https://spidermonk7.github.io/project/ctm/</link>
+      <pubDate>Thu, 01 Sep 2022 00:00:00 +0000</pubDate>
+      <guid>https://spidermonk7.github.io/project/ctm/</guid>
+      <description>&lt;p&gt;Based on the framework of Conscious Turing Machines (CTM), discussed consciousness and self-consciousness of a CTM with clear definitions. Examined whether the CTM framework aligns with key definitions of human consciousness and created the &amp;lsquo;MIT&amp;rsquo; model to understand consciousness generation phenomena. Invited to present at IJTCS2023 workshop.
+Repository: &lt;a href=&#34;https://github.com/spidermonk7/conscious-turing-machine&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/spidermonk7/conscious-turing-machine&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

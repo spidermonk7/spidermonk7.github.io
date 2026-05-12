@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>World Modeling | Shaoyang Cui</title>
+    <link>https://spidermonk7.github.io/tags/world-modeling/</link>
+      <atom:link href="https://spidermonk7.github.io/tags/world-modeling/index.xml" rel="self" type="application/rss+xml" />
+    <description>World Modeling</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Wed, 18 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://spidermonk7.github.io/media/icon_hu7729264130191091259.png</url>
+      <title>World Modeling</title>
+      <link>https://spidermonk7.github.io/tags/world-modeling/</link>
+    </image>
+    
+    <item>
+      <title>Learning Notes - Grid Cell Coding Theory</title>
+      <link>https://spidermonk7.github.io/post/learning-notes-cogmap/</link>
+      <pubDate>Wed, 18 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://spidermonk7.github.io/post/learning-notes-cogmap/</guid>
+      <description>&lt;h1 id=&#34;date-2026-3-27&#34;&gt;Date: 2026-3-27&lt;/h1&gt;
+&lt;p&gt;An overview of grid cell.&lt;/p&gt;
+&lt;h3 id=&#34;discovery-and-observations&#34;&gt;Discovery and Observations&lt;/h3&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

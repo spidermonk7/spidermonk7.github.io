@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Recurrent Neural Networks | Shaoyang Cui</title>
+    <link>https://spidermonk7.github.io/tags/recurrent-neural-networks/</link>
+      <atom:link href="https://spidermonk7.github.io/tags/recurrent-neural-networks/index.xml" rel="self" type="application/rss+xml" />
+    <description>Recurrent Neural Networks</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Wed, 18 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://spidermonk7.github.io/media/icon_hu7729264130191091259.png</url>
+      <title>Recurrent Neural Networks</title>
+      <link>https://spidermonk7.github.io/tags/recurrent-neural-networks/</link>
+    </image>
+    
+    <item>
+      <title>Learning Notes - Criticality Stage</title>
+      <link>https://spidermonk7.github.io/post/learning-notes-criticality/</link>
+      <pubDate>Wed, 18 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://spidermonk7.github.io/post/learning-notes-criticality/</guid>
+      <description>&lt;h1 id=&#34;new-concepts-to-me&#34;&gt;New Concepts to Me&lt;/h1&gt;
+&lt;h2 id=&#34;leaky---integration---firing-neuron&#34;&gt;Leaky - Integration - Firing Neuron&lt;/h2&gt;
+&lt;p&gt;A widely-used neuron model that capture more specific computational character of real neurons.&lt;/p&gt;
+&lt;h2 id=&#34;adex-adaptation-exponential-lif&#34;&gt;AdEx: Adaptation Exponential LIF&lt;/h2&gt;
+&lt;h3 id=&#34;compared-to-hh-model&#34;&gt;Compared to HH-Model&lt;/h3&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

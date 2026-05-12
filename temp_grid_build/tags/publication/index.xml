@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Publication | Shaoyang Cui</title>
+    <link>https://spidermonk7.github.io/tags/publication/</link>
+      <atom:link href="https://spidermonk7.github.io/tags/publication/index.xml" rel="self" type="application/rss+xml" />
+    <description>Publication</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 10 May 2026 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://spidermonk7.github.io/media/icon_hu7729264130191091259.png</url>
+      <title>Publication</title>
+      <link>https://spidermonk7.github.io/tags/publication/</link>
+    </image>
+    
+    <item>
+      <title>HelioX - A GPU-Native Framework for Simulation and Training of Biophysically Detailed Networks</title>
+      <link>https://spidermonk7.github.io/project/heliox/</link>
+      <pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://spidermonk7.github.io/project/heliox/</guid>
+      <description>&lt;p&gt;Accepted at &lt;strong&gt;ICML 2026&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;HelioX is a GPU-native framework for simulation and training of biophysically detailed neural networks. It targets the mismatch between irregular dendritic computation and conventional deep learning stacks, and provides an end-to-end pipeline for both forward simulation and gradient-based training.&lt;/p&gt;
+&lt;p&gt;Highlights:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Multi-stream GPU execution for ionic current calculation, ODE construction, and conductance update&lt;/li&gt;
+&lt;li&gt;Efficient spike handling path designed for sparse spike events&lt;/li&gt;
+&lt;li&gt;End-to-end differentiable training for deep biophysical neural architectures&lt;/li&gt;
+&lt;li&gt;Strong runtime and scalability gains over traditional simulators in large-scale settings&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

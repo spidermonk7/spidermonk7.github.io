@@ -13,7 +13,7 @@ authors:
 
 This column is meant to be a running notebook. I do not want it to be limited to prose. For grid cells, intuition often becomes much clearer when formulas and visual structure are placed side by side, and even clearer when some parameters can be manipulated directly.
 
-This first note starts from a more basic hypothesis: grid-like firing may emerge from the interference of several theta-related traveling waves, and the relative phases of those waves determine where firing is strong.
+This first note starts from a more basic hypothesis: grid-like firing may emerge progressively as theta-related plane waves are introduced one by one, and the relative phase of each wave with respect to the theta rhythm changes where constructive interference produces strong firing.
 
 ## A minimal interference model
 
@@ -40,7 +40,7 @@ u_k =
 \qquad k = 0,1,2
 $$
 
-so the three wave components differ by $60^\circ$ in orientation. A minimal superposition model is then
+Each wave by itself only creates a periodic stripe-like modulation. The key step is the accumulation:
 
 $$
 s(x) = \frac{1}{3} \sum_{k=1}^{3} w_k(x),
@@ -52,21 +52,28 @@ $$
 g(x) = f(s(x)),
 $$
 
-where $f$ is a thresholding or sharpening nonlinearity. This is still not a full grid-cell theory, but it is a clean way to visualize how relative phase can sculpt the final firing map.
+where $f$ is a thresholding or sharpening nonlinearity. In that sense, the conceptual order is:
+
+- introduce one wave and inspect its firing effect
+- introduce a second wave and observe how phase difference creates interference
+- introduce a third wave and see how the firing map becomes more grid-like
+
+This is still not a full grid-cell theory, but it is a clean way to visualize how relative phase can sculpt the final firing map.
 
 ## What to look for
 
 The main qualitative effects are:
 
-- With one wave, the response is just a striped spatial modulation.
-- With two waves, interference appears, but it is still not grid-like.
-- With three waves at 60-degree offsets, the superposition can support hexagonal firing structure.
-- Changing the relative theta phases shifts where constructive interference happens.
-- Increasing the readout nonlinearity sharpens peaks and makes the field look more cell-like.
+- With only wave 1, the firing result is still stripe-like.
+- Adding wave 2 introduces interference structure, and the phase difference between the two waves begins to matter.
+- Adding wave 3 makes the full interference geometry available and can support localized grid-like peaks.
+- Changing a wave's phase relative to theta shifts where constructive interference lands in space.
+- Changing wave orientation changes the geometry of the interference pattern itself.
+- Increasing the readout nonlinearity sharpens peaks and makes the firing map look more cell-like.
 
 ## Interactive sketch
 
-Use the controls below to vary the wavelength, orientation, and the three relative theta phases. The point of this demo is not to jump directly to the final grid pattern, but to show the path from one wave, to two-wave interference, to three-wave superposition and firing.
+Use the tabs below to progressively introduce wave 1, wave 2, and wave 3. For each active wave, you can set its orientation, amplitude, and phase relative to theta. The upper region visualizes the raw wave superposition, while the lower region shows the grid cell firing map produced after the firing readout. This keeps the progression from plane waves to firing explicit.
 
 {{< gridcell-lattice-demo >}}
 

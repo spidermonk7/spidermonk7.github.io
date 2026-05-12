@@ -1,29 +1,20 @@
 <div class="gridcell-demo">
+  <div class="gridcell-demo-intro">
+    <div class="gridcell-demo-tabs" role="tablist" aria-label="Wave introduction stages">
+      <button type="button" class="gridcell-demo-tab is-active" data-role="stage" data-stage="1">Introduce wave 1</button>
+      <button type="button" class="gridcell-demo-tab" data-role="stage" data-stage="2">Introduce wave 2</button>
+      <button type="button" class="gridcell-demo-tab" data-role="stage" data-stage="3">Introduce wave 3</button>
+    </div>
+    <p class="gridcell-demo-stage-note" data-role="stage-note">
+      One plane wave alone produces only a striped modulation, so the firing map is still far from a grid code.
+    </p>
+  </div>
+
   <div class="gridcell-demo-controls">
     <label>
       <span>Wavelength</span>
       <input type="range" min="20" max="90" value="44" step="1" data-role="scale">
       <output data-role="scale-value">44</output>
-    </label>
-    <label>
-      <span>Orientation</span>
-      <input type="range" min="0" max="180" value="18" step="1" data-role="orientation">
-      <output data-role="orientation-value">18 deg</output>
-    </label>
-    <label>
-      <span>Theta phase 1</span>
-      <input type="range" min="0" max="360" value="0" step="1" data-role="phase1">
-      <output data-role="phase1-value">0 deg</output>
-    </label>
-    <label>
-      <span>Theta phase 2</span>
-      <input type="range" min="0" max="360" value="70" step="1" data-role="phase2">
-      <output data-role="phase2-value">70 deg</output>
-    </label>
-    <label>
-      <span>Theta phase 3</span>
-      <input type="range" min="0" max="360" value="140" step="1" data-role="phase3">
-      <output data-role="phase3-value">140 deg</output>
     </label>
     <label>
       <span>Firing sharpness</span>
@@ -32,23 +23,79 @@
     </label>
   </div>
 
+  <div class="gridcell-demo-wave-grid">
+    <section class="gridcell-demo-wave-card" data-wave-card="1">
+      <h4>Wave 1</h4>
+      <label>
+        <span>Orientation</span>
+        <input type="range" min="0" max="180" value="0" step="1" data-role="orientation1">
+        <output data-role="orientation1-value">0 deg</output>
+      </label>
+      <label>
+        <span>Phase vs theta</span>
+        <input type="range" min="0" max="360" value="0" step="1" data-role="phase1">
+        <output data-role="phase1-value">0 deg</output>
+      </label>
+      <label>
+        <span>Amplitude</span>
+        <input type="range" min="0.2" max="1.4" value="1.0" step="0.05" data-role="amplitude1">
+        <output data-role="amplitude1-value">1.00</output>
+      </label>
+    </section>
+
+    <section class="gridcell-demo-wave-card is-muted" data-wave-card="2">
+      <h4>Wave 2</h4>
+      <label>
+        <span>Orientation</span>
+        <input type="range" min="0" max="180" value="60" step="1" data-role="orientation2">
+        <output data-role="orientation2-value">60 deg</output>
+      </label>
+      <label>
+        <span>Phase vs theta</span>
+        <input type="range" min="0" max="360" value="90" step="1" data-role="phase2">
+        <output data-role="phase2-value">90 deg</output>
+      </label>
+      <label>
+        <span>Amplitude</span>
+        <input type="range" min="0.2" max="1.4" value="1.0" step="0.05" data-role="amplitude2">
+        <output data-role="amplitude2-value">1.00</output>
+      </label>
+    </section>
+
+    <section class="gridcell-demo-wave-card is-muted" data-wave-card="3">
+      <h4>Wave 3</h4>
+      <label>
+        <span>Orientation</span>
+        <input type="range" min="0" max="180" value="120" step="1" data-role="orientation3">
+        <output data-role="orientation3-value">120 deg</output>
+      </label>
+      <label>
+        <span>Phase vs theta</span>
+        <input type="range" min="0" max="360" value="180" step="1" data-role="phase3">
+        <output data-role="phase3-value">180 deg</output>
+      </label>
+      <label>
+        <span>Amplitude</span>
+        <input type="range" min="0.2" max="1.4" value="1.0" step="0.05" data-role="amplitude3">
+        <output data-role="amplitude3-value">1.00</output>
+      </label>
+    </section>
+  </div>
+
   <div class="gridcell-demo-stage">
-    <div class="gridcell-demo-panels">
-      <figure class="gridcell-demo-panel">
-        <figcaption>1 wave</figcaption>
-        <canvas width="300" height="300" data-role="canvas-1"></canvas>
-      </figure>
-      <figure class="gridcell-demo-panel">
-        <figcaption>2 waves</figcaption>
-        <canvas width="300" height="300" data-role="canvas-2"></canvas>
-      </figure>
-      <figure class="gridcell-demo-panel">
-        <figcaption>3 waves -> firing</figcaption>
-        <canvas width="300" height="300" data-role="canvas-3"></canvas>
-      </figure>
+    <div class="gridcell-demo-visual-block">
+      <h4>Region 1: wave superposition</h4>
+      <canvas width="520" height="320" data-role="wave-canvas"></canvas>
+      <div class="gridcell-demo-caption">
+        This panel shows the raw superposed wave field after introducing only the waves active in the current stage.
+      </div>
     </div>
-    <div class="gridcell-demo-caption">
-      The first panel shows one traveling component, the second shows pairwise interference, and the third applies a simple nonlinear firing readout after three-wave superposition.
+    <div class="gridcell-demo-visual-block">
+      <h4>Region 2: grid cell firing</h4>
+      <canvas width="520" height="520" data-role="firing-canvas"></canvas>
+      <div class="gridcell-demo-caption">
+        This panel applies the firing readout to the superposed field, producing the resulting grid-cell-like firing map.
+      </div>
     </div>
   </div>
 </div>
@@ -58,31 +105,51 @@
   const root = document.currentScript.previousElementSibling;
   if (!root || !root.classList.contains('gridcell-demo')) return;
 
+  const stageButtons = Array.from(root.querySelectorAll('[data-role="stage"]'));
+  const stageNote = root.querySelector('[data-role="stage-note"]');
+  const waveCards = [1, 2, 3].map((index) => root.querySelector(`[data-wave-card="${index}"]`));
+
   const controls = {
     scale: root.querySelector('[data-role="scale"]'),
-    orientation: root.querySelector('[data-role="orientation"]'),
+    sharpness: root.querySelector('[data-role="sharpness"]'),
+    orientation1: root.querySelector('[data-role="orientation1"]'),
+    orientation2: root.querySelector('[data-role="orientation2"]'),
+    orientation3: root.querySelector('[data-role="orientation3"]'),
     phase1: root.querySelector('[data-role="phase1"]'),
     phase2: root.querySelector('[data-role="phase2"]'),
     phase3: root.querySelector('[data-role="phase3"]'),
-    sharpness: root.querySelector('[data-role="sharpness"]')
+    amplitude1: root.querySelector('[data-role="amplitude1"]'),
+    amplitude2: root.querySelector('[data-role="amplitude2"]'),
+    amplitude3: root.querySelector('[data-role="amplitude3"]')
   };
 
   const outputs = {
     scale: root.querySelector('[data-role="scale-value"]'),
-    orientation: root.querySelector('[data-role="orientation-value"]'),
+    sharpness: root.querySelector('[data-role="sharpness-value"]'),
+    orientation1: root.querySelector('[data-role="orientation1-value"]'),
+    orientation2: root.querySelector('[data-role="orientation2-value"]'),
+    orientation3: root.querySelector('[data-role="orientation3-value"]'),
     phase1: root.querySelector('[data-role="phase1-value"]'),
     phase2: root.querySelector('[data-role="phase2-value"]'),
     phase3: root.querySelector('[data-role="phase3-value"]'),
-    sharpness: root.querySelector('[data-role="sharpness-value"]')
+    amplitude1: root.querySelector('[data-role="amplitude1-value"]'),
+    amplitude2: root.querySelector('[data-role="amplitude2-value"]'),
+    amplitude3: root.querySelector('[data-role="amplitude3-value"]')
   };
 
-  const canvases = [
-    root.querySelector('[data-role="canvas-1"]'),
-    root.querySelector('[data-role="canvas-2"]'),
-    root.querySelector('[data-role="canvas-3"]')
-  ];
-  const contexts = canvases.map((canvas) => canvas.getContext('2d'));
-  const images = canvases.map((canvas, index) => contexts[index].createImageData(canvas.width, canvas.height));
+  const stageNotes = {
+    1: 'One plane wave alone produces only a striped modulation, so the firing map is still far from a grid code.',
+    2: 'After introducing wave 2, relative phase begins to matter through interference, but the result is still not yet hexagonal.',
+    3: 'With wave 3 added, phase relationships across all three components can support localized peaks that resemble grid-cell firing.'
+  };
+
+  const waveCanvas = root.querySelector('[data-role="wave-canvas"]');
+  const waveCtx = waveCanvas.getContext('2d');
+  const waveImage = waveCtx.createImageData(waveCanvas.width, waveCanvas.height);
+  const firingCanvas = root.querySelector('[data-role="firing-canvas"]');
+  const firingCtx = firingCanvas.getContext('2d');
+  const firingImage = firingCtx.createImageData(firingCanvas.width, firingCanvas.height);
+  let activeStage = 1;
 
   function clamp01(x) {
     return Math.max(0, Math.min(1, x));
@@ -92,56 +159,58 @@
     return deg * Math.PI / 180;
   }
 
-  function buildWaves(theta, phase1, phase2, phase3) {
-    return [
-      { angle: theta, phase: phase1 },
-      { angle: theta + Math.PI / 3, phase: phase2 },
-      { angle: theta + 2 * Math.PI / 3, phase: phase3 }
-    ];
+  function readWaves() {
+    return [1, 2, 3].map((index) => ({
+      angle: degToRad(Number(controls[`orientation${index}`].value)),
+      phase: degToRad(Number(controls[`phase${index}`].value)),
+      amplitude: Number(controls[`amplitude${index}`].value)
+    }));
   }
 
   function waveValue(x, y, scale, wave) {
     const ux = Math.cos(wave.angle);
     const uy = Math.sin(wave.angle);
     const projection = (x * ux + y * uy) / scale;
-    return Math.cos(2 * Math.PI * projection + wave.phase);
+    return wave.amplitude * Math.cos(2 * Math.PI * projection + wave.phase);
   }
 
-  function cumulativeValue(x, y, scale, waves, count) {
+  function interferenceValue(x, y, scale, waves, count) {
     let sum = 0;
+    let amplitudeSum = 0;
     for (let i = 0; i < count; i += 1) {
       sum += waveValue(x, y, scale, waves[i]);
+      amplitudeSum += waves[i].amplitude;
     }
-    return sum / count;
+    return amplitudeSum > 0 ? sum / amplitudeSum : 0;
   }
 
   function firingValue(raw, sharpness) {
-    const thresholded = clamp01((raw + 1) / 2);
-    return Math.pow(thresholded, sharpness);
+    const normalized = clamp01((raw + 1) / 2);
+    return Math.pow(normalized, sharpness);
   }
 
-  function colorizeWave(value) {
+  function colorizeWaveField(value) {
     const t = clamp01((value + 1) / 2);
     const r = Math.round(36 + 205 * t);
-    const g = Math.round(86 + 145 * (1 - Math.abs(0.5 - t) * 2));
-    const b = Math.round(94 + 135 * (1 - t));
+    const g = Math.round(92 + 120 * (1 - Math.abs(0.5 - t) * 2));
+    const b = Math.round(110 + 120 * (1 - t));
     return [r, g, b];
   }
 
   function colorizeFiring(value) {
     const t = clamp01(value);
-    const r = Math.round(250 - 175 * t);
-    const g = Math.round(244 - 130 * t);
-    const b = Math.round(231 - 28 * t);
+    const r = Math.round(247 - 182 * t);
+    const g = Math.round(242 - 132 * t);
+    const b = Math.round(231 - 24 * t);
     return [r, g, b];
   }
 
-  function renderPanel(ctx, image, sampler, palette) {
+  function renderCanvas(ctx, image, sampler, colorizer) {
     const width = image.width;
     const height = image.height;
+    const data = image.data;
     const xCenter = width / 2;
     const yCenter = height / 2;
-    const data = image.data;
     let ptr = 0;
 
     for (let py = 0; py < height; py += 1) {
@@ -149,7 +218,7 @@
         const x = px - xCenter;
         const y = py - yCenter;
         const value = sampler(x, y);
-        const [r, g, b] = palette(value);
+        const [r, g, b] = colorizer(value);
         data[ptr] = r;
         data[ptr + 1] = g;
         data[ptr + 2] = b;
@@ -171,45 +240,62 @@
     ctx.restore();
   }
 
+  function refreshLabels() {
+    outputs.scale.textContent = controls.scale.value;
+    outputs.sharpness.textContent = Number(controls.sharpness.value).toFixed(1);
+    [1, 2, 3].forEach((index) => {
+      outputs[`orientation${index}`].textContent = `${controls[`orientation${index}`].value} deg`;
+      outputs[`phase${index}`].textContent = `${controls[`phase${index}`].value} deg`;
+      outputs[`amplitude${index}`].textContent = Number(controls[`amplitude${index}`].value).toFixed(2);
+    });
+  }
+
+  function refreshStageUI() {
+    stageButtons.forEach((button) => {
+      const isActive = Number(button.dataset.stage) === activeStage;
+      button.classList.toggle('is-active', isActive);
+    });
+
+    waveCards.forEach((card, index) => {
+      const enabled = index + 1 <= activeStage;
+      card.classList.toggle('is-muted', !enabled);
+      Array.from(card.querySelectorAll('input')).forEach((input) => {
+        input.disabled = !enabled;
+      });
+    });
+
+    stageNote.textContent = stageNotes[activeStage];
+  }
+
   function render() {
+    refreshLabels();
+    refreshStageUI();
+
     const scale = Number(controls.scale.value);
-    const theta = degToRad(Number(controls.orientation.value));
     const sharpness = Number(controls.sharpness.value);
-    const waves = buildWaves(
-      theta,
-      degToRad(Number(controls.phase1.value)),
-      degToRad(Number(controls.phase2.value)),
-      degToRad(Number(controls.phase3.value))
+    const waves = readWaves();
+
+    renderCanvas(
+      waveCtx,
+      waveImage,
+      (x, y) => interferenceValue(x, y, scale, waves, activeStage),
+      colorizeWaveField
     );
 
-    outputs.scale.textContent = `${scale}`;
-    outputs.orientation.textContent = `${controls.orientation.value} deg`;
-    outputs.phase1.textContent = `${controls.phase1.value} deg`;
-    outputs.phase2.textContent = `${controls.phase2.value} deg`;
-    outputs.phase3.textContent = `${controls.phase3.value} deg`;
-    outputs.sharpness.textContent = sharpness.toFixed(1);
-
-    renderPanel(
-      contexts[0],
-      images[0],
-      (x, y) => cumulativeValue(x, y, scale, waves, 1),
-      colorizeWave
-    );
-
-    renderPanel(
-      contexts[1],
-      images[1],
-      (x, y) => cumulativeValue(x, y, scale, waves, 2),
-      colorizeWave
-    );
-
-    renderPanel(
-      contexts[2],
-      images[2],
-      (x, y) => firingValue(cumulativeValue(x, y, scale, waves, 3), sharpness),
+    renderCanvas(
+      firingCtx,
+      firingImage,
+      (x, y) => firingValue(interferenceValue(x, y, scale, waves, activeStage), sharpness),
       colorizeFiring
     );
   }
+
+  stageButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      activeStage = Number(button.dataset.stage);
+      render();
+    });
+  });
 
   Object.values(controls).forEach((input) => {
     input.addEventListener('input', render);

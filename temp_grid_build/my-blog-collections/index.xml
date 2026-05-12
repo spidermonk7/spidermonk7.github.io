@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>My-Blog-Collections | Shaoyang Cui</title>
+    <link>https://spidermonk7.github.io/my-blog-collections/</link>
+      <atom:link href="https://spidermonk7.github.io/my-blog-collections/index.xml" rel="self" type="application/rss+xml" />
+    <description>My-Blog-Collections</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Tue, 12 May 2026 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://spidermonk7.github.io/media/icon_hu7729264130191091259.png</url>
+      <title>My-Blog-Collections</title>
+      <link>https://spidermonk7.github.io/my-blog-collections/</link>
+    </image>
+    
+    <item>
+      <title>Grid Cell Notes</title>
+      <link>https://spidermonk7.github.io/my-blog-collections/grid-cell-notes/</link>
+      <pubDate>Tue, 12 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://spidermonk7.github.io/my-blog-collections/grid-cell-notes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>My Failures</title>
+      <link>https://spidermonk7.github.io/my-blog-collections/my-failures/</link>
+      <pubDate>Tue, 24 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://spidermonk7.github.io/my-blog-collections/my-failures/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>日拱一卒,功不唐捐</title>
+      <link>https://spidermonk7.github.io/my-blog-collections/persistence-never-goes-unrewarded/</link>
+      <pubDate>Sun, 22 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://spidermonk7.github.io/my-blog-collections/persistence-never-goes-unrewarded/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
