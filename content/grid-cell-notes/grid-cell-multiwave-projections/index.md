@@ -54,42 +54,54 @@ $$
 T_i=\frac{2\pi}{\beta v\cos\theta_i}.
 $$
 
-And along the actual movement direction, the spacing associated with wave $i$ is
+If I care about the distance measured along wave $i$'s own preferred direction, then during one re-alignment period the effective displacement is the projected velocity multiplied by the period:
 
 $$
-d_i=vT_i=\frac{2\pi}{\beta\cos\theta_i}.
+d_i=(v\cos\theta_i)T_i=\frac{2\pi}{\beta}.
 $$
 
-So once multiple preferred directions are present, the effective spatial periodicity is no longer the same for all waves. It is modulated by the projection factor $\cos\theta_i$.
+So the key point is:
+
+- the time between two re-alignments depends on $\cos\theta_i$
+- but the distance measured along the preferred direction of that wave is still the same constant $2\pi/\beta$
+
+The projection factor changes how quickly phase accumulates in time, not the preferred-direction spacing set by $\beta$.
 
 ## One wave
 
-With only one wave, the result is still a stripe-like grating. The firing field is periodic in one direction only, so this is not yet a full 2D grid.
+With only one preferred direction, the picture is still the stripe case from Note 01. The wave repeatedly re-aligns with the pacemaker after every projected distance
+
+$$
+\frac{2\pi}{\beta},
+$$
+
+so the firing pattern is a family of parallel bands orthogonal to that wave vector.
 
 ## Two waves
 
-With two waves, two stripe families interfere.
+Now add a second preferred direction. Each wave has its own projected phase drift,
 
-Qualitatively, this gives:
+$$
+\frac{d}{dt}\Delta\Phi_1=\beta v\cos\theta_1,\qquad
+\frac{d}{dt}\Delta\Phi_2=\beta v\cos\theta_2.
+$$
 
-- crossings between the two stripe systems
-- elongated or rhombic interference structure
-- stronger spatial localization than one wave alone
+Each wave alone would define its own stripe family. When both are present, the firing pattern is strongest where the two stripe families cross. So the geometry is no longer a single banded pattern; it becomes a lattice of pairwise crossings.
 
-But in general, two waves are still not enough to produce the familiar hexagonal grid-cell pattern. The geometry remains too anisotropic.
+The main role of $\theta_1$ and $\theta_2$ is to control the angle between those two stripe families, and therefore the shape and spacing of the crossing structure.
 
 ## Three waves
 
-With three waves, the picture changes qualitatively.
+Adding a third preferred direction gives a third stripe family. Now the most salient firing locations are the points where all three families come into alignment at once.
 
-If the three preferred directions are arranged with roughly symmetric angular offsets, then the stripe families can overlap in a much more balanced way. In that case, constructive interference can recur at localized positions across the plane, producing a grid-like firing layout.
+This is the step that moves the picture from simple stripe crossings toward the familiar grid-like arrangement. In the symmetric case, when the preferred directions are separated in a balanced way, the triple intersections become distributed across space in a regular pattern.
 
-This is the core geometric intuition:
+So in this note the logic is:
 
-- one wave gives one stripe family
-- two waves give crossings and interference structure
-- three appropriately arranged waves can support a 2D grid-like firing pattern
-
+1. each wave contributes a stripe family
+2. each stripe family is controlled by its projected phase drift
+3. pairwise crossings already create localized structure
+4. three-wave crossings push that structure toward a grid-cell-like firing pattern
 ## A geometric superposition picture
 
 A simple geometric way to write the multi-wave field is
@@ -123,7 +135,7 @@ The demo below keeps the model at this geometric-superposition level. You can in
 - $\theta_2$
 - $\theta_3$
 
-The left panel shows the active waves and their superposition in a 1D slice. The right panel shows the corresponding 2D firing pattern.
+The left panel shows the active waves and their superposition in a 1D slice. The right panel shows each wave's stripe family in its own color, together with highlighted intersections.
 
 {{< gridcell-multiwave-demo >}}
 
@@ -133,7 +145,8 @@ Compared with Note 01, the conceptual change is small but important:
 
 1. Motion is no longer assumed to be aligned with every wave.
 2. Each wave sees only the projected component $v\cos\theta_i$.
-3. Different waves therefore drift against the pacemaker at different rates.
-4. Their combined interference can move from stripes to crossings and eventually to grid-like firing.
+3. Different waves therefore drift against the pacemaker at different rates in time.
+4. Each wave still carries the same preferred-direction spacing $2\pi/\beta$.
+5. Their combined interference can move from stripes to crossings and eventually to grid-like firing.
 
 The next step after this note is to stop treating the pattern as static geometry and instead directly simulate phase accumulation while a rat moves through space.
