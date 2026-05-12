@@ -9,6 +9,7 @@ tags:
   - Benchmark
 authors:
   - admin
+  - Lingbei Meng
 external_link: https://vidnumteam.github.io
 ---
 This research introduces VNum, a comprehensive VideoQA benchmark containing 1,379 human-annotated video-question pairs designed to test multi-step numerical reasoning in Vision-Language Models (VLMs). Moving beyond simple counting, VNum spans diverse real-world environments to quantify objects, actions, and events through a unique three-level hierarchy.

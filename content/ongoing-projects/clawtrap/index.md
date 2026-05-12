@@ -8,6 +8,7 @@ tags:
   - Red Teaming
   - LLM Safety
 authors:
+  - Haochen Zhao
   - admin
 external_link: https://ClawTrap.github.io
 ---

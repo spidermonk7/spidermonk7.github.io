@@ -1,7 +1,21 @@
 ---
 title: "HelioX: A GPU-Native Framework for Simulation and Training of Biophysically Detailed Networks"
 authors:
+- Junfeng Lu
+- Zijie Yu
 - admin
+- Gan He
+- Ruiqin Xiong 
+- Kai Du
+- Tiejun Huang
+author_notes:
+- "First author"
+- ""
+- ""
+- ""
+- ""
+- "Corresponding author"
+- ""
 date: "2026-05-10T00:00:00Z"
 publishDate: "2026-05-10T00:00:00Z"
 publication_types: ["paper-conference"]

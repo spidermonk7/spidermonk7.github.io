@@ -1,0 +1,143 @@
+{{ $id := printf "gridcell-demo-%d" .Ordinal }}
+<div id="{{ $id }}" class="gridcell-demo">
+  <div class="gridcell-demo-controls">
+    <label>
+      <span>Scale</span>
+      <input type="range" min="18" max="80" value="42" step="1" data-role="scale">
+      <output data-role="scale-value">42</output>
+    </label>
+    <label>
+      <span>Orientation</span>
+      <input type="range" min="0" max="180" value="18" step="1" data-role="orientation">
+      <output data-role="orientation-value">18°</output>
+    </label>
+    <label>
+      <span>Phase X</span>
+      <input type="range" min="-40" max="40" value="0" step="1" data-role="phaseX">
+      <output data-role="phaseX-value">0</output>
+    </label>
+    <label>
+      <span>Phase Y</span>
+      <input type="range" min="-40" max="40" value="0" step="1" data-role="phaseY">
+      <output data-role="phaseY-value">0</output>
+    </label>
+    <label>
+      <span>Sharpness</span>
+      <input type="range" min="0.6" max="3.6" value="1.6" step="0.1" data-role="sharpness">
+      <output data-role="sharpness-value">1.6</output>
+    </label>
+  </div>
+
+  <div class="gridcell-demo-stage">
+    <canvas width="520" height="520" data-role="canvas"></canvas>
+    <div class="gridcell-demo-caption">
+      Three plane waves at 60-degree offsets generate a hexagonal interference pattern.
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const root = document.currentScript.previousElementSibling;
+  if (!root || !root.classList.contains('gridcell-demo')) return;
+
+  const controls = {
+    scale: root.querySelector('[data-role="scale"]'),
+    orientation: root.querySelector('[data-role="orientation"]'),
+    phaseX: root.querySelector('[data-role="phaseX"]'),
+    phaseY: root.querySelector('[data-role="phaseY"]'),
+    sharpness: root.querySelector('[data-role="sharpness"]')
+  };
+
+  const outputs = {
+    scale: root.querySelector('[data-role="scale-value"]'),
+    orientation: root.querySelector('[data-role="orientation-value"]'),
+    phaseX: root.querySelector('[data-role="phaseX-value"]'),
+    phaseY: root.querySelector('[data-role="phaseY-value"]'),
+    sharpness: root.querySelector('[data-role="sharpness-value"]')
+  };
+
+  const canvas = root.querySelector('[data-role="canvas"]');
+  const ctx = canvas.getContext('2d');
+  const width = canvas.width;
+  const height = canvas.height;
+  const image = ctx.createImageData(width, height);
+
+  function clamp01(x) {
+    return Math.max(0, Math.min(1, x));
+  }
+
+  function sample(x, y, scale, theta, phaseX, phaseY, sharpness) {
+    let sum = 0;
+    for (let k = 0; k < 3; k += 1) {
+      const angle = theta + k * Math.PI / 3;
+      const ux = Math.cos(angle);
+      const uy = Math.sin(angle);
+      const proj = ((x - phaseX) * ux + (y - phaseY) * uy) / scale;
+      sum += Math.cos(2 * Math.PI * proj);
+    }
+    const normalized = (sum + 3) / 6;
+    return Math.pow(clamp01(normalized), sharpness);
+  }
+
+  function colorize(value) {
+    const t = clamp01(value);
+    const r = Math.round(245 - 180 * t);
+    const g = Math.round(239 - 120 * t);
+    const b = Math.round(229 - 18 * t);
+    return [r, g, b];
+  }
+
+  function render() {
+    const scale = Number(controls.scale.value);
+    const theta = Number(controls.orientation.value) * Math.PI / 180;
+    const phaseX = Number(controls.phaseX.value);
+    const phaseY = Number(controls.phaseY.value);
+    const sharpness = Number(controls.sharpness.value);
+
+    outputs.scale.textContent = `${scale}`;
+    outputs.orientation.textContent = `${controls.orientation.value}°`;
+    outputs.phaseX.textContent = `${phaseX}`;
+    outputs.phaseY.textContent = `${phaseY}`;
+    outputs.sharpness.textContent = sharpness.toFixed(1);
+
+    const data = image.data;
+    let ptr = 0;
+    const xCenter = width / 2;
+    const yCenter = height / 2;
+
+    for (let py = 0; py < height; py += 1) {
+      for (let px = 0; px < width; px += 1) {
+        const x = px - xCenter;
+        const y = py - yCenter;
+        const value = sample(x, y, scale, theta, phaseX, phaseY, sharpness);
+        const [r, g, b] = colorize(value);
+        data[ptr] = r;
+        data[ptr + 1] = g;
+        data[ptr + 2] = b;
+        data[ptr + 3] = 255;
+        ptr += 4;
+      }
+    }
+
+    ctx.putImageData(image, 0, 0);
+
+    ctx.save();
+    ctx.strokeStyle = 'rgba(15, 23, 42, 0.16)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(width / 2, 0);
+    ctx.lineTo(width / 2, height);
+    ctx.moveTo(0, height / 2);
+    ctx.lineTo(width, height / 2);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  Object.values(controls).forEach((input) => {
+    input.addEventListener('input', render);
+  });
+
+  render();
+})();
+</script>

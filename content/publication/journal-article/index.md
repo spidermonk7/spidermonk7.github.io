@@ -2,10 +2,10 @@
 title: "Task Ability Decomposition and Difficulty Quantification of Visual Tasks for AGI Evaluation"
 authors:
 - admin
-- X. Y. He
-- J. H. Han
-- Z. L. Zhang
-- Y. J. Peng
+- Xinyi He
+- Jiaheng Han
+- Zhenliang Zhang
+- Yujia Peng
 author_notes:
 - "First author"
 - ""

@@ -272,6 +272,71 @@ body::before {
   color: var(--ink);
 }
 
+.gridcell-demo {
+  margin: 2rem 0;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255, 252, 247, 0.96) 0%, rgba(248, 243, 235, 0.92) 100%);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.gridcell-demo-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  padding: 1.25rem 1.25rem 0.75rem;
+}
+
+.gridcell-demo-controls label {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+
+.gridcell-demo-controls span {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.gridcell-demo-controls input[type='range'] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.gridcell-demo-controls output {
+  font-size: 0.82rem;
+  color: var(--accent);
+}
+
+.gridcell-demo-stage {
+  padding: 0 1.25rem 1.25rem;
+}
+
+.gridcell-demo canvas {
+  width: 100%;
+  max-width: 520px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 18px;
+  border: 1px solid rgba(19, 21, 24, 0.08);
+  background: #f9f6f0;
+}
+
+.gridcell-demo-caption {
+  margin-top: 0.85rem;
+  text-align: center;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 700px) {
+  .gridcell-demo-controls {
+    grid-template-columns: 1fr;
+  }
+}
+
 .home-featured .flex.flex-col.items-center.max-w-prose.mx-auto.gap-3.justify-center.px-6.md\:px-0,
 .home-stream .flex.flex-col.items-center.max-w-prose.mx-auto.gap-3.justify-center.px-6.md\:px-0 {
   width: min(1480px, calc(100vw - 68px));
