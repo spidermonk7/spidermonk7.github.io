@@ -180,6 +180,13 @@
           b = b * (1 - 0.35 * boost) + 196 * 0.35 * boost;
         }
 
+        if (count >= 3 && intersection > 0.62) {
+          const marker = Math.pow((intersection - 0.62) / 0.38, 1.05);
+          r = r * (1 - marker) + 255 * marker;
+          g = g * (1 - marker) + 236 * marker;
+          b = b * (1 - marker) + 120 * marker;
+        }
+
         data[ptr] = Math.round(clamp01(r / 255) * 255);
         data[ptr + 1] = Math.round(clamp01(g / 255) * 255);
         data[ptr + 2] = Math.round(clamp01(b / 255) * 255);
@@ -190,13 +197,25 @@
 
     firingCtx.putImageData(firingImage, 0, 0);
     firingCtx.save();
-    firingCtx.strokeStyle = 'rgba(15, 23, 42, 0.16)';
+    firingCtx.strokeStyle = 'rgba(15, 23, 42, 0.07)';
     firingCtx.lineWidth = 1;
     firingCtx.beginPath();
     firingCtx.moveTo(width / 2, 0);
     firingCtx.lineTo(width / 2, height);
     firingCtx.moveTo(0, height / 2);
     firingCtx.lineTo(width, height / 2);
+    firingCtx.stroke();
+
+    firingCtx.strokeStyle = 'rgba(15, 23, 42, 0.04)';
+    firingCtx.beginPath();
+    for (let step = 1; step < 4; step += 1) {
+      const x = (width / 4) * step;
+      const y = (height / 4) * step;
+      firingCtx.moveTo(x, 0);
+      firingCtx.lineTo(x, height);
+      firingCtx.moveTo(0, y);
+      firingCtx.lineTo(width, y);
+    }
     firingCtx.stroke();
     firingCtx.restore();
   }
