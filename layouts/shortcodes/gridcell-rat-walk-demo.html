@@ -1,0 +1,375 @@
+<div class="gridcell-dynamic-demo">
+  <div class="gridcell-dynamic-demo__header">
+    <p class="gridcell-dynamic-demo__intro">
+      Click inside the arena, then use <strong>W</strong>, <strong>A</strong>, <strong>S</strong>, <strong>D</strong> to move the rat. The center panel accumulates firing over time, while the right column shows the live theta wave, three direction-tuned waves, and their interference.
+    </p>
+    <div class="gridcell-dynamic-demo__actions">
+      <button type="button" data-role="reset">Reset trail</button>
+    </div>
+  </div>
+
+  <div class="gridcell-dynamic-demo__layout">
+    <section class="gridcell-dynamic-demo__card">
+      <h4>Rat in 2 x 2 Arena</h4>
+      <canvas width="360" height="360" data-role="arena-canvas"></canvas>
+      <p class="gridcell-dynamic-demo__caption">
+        The rat moves inside a square world. Its current velocity drives phase accumulation in the directional waves.
+      </p>
+    </section>
+
+    <section class="gridcell-dynamic-demo__card">
+      <h4>Grid Cell Firing</h4>
+      <canvas width="360" height="360" data-role="heatmap-canvas"></canvas>
+      <p class="gridcell-dynamic-demo__caption">
+        Firing is deposited at the rat's current position and earlier activity fades gradually, leaving a dynamic heat trace.
+      </p>
+    </section>
+
+    <section class="gridcell-dynamic-demo__card">
+      <h4>Oscillatory Waves</h4>
+      <div class="gridcell-dynamic-demo__wave-stack">
+        <canvas width="420" height="92" data-role="wave-theta"></canvas>
+        <canvas width="420" height="92" data-role="wave-1"></canvas>
+        <canvas width="420" height="92" data-role="wave-2"></canvas>
+        <canvas width="420" height="92" data-role="wave-3"></canvas>
+        <canvas width="420" height="92" data-role="wave-sum"></canvas>
+      </div>
+      <p class="gridcell-dynamic-demo__caption">
+        The top four traces are the moving waves themselves. The bottom trace shows their instantaneous interference pattern.
+      </p>
+    </section>
+  </div>
+</div>
+
+<script>
+(() => {
+  const root = document.currentScript.previousElementSibling;
+  if (!root || !root.classList.contains('gridcell-dynamic-demo')) return;
+
+  const arenaCanvas = root.querySelector('[data-role="arena-canvas"]');
+  const arenaCtx = arenaCanvas.getContext('2d');
+  const heatmapCanvas = root.querySelector('[data-role="heatmap-canvas"]');
+  const heatmapCtx = heatmapCanvas.getContext('2d');
+  const resetButton = root.querySelector('[data-role="reset"]');
+  const waveCanvases = {
+    theta: root.querySelector('[data-role="wave-theta"]'),
+    wave1: root.querySelector('[data-role="wave-1"]'),
+    wave2: root.querySelector('[data-role="wave-2"]'),
+    wave3: root.querySelector('[data-role="wave-3"]'),
+    sum: root.querySelector('[data-role="wave-sum"]')
+  };
+
+  const arenaSize = 2;
+  const trail = [];
+  const heatSize = 72;
+  const heat = new Float32Array(heatSize * heatSize);
+  const keys = new Set();
+  const waveAngles = [0, Math.PI / 3, (2 * Math.PI) / 3];
+  const waveColors = ['#153a63', '#b06a2b', '#2f6a4f'];
+  const state = {
+    x: 1,
+    y: 1,
+    vx: 0,
+    vy: 0,
+    thetaPhase: 0,
+    directionalPhases: [0, 0, 0],
+    lastTime: null
+  };
+
+  const settings = {
+    speed: 0.42,
+    omega0: 5.8,
+    beta: 15.4,
+    depositRadius: 3,
+    fadePerSecond: 0.38
+  };
+
+  function clamp(value, min, max) {
+    return Math.max(min, Math.min(max, value));
+  }
+
+  function clearHeat() {
+    heat.fill(0);
+    trail.length = 0;
+  }
+
+  function toPixelX(x, width) {
+    return (x / arenaSize) * width;
+  }
+
+  function toPixelY(y, height) {
+    return height - (y / arenaSize) * height;
+  }
+
+  function handleKeyDown(event) {
+    const key = event.key.toLowerCase();
+    if (!['w', 'a', 's', 'd'].includes(key)) return;
+    keys.add(key);
+    event.preventDefault();
+  }
+
+  function handleKeyUp(event) {
+    const key = event.key.toLowerCase();
+    if (!['w', 'a', 's', 'd'].includes(key)) return;
+    keys.delete(key);
+    event.preventDefault();
+  }
+
+  function readVelocity() {
+    let dx = 0;
+    let dy = 0;
+    if (keys.has('a')) dx -= 1;
+    if (keys.has('d')) dx += 1;
+    if (keys.has('w')) dy += 1;
+    if (keys.has('s')) dy -= 1;
+    const norm = Math.hypot(dx, dy) || 1;
+    return {
+      x: (dx / norm) * settings.speed,
+      y: (dy / norm) * settings.speed
+    };
+  }
+
+  function depositHeat(x, y, amount) {
+    if (amount <= 0.001) return;
+    const cx = Math.round((x / arenaSize) * (heatSize - 1));
+    const cy = Math.round((y / arenaSize) * (heatSize - 1));
+    for (let oy = -settings.depositRadius; oy <= settings.depositRadius; oy += 1) {
+      for (let ox = -settings.depositRadius; ox <= settings.depositRadius; ox += 1) {
+        const ix = cx + ox;
+        const iy = cy + oy;
+        if (ix < 0 || ix >= heatSize || iy < 0 || iy >= heatSize) continue;
+        const distance = Math.hypot(ox, oy);
+        const falloff = Math.exp(-(distance * distance) / 4.5);
+        const index = iy * heatSize + ix;
+        heat[index] = clamp(heat[index] + amount * falloff, 0, 1.45);
+      }
+    }
+  }
+
+  function currentWaveSignals() {
+    const theta = Math.sin(state.thetaPhase);
+    const waves = state.directionalPhases.map((phase) => Math.sin(phase));
+    const raw = (waves[0] + waves[1] + waves[2] + 0.75 * theta) / 3.75;
+    const firing = Math.pow(clamp((raw - 0.18) / 0.82, 0, 1), 2.4);
+    return { theta, waves, raw, firing };
+  }
+
+  function step(dt) {
+    const velocity = readVelocity();
+    state.vx = velocity.x;
+    state.vy = velocity.y;
+    state.x = clamp(state.x + state.vx * dt, 0, arenaSize);
+    state.y = clamp(state.y + state.vy * dt, 0, arenaSize);
+    state.thetaPhase += settings.omega0 * dt;
+
+    for (let i = 0; i < waveAngles.length; i += 1) {
+      const ux = Math.cos(waveAngles[i]);
+      const uy = Math.sin(waveAngles[i]);
+      const projectedVelocity = state.vx * ux + state.vy * uy;
+      state.directionalPhases[i] += (settings.omega0 + settings.beta * projectedVelocity) * dt;
+    }
+
+    const { firing } = currentWaveSignals();
+    depositHeat(state.x, state.y, firing * 0.22);
+
+    const fade = Math.exp(-settings.fadePerSecond * dt);
+    for (let i = 0; i < heat.length; i += 1) {
+      heat[i] *= fade;
+    }
+
+    trail.push({ x: state.x, y: state.y });
+    if (trail.length > 260) trail.shift();
+  }
+
+  function drawArena() {
+    const width = arenaCanvas.width;
+    const height = arenaCanvas.height;
+    arenaCtx.clearRect(0, 0, width, height);
+    arenaCtx.fillStyle = '#f9f6f0';
+    arenaCtx.fillRect(0, 0, width, height);
+
+    arenaCtx.strokeStyle = 'rgba(19, 21, 24, 0.1)';
+    arenaCtx.lineWidth = 1;
+    for (let i = 0; i <= 4; i += 1) {
+      const x = (width / 4) * i;
+      const y = (height / 4) * i;
+      arenaCtx.beginPath();
+      arenaCtx.moveTo(x, 0);
+      arenaCtx.lineTo(x, height);
+      arenaCtx.stroke();
+      arenaCtx.beginPath();
+      arenaCtx.moveTo(0, y);
+      arenaCtx.lineTo(width, y);
+      arenaCtx.stroke();
+    }
+
+    arenaCtx.strokeStyle = 'rgba(21, 58, 99, 0.28)';
+    arenaCtx.lineWidth = 2;
+    arenaCtx.strokeRect(1, 1, width - 2, height - 2);
+
+    if (trail.length > 1) {
+      arenaCtx.save();
+      arenaCtx.strokeStyle = 'rgba(21, 58, 99, 0.22)';
+      arenaCtx.lineWidth = 2.2;
+      arenaCtx.beginPath();
+      trail.forEach((point, index) => {
+        const px = toPixelX(point.x, width);
+        const py = toPixelY(point.y, height);
+        if (index === 0) {
+          arenaCtx.moveTo(px, py);
+        } else {
+          arenaCtx.lineTo(px, py);
+        }
+      });
+      arenaCtx.stroke();
+      arenaCtx.restore();
+    }
+
+    const ratX = toPixelX(state.x, width);
+    const ratY = toPixelY(state.y, height);
+    arenaCtx.fillStyle = '#131518';
+    arenaCtx.beginPath();
+    arenaCtx.arc(ratX, ratY, 8, 0, Math.PI * 2);
+    arenaCtx.fill();
+
+    arenaCtx.fillStyle = 'rgba(19, 21, 24, 0.64)';
+    arenaCtx.font = '12px Instrument Sans, Segoe UI, sans-serif';
+    arenaCtx.fillText('0', 6, height - 8);
+    arenaCtx.fillText('2', width - 14, height - 8);
+    arenaCtx.fillText('2', 6, 14);
+  }
+
+  function drawHeatmap() {
+    const width = heatmapCanvas.width;
+    const height = heatmapCanvas.height;
+    const image = heatmapCtx.createImageData(width, height);
+    const data = image.data;
+    let ptr = 0;
+
+    for (let py = 0; py < height; py += 1) {
+      for (let px = 0; px < width; px += 1) {
+        const ix = Math.floor((px / width) * heatSize);
+        const iy = Math.floor(((height - py) / height) * heatSize);
+        const value = clamp(heat[Math.min(heatSize - 1, iy) * heatSize + Math.min(heatSize - 1, ix)] || 0, 0, 1);
+        const r = 249 - 24 * value;
+        const g = 245 - 126 * value;
+        const b = 238 - 187 * value;
+        data[ptr] = Math.round(r);
+        data[ptr + 1] = Math.round(g);
+        data[ptr + 2] = Math.round(b);
+        data[ptr + 3] = 255;
+        ptr += 4;
+      }
+    }
+
+    heatmapCtx.putImageData(image, 0, 0);
+    heatmapCtx.save();
+    heatmapCtx.strokeStyle = 'rgba(19, 21, 24, 0.1)';
+    heatmapCtx.lineWidth = 1;
+    for (let i = 0; i <= 4; i += 1) {
+      const x = (width / 4) * i;
+      const y = (height / 4) * i;
+      heatmapCtx.beginPath();
+      heatmapCtx.moveTo(x, 0);
+      heatmapCtx.lineTo(x, height);
+      heatmapCtx.stroke();
+      heatmapCtx.beginPath();
+      heatmapCtx.moveTo(0, y);
+      heatmapCtx.lineTo(width, y);
+      heatmapCtx.stroke();
+    }
+    heatmapCtx.restore();
+
+    const ratX = toPixelX(state.x, width);
+    const ratY = toPixelY(state.y, height);
+    heatmapCtx.fillStyle = 'rgba(19, 21, 24, 0.72)';
+    heatmapCtx.beginPath();
+    heatmapCtx.arc(ratX, ratY, 4.5, 0, Math.PI * 2);
+    heatmapCtx.fill();
+  }
+
+  function drawWaveTrace(canvas, label, color, sampleFn) {
+    const ctx = canvas.getContext('2d');
+    const width = canvas.width;
+    const height = canvas.height;
+    const paddingX = 18;
+    const baseline = height / 2;
+    ctx.clearRect(0, 0, width, height);
+    ctx.fillStyle = '#f9f6f0';
+    ctx.fillRect(0, 0, width, height);
+
+    ctx.strokeStyle = 'rgba(19, 21, 24, 0.08)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(paddingX, baseline);
+    ctx.lineTo(width - paddingX, baseline);
+    ctx.stroke();
+
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    for (let i = 0; i <= 240; i += 1) {
+      const t = i / 240;
+      const x = paddingX + t * (width - paddingX * 2);
+      const y = baseline - sampleFn(t) * (height * 0.3);
+      if (i === 0) {
+        ctx.moveTo(x, y);
+      } else {
+        ctx.lineTo(x, y);
+      }
+    }
+    ctx.stroke();
+    ctx.restore();
+
+    ctx.fillStyle = 'rgba(19, 21, 24, 0.72)';
+    ctx.font = '12px Instrument Sans, Segoe UI, sans-serif';
+    ctx.fillText(label, 14, 16);
+  }
+
+  function drawWaves() {
+    const spatialFrequency = 3.2;
+    const thetaTrace = (t) => Math.sin(spatialFrequency * (t * Math.PI * 2) + state.thetaPhase);
+    const waveTraces = state.directionalPhases.map(
+      (phase) => (t) => Math.sin(spatialFrequency * (t * Math.PI * 2) + phase)
+    );
+    const sumTrace = (t) => (
+      thetaTrace(t) +
+      waveTraces[0](t) +
+      waveTraces[1](t) +
+      waveTraces[2](t)
+    ) / 4;
+
+    drawWaveTrace(waveCanvases.theta, 'theta', '#6d1f7a', thetaTrace);
+    drawWaveTrace(waveCanvases.wave1, 'wave 1', waveColors[0], waveTraces[0]);
+    drawWaveTrace(waveCanvases.wave2, 'wave 2', waveColors[1], waveTraces[1]);
+    drawWaveTrace(waveCanvases.wave3, 'wave 3', waveColors[2], waveTraces[2]);
+    drawWaveTrace(waveCanvases.sum, 'interference', '#8f1d1d', sumTrace);
+  }
+
+  function renderFrame(timestamp) {
+    if (state.lastTime == null) {
+      state.lastTime = timestamp;
+    }
+    const dt = Math.min((timestamp - state.lastTime) / 1000, 0.04);
+    state.lastTime = timestamp;
+
+    step(dt);
+    drawArena();
+    drawHeatmap();
+    drawWaves();
+    window.requestAnimationFrame(renderFrame);
+  }
+
+  resetButton.addEventListener('click', clearHeat);
+  arenaCanvas.addEventListener('pointerdown', () => arenaCanvas.focus());
+  arenaCanvas.setAttribute('tabindex', '0');
+  arenaCanvas.addEventListener('keydown', handleKeyDown);
+  arenaCanvas.addEventListener('keyup', handleKeyUp);
+  window.addEventListener('keydown', handleKeyDown);
+  window.addEventListener('keyup', handleKeyUp);
+
+  clearHeat();
+  window.requestAnimationFrame(renderFrame);
+})();
+</script>

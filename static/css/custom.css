@@ -464,6 +464,87 @@ body::before {
   color: var(--ink-soft);
 }
 
+.gridcell-dynamic-demo {
+  margin: 2rem 0;
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255, 252, 247, 0.96) 0%, rgba(248, 243, 235, 0.92) 100%);
+  box-shadow: var(--shadow);
+}
+
+.gridcell-dynamic-demo__header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.1rem;
+}
+
+.gridcell-dynamic-demo__intro {
+  margin: 0;
+  max-width: 78ch;
+  color: var(--ink-soft);
+  line-height: 1.75;
+}
+
+.gridcell-dynamic-demo__actions button {
+  border: 1px solid rgba(19, 21, 24, 0.12);
+  border-radius: 999px;
+  padding: 0.58rem 0.95rem;
+  background: rgba(255, 252, 247, 0.86);
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.gridcell-dynamic-demo__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(320px, 1.2fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.gridcell-dynamic-demo__card {
+  padding: 1rem;
+  border: 1px solid rgba(19, 21, 24, 0.08);
+  border-radius: 20px;
+  background: rgba(255, 252, 247, 0.62);
+}
+
+.gridcell-dynamic-demo__card h4 {
+  margin: 0 0 0.75rem;
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--accent);
+}
+
+.gridcell-dynamic-demo canvas {
+  width: 100%;
+  display: block;
+  border-radius: 16px;
+  border: 1px solid rgba(19, 21, 24, 0.08);
+  background: #f9f6f0;
+}
+
+.gridcell-dynamic-demo__caption {
+  margin: 0.8rem 0 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+.gridcell-dynamic-demo__wave-stack {
+  display: grid;
+  gap: 0.65rem;
+}
+
 @media (max-width: 700px) {
   .gridcell-demo-controls {
     grid-template-columns: 1fr;
@@ -474,6 +555,14 @@ body::before {
   }
 
   .gridcell-demo-stage-split {
+    grid-template-columns: 1fr;
+  }
+
+  .gridcell-dynamic-demo__header {
+    flex-direction: column;
+  }
+
+  .gridcell-dynamic-demo__layout {
     grid-template-columns: 1fr;
   }
 }
