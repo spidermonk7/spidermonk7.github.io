@@ -1,5 +1,5 @@
 ---
-title: "Grid Cell Notes 03: Rat Walk Demo in a 2 x 2 Arena"
+title: "Grid Cell Demo 01: Rat Walk Demo in a 2 x 2 Arena"
 date: 2026-05-12
 summary: "A first dynamic demo: steer a rat through a 2x2 arena, watch phase-driven waves evolve, and accumulate a fading grid-cell firing map."
 tags:
