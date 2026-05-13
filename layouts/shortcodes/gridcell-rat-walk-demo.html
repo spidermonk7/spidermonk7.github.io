@@ -1,7 +1,7 @@
 <div class="gridcell-dynamic-demo">
   <div class="gridcell-dynamic-demo__header">
     <p class="gridcell-dynamic-demo__intro">
-      Click anywhere inside the arena to place the rat there instantly. The center panel fires only when the three direction-tuned waves build a strong overlap, while the right column shows the live theta wave, three direction-tuned waves, and their interference.
+      Drag inside the arena and the rat will stay locked to the mouse position. The center panel samples a fixed spatial grid field, so the firing sites are anchored in the map and your trajectory only reveals them over time. The right column shows the live theta wave, three direction-tuned waves, and their interference.
     </p>
     <div class="gridcell-dynamic-demo__actions">
       <button type="button" data-role="reset">Reset trail</button>
@@ -13,7 +13,7 @@
       <h4>Rat in 2 x 2 Arena</h4>
       <canvas width="360" height="360" data-role="arena-canvas"></canvas>
       <p class="gridcell-dynamic-demo__caption">
-        Each click relocates the rat inside the square world, and the jump direction drives phase accumulation in the directional waves.
+        While you drag, the rat moves exactly with the pointer inside the square world and samples a fixed underlying grid field.
       </p>
     </section>
 
@@ -21,7 +21,7 @@
       <h4>Grid Cell Firing</h4>
       <canvas width="360" height="360" data-role="heatmap-canvas"></canvas>
       <p class="gridcell-dynamic-demo__caption">
-        A firing mark is deposited when the three directional waves build a strong overlap, with stronger overlap producing stronger firing.
+        A firing mark is deposited according to the field value at the rat's current location, so the same spatial sites recur regardless of the path you take.
       </p>
     </section>
 
@@ -70,6 +70,8 @@
     y: 1,
     vx: 0,
     vy: 0,
+    dragging: false,
+    lastPointerTime: null,
     thetaPhase: 0,
     directionalPhases: [0, 0, 0],
     lastTime: null
@@ -77,9 +79,9 @@
 
   const settings = {
     omega0: 5.8,
-    beta: 15.4,
+    beta: 18.5,
     depositRadius: 3,
-    peakThreshold: 0.82
+    peakThreshold: 0.84
   };
 
   function clamp(value, min, max) {
@@ -109,14 +111,9 @@
     };
   }
 
-  function jumpRat(event) {
+  function pointerPosition(event) {
     const next = syncTargetFromEvent(event);
-    const dx = next.x - state.x;
-    const dy = next.y - state.y;
-    state.vx = dx;
-    state.vy = dy;
-    state.x = next.x;
-    state.y = next.y;
+    return next;
   }
 
   function depositHeat(x, y, amount) {
@@ -140,16 +137,35 @@
     return state.directionalPhases.map((phase) => 0.5 * (1 + Math.cos(phase)));
   }
 
+  function centeredCoordinates(x, y) {
+    return {
+      x: x - arenaSize / 2,
+      y: y - arenaSize / 2
+    };
+  }
+
+  function spatialWavePeak(x, y, angle) {
+    const centered = centeredCoordinates(x, y);
+    const projection = centered.x * Math.cos(angle) + centered.y * Math.sin(angle);
+    return 0.5 * (1 + Math.cos(settings.beta * projection));
+  }
+
+  function spatialFieldValue(x, y) {
+    const peaks = waveAngles.map((angle) => spatialWavePeak(x, y, angle));
+    const overlap = Math.min(peaks[0], peaks[1], peaks[2]);
+    const firing = overlap >= settings.peakThreshold
+      ? Math.pow((overlap - settings.peakThreshold) / (1 - settings.peakThreshold), 1.2)
+      : 0;
+    return { peaks, overlap, firing };
+  }
+
   function currentWaveSignals() {
     const theta = Math.sin(state.thetaPhase);
     const peaks = directionalWavePeaks();
     const waves = state.directionalPhases.map((phase) => Math.sin(phase));
     const raw = (waves[0] + waves[1] + waves[2] + 0.75 * theta) / 3.75;
     const overlap = Math.min(peaks[0], peaks[1], peaks[2]);
-    const firing = overlap >= settings.peakThreshold
-      ? Math.pow((overlap - settings.peakThreshold) / (1 - settings.peakThreshold), 1.15)
-      : 0;
-    return { theta, waves, raw, firing, overlap };
+    return { theta, waves, raw, overlap };
   }
 
   function step(dt) {
@@ -162,7 +178,7 @@
       state.directionalPhases[i] += (settings.omega0 + settings.beta * projectedVelocity) * dt;
     }
 
-    const { firing } = currentWaveSignals();
+    const { firing } = spatialFieldValue(state.x, state.y);
     depositHeat(state.x, state.y, firing * 0.26);
 
     trail.push({ x: state.x, y: state.y });
@@ -352,7 +368,46 @@
   }
 
   resetButton.addEventListener('click', clearHeat);
-  arenaCanvas.addEventListener('pointerdown', jumpRat);
+  arenaCanvas.addEventListener('pointerdown', (event) => {
+    state.dragging = true;
+    const next = pointerPosition(event);
+    state.x = next.x;
+    state.y = next.y;
+    state.vx = 0;
+    state.vy = 0;
+    state.lastPointerTime = performance.now();
+    arenaCanvas.setPointerCapture(event.pointerId);
+  });
+  arenaCanvas.addEventListener('pointermove', (event) => {
+    if (!state.dragging) return;
+    const next = pointerPosition(event);
+    const now = performance.now();
+    const dt = Math.max((now - (state.lastPointerTime || now)) / 1000, 1e-3);
+    state.vx = (next.x - state.x) / dt;
+    state.vy = (next.y - state.y) / dt;
+    state.x = next.x;
+    state.y = next.y;
+    state.lastPointerTime = now;
+  });
+  arenaCanvas.addEventListener('pointerup', (event) => {
+    state.dragging = false;
+    state.vx = 0;
+    state.vy = 0;
+    state.lastPointerTime = null;
+    arenaCanvas.releasePointerCapture(event.pointerId);
+  });
+  arenaCanvas.addEventListener('pointercancel', () => {
+    state.dragging = false;
+    state.vx = 0;
+    state.vy = 0;
+    state.lastPointerTime = null;
+  });
+  arenaCanvas.addEventListener('pointerleave', () => {
+    state.dragging = false;
+    state.vx = 0;
+    state.vy = 0;
+    state.lastPointerTime = null;
+  });
   arenaCanvas.setAttribute('tabindex', '0');
 
   clearHeat();
