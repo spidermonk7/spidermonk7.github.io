@@ -1,0 +1,248 @@
+<div class="gridcell-demo">
+  <div class="gridcell-demo-intro">
+    <p class="gridcell-demo-stage-note">
+      This is a theory-only construction. The firing map is generated from three spatial waves, and the autocorrelogram is computed from that map directly.
+    </p>
+  </div>
+
+  <div class="gridcell-demo-controls">
+    <label>
+      <span>beta</span>
+      <input type="range" min="6" max="26" value="15.5" step="0.5" data-role="beta">
+      <output data-role="beta-value">15.5</output>
+    </label>
+    <label>
+      <span>theta_1</span>
+      <input type="range" min="0" max="180" value="0" step="1" data-role="theta1">
+      <output data-role="theta1-value">0 deg</output>
+    </label>
+    <label>
+      <span>theta_2</span>
+      <input type="range" min="0" max="180" value="60" step="1" data-role="theta2">
+      <output data-role="theta2-value">60 deg</output>
+    </label>
+    <label>
+      <span>theta_3</span>
+      <input type="range" min="0" max="180" value="120" step="1" data-role="theta3">
+      <output data-role="theta3-value">120 deg</output>
+    </label>
+    <label>
+      <span>firing threshold</span>
+      <input type="range" min="0" max="1" value="0.72" step="0.01" data-role="threshold">
+      <output data-role="threshold-value">0.72</output>
+    </label>
+  </div>
+
+  <div class="gridcell-demo-stage gridcell-demo-stage-split">
+    <div class="gridcell-demo-visual-block">
+      <h4>Theoretical Firing Pattern</h4>
+      <canvas width="520" height="520" data-role="pattern-canvas"></canvas>
+      <div class="gridcell-demo-caption">
+        A thresholded firing map generated directly from three spatial waves.
+      </div>
+    </div>
+    <div class="gridcell-demo-visual-block">
+      <h4>Spatial Autocorrelogram</h4>
+      <canvas width="520" height="520" data-role="autocorr-canvas"></canvas>
+      <div class="gridcell-demo-caption">
+        The normalized spatial autocorrelogram of the firing map. A clean grid pattern should produce a hexagonal ring structure.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const root = document.currentScript.previousElementSibling;
+  if (!root || !root.classList.contains('gridcell-demo')) return;
+
+  const patternCanvas = root.querySelector('[data-role="pattern-canvas"]');
+  const patternCtx = patternCanvas.getContext('2d');
+  const autocorrCanvas = root.querySelector('[data-role="autocorr-canvas"]');
+  const autocorrCtx = autocorrCanvas.getContext('2d');
+
+  const controls = {
+    beta: root.querySelector('[data-role="beta"]'),
+    theta1: root.querySelector('[data-role="theta1"]'),
+    theta2: root.querySelector('[data-role="theta2"]'),
+    theta3: root.querySelector('[data-role="theta3"]'),
+    threshold: root.querySelector('[data-role="threshold"]')
+  };
+
+  const outputs = {
+    beta: root.querySelector('[data-role="beta-value"]'),
+    theta1: root.querySelector('[data-role="theta1-value"]'),
+    theta2: root.querySelector('[data-role="theta2-value"]'),
+    theta3: root.querySelector('[data-role="theta3-value"]'),
+    threshold: root.querySelector('[data-role="threshold-value"]')
+  };
+
+  const gridSize = 64;
+  const worldRadius = 1.65;
+  const field = new Float32Array(gridSize * gridSize);
+  const centered = new Float32Array(gridSize * gridSize);
+  const autocorr = new Float32Array(gridSize * gridSize);
+
+  function clamp01(x) {
+    return Math.max(0, Math.min(1, x));
+  }
+
+  function degToRad(deg) {
+    return deg * Math.PI / 180;
+  }
+
+  function readAngles() {
+    return [
+      degToRad(Number(controls.theta1.value)),
+      degToRad(Number(controls.theta2.value)),
+      degToRad(Number(controls.theta3.value))
+    ];
+  }
+
+  function refreshLabels() {
+    outputs.beta.textContent = Number(controls.beta.value).toFixed(1);
+    outputs.theta1.textContent = `${controls.theta1.value} deg`;
+    outputs.theta2.textContent = `${controls.theta2.value} deg`;
+    outputs.theta3.textContent = `${controls.theta3.value} deg`;
+    outputs.threshold.textContent = Number(controls.threshold.value).toFixed(2);
+  }
+
+  function mapPoint(ix, iy) {
+    return {
+      x: ((ix / (gridSize - 1)) * 2 - 1) * worldRadius,
+      y: ((iy / (gridSize - 1)) * 2 - 1) * worldRadius
+    };
+  }
+
+  function fillField(beta, angles, threshold) {
+    let sum = 0;
+    for (let iy = 0; iy < gridSize; iy += 1) {
+      for (let ix = 0; ix < gridSize; ix += 1) {
+        const { x, y } = mapPoint(ix, iy);
+        let raw = 0;
+        for (let i = 0; i < 3; i += 1) {
+          const projection = x * Math.cos(angles[i]) + y * Math.sin(angles[i]);
+          raw += Math.cos(beta * projection);
+        }
+        const score = (raw + 3) / 6;
+        const firing = score >= threshold
+          ? Math.pow((score - threshold) / Math.max(1 - threshold, 1e-6), 1.1)
+          : 0;
+        const index = iy * gridSize + ix;
+        field[index] = firing;
+        sum += firing;
+      }
+    }
+
+    const mean = sum / field.length;
+    for (let i = 0; i < field.length; i += 1) {
+      centered[i] = field[i] - mean;
+    }
+  }
+
+  function computeAutocorr() {
+    let maxValue = -Infinity;
+    for (let dy = 0; dy < gridSize; dy += 1) {
+      for (let dx = 0; dx < gridSize; dx += 1) {
+        const shiftX = dx - Math.floor(gridSize / 2);
+        const shiftY = dy - Math.floor(gridSize / 2);
+        let numerator = 0;
+        let leftNorm = 0;
+        let rightNorm = 0;
+
+        for (let y = 0; y < gridSize; y += 1) {
+          const yy = y + shiftY;
+          if (yy < 0 || yy >= gridSize) continue;
+          for (let x = 0; x < gridSize; x += 1) {
+            const xx = x + shiftX;
+            if (xx < 0 || xx >= gridSize) continue;
+            const a = centered[y * gridSize + x];
+            const b = centered[yy * gridSize + xx];
+            numerator += a * b;
+            leftNorm += a * a;
+            rightNorm += b * b;
+          }
+        }
+
+        const denom = Math.sqrt(leftNorm * rightNorm);
+        const value = denom > 1e-8 ? numerator / denom : 0;
+        autocorr[dy * gridSize + dx] = value;
+        if (value > maxValue) maxValue = value;
+      }
+    }
+
+    if (maxValue > 0) {
+      for (let i = 0; i < autocorr.length; i += 1) {
+        autocorr[i] /= maxValue;
+      }
+    }
+  }
+
+  function drawGrid(ctx, canvas, data, mode) {
+    const width = canvas.width;
+    const height = canvas.height;
+    const image = ctx.createImageData(width, height);
+    const pixels = image.data;
+    let ptr = 0;
+
+    for (let py = 0; py < height; py += 1) {
+      for (let px = 0; px < width; px += 1) {
+        const ix = Math.min(gridSize - 1, Math.floor((px / width) * gridSize));
+        const iy = Math.min(gridSize - 1, Math.floor(((height - py) / height) * gridSize));
+        const value = data[iy * gridSize + ix];
+        let r;
+        let g;
+        let b;
+
+        if (mode === 'pattern') {
+          const t = clamp01(value);
+          r = 249 - 36 * t;
+          g = 244 - 120 * t;
+          b = 236 - 187 * t;
+        } else {
+          const t = clamp01((value + 1) / 2);
+          r = 243 - 170 * t;
+          g = 240 - 136 * t;
+          b = 234 - 56 * t;
+        }
+
+        pixels[ptr] = Math.round(r);
+        pixels[ptr + 1] = Math.round(g);
+        pixels[ptr + 2] = Math.round(b);
+        pixels[ptr + 3] = 255;
+        ptr += 4;
+      }
+    }
+
+    ctx.putImageData(image, 0, 0);
+    ctx.save();
+    ctx.strokeStyle = 'rgba(15, 23, 42, 0.12)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(width / 2, 0);
+    ctx.lineTo(width / 2, height);
+    ctx.moveTo(0, height / 2);
+    ctx.lineTo(width, height / 2);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function render() {
+    refreshLabels();
+    const beta = Number(controls.beta.value);
+    const threshold = Number(controls.threshold.value);
+    const angles = readAngles();
+
+    fillField(beta, angles, threshold);
+    computeAutocorr();
+    drawGrid(patternCtx, patternCanvas, field, 'pattern');
+    drawGrid(autocorrCtx, autocorrCanvas, autocorr, 'autocorr');
+  }
+
+  Object.values(controls).forEach((control) => {
+    control.addEventListener('input', render);
+  });
+
+  render();
+})();
+</script>
