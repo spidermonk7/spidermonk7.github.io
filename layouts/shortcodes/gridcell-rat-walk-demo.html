@@ -30,7 +30,7 @@
       <canvas width="360" height="360" data-role="heatmap-canvas"></canvas>
       <canvas width="360" height="120" data-role="interference-canvas"></canvas>
       <p class="gridcell-dynamic-demo__caption">
-        Pale circles show a theoretical reference layer. The brighter heat layer records the actual online firing accumulated from the rat's trajectory whenever the four-wave interference score exceeds threshold.
+        Pale circles show the theoretical firing sites predicted by the same four-wave score and the same threshold. The brighter heat layer records the actual online firing accumulated from the rat's trajectory.
       </p>
     </section>
 
@@ -106,11 +106,12 @@
   function theoreticalSpatialScore(x, y) {
     const cx = x - arenaSize / 2;
     const cy = y - arenaSize / 2;
-    const peaks = waveAngles.map((angle) => {
+    const waves = waveAngles.map((angle) => {
       const projection = cx * Math.cos(angle) + cy * Math.sin(angle);
-      return 0.5 * (1 + Math.cos(settings.beta * projection));
+      return Math.cos(settings.beta * projection);
     });
-    return (1 + peaks[0] + peaks[1] + peaks[2]) / 4;
+    const raw = 1 + waves[0] + waves[1] + waves[2];
+    return (raw + 4) / 8;
   }
 
   function theoreticalMarkers() {
