@@ -1,7 +1,7 @@
 <div class="gridcell-dynamic-demo">
   <div class="gridcell-dynamic-demo__header">
     <p class="gridcell-dynamic-demo__intro">
-      Drag inside the arena and the rat will stay locked to the mouse position. The center panel is now driven directly by online phase interference: motion updates the waves in real time, and firing is deposited only when their relative phases align strongly enough. The right column shows the live theta wave, three direction-tuned waves, and their interference.
+      Drag inside the arena and the rat will stay locked to the mouse position. The center panel is driven directly by online phase interference: motion updates the waves in real time, the four-wave sum is converted into a 0-1 score, and firing is deposited only when that score crosses the current threshold. The right column shows the live theta wave together with the three direction-tuned waves.
     </p>
     <div class="gridcell-dynamic-demo__actions">
       <button type="button" data-role="reset">Reset trail</button>
@@ -11,8 +11,8 @@
   <div class="gridcell-dynamic-demo__controls">
     <label>
       <span>Firing threshold</span>
-      <input type="range" min="0" max="1" step="0.01" value="0.84" data-role="threshold">
-      <output data-role="threshold-value">0.84</output>
+      <input type="range" min="0" max="1" step="0.01" value="0.95" data-role="threshold">
+      <output data-role="threshold-value">0.95</output>
     </label>
   </div>
 
@@ -30,7 +30,7 @@
       <canvas width="360" height="360" data-role="heatmap-canvas"></canvas>
       <canvas width="360" height="120" data-role="interference-canvas"></canvas>
       <p class="gridcell-dynamic-demo__caption">
-        Pale circles show the theoretical firing sites implied by the current threshold. The brighter heat layer records the actual online firing accumulated from the rat's trajectory.
+        Pale circles show a theoretical reference layer. The brighter heat layer records the actual online firing accumulated from the rat's trajectory whenever the four-wave interference score exceeds threshold.
       </p>
     </section>
 
@@ -91,7 +91,7 @@
     omega0: 5.8,
     beta: 15.4,
     depositRadius: 3,
-    peakThreshold: 0.84
+    peakThreshold: 0.95
   };
 
   function clamp(value, min, max) {
@@ -184,20 +184,15 @@
     }
   }
 
-  function directionalWavePeaks() {
-    return state.directionalPhases.map((phase) => 0.5 * (1 + Math.cos(phase - state.thetaPhase)));
-  }
-
   function currentWaveSignals() {
     const theta = Math.sin(state.thetaPhase);
-    const peaks = directionalWavePeaks();
     const waves = state.directionalPhases.map((phase) => Math.sin(phase));
-    const raw = (waves[0] + waves[1] + waves[2] + 0.75 * theta) / 3.75;
-    const overlap = Math.min(peaks[0], peaks[1], peaks[2]);
-    const firing = overlap >= settings.peakThreshold
-      ? Math.pow((overlap - settings.peakThreshold) / (1 - settings.peakThreshold), 1.15)
+    const raw = theta + waves[0] + waves[1] + waves[2];
+    const score = (raw + 4) / 8;
+    const firing = score >= settings.peakThreshold
+      ? Math.pow((score - settings.peakThreshold) / (1 - settings.peakThreshold), 1.15)
       : 0;
-    return { theta, waves, raw, overlap, firing };
+    return { theta, waves, raw, score, firing };
   }
 
   function step(dt) {
@@ -398,7 +393,7 @@
     ctx.stroke();
 
     const amplitudeScale = height * 0.11;
-    const thresholdAmplitude = settings.peakThreshold * 4;
+    const thresholdAmplitude = settings.peakThreshold * 8 - 4;
     const thresholdY = baseline - thresholdAmplitude * amplitudeScale;
     ctx.save();
     ctx.strokeStyle = 'rgba(143, 29, 29, 0.45)';
