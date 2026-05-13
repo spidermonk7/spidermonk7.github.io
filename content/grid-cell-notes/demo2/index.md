@@ -18,14 +18,16 @@ The question here is:
 1. if three direction-tuned waves interfere in space, what firing map does that imply?
 2. once that firing map is built, what does its **spatial autocorrelogram** look like?
 
-The demo below uses a simple thresholded three-wave model. You can adjust:
+The demo below now exposes a broader family of deformations. You can adjust:
 
-- `beta`
-- `theta_1`
-- `theta_2`
-- `theta_3`
-- `firing threshold`
+- `beta` and the three `k_i` scales for anisotropic wavelength changes
+- `theta_1`, `theta_2`, `theta_3` for angle distortions
+- `A_1`, `A_2`, `A_3` for amplitude imbalance
+- `stretch x`, `stretch y`, and `shear` for global affine deformation
+- `coord warp` and `phase warp` for position-dependent distortion
+- `amp modulation` for spatially varying amplitude bias
+- `baseline` and `threshold` for excitability / threshold effects
 
-The left panel shows the theoretical firing pattern itself. The right panel shows the spatial autocorrelogram computed from that map.
+The left panel shows the theoretical firing pattern itself. The right panel shows the spatial autocorrelogram computed from that map. I also display a simple **gridness** estimate, so the demo can be used not only qualitatively but also as a first quantitative probe of how each deformation changes hexagonal order.
 
 {{< gridcell-theory-autocorr-demo >}}

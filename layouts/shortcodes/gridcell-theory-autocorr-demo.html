@@ -1,15 +1,30 @@
 <div class="gridcell-demo">
   <div class="gridcell-demo-intro">
     <p class="gridcell-demo-stage-note">
-      This is a theory-only construction. The firing map is generated from three spatial waves, and the autocorrelogram is computed from that map directly.
+      This demo turns the hypotheses in the note into explicit parameters. You can deform wave lengths, wave angles, amplitudes, affine geometry, nonlinear phase warp, and thresholding, then inspect both the firing map and its spatial autocorrelogram.
     </p>
   </div>
 
   <div class="gridcell-demo-controls">
     <label>
-      <span>beta</span>
-      <input type="range" min="6" max="26" value="15.5" step="0.5" data-role="beta">
+      <span>beta base</span>
+      <input type="range" min="6" max="24" value="15.5" step="0.5" data-role="beta">
       <output data-role="beta-value">15.5</output>
+    </label>
+    <label>
+      <span>k1 scale</span>
+      <input type="range" min="0.6" max="1.4" value="1.00" step="0.01" data-role="k1">
+      <output data-role="k1-value">1.00</output>
+    </label>
+    <label>
+      <span>k2 scale</span>
+      <input type="range" min="0.6" max="1.4" value="1.00" step="0.01" data-role="k2">
+      <output data-role="k2-value">1.00</output>
+    </label>
+    <label>
+      <span>k3 scale</span>
+      <input type="range" min="0.6" max="1.4" value="1.00" step="0.01" data-role="k3">
+      <output data-role="k3-value">1.00</output>
     </label>
     <label>
       <span>theta_1</span>
@@ -27,10 +42,75 @@
       <output data-role="theta3-value">120 deg</output>
     </label>
     <label>
-      <span>firing threshold</span>
-      <input type="range" min="0" max="1" value="0.72" step="0.01" data-role="threshold">
-      <output data-role="threshold-value">0.72</output>
+      <span>A1</span>
+      <input type="range" min="0.3" max="1.6" value="1.00" step="0.01" data-role="a1">
+      <output data-role="a1-value">1.00</output>
     </label>
+    <label>
+      <span>A2</span>
+      <input type="range" min="0.3" max="1.6" value="1.00" step="0.01" data-role="a2">
+      <output data-role="a2-value">1.00</output>
+    </label>
+    <label>
+      <span>A3</span>
+      <input type="range" min="0.3" max="1.6" value="1.00" step="0.01" data-role="a3">
+      <output data-role="a3-value">1.00</output>
+    </label>
+    <label>
+      <span>stretch x</span>
+      <input type="range" min="0.6" max="1.5" value="1.00" step="0.01" data-role="stretchx">
+      <output data-role="stretchx-value">1.00</output>
+    </label>
+    <label>
+      <span>stretch y</span>
+      <input type="range" min="0.6" max="1.5" value="1.00" step="0.01" data-role="stretchy">
+      <output data-role="stretchy-value">1.00</output>
+    </label>
+    <label>
+      <span>shear</span>
+      <input type="range" min="-0.8" max="0.8" value="0.00" step="0.01" data-role="shear">
+      <output data-role="shear-value">0.00</output>
+    </label>
+    <label>
+      <span>coord warp</span>
+      <input type="range" min="0" max="0.8" value="0.00" step="0.01" data-role="warp">
+      <output data-role="warp-value">0.00</output>
+    </label>
+    <label>
+      <span>phase warp</span>
+      <input type="range" min="0" max="2.5" value="0.00" step="0.01" data-role="phasewarp">
+      <output data-role="phasewarp-value">0.00</output>
+    </label>
+    <label>
+      <span>amp modulation</span>
+      <input type="range" min="0" max="0.9" value="0.00" step="0.01" data-role="ampmod">
+      <output data-role="ampmod-value">0.00</output>
+    </label>
+    <label>
+      <span>baseline b</span>
+      <input type="range" min="-1.5" max="1.5" value="0.00" step="0.01" data-role="baseline">
+      <output data-role="baseline-value">0.00</output>
+    </label>
+    <label>
+      <span>threshold</span>
+      <input type="range" min="-0.5" max="3.5" value="0.80" step="0.01" data-role="threshold">
+      <output data-role="threshold-value">0.80</output>
+    </label>
+  </div>
+
+  <div class="gridcell-demo-metrics">
+    <div class="gridcell-demo-metric">
+      <span>Gridness</span>
+      <strong data-role="gridness">0.000</strong>
+    </div>
+    <div class="gridcell-demo-metric">
+      <span>Ring Radius</span>
+      <strong data-role="ring-radius">0</strong>
+    </div>
+    <div class="gridcell-demo-metric">
+      <span>R60 / R30</span>
+      <strong data-role="corr-pair">0.000 / 0.000</strong>
+    </div>
   </div>
 
   <div class="gridcell-demo-stage gridcell-demo-stage-split">
@@ -38,14 +118,14 @@
       <h4>Theoretical Firing Pattern</h4>
       <canvas width="520" height="520" data-role="pattern-canvas"></canvas>
       <div class="gridcell-demo-caption">
-        A thresholded firing map generated directly from three spatial waves.
+        The firing map after three-wave interference, amplitude modulation, affine distortion, coordinate warp, phase warp, baseline shift, and thresholding.
       </div>
     </div>
     <div class="gridcell-demo-visual-block">
       <h4>Spatial Autocorrelogram</h4>
       <canvas width="520" height="520" data-role="autocorr-canvas"></canvas>
       <div class="gridcell-demo-caption">
-        The normalized spatial autocorrelogram of the firing map. A clean grid pattern should produce a hexagonal ring structure.
+        The normalized spatial autocorrelogram. Gridness is computed from rotational correlations on the first ring around the center peak.
       </div>
     </div>
   </div>
@@ -63,22 +143,38 @@
 
   const controls = {
     beta: root.querySelector('[data-role="beta"]'),
+    k1: root.querySelector('[data-role="k1"]'),
+    k2: root.querySelector('[data-role="k2"]'),
+    k3: root.querySelector('[data-role="k3"]'),
     theta1: root.querySelector('[data-role="theta1"]'),
     theta2: root.querySelector('[data-role="theta2"]'),
     theta3: root.querySelector('[data-role="theta3"]'),
+    a1: root.querySelector('[data-role="a1"]'),
+    a2: root.querySelector('[data-role="a2"]'),
+    a3: root.querySelector('[data-role="a3"]'),
+    stretchx: root.querySelector('[data-role="stretchx"]'),
+    stretchy: root.querySelector('[data-role="stretchy"]'),
+    shear: root.querySelector('[data-role="shear"]'),
+    warp: root.querySelector('[data-role="warp"]'),
+    phasewarp: root.querySelector('[data-role="phasewarp"]'),
+    ampmod: root.querySelector('[data-role="ampmod"]'),
+    baseline: root.querySelector('[data-role="baseline"]'),
     threshold: root.querySelector('[data-role="threshold"]')
   };
 
-  const outputs = {
-    beta: root.querySelector('[data-role="beta-value"]'),
-    theta1: root.querySelector('[data-role="theta1-value"]'),
-    theta2: root.querySelector('[data-role="theta2-value"]'),
-    theta3: root.querySelector('[data-role="theta3-value"]'),
-    threshold: root.querySelector('[data-role="threshold-value"]')
+  const outputs = Object.fromEntries(
+    Object.keys(controls).map((key) => [key, root.querySelector(`[data-role="${key}-value"]`)])
+  );
+
+  const metrics = {
+    gridness: root.querySelector('[data-role="gridness"]'),
+    radius: root.querySelector('[data-role="ring-radius"]'),
+    corrPair: root.querySelector('[data-role="corr-pair"]')
   };
 
-  const gridSize = 64;
-  const worldRadius = 1.65;
+  const gridSize = 56;
+  const centerIndex = Math.floor(gridSize / 2);
+  const worldRadius = 1.7;
   const field = new Float32Array(gridSize * gridSize);
   const centered = new Float32Array(gridSize * gridSize);
   const autocorr = new Float32Array(gridSize * gridSize);
@@ -87,24 +183,33 @@
     return Math.max(0, Math.min(1, x));
   }
 
+  function clamp(x, lo, hi) {
+    return Math.max(lo, Math.min(hi, x));
+  }
+
   function degToRad(deg) {
     return deg * Math.PI / 180;
   }
 
-  function readAngles() {
-    return [
-      degToRad(Number(controls.theta1.value)),
-      degToRad(Number(controls.theta2.value)),
-      degToRad(Number(controls.theta3.value))
-    ];
-  }
+  function bilinearSample(data, x, y) {
+    if (x < 0 || y < 0 || x > gridSize - 1 || y > gridSize - 1) return null;
+    const x0 = Math.floor(x);
+    const y0 = Math.floor(y);
+    const x1 = Math.min(gridSize - 1, x0 + 1);
+    const y1 = Math.min(gridSize - 1, y0 + 1);
+    const tx = x - x0;
+    const ty = y - y0;
 
-  function refreshLabels() {
-    outputs.beta.textContent = Number(controls.beta.value).toFixed(1);
-    outputs.theta1.textContent = `${controls.theta1.value} deg`;
-    outputs.theta2.textContent = `${controls.theta2.value} deg`;
-    outputs.theta3.textContent = `${controls.theta3.value} deg`;
-    outputs.threshold.textContent = Number(controls.threshold.value).toFixed(2);
+    const v00 = data[y0 * gridSize + x0];
+    const v10 = data[y0 * gridSize + x1];
+    const v01 = data[y1 * gridSize + x0];
+    const v11 = data[y1 * gridSize + x1];
+    return (
+      v00 * (1 - tx) * (1 - ty) +
+      v10 * tx * (1 - ty) +
+      v01 * (1 - tx) * ty +
+      v11 * tx * ty
+    );
   }
 
   function mapPoint(ix, iy) {
@@ -114,29 +219,93 @@
     };
   }
 
-  function fillField(beta, angles, threshold) {
+  function readParams() {
+    return {
+      beta: Number(controls.beta.value),
+      kScales: [Number(controls.k1.value), Number(controls.k2.value), Number(controls.k3.value)],
+      angles: [
+        degToRad(Number(controls.theta1.value)),
+        degToRad(Number(controls.theta2.value)),
+        degToRad(Number(controls.theta3.value))
+      ],
+      amps: [Number(controls.a1.value), Number(controls.a2.value), Number(controls.a3.value)],
+      stretchX: Number(controls.stretchx.value),
+      stretchY: Number(controls.stretchy.value),
+      shear: Number(controls.shear.value),
+      warp: Number(controls.warp.value),
+      phaseWarp: Number(controls.phasewarp.value),
+      ampMod: Number(controls.ampmod.value),
+      baseline: Number(controls.baseline.value),
+      threshold: Number(controls.threshold.value)
+    };
+  }
+
+  function refreshLabels(params) {
+    outputs.beta.textContent = params.beta.toFixed(1);
+    outputs.k1.textContent = params.kScales[0].toFixed(2);
+    outputs.k2.textContent = params.kScales[1].toFixed(2);
+    outputs.k3.textContent = params.kScales[2].toFixed(2);
+    outputs.theta1.textContent = `${controls.theta1.value} deg`;
+    outputs.theta2.textContent = `${controls.theta2.value} deg`;
+    outputs.theta3.textContent = `${controls.theta3.value} deg`;
+    outputs.a1.textContent = params.amps[0].toFixed(2);
+    outputs.a2.textContent = params.amps[1].toFixed(2);
+    outputs.a3.textContent = params.amps[2].toFixed(2);
+    outputs.stretchx.textContent = params.stretchX.toFixed(2);
+    outputs.stretchy.textContent = params.stretchY.toFixed(2);
+    outputs.shear.textContent = params.shear.toFixed(2);
+    outputs.warp.textContent = params.warp.toFixed(2);
+    outputs.phasewarp.textContent = params.phaseWarp.toFixed(2);
+    outputs.ampmod.textContent = params.ampMod.toFixed(2);
+    outputs.baseline.textContent = params.baseline.toFixed(2);
+    outputs.threshold.textContent = params.threshold.toFixed(2);
+  }
+
+  function transformCoords(x, y, params) {
+    const ax = params.stretchX * x + params.shear * y;
+    const ay = params.stretchY * y;
+    return {
+      x: ax + params.warp * 0.55 * x * y,
+      y: ay + params.warp * 0.35 * (x * x - y * y)
+    };
+  }
+
+  function localAmplitude(baseAmp, angle, x, y, ampMod) {
+    const directional = x * Math.cos(angle) + y * Math.sin(angle);
+    return Math.max(0, baseAmp * (1 + ampMod * directional / worldRadius));
+  }
+
+  function localPhaseWarp(x, y, index, strength) {
+    return strength * Math.sin(0.95 * x + 0.65 * y + index * 1.37);
+  }
+
+  function fillField(params) {
     let sum = 0;
+    let maxValue = 0;
     for (let iy = 0; iy < gridSize; iy += 1) {
       for (let ix = 0; ix < gridSize; ix += 1) {
         const { x, y } = mapPoint(ix, iy);
-        let raw = 0;
+        const xi = transformCoords(x, y, params);
+        let raw = params.baseline;
         for (let i = 0; i < 3; i += 1) {
-          const projection = x * Math.cos(angles[i]) + y * Math.sin(angles[i]);
-          raw += Math.cos(beta * projection);
+          const projection = xi.x * Math.cos(params.angles[i]) + xi.y * Math.sin(params.angles[i]);
+          const amp = localAmplitude(params.amps[i], params.angles[i], x, y, params.ampMod);
+          raw += amp * Math.cos(params.beta * params.kScales[i] * projection + localPhaseWarp(x, y, i, params.phaseWarp));
         }
-        const score = (raw + 3) / 6;
-        const firing = score >= threshold
-          ? Math.pow((score - threshold) / Math.max(1 - threshold, 1e-6), 1.1)
-          : 0;
+        const firing = Math.max(0, raw - params.threshold);
         const index = iy * gridSize + ix;
         field[index] = firing;
         sum += firing;
+        if (firing > maxValue) maxValue = firing;
       }
     }
 
     const mean = sum / field.length;
     for (let i = 0; i < field.length; i += 1) {
       centered[i] = field[i] - mean;
+      if (maxValue > 1e-8) {
+        field[i] /= maxValue;
+      }
     }
   }
 
@@ -144,8 +313,8 @@
     let maxValue = -Infinity;
     for (let dy = 0; dy < gridSize; dy += 1) {
       for (let dx = 0; dx < gridSize; dx += 1) {
-        const shiftX = dx - Math.floor(gridSize / 2);
-        const shiftY = dy - Math.floor(gridSize / 2);
+        const shiftX = dx - centerIndex;
+        const shiftY = dy - centerIndex;
         let numerator = 0;
         let leftNorm = 0;
         let rightNorm = 0;
@@ -178,7 +347,80 @@
     }
   }
 
-  function drawGrid(ctx, canvas, data, mode) {
+  function estimateRingRadius() {
+    let bestValue = -Infinity;
+    let bestRadius = 10;
+    for (let y = 0; y < gridSize; y += 1) {
+      for (let x = 0; x < gridSize; x += 1) {
+        const dx = x - centerIndex;
+        const dy = y - centerIndex;
+        const radius = Math.hypot(dx, dy);
+        if (radius < 5 || radius > gridSize * 0.35) continue;
+        const value = autocorr[y * gridSize + x];
+        if (value > bestValue) {
+          bestValue = value;
+          bestRadius = radius;
+        }
+      }
+    }
+    return bestRadius;
+  }
+
+  function rotationalCorrelation(angleDeg, innerRadius, outerRadius) {
+    const angle = degToRad(angleDeg);
+    let sumA = 0;
+    let sumB = 0;
+    let sumAA = 0;
+    let sumBB = 0;
+    let sumAB = 0;
+    let count = 0;
+    const cos = Math.cos(angle);
+    const sin = Math.sin(angle);
+
+    for (let y = 0; y < gridSize; y += 1) {
+      for (let x = 0; x < gridSize; x += 1) {
+        const dx = x - centerIndex;
+        const dy = y - centerIndex;
+        const radius = Math.hypot(dx, dy);
+        if (radius < innerRadius || radius > outerRadius) continue;
+
+        const rx = centerIndex + dx * cos - dy * sin;
+        const ry = centerIndex + dx * sin + dy * cos;
+        const rotated = bilinearSample(autocorr, rx, ry);
+        if (rotated == null) continue;
+
+        const base = autocorr[y * gridSize + x];
+        sumA += base;
+        sumB += rotated;
+        sumAA += base * base;
+        sumBB += rotated * rotated;
+        sumAB += base * rotated;
+        count += 1;
+      }
+    }
+
+    if (count < 10) return 0;
+    const cov = sumAB - (sumA * sumB) / count;
+    const varA = sumAA - (sumA * sumA) / count;
+    const varB = sumBB - (sumB * sumB) / count;
+    const denom = Math.sqrt(Math.max(varA, 0) * Math.max(varB, 0));
+    return denom > 1e-8 ? cov / denom : 0;
+  }
+
+  function computeGridness() {
+    const ringRadius = estimateRingRadius();
+    const inner = Math.max(4, ringRadius * 0.55);
+    const outer = Math.min(gridSize * 0.48, ringRadius * 1.45);
+    const c30 = rotationalCorrelation(30, inner, outer);
+    const c60 = rotationalCorrelation(60, inner, outer);
+    const c90 = rotationalCorrelation(90, inner, outer);
+    const c120 = rotationalCorrelation(120, inner, outer);
+    const c150 = rotationalCorrelation(150, inner, outer);
+    const gridness = Math.min(c60, c120) - Math.max(c30, c90, c150);
+    return { gridness, ringRadius, c30, c60 };
+  }
+
+  function drawGrid(ctx, canvas, data, mode, ringRadius) {
     const width = canvas.width;
     const height = canvas.height;
     const image = ctx.createImageData(width, height);
@@ -196,14 +438,14 @@
 
         if (mode === 'pattern') {
           const t = clamp01(value);
-          r = 249 - 36 * t;
-          g = 244 - 120 * t;
-          b = 236 - 187 * t;
+          r = 249 - 42 * t;
+          g = 244 - 126 * t;
+          b = 236 - 190 * t;
         } else {
           const t = clamp01((value + 1) / 2);
-          r = 243 - 170 * t;
-          g = 240 - 136 * t;
-          b = 234 - 56 * t;
+          r = 243 - 176 * t;
+          g = 240 - 140 * t;
+          b = 234 - 62 * t;
         }
 
         pixels[ptr] = Math.round(r);
@@ -224,19 +466,31 @@
     ctx.moveTo(0, height / 2);
     ctx.lineTo(width, height / 2);
     ctx.stroke();
+
+    if (mode === 'autocorr' && ringRadius > 0) {
+      const pxRadius = (ringRadius / gridSize) * width;
+      ctx.strokeStyle = 'rgba(143, 29, 29, 0.32)';
+      ctx.setLineDash([5, 5]);
+      ctx.beginPath();
+      ctx.arc(width / 2, height / 2, pxRadius, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
     ctx.restore();
   }
 
   function render() {
-    refreshLabels();
-    const beta = Number(controls.beta.value);
-    const threshold = Number(controls.threshold.value);
-    const angles = readAngles();
-
-    fillField(beta, angles, threshold);
+    const params = readParams();
+    refreshLabels(params);
+    fillField(params);
     computeAutocorr();
-    drawGrid(patternCtx, patternCanvas, field, 'pattern');
-    drawGrid(autocorrCtx, autocorrCanvas, autocorr, 'autocorr');
+    const stats = computeGridness();
+    drawGrid(patternCtx, patternCanvas, field, 'pattern', 0);
+    drawGrid(autocorrCtx, autocorrCanvas, autocorr, 'autocorr', stats.ringRadius);
+
+    metrics.gridness.textContent = stats.gridness.toFixed(3);
+    metrics.radius.textContent = stats.ringRadius.toFixed(1);
+    metrics.corrPair.textContent = `${stats.c60.toFixed(3)} / ${stats.c30.toFixed(3)}`;
   }
 
   Object.values(controls).forEach((control) => {
