@@ -1,7 +1,7 @@
 <div class="gridcell-dynamic-demo">
   <div class="gridcell-dynamic-demo__header">
     <p class="gridcell-dynamic-demo__intro">
-      Click inside the arena and drag with the mouse to move the rat. The center panel fires only when the three direction-tuned waves simultaneously enter a near-peak overlap region, while the right column shows the live theta wave, three direction-tuned waves, and their interference.
+      Click anywhere inside the arena to place the rat there instantly. The center panel fires only when the three direction-tuned waves build a strong overlap, while the right column shows the live theta wave, three direction-tuned waves, and their interference.
     </p>
     <div class="gridcell-dynamic-demo__actions">
       <button type="button" data-role="reset">Reset trail</button>
@@ -13,7 +13,7 @@
       <h4>Rat in 2 x 2 Arena</h4>
       <canvas width="360" height="360" data-role="arena-canvas"></canvas>
       <p class="gridcell-dynamic-demo__caption">
-        The rat moves continuously inside a square world. Its instantaneous velocity drives phase accumulation in the directional waves.
+        Each click relocates the rat inside the square world, and the jump direction drives phase accumulation in the directional waves.
       </p>
     </section>
 
@@ -70,16 +70,12 @@
     y: 1,
     vx: 0,
     vy: 0,
-    targetX: 1,
-    targetY: 1,
-    dragging: false,
     thetaPhase: 0,
     directionalPhases: [0, 0, 0],
     lastTime: null
   };
 
   const settings = {
-    speed: 1.28,
     omega0: 5.8,
     beta: 15.4,
     depositRadius: 3,
@@ -107,33 +103,20 @@
     const rect = arenaCanvas.getBoundingClientRect();
     const localX = clamp((event.clientX - rect.left) / rect.width, 0, 1);
     const localY = clamp((event.clientY - rect.top) / rect.height, 0, 1);
-    state.targetX = localX * arenaSize;
-    state.targetY = (1 - localY) * arenaSize;
+    return {
+      x: localX * arenaSize,
+      y: (1 - localY) * arenaSize
+    };
   }
 
-  function updateMotion(dt) {
-    if (!state.dragging) {
-      state.vx = 0;
-      state.vy = 0;
-      return;
-    }
-
-    const dx = state.targetX - state.x;
-    const dy = state.targetY - state.y;
-    const distance = Math.hypot(dx, dy);
-    if (distance < 1e-4) {
-      state.vx = 0;
-      state.vy = 0;
-      return;
-    }
-
-    const stepSize = Math.min(distance, settings.speed * dt);
-    const ux = dx / distance;
-    const uy = dy / distance;
-    state.vx = ux * (stepSize / Math.max(dt, 1e-6));
-    state.vy = uy * (stepSize / Math.max(dt, 1e-6));
-    state.x = clamp(state.x + ux * stepSize, 0, arenaSize);
-    state.y = clamp(state.y + uy * stepSize, 0, arenaSize);
+  function jumpRat(event) {
+    const next = syncTargetFromEvent(event);
+    const dx = next.x - state.x;
+    const dy = next.y - state.y;
+    state.vx = dx;
+    state.vy = dy;
+    state.x = next.x;
+    state.y = next.y;
   }
 
   function depositHeat(x, y, amount) {
@@ -170,7 +153,6 @@
   }
 
   function step(dt) {
-    updateMotion(dt);
     state.thetaPhase += settings.omega0 * dt;
 
     for (let i = 0; i < waveAngles.length; i += 1) {
@@ -237,15 +219,6 @@
     arenaCtx.beginPath();
     arenaCtx.arc(ratX, ratY, 8, 0, Math.PI * 2);
     arenaCtx.fill();
-
-    if (state.dragging) {
-      arenaCtx.strokeStyle = 'rgba(21, 58, 99, 0.35)';
-      arenaCtx.lineWidth = 1.5;
-      arenaCtx.beginPath();
-      arenaCtx.moveTo(ratX, ratY);
-      arenaCtx.lineTo(toPixelX(state.targetX, width), toPixelY(state.targetY, height));
-      arenaCtx.stroke();
-    }
 
     arenaCtx.fillStyle = 'rgba(19, 21, 24, 0.64)';
     arenaCtx.font = '12px Instrument Sans, Segoe UI, sans-serif';
@@ -373,35 +346,13 @@
     drawArena();
     drawHeatmap();
     drawWaves();
+    state.vx = 0;
+    state.vy = 0;
     window.requestAnimationFrame(renderFrame);
   }
 
   resetButton.addEventListener('click', clearHeat);
-  arenaCanvas.addEventListener('pointerdown', (event) => {
-    state.dragging = true;
-    syncTargetFromEvent(event);
-    arenaCanvas.setPointerCapture(event.pointerId);
-  });
-  arenaCanvas.addEventListener('pointermove', (event) => {
-    if (!state.dragging) return;
-    syncTargetFromEvent(event);
-  });
-  arenaCanvas.addEventListener('pointerup', (event) => {
-    state.dragging = false;
-    state.targetX = state.x;
-    state.targetY = state.y;
-    arenaCanvas.releasePointerCapture(event.pointerId);
-  });
-  arenaCanvas.addEventListener('pointercancel', () => {
-    state.dragging = false;
-    state.targetX = state.x;
-    state.targetY = state.y;
-  });
-  arenaCanvas.addEventListener('pointerleave', () => {
-    state.dragging = false;
-    state.targetX = state.x;
-    state.targetY = state.y;
-  });
+  arenaCanvas.addEventListener('pointerdown', jumpRat);
   arenaCanvas.setAttribute('tabindex', '0');
 
   clearHeat();
