@@ -380,6 +380,58 @@
     ctx.fillText(label, 14, 16);
   }
 
+  function drawInterferenceTrace(canvas, sampleFn) {
+    const ctx = canvas.getContext('2d');
+    const width = canvas.width;
+    const height = canvas.height;
+    const paddingX = 18;
+    const baseline = height / 2;
+    ctx.clearRect(0, 0, width, height);
+    ctx.fillStyle = '#f9f6f0';
+    ctx.fillRect(0, 0, width, height);
+
+    ctx.strokeStyle = 'rgba(19, 21, 24, 0.08)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(paddingX, baseline);
+    ctx.lineTo(width - paddingX, baseline);
+    ctx.stroke();
+
+    const thresholdY = baseline - settings.peakThreshold * (height * 0.3);
+    ctx.save();
+    ctx.strokeStyle = 'rgba(143, 29, 29, 0.45)';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([6, 5]);
+    ctx.beginPath();
+    ctx.moveTo(paddingX, thresholdY);
+    ctx.lineTo(width - paddingX, thresholdY);
+    ctx.stroke();
+    ctx.restore();
+
+    ctx.save();
+    ctx.strokeStyle = '#8f1d1d';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    for (let i = 0; i <= 240; i += 1) {
+      const t = i / 240;
+      const x = paddingX + t * (width - paddingX * 2);
+      const y = baseline - sampleFn(t) * (height * 0.3);
+      if (i === 0) {
+        ctx.moveTo(x, y);
+      } else {
+        ctx.lineTo(x, y);
+      }
+    }
+    ctx.stroke();
+    ctx.restore();
+
+    ctx.fillStyle = 'rgba(19, 21, 24, 0.72)';
+    ctx.font = '12px Instrument Sans, Segoe UI, sans-serif';
+    ctx.fillText('interference', 14, 16);
+    ctx.fillStyle = 'rgba(143, 29, 29, 0.75)';
+    ctx.fillText('threshold', width - 86, thresholdY - 6);
+  }
+
   function drawWaves() {
     const spatialFrequency = 3.2;
     const thetaTrace = (t) => Math.sin(spatialFrequency * (t * Math.PI * 2) + state.thetaPhase);
@@ -397,7 +449,7 @@
     drawWaveTrace(waveCanvases.wave1, 'wave 1', waveColors[0], waveTraces[0]);
     drawWaveTrace(waveCanvases.wave2, 'wave 2', waveColors[1], waveTraces[1]);
     drawWaveTrace(waveCanvases.wave3, 'wave 3', waveColors[2], waveTraces[2]);
-    drawWaveTrace(waveCanvases.sum, 'interference', '#8f1d1d', sumTrace);
+    drawInterferenceTrace(waveCanvases.sum, sumTrace);
   }
 
   function renderFrame(timestamp) {
