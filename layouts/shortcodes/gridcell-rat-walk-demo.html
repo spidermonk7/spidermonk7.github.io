@@ -21,7 +21,7 @@
       <h4>Grid Cell Firing</h4>
       <canvas width="360" height="360" data-role="heatmap-canvas"></canvas>
       <p class="gridcell-dynamic-demo__caption">
-        A firing mark is deposited only when all three directional waves are simultaneously close to their peaks, and remains until you reset the demo.
+        A firing mark is deposited when the three directional waves build a strong overlap, with stronger overlap producing stronger firing.
       </p>
     </section>
 
@@ -83,7 +83,7 @@
     omega0: 5.8,
     beta: 15.4,
     depositRadius: 3,
-    peakThreshold: 0.95
+    peakThreshold: 0.82
   };
 
   function clamp(value, min, max) {
@@ -164,7 +164,7 @@
     const raw = (waves[0] + waves[1] + waves[2] + 0.75 * theta) / 3.75;
     const overlap = Math.min(peaks[0], peaks[1], peaks[2]);
     const firing = overlap >= settings.peakThreshold
-      ? Math.pow((overlap - settings.peakThreshold) / (1 - settings.peakThreshold), 0.45)
+      ? Math.pow((overlap - settings.peakThreshold) / (1 - settings.peakThreshold), 1.15)
       : 0;
     return { theta, waves, raw, firing, overlap };
   }
@@ -181,7 +181,7 @@
     }
 
     const { firing } = currentWaveSignals();
-    depositHeat(state.x, state.y, firing * 0.32);
+    depositHeat(state.x, state.y, firing * 0.26);
 
     trail.push({ x: state.x, y: state.y });
     if (trail.length > 260) trail.shift();
