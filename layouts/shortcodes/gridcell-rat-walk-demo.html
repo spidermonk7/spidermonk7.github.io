@@ -28,6 +28,7 @@
     <section class="gridcell-dynamic-demo__card">
       <h4>Grid Cell Firing</h4>
       <canvas width="360" height="360" data-role="heatmap-canvas"></canvas>
+      <canvas width="360" height="120" data-role="interference-canvas"></canvas>
       <p class="gridcell-dynamic-demo__caption">
         Pale circles show the theoretical firing sites implied by the current threshold. The brighter heat layer records the actual online firing accumulated from the rat's trajectory.
       </p>
@@ -40,10 +41,9 @@
         <canvas width="420" height="92" data-role="wave-1"></canvas>
         <canvas width="420" height="92" data-role="wave-2"></canvas>
         <canvas width="420" height="92" data-role="wave-3"></canvas>
-        <canvas width="420" height="92" data-role="wave-sum"></canvas>
       </div>
       <p class="gridcell-dynamic-demo__caption">
-        The top four traces are the moving waves themselves. The bottom trace shows their instantaneous interference pattern.
+        These four traces show the moving theta wave together with the three direction-tuned waves.
       </p>
     </section>
   </div>
@@ -58,6 +58,7 @@
   const arenaCtx = arenaCanvas.getContext('2d');
   const heatmapCanvas = root.querySelector('[data-role="heatmap-canvas"]');
   const heatmapCtx = heatmapCanvas.getContext('2d');
+  const interferenceCanvas = root.querySelector('[data-role="interference-canvas"]');
   const resetButton = root.querySelector('[data-role="reset"]');
   const thresholdInput = root.querySelector('[data-role="threshold"]');
   const thresholdOutput = root.querySelector('[data-role="threshold-value"]');
@@ -65,8 +66,7 @@
     theta: root.querySelector('[data-role="wave-theta"]'),
     wave1: root.querySelector('[data-role="wave-1"]'),
     wave2: root.querySelector('[data-role="wave-2"]'),
-    wave3: root.querySelector('[data-role="wave-3"]'),
-    sum: root.querySelector('[data-role="wave-sum"]')
+    wave3: root.querySelector('[data-role="wave-3"]')
   };
 
   const arenaSize = 2;
@@ -397,7 +397,9 @@
     ctx.lineTo(width - paddingX, baseline);
     ctx.stroke();
 
-    const thresholdY = baseline - settings.peakThreshold * (height * 0.3);
+    const amplitudeScale = height * 0.11;
+    const thresholdAmplitude = settings.peakThreshold * 4;
+    const thresholdY = baseline - thresholdAmplitude * amplitudeScale;
     ctx.save();
     ctx.strokeStyle = 'rgba(143, 29, 29, 0.45)';
     ctx.lineWidth = 1.5;
@@ -415,7 +417,7 @@
     for (let i = 0; i <= 240; i += 1) {
       const t = i / 240;
       const x = paddingX + t * (width - paddingX * 2);
-      const y = baseline - sampleFn(t) * (height * 0.3);
+      const y = baseline - sampleFn(t) * amplitudeScale;
       if (i === 0) {
         ctx.moveTo(x, y);
       } else {
@@ -430,6 +432,9 @@
     ctx.fillText('interference', 14, 16);
     ctx.fillStyle = 'rgba(143, 29, 29, 0.75)';
     ctx.fillText('threshold', width - 86, thresholdY - 6);
+    ctx.fillStyle = 'rgba(19, 21, 24, 0.52)';
+    ctx.fillText('+4', width - 28, 16);
+    ctx.fillText('-4', width - 28, height - 8);
   }
 
   function drawWaves() {
@@ -449,7 +454,7 @@
     drawWaveTrace(waveCanvases.wave1, 'wave 1', waveColors[0], waveTraces[0]);
     drawWaveTrace(waveCanvases.wave2, 'wave 2', waveColors[1], waveTraces[1]);
     drawWaveTrace(waveCanvases.wave3, 'wave 3', waveColors[2], waveTraces[2]);
-    drawInterferenceTrace(waveCanvases.sum, sumTrace);
+    drawInterferenceTrace(interferenceCanvas, sumTrace);
   }
 
   function renderFrame(timestamp) {
