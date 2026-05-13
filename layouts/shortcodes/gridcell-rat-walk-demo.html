@@ -1,11 +1,19 @@
 <div class="gridcell-dynamic-demo">
   <div class="gridcell-dynamic-demo__header">
     <p class="gridcell-dynamic-demo__intro">
-      Drag inside the arena and the rat will stay locked to the mouse position. The center panel samples a fixed spatial grid field, so the firing sites are anchored in the map and your trajectory only reveals them over time. The right column shows the live theta wave, three direction-tuned waves, and their interference.
+      Drag inside the arena and the rat will stay locked to the mouse position. The center panel is now driven directly by online phase interference: motion updates the waves in real time, and firing is deposited only when their relative phases align strongly enough. The right column shows the live theta wave, three direction-tuned waves, and their interference.
     </p>
     <div class="gridcell-dynamic-demo__actions">
       <button type="button" data-role="reset">Reset trail</button>
     </div>
+  </div>
+
+  <div class="gridcell-dynamic-demo__controls">
+    <label>
+      <span>Firing threshold</span>
+      <input type="range" min="0" max="1" step="0.01" value="0.84" data-role="threshold">
+      <output data-role="threshold-value">0.84</output>
+    </label>
   </div>
 
   <div class="gridcell-dynamic-demo__layout">
@@ -13,7 +21,7 @@
       <h4>Rat in 2 x 2 Arena</h4>
       <canvas width="360" height="360" data-role="arena-canvas"></canvas>
       <p class="gridcell-dynamic-demo__caption">
-        While you drag, the rat moves exactly with the pointer inside the square world and samples a fixed underlying grid field.
+        While you drag, the rat moves exactly with the pointer inside the square world, and that movement updates the phase evolution of the directional waves.
       </p>
     </section>
 
@@ -21,7 +29,7 @@
       <h4>Grid Cell Firing</h4>
       <canvas width="360" height="360" data-role="heatmap-canvas"></canvas>
       <p class="gridcell-dynamic-demo__caption">
-        A firing mark is deposited according to the field value at the rat's current location, so the same spatial sites recur regardless of the path you take.
+        Pale circles show the theoretical firing sites implied by the current threshold. The brighter heat layer records the actual online firing accumulated from the rat's trajectory.
       </p>
     </section>
 
@@ -51,6 +59,8 @@
   const heatmapCanvas = root.querySelector('[data-role="heatmap-canvas"]');
   const heatmapCtx = heatmapCanvas.getContext('2d');
   const resetButton = root.querySelector('[data-role="reset"]');
+  const thresholdInput = root.querySelector('[data-role="threshold"]');
+  const thresholdOutput = root.querySelector('[data-role="threshold-value"]');
   const waveCanvases = {
     theta: root.querySelector('[data-role="wave-theta"]'),
     wave1: root.querySelector('[data-role="wave-1"]'),
@@ -79,7 +89,7 @@
 
   const settings = {
     omega0: 5.8,
-    beta: 18.5,
+    beta: 15.4,
     depositRadius: 3,
     peakThreshold: 0.84
   };
@@ -91,6 +101,47 @@
   function clearHeat() {
     heat.fill(0);
     trail.length = 0;
+  }
+
+  function theoreticalSpatialScore(x, y) {
+    const cx = x - arenaSize / 2;
+    const cy = y - arenaSize / 2;
+    const peaks = waveAngles.map((angle) => {
+      const projection = cx * Math.cos(angle) + cy * Math.sin(angle);
+      return 0.5 * (1 + Math.cos(settings.beta * projection));
+    });
+    return (1 + peaks[0] + peaks[1] + peaks[2]) / 4;
+  }
+
+  function theoreticalMarkers() {
+    const samples = 84;
+    const markers = [];
+    for (let iy = 1; iy < samples - 1; iy += 1) {
+      for (let ix = 1; ix < samples - 1; ix += 1) {
+        const x = (ix / (samples - 1)) * arenaSize;
+        const y = (iy / (samples - 1)) * arenaSize;
+        const center = theoreticalSpatialScore(x, y);
+        if (center < settings.peakThreshold) continue;
+
+        let isLocalMax = true;
+        for (let oy = -1; oy <= 1 && isLocalMax; oy += 1) {
+          for (let ox = -1; ox <= 1; ox += 1) {
+            if (ox === 0 && oy === 0) continue;
+            const nx = ((ix + ox) / (samples - 1)) * arenaSize;
+            const ny = ((iy + oy) / (samples - 1)) * arenaSize;
+            if (theoreticalSpatialScore(nx, ny) > center) {
+              isLocalMax = false;
+              break;
+            }
+          }
+        }
+
+        if (isLocalMax) {
+          markers.push({ x, y, value: center });
+        }
+      }
+    }
+    return markers;
   }
 
   function toPixelX(x, width) {
@@ -134,29 +185,7 @@
   }
 
   function directionalWavePeaks() {
-    return state.directionalPhases.map((phase) => 0.5 * (1 + Math.cos(phase)));
-  }
-
-  function centeredCoordinates(x, y) {
-    return {
-      x: x - arenaSize / 2,
-      y: y - arenaSize / 2
-    };
-  }
-
-  function spatialWavePeak(x, y, angle) {
-    const centered = centeredCoordinates(x, y);
-    const projection = centered.x * Math.cos(angle) + centered.y * Math.sin(angle);
-    return 0.5 * (1 + Math.cos(settings.beta * projection));
-  }
-
-  function spatialFieldValue(x, y) {
-    const peaks = waveAngles.map((angle) => spatialWavePeak(x, y, angle));
-    const overlap = Math.min(peaks[0], peaks[1], peaks[2]);
-    const firing = overlap >= settings.peakThreshold
-      ? Math.pow((overlap - settings.peakThreshold) / (1 - settings.peakThreshold), 1.2)
-      : 0;
-    return { peaks, overlap, firing };
+    return state.directionalPhases.map((phase) => 0.5 * (1 + Math.cos(phase - state.thetaPhase)));
   }
 
   function currentWaveSignals() {
@@ -165,7 +194,10 @@
     const waves = state.directionalPhases.map((phase) => Math.sin(phase));
     const raw = (waves[0] + waves[1] + waves[2] + 0.75 * theta) / 3.75;
     const overlap = Math.min(peaks[0], peaks[1], peaks[2]);
-    return { theta, waves, raw, overlap };
+    const firing = overlap >= settings.peakThreshold
+      ? Math.pow((overlap - settings.peakThreshold) / (1 - settings.peakThreshold), 1.15)
+      : 0;
+    return { theta, waves, raw, overlap, firing };
   }
 
   function step(dt) {
@@ -178,7 +210,7 @@
       state.directionalPhases[i] += (settings.omega0 + settings.beta * projectedVelocity) * dt;
     }
 
-    const { firing } = spatialFieldValue(state.x, state.y);
+    const { firing } = currentWaveSignals();
     depositHeat(state.x, state.y, firing * 0.26);
 
     trail.push({ x: state.x, y: state.y });
@@ -268,6 +300,23 @@
 
     heatmapCtx.putImageData(image, 0, 0);
     heatmapCtx.save();
+    const markers = theoreticalMarkers();
+    markers.forEach((marker) => {
+      const px = toPixelX(marker.x, width);
+      const py = toPixelY(marker.y, height);
+      const strength = (marker.value - settings.peakThreshold) / Math.max(1 - settings.peakThreshold, 1e-6);
+      const radius = 5 + 7 * strength;
+      heatmapCtx.fillStyle = 'rgba(143, 29, 29, 0.10)';
+      heatmapCtx.beginPath();
+      heatmapCtx.arc(px, py, radius, 0, Math.PI * 2);
+      heatmapCtx.fill();
+      heatmapCtx.strokeStyle = 'rgba(143, 29, 29, 0.26)';
+      heatmapCtx.lineWidth = 1;
+      heatmapCtx.beginPath();
+      heatmapCtx.arc(px, py, radius, 0, Math.PI * 2);
+      heatmapCtx.stroke();
+    });
+
     heatmapCtx.strokeStyle = 'rgba(19, 21, 24, 0.1)';
     heatmapCtx.lineWidth = 1;
     for (let i = 0; i <= 4; i += 1) {
@@ -368,6 +417,10 @@
   }
 
   resetButton.addEventListener('click', clearHeat);
+  thresholdInput.addEventListener('input', () => {
+    settings.peakThreshold = Number(thresholdInput.value);
+    thresholdOutput.textContent = settings.peakThreshold.toFixed(2);
+  });
   arenaCanvas.addEventListener('pointerdown', (event) => {
     state.dragging = true;
     state.vx = 0;
@@ -408,6 +461,7 @@
   arenaCanvas.setAttribute('tabindex', '0');
 
   clearHeat();
+  thresholdOutput.textContent = settings.peakThreshold.toFixed(2);
   window.requestAnimationFrame(renderFrame);
 })();
 </script>

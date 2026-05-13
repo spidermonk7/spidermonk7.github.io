@@ -500,6 +500,36 @@ body::before {
   text-transform: uppercase;
 }
 
+.gridcell-dynamic-demo__controls {
+  padding: 0 0 1rem;
+}
+
+.gridcell-dynamic-demo__controls label {
+  display: grid;
+  grid-template-columns: auto minmax(180px, 320px) auto;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.gridcell-dynamic-demo__controls span {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.gridcell-dynamic-demo__controls input[type='range'] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.gridcell-dynamic-demo__controls output {
+  min-width: 2.6rem;
+  text-align: right;
+  font-size: 0.84rem;
+  color: var(--accent);
+}
+
 .gridcell-dynamic-demo__layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(320px, 1.2fr);
@@ -560,6 +590,11 @@ body::before {
 
   .gridcell-dynamic-demo__header {
     flex-direction: column;
+  }
+
+  .gridcell-dynamic-demo__controls label {
+    grid-template-columns: 1fr;
+    align-items: start;
   }
 
   .gridcell-dynamic-demo__layout {
