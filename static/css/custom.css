@@ -367,6 +367,31 @@ body::before {
   color: var(--accent);
 }
 
+.gridcell-demo-controls textarea,
+.gridcell-demo-controls select {
+  width: 100%;
+  border: 1px solid rgba(19, 21, 24, 0.16);
+  border-radius: 10px;
+  padding: 0.5rem 0.6rem;
+  background: rgba(255, 255, 255, 0.86);
+  color: var(--ink);
+}
+
+.gridcell-demo-actions {
+  display: flex;
+  gap: 0.6rem;
+  align-items: end;
+}
+
+.gridcell-demo-actions button {
+  border: 1px solid rgba(19, 21, 24, 0.16);
+  border-radius: 999px;
+  padding: 0.46rem 0.88rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--ink);
+  cursor: pointer;
+}
+
 .gridcell-demo-stage {
   padding: 0 1.25rem 1.25rem;
 }
