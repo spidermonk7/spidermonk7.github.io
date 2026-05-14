@@ -85,8 +85,8 @@
 
   <div class="gridcell-demo-stage gridcell-demo-stage-split">
     <div class="gridcell-demo-visual-block">
-      <h4>360 deg Directional Preference (Aligned by phi_hat)</h4>
-      <canvas width="420" height="420" data-role="polar-plot"></canvas>
+      <h4>Cell Orientation: Ground Truth vs Decoded</h4>
+      <canvas width="420" height="420" data-role="ori-compare-plot"></canvas>
     </div>
     <div class="gridcell-demo-visual-block">
       <h4>Folded 60 deg Profile (0-60 deg)</h4>
@@ -132,7 +132,7 @@
 
   const ctxTime = root.querySelector('[data-role="time-plot"]').getContext('2d');
   const ctxBin = root.querySelector('[data-role="bin-plot"]').getContext('2d');
-  const ctxPolar = root.querySelector('[data-role="polar-plot"]').getContext('2d');
+  const ctxOriCompare = root.querySelector('[data-role="ori-compare-plot"]').getContext('2d');
   const ctxFolded = root.querySelector('[data-role="folded-plot"]').getContext('2d');
 
   const defaults = {
@@ -305,38 +305,45 @@
     ctx.strokeRect(pad, pad, w - 2 * pad, h - 2 * pad);
   }
 
-  function drawPolar(ctx, values, colorStroke) {
+  function drawOrientationCompare(ctx, trueDeg, estDegList) {
     const w = ctx.canvas.width, h = ctx.canvas.height;
-    const cx = w / 2, cy = h / 2;
-    const rMax = Math.min(w, h) * 0.37;
+    const padL = 56, padR = 22, padT = 26, padB = 42;
+    const innerW = w - padL - padR;
+    const innerH = h - padT - padB;
     ctx.clearRect(0, 0, w, h);
-    ctx.strokeStyle = 'rgba(19,21,24,0.22)';
-    for (let i = 1; i <= 4; i += 1) {
-      ctx.beginPath(); ctx.arc(cx, cy, rMax * i / 4, 0, 2 * Math.PI); ctx.stroke();
-    }
-    for (let d = 0; d < 360; d += 30) {
-      const a = rad(d - 90);
+
+    ctx.strokeStyle = 'rgba(19,21,24,0.28)';
+    ctx.strokeRect(padL, padT, innerW, innerH);
+
+    [0, 15, 30, 45, 60].forEach((degTick) => {
+      const y = padT + innerH - (degTick / 60) * innerH;
+      ctx.strokeStyle = 'rgba(19,21,24,0.14)';
       ctx.beginPath();
-      ctx.moveTo(cx, cy);
-      ctx.lineTo(cx + rMax * Math.cos(a), cy + rMax * Math.sin(a));
+      ctx.moveTo(padL, y);
+      ctx.lineTo(padL + innerW, y);
       ctx.stroke();
-    }
-    const minV = Math.min(...values), maxV = Math.max(...values);
-    const den = Math.max(maxV - minV, 1e-6);
-    ctx.beginPath();
-    values.forEach((v, i) => {
-      const a = rad(i * (360 / values.length) - 90);
-      const rr = rMax * (0.18 + 0.82 * (v - minV) / den);
-      const x = cx + rr * Math.cos(a);
-      const y = cy + rr * Math.sin(a);
-      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      ctx.fillStyle = 'rgba(19,21,24,0.72)';
+      ctx.font = '12px Instrument Sans, Segoe UI, sans-serif';
+      ctx.fillText(`${degTick}°`, 16, y + 4);
     });
-    ctx.closePath();
-    ctx.fillStyle = 'rgba(43,77,131,0.20)';
-    ctx.strokeStyle = colorStroke;
+
+    const yTrue = padT + innerH - (trueDeg / 60) * innerH;
+    ctx.strokeStyle = 'rgba(27,110,72,0.95)';
     ctx.lineWidth = 2;
-    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(padL, yTrue);
+    ctx.lineTo(padL + innerW, yTrue);
     ctx.stroke();
+
+    const stride = Math.max(1, Math.floor(estDegList.length / 180));
+    ctx.fillStyle = 'rgba(176,106,43,0.72)';
+    for (let i = 0; i < estDegList.length; i += stride) {
+      const x = padL + (i / Math.max(estDegList.length - 1, 1)) * innerW;
+      const y = padT + innerH - (estDegList[i] / 60) * innerH;
+      ctx.beginPath();
+      ctx.arc(x, y, 2, 0, 2 * Math.PI);
+      ctx.fill();
+    }
   }
 
   function drawFoldedLine(ctx, values) {
@@ -501,17 +508,23 @@
     const misaligned = bins.filter((_, i) => !alignedMask[i]);
     const alignGap = mean(aligned) - mean(misaligned);
 
-    const nPolar = 36;
-    const pSum = new Array(nPolar).fill(0);
-    const pCnt = new Array(nPolar).fill(0);
-    for (let k = 0; k < testIdxAll.length; k += 1) {
-      const i = testIdxAll[k];
-      const th = mod2pi(theta[i] - phiHat);
-      const b = Math.min(nPolar - 1, Math.floor(th / (2 * Math.PI / nPolar)));
-      pSum[b] += bold[i];
-      pCnt[b] += 1;
+    const estPhiDegList = [];
+    const cosReg = cos6Conv.slice(0, usableLen);
+    const sinReg = sin6Conv.slice(0, usableLen);
+    const driftReg = drift.slice(0, usableLen);
+    for (let c = 0; c < nCells; c += 1) {
+      const yCellNeural = new Array(usableLen);
+      for (let t = 0; t < usableLen; t += 1) {
+        yCellNeural[t] = hexAmp * Math.cos(6 * (theta[t] - phiTrue)) + noiseAmp * randn();
+      }
+      const yCellBold = convolve(yCellNeural, hrfForward);
+      const bCell = fitGLM(yCellBold, [cosReg, sinReg, driftReg]);
+      const phiCell = mod2pi(Math.atan2(bCell[2], bCell[1]) / 6);
+      let phiCellDeg = deg(phiCell) % 60;
+      if (phiCellDeg < 0) phiCellDeg += 60;
+      estPhiDegList.push(phiCellDeg);
     }
-    drawPolar(ctxPolar, pSum.map((v, i) => v / Math.max(1, pCnt[i])), 'rgba(43,77,131,0.95)');
+    drawOrientationCompare(ctxOriCompare, phiTrueDeg, estPhiDegList);
 
     const nFold = 30;
     const fSum = new Array(nFold).fill(0);
