@@ -25,16 +25,6 @@
       <output data-role="phi-deg-value">18 deg</output>
     </label>
     <label>
-      <span>hex amplitude</span>
-      <input type="range" min="0" max="1.2" value="0.45" step="0.01" data-role="hex-amp">
-      <output data-role="hex-amp-value">0.45</output>
-    </label>
-    <label>
-      <span>position term weight</span>
-      <input type="range" min="0" max="1.5" value="0.75" step="0.01" data-role="pos-amp">
-      <output data-role="pos-amp-value">0.75</output>
-    </label>
-    <label>
       <span>noise level</span>
       <input type="range" min="0" max="1.0" value="0.18" step="0.01" data-role="noise-amp">
       <output data-role="noise-amp-value">0.18</output>
@@ -60,6 +50,17 @@
     <div class="gridcell-demo-actions">
       <button type="button" data-role="reset-default">Reset defaults</button>
       <button type="button" data-role="rerun">Rerun simulation</button>
+    </div>
+  </div>
+
+  <div class="gridcell-demo-stage gridcell-demo-stage-split">
+    <div class="gridcell-demo-visual-block">
+      <h4>Forward HRF Kernel</h4>
+      <canvas width="520" height="180" data-role="hrf-forward-plot"></canvas>
+    </div>
+    <div class="gridcell-demo-visual-block">
+      <h4>Decode HRF Kernel</h4>
+      <canvas width="520" height="180" data-role="hrf-decode-plot"></canvas>
     </div>
   </div>
 
@@ -104,8 +105,6 @@
     nCells: root.querySelector('[data-role="n-cells"]'),
     phaseDist: root.querySelector('[data-role="phase-dist"]'),
     phiDeg: root.querySelector('[data-role="phi-deg"]'),
-    hexAmp: root.querySelector('[data-role="hex-amp"]'),
-    posAmp: root.querySelector('[data-role="pos-amp"]'),
     noiseAmp: root.querySelector('[data-role="noise-amp"]'),
     nTime: root.querySelector('[data-role="n-time"]'),
     nRuns: root.querySelector('[data-role="n-runs"]'),
@@ -115,8 +114,6 @@
   const outputs = {
     nCells: root.querySelector('[data-role="n-cells-value"]'),
     phiDeg: root.querySelector('[data-role="phi-deg-value"]'),
-    hexAmp: root.querySelector('[data-role="hex-amp-value"]'),
-    posAmp: root.querySelector('[data-role="pos-amp-value"]'),
     noiseAmp: root.querySelector('[data-role="noise-amp-value"]'),
     nTime: root.querySelector('[data-role="n-time-value"]'),
     nRuns: root.querySelector('[data-role="n-runs-value"]')
@@ -134,19 +131,22 @@
   const ctxBin = root.querySelector('[data-role="bin-plot"]').getContext('2d');
   const ctxOriCompare = root.querySelector('[data-role="ori-compare-plot"]').getContext('2d');
   const ctxFolded = root.querySelector('[data-role="folded-plot"]').getContext('2d');
+  const ctxHrfForward = root.querySelector('[data-role="hrf-forward-plot"]').getContext('2d');
+  const ctxHrfDecode = root.querySelector('[data-role="hrf-decode-plot"]').getContext('2d');
 
   const defaults = {
     nCells: 220,
     phaseDist: 'uniform',
     phiDeg: 18,
-    hexAmp: 0.45,
-    posAmp: 0.75,
     noiseAmp: 0.18,
     nTime: 800,
     nRuns: 4,
     hrfForwardText: '0,0,0.02,0.08,0.22,0.38,0.52,0.59,0.57,0.49,0.38,0.27,0.18,0.11,0.06,0.03,0.01,0,-0.01,-0.02,-0.02,-0.01,0',
     hrfDecodeText: '0,0,0.01,0.05,0.15,0.29,0.43,0.53,0.55,0.50,0.40,0.30,0.21,0.14,0.09,0.05,0.02,0.01,0,-0.01,-0.01,0,0'
   };
+
+  const FIXED_HEX_AMP = 0.45;
+  const FIXED_POS_AMP = 0.75;
 
   function clamp(x, lo, hi) { return Math.max(lo, Math.min(hi, x)); }
   function mean(arr) { return arr.reduce((a, b) => a + b, 0) / Math.max(arr.length, 1); }
@@ -178,11 +178,28 @@
   function syncLabels() {
     outputs.nCells.textContent = controls.nCells.value;
     outputs.phiDeg.textContent = `${controls.phiDeg.value} deg`;
-    outputs.hexAmp.textContent = Number(controls.hexAmp.value).toFixed(2);
-    outputs.posAmp.textContent = Number(controls.posAmp.value).toFixed(2);
     outputs.noiseAmp.textContent = Number(controls.noiseAmp.value).toFixed(2);
     outputs.nTime.textContent = controls.nTime.value;
     outputs.nRuns.textContent = controls.nRuns.value;
+  }
+
+  function drawKernel(ctx, kernel, color) {
+    const w = ctx.canvas.width, h = ctx.canvas.height;
+    const pad = 16;
+    ctx.clearRect(0, 0, w, h);
+    const minV = Math.min(...kernel), maxV = Math.max(...kernel);
+    const den = Math.max(maxV - minV, 1e-6);
+    ctx.strokeStyle = 'rgba(19,21,24,0.22)';
+    ctx.strokeRect(pad, pad, w - 2 * pad, h - 2 * pad);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    for (let i = 0; i < kernel.length; i += 1) {
+      const x = pad + (i / Math.max(kernel.length - 1, 1)) * (w - 2 * pad);
+      const y = h - pad - ((kernel[i] - minV) / den) * (h - 2 * pad);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
   }
 
   function samplePhase(dist) {
@@ -386,13 +403,15 @@
     const phaseDist = controls.phaseDist.value;
     const phiTrue = rad(Number(controls.phiDeg.value));
     const phiTrueDeg = Number(controls.phiDeg.value);
-    const hexAmp = Number(controls.hexAmp.value);
-    const posAmp = Number(controls.posAmp.value);
+    const hexAmp = FIXED_HEX_AMP;
+    const posAmp = FIXED_POS_AMP;
     const noiseAmp = Number(controls.noiseAmp.value);
     const nTime = Number(controls.nTime.value);
     const nRuns = Number(controls.nRuns.value);
     const hrfForward = parseKernel(controls.hrfForwardText.value, defaults.hrfForwardText);
     const hrfDecode = parseKernel(controls.hrfDecodeText.value, defaults.hrfDecodeText);
+    drawKernel(ctxHrfForward, hrfForward, '#2b4d83');
+    drawKernel(ctxHrfDecode, hrfDecode, '#b26a2b');
 
     const phases = new Array(nCells).fill(0).map(() => samplePhase(phaseDist));
     const x = new Array(nTime).fill(0);
@@ -553,8 +572,6 @@
       controls.nCells.value = defaults.nCells;
       controls.phaseDist.value = defaults.phaseDist;
       controls.phiDeg.value = defaults.phiDeg;
-      controls.hexAmp.value = defaults.hexAmp;
-      controls.posAmp.value = defaults.posAmp;
       controls.noiseAmp.value = defaults.noiseAmp;
       controls.nTime.value = defaults.nTime;
       controls.nRuns.value = defaults.nRuns;
