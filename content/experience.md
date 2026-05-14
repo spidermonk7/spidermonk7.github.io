@@ -30,9 +30,13 @@ sections:
       text: |-
         **Research Assistant**    
         **Tsinghua University**, Department of Psychological and Cognitive Sciences   
-        **Sep-2025 - Presents**
+        **Sep 2025 - May 2026**
         - Project: TradeCraft(on-going)
         - Project: Heliox(submitted to ICML2026)
+
+        **Research Assistant**    
+        **Peking University**, School of Psychological and Cognitive Sciences   
+        **May 2026 - Present**
 
         **Internship**     
         **Peking University (Dr. Kai Du's Lab)**     
