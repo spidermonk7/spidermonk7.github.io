@@ -24,15 +24,11 @@ If movement direction aligns with a latent grid orientation, BOLD is higher; if 
 
 Suppose the participant moves in a virtual environment and we track position:
 
-$$
-(x(t), y(t)).
-$$
+$$ (x(t), y(t)) $$
 
 Instantaneous movement direction is
 
-$$
-\theta(t)=\mathrm{atan2}(y(t+\Delta t)-y(t), x(t+\Delta t)-x(t)).
-$$
+$$ \theta(t)=\mathrm{atan2}(y(t+\Delta t)-y(t), x(t+\Delta t)-x(t)) $$
 
 In practice, low-speed or stationary periods are excluded. The directional model is about motion direction during navigation, not occupancy.
 
@@ -42,29 +38,17 @@ The standard modeling idea is that many grid cells in a local EC population can 
 
 For each time point, construct:
 
-$$
-\cos(6\theta(t)), \quad \sin(6\theta(t)).
-$$
+$$ \cos(6\theta(t)),\ \sin(6\theta(t)) $$
 
 The factor 6 encodes six-fold rotational symmetry (60-degree periodicity).
 
 Fit a GLM on training data (for example, N-1 runs):
 
-$$
-\mathrm{BOLD}_{EC}(t)
-=
-\beta_{\cos}\cos(6\theta(t))
-+
-\beta_{\sin}\sin(6\theta(t))
-+
-\text{nuisance regressors}.
-$$
+$$ \mathrm{BOLD}_{EC}(t)=\beta_{\cos}\cos(6\theta(t))+\beta_{\sin}\sin(6\theta(t))+\mathrm{nuisance\ regressors} $$
 
 Then recover the putative grid orientation:
 
-$$
-\phi=\frac{1}{6}\mathrm{atan2}(\beta_{\sin},\beta_{\cos}).
-$$
+$$ \phi=\frac{1}{6}\mathrm{atan2}(\beta_{\sin},\beta_{\cos}) $$
 
 Because of 60-degree periodicity, $\phi$ is defined modulo 60 degrees.
 
@@ -77,19 +61,11 @@ Use cross-validation (for example leave-one-run-out): estimate $\phi$ on trainin
 
 In test data, build:
 
-$$
-\cos(6(\theta(t)-\phi)).
-$$
+$$ \cos(6(\theta(t)-\phi)) $$
 
 Then fit:
 
-$$
-\mathrm{BOLD}_{RightEC}(t)
-=
-\beta_{\mathrm{hex}}\cos(6(\theta(t)-\phi))
-+
-\text{nuisance regressors}.
-$$
+$$ \mathrm{BOLD}_{RightEC}(t)=\beta_{\mathrm{hex}}\cos(6(\theta(t)-\phi))+\mathrm{nuisance\ regressors} $$
 
 If $\beta_{\mathrm{hex}} > 0$, Right EC is stronger when $\theta$ aligns with
 $\phi + k\cdot60^\circ$ than when it is shifted toward $\phi + 30^\circ + k\cdot60^\circ$.
