@@ -146,7 +146,6 @@
   };
 
   const FIXED_HEX_AMP = 0.45;
-  const FIXED_POS_AMP = 0.75;
 
   function clamp(x, lo, hi) { return Math.max(lo, Math.min(hi, x)); }
   function mean(arr) { return arr.reduce((a, b) => a + b, 0) / Math.max(arr.length, 1); }
@@ -404,7 +403,7 @@
     const phiTrue = rad(Number(controls.phiDeg.value));
     const phiTrueDeg = Number(controls.phiDeg.value);
     const hexAmp = FIXED_HEX_AMP;
-    const posAmp = FIXED_POS_AMP;
+    const posAmp = 0;
     const noiseAmp = Number(controls.noiseAmp.value);
     const nTime = Number(controls.nTime.value);
     const nRuns = Number(controls.nRuns.value);
@@ -426,7 +425,6 @@
       theta[t] = Math.atan2(y[t] - y[t - 1], x[t] - x[t - 1]);
     }
 
-    const posSeries = new Array(nTime).fill(0);
     const cos6Raw = new Array(nTime).fill(0);
     const sin6Raw = new Array(nTime).fill(0);
     const neural = new Array(nTime).fill(0);
@@ -434,7 +432,6 @@
       let posMean = 0;
       for (let c = 0; c < nCells; c += 1) posMean += gridFieldValue(x[t], y[t], phases[c]);
       posMean /= nCells;
-      posSeries[t] = posMean;
       cos6Raw[t] = Math.cos(6 * theta[t]);
       sin6Raw[t] = Math.sin(6 * theta[t]);
       neural[t] = posAmp * posMean + hexAmp * Math.cos(6 * (theta[t] - phiTrue)) + noiseAmp * randn();
@@ -443,7 +440,6 @@
     const bold = convolve(neural, hrfForward);
     const cos6Conv = convolve(cos6Raw, hrfDecode);
     const sin6Conv = convolve(sin6Raw, hrfDecode);
-    const posConv = convolve(posSeries, hrfDecode);
     const drift = new Array(nTime).fill(0).map((_, i) => i / Math.max(nTime - 1, 1));
 
     const runLen = Math.floor(nTime / nRuns);
@@ -469,9 +465,7 @@
       const yTrain = trainIdx.map((i) => bold[i]);
       const cTrain = trainIdx.map((i) => cos6Conv[i]);
       const sTrain = trainIdx.map((i) => sin6Conv[i]);
-      const pTrain = trainIdx.map((i) => posConv[i]);
-      const dTrain = trainIdx.map((i) => drift[i]);
-      const bTrain = fitGLM(yTrain, [cTrain, sTrain, pTrain, dTrain]);
+      const bTrain = fitGLM(yTrain, [cTrain, sTrain]);
       const bc = bTrain[1];
       const bs = bTrain[2];
       const phiFold = mod2pi(Math.atan2(bs, bc) / 6);
@@ -490,11 +484,9 @@
       const testIdx = [];
       for (let i = s; i < e; i += 1) testIdx.push(i);
       const yTest = testIdx.map((i) => bold[i]);
-      const pTest = testIdx.map((i) => posConv[i]);
-      const dTest = testIdx.map((i) => drift[i]);
       const hexRaw = testIdx.map((i) => Math.cos(6 * (theta[i] - phiHat)));
       const hexConv = convolve(hexRaw, hrfDecode).slice(0, hexRaw.length);
-      const bTest = fitGLM(yTest, [hexConv, pTest, dTest]);
+      const bTest = fitGLM(yTest, [hexConv]);
       testBetas.push(bTest[1]);
     }
 
@@ -503,8 +495,8 @@
 
     const fullHexRaw = theta.map((th) => Math.cos(6 * (th - phiHat)));
     const fullHexConv = convolve(fullHexRaw, hrfDecode);
-    const fullBeta = fitGLM(bold, [fullHexConv, posConv, drift]);
-    const pred = fullHexConv.map((v, i) => fullBeta[0] + fullBeta[1] * v + fullBeta[2] * posConv[i] + fullBeta[3] * drift[i]);
+    const fullBeta = fitGLM(bold, [fullHexConv]);
+    const pred = fullHexConv.map((v) => fullBeta[0] + fullBeta[1] * v);
     drawTimePlot(bold, pred);
 
     const nBins = 12;
@@ -527,14 +519,13 @@
     const estPhiDegList = [];
     const cosReg = cos6Conv.slice(0, usableLen);
     const sinReg = sin6Conv.slice(0, usableLen);
-    const driftReg = drift.slice(0, usableLen);
     for (let c = 0; c < nCells; c += 1) {
       const yCellNeural = new Array(usableLen);
       for (let t = 0; t < usableLen; t += 1) {
         yCellNeural[t] = hexAmp * Math.cos(6 * (theta[t] - phiTrue)) + noiseAmp * randn();
       }
       const yCellBold = convolve(yCellNeural, hrfForward);
-      const bCell = fitGLM(yCellBold, [cosReg, sinReg, driftReg]);
+      const bCell = fitGLM(yCellBold, [cosReg, sinReg]);
       const phiCell = mod2pi(Math.atan2(bCell[2], bCell[1]) / 6);
       let phiCellDeg = deg(phiCell) % 60;
       if (phiCellDeg < 0) phiCellDeg += 60;
