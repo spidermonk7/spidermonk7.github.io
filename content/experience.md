@@ -16,7 +16,7 @@ sections:
         **Duration:** September 2021 - July 2025  
      
 
-        **Selected Coursework:**
+        **Selected Courses:**
         - Consciouse Turing Machine (Prof. Lenore Blum & Prof. Manuel Blum)
         - CORE ([Prof. Yixin Zhu](https://yzhu.io))
         - Neuroscience: from Brain Simulation to NeuroAI ([Prof. Kai Du](https://scholar.google.com/citations?user=jkAOvWkAAAAJ&hl=zh-CN))
