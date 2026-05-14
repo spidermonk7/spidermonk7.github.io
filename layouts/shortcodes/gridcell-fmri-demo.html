@@ -1,0 +1,525 @@
+<div class="gridcell-demo">
+  <div class="gridcell-demo-intro">
+    <p class="gridcell-demo-stage-note">
+      Voxel-level fMRI simulation + decoding. We generate synthetic Right EC BOLD with a forward HRF, then decode hexadirectional structure with a GLM that uses a potentially different decode HRF on regressors.
+    </p>
+  </div>
+
+  <div class="gridcell-demo-controls">
+    <label>
+      <span>cells per voxel</span>
+      <input type="range" min="10" max="700" value="220" step="10" data-role="n-cells">
+      <output data-role="n-cells-value">220</output>
+    </label>
+    <label>
+      <span>phase distribution</span>
+      <select data-role="phase-dist">
+        <option value="uniform" selected>uniform</option>
+        <option value="clustered">clustered</option>
+        <option value="bimodal">bimodal</option>
+      </select>
+    </label>
+    <label>
+      <span>grid orientation phi (ground truth)</span>
+      <input type="range" min="0" max="59" value="18" step="1" data-role="phi-deg">
+      <output data-role="phi-deg-value">18 deg</output>
+    </label>
+    <label>
+      <span>hex amplitude</span>
+      <input type="range" min="0" max="1.2" value="0.45" step="0.01" data-role="hex-amp">
+      <output data-role="hex-amp-value">0.45</output>
+    </label>
+    <label>
+      <span>position term weight</span>
+      <input type="range" min="0" max="1.5" value="0.75" step="0.01" data-role="pos-amp">
+      <output data-role="pos-amp-value">0.75</output>
+    </label>
+    <label>
+      <span>noise level</span>
+      <input type="range" min="0" max="1.0" value="0.18" step="0.01" data-role="noise-amp">
+      <output data-role="noise-amp-value">0.18</output>
+    </label>
+    <label>
+      <span>trajectory samples</span>
+      <input type="range" min="300" max="2000" value="800" step="20" data-role="n-time">
+      <output data-role="n-time-value">800</output>
+    </label>
+    <label>
+      <span>runs (CV)</span>
+      <input type="range" min="2" max="8" value="4" step="1" data-role="n-runs">
+      <output data-role="n-runs-value">4</output>
+    </label>
+    <label>
+      <span>forward HRF (generation)</span>
+      <textarea rows="3" data-role="hrf-forward-text">0,0,0.02,0.08,0.22,0.38,0.52,0.59,0.57,0.49,0.38,0.27,0.18,0.11,0.06,0.03,0.01,0,-0.01,-0.02,-0.02,-0.01,0</textarea>
+    </label>
+    <label>
+      <span>decode HRF (GLM design)</span>
+      <textarea rows="3" data-role="hrf-decode-text">0,0,0.01,0.05,0.15,0.29,0.43,0.53,0.55,0.50,0.40,0.30,0.21,0.14,0.09,0.05,0.02,0.01,0,-0.01,-0.01,0,0</textarea>
+    </label>
+    <div class="gridcell-demo-actions">
+      <button type="button" data-role="reset-default">Reset defaults</button>
+      <button type="button" data-role="rerun">Rerun simulation</button>
+    </div>
+  </div>
+
+  <div class="gridcell-demo-metrics">
+    <div class="gridcell-demo-metric"><span>phi true / phi estimated</span><strong data-role="phi-pair">0.0 deg / 0.0 deg</strong></div>
+    <div class="gridcell-demo-metric"><span>phi error (mod 60)</span><strong data-role="phi-error">0.00 deg</strong></div>
+    <div class="gridcell-demo-metric"><span>beta_hex train</span><strong data-role="beta-train">0.000</strong></div>
+    <div class="gridcell-demo-metric"><span>beta_hex test</span><strong data-role="beta-test">0.000</strong></div>
+    <div class="gridcell-demo-metric"><span>aligned - misaligned (test)</span><strong data-role="align-gap">0.000</strong></div>
+    <div class="gridcell-demo-metric"><span>cv setup</span><strong data-role="cv-info">leave-one-run-out</strong></div>
+  </div>
+
+  <div class="gridcell-demo-stage gridcell-demo-stage-split">
+    <div class="gridcell-demo-visual-block">
+      <h4>BOLD and Decoded Predictor</h4>
+      <canvas width="520" height="260" data-role="time-plot"></canvas>
+    </div>
+    <div class="gridcell-demo-visual-block">
+      <h4>Aligned vs Misaligned Bins (Test)</h4>
+      <canvas width="520" height="260" data-role="bin-plot"></canvas>
+    </div>
+  </div>
+
+  <div class="gridcell-demo-stage gridcell-demo-stage-split">
+    <div class="gridcell-demo-visual-block">
+      <h4>360 deg Directional Preference (Test BOLD)</h4>
+      <canvas width="420" height="420" data-role="polar-plot"></canvas>
+    </div>
+    <div class="gridcell-demo-visual-block">
+      <h4>Folded 60 deg Profile</h4>
+      <canvas width="420" height="420" data-role="folded-plot"></canvas>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const root = document.currentScript.previousElementSibling;
+  if (!root || !root.classList.contains('gridcell-demo')) return;
+
+  const controls = {
+    nCells: root.querySelector('[data-role="n-cells"]'),
+    phaseDist: root.querySelector('[data-role="phase-dist"]'),
+    phiDeg: root.querySelector('[data-role="phi-deg"]'),
+    hexAmp: root.querySelector('[data-role="hex-amp"]'),
+    posAmp: root.querySelector('[data-role="pos-amp"]'),
+    noiseAmp: root.querySelector('[data-role="noise-amp"]'),
+    nTime: root.querySelector('[data-role="n-time"]'),
+    nRuns: root.querySelector('[data-role="n-runs"]'),
+    hrfForwardText: root.querySelector('[data-role="hrf-forward-text"]'),
+    hrfDecodeText: root.querySelector('[data-role="hrf-decode-text"]')
+  };
+  const outputs = {
+    nCells: root.querySelector('[data-role="n-cells-value"]'),
+    phiDeg: root.querySelector('[data-role="phi-deg-value"]'),
+    hexAmp: root.querySelector('[data-role="hex-amp-value"]'),
+    posAmp: root.querySelector('[data-role="pos-amp-value"]'),
+    noiseAmp: root.querySelector('[data-role="noise-amp-value"]'),
+    nTime: root.querySelector('[data-role="n-time-value"]'),
+    nRuns: root.querySelector('[data-role="n-runs-value"]')
+  };
+  const metrics = {
+    phiPair: root.querySelector('[data-role="phi-pair"]'),
+    phiError: root.querySelector('[data-role="phi-error"]'),
+    betaTrain: root.querySelector('[data-role="beta-train"]'),
+    betaTest: root.querySelector('[data-role="beta-test"]'),
+    alignGap: root.querySelector('[data-role="align-gap"]'),
+    cvInfo: root.querySelector('[data-role="cv-info"]')
+  };
+
+  const ctxTime = root.querySelector('[data-role="time-plot"]').getContext('2d');
+  const ctxBin = root.querySelector('[data-role="bin-plot"]').getContext('2d');
+  const ctxPolar = root.querySelector('[data-role="polar-plot"]').getContext('2d');
+  const ctxFolded = root.querySelector('[data-role="folded-plot"]').getContext('2d');
+
+  const defaults = {
+    nCells: 220,
+    phaseDist: 'uniform',
+    phiDeg: 18,
+    hexAmp: 0.45,
+    posAmp: 0.75,
+    noiseAmp: 0.18,
+    nTime: 800,
+    nRuns: 4,
+    hrfForwardText: '0,0,0.02,0.08,0.22,0.38,0.52,0.59,0.57,0.49,0.38,0.27,0.18,0.11,0.06,0.03,0.01,0,-0.01,-0.02,-0.02,-0.01,0',
+    hrfDecodeText: '0,0,0.01,0.05,0.15,0.29,0.43,0.53,0.55,0.50,0.40,0.30,0.21,0.14,0.09,0.05,0.02,0.01,0,-0.01,-0.01,0,0'
+  };
+
+  function clamp(x, lo, hi) { return Math.max(lo, Math.min(hi, x)); }
+  function mean(arr) { return arr.reduce((a, b) => a + b, 0) / Math.max(arr.length, 1); }
+  function randn() {
+    let u = 0, v = 0;
+    while (u === 0) u = Math.random();
+    while (v === 0) v = Math.random();
+    return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+  }
+  function deg(rad) { return rad * 180 / Math.PI; }
+  function rad(degVal) { return degVal * Math.PI / 180; }
+  function mod2pi(x) {
+    let y = x % (2 * Math.PI);
+    if (y < 0) y += 2 * Math.PI;
+    return y;
+  }
+  function mod60ErrorDeg(a, b) {
+    let d = Math.abs(a - b) % 60;
+    return Math.min(d, 60 - d);
+  }
+
+  function parseKernel(text, fallbackText) {
+    const raw = text.split(',').map((x) => Number(x.trim())).filter((x) => Number.isFinite(x));
+    const vec = raw.length >= 3 ? raw : fallbackText.split(',').map(Number);
+    const norm = vec.reduce((s, v) => s + Math.abs(v), 0) || 1;
+    return vec.map((v) => v / norm);
+  }
+
+  function syncLabels() {
+    outputs.nCells.textContent = controls.nCells.value;
+    outputs.phiDeg.textContent = `${controls.phiDeg.value} deg`;
+    outputs.hexAmp.textContent = Number(controls.hexAmp.value).toFixed(2);
+    outputs.posAmp.textContent = Number(controls.posAmp.value).toFixed(2);
+    outputs.noiseAmp.textContent = Number(controls.noiseAmp.value).toFixed(2);
+    outputs.nTime.textContent = controls.nTime.value;
+    outputs.nRuns.textContent = controls.nRuns.value;
+  }
+
+  function samplePhase(dist) {
+    if (dist === 'clustered') {
+      return [clamp(0.5 + 0.09 * randn(), 0, 1), clamp(0.5 + 0.09 * randn(), 0, 1), clamp(0.5 + 0.09 * randn(), 0, 1)];
+    }
+    if (dist === 'bimodal') {
+      const c = Math.random() < 0.5 ? 0.25 : 0.75;
+      return [clamp(c + 0.07 * randn(), 0, 1), clamp(c + 0.07 * randn(), 0, 1), clamp(c + 0.07 * randn(), 0, 1)];
+    }
+    return [Math.random(), Math.random(), Math.random()];
+  }
+
+  function gridFieldValue(x, y, phase) {
+    const angles = [0, Math.PI / 3, 2 * Math.PI / 3];
+    const k = 8.6;
+    let acc = 0;
+    for (let i = 0; i < 3; i += 1) {
+      const proj = x * Math.cos(angles[i]) + y * Math.sin(angles[i]);
+      acc += Math.cos(k * proj + 2 * Math.PI * phase[i]);
+    }
+    return Math.max(0, (acc + 1.6) / 4.6);
+  }
+
+  function convolve(signal, kernel) {
+    const out = new Array(signal.length).fill(0);
+    for (let t = 0; t < signal.length; t += 1) {
+      let v = 0;
+      for (let k = 0; k < kernel.length; k += 1) {
+        const idx = t - k;
+        if (idx < 0) break;
+        v += signal[idx] * kernel[k];
+      }
+      out[t] = v;
+    }
+    return out;
+  }
+
+  function solveLinearSystem(A, b) {
+    const n = A.length;
+    const M = A.map((row, i) => row.concat([b[i]]));
+    for (let c = 0; c < n; c += 1) {
+      let piv = c;
+      for (let r = c + 1; r < n; r += 1) if (Math.abs(M[r][c]) > Math.abs(M[piv][c])) piv = r;
+      if (Math.abs(M[piv][c]) < 1e-10) continue;
+      if (piv !== c) {
+        const tmp = M[c];
+        M[c] = M[piv];
+        M[piv] = tmp;
+      }
+      const div = M[c][c];
+      for (let j = c; j <= n; j += 1) M[c][j] /= div;
+      for (let r = 0; r < n; r += 1) {
+        if (r === c) continue;
+        const f = M[r][c];
+        for (let j = c; j <= n; j += 1) M[r][j] -= f * M[c][j];
+      }
+    }
+    return M.map((row) => row[n]);
+  }
+
+  function fitGLM(y, regs) {
+    const n = y.length;
+    const p = regs.length;
+    const dim = p + 1;
+    const XtX = Array.from({ length: dim }, () => new Array(dim).fill(0));
+    const Xty = new Array(dim).fill(0);
+    for (let i = 0; i < n; i += 1) {
+      const row = [1];
+      for (let j = 0; j < p; j += 1) row.push(regs[j][i]);
+      for (let a = 0; a < dim; a += 1) {
+        Xty[a] += row[a] * y[i];
+        for (let b = 0; b < dim; b += 1) XtX[a][b] += row[a] * row[b];
+      }
+    }
+    for (let d = 0; d < dim; d += 1) XtX[d][d] += 1e-6;
+    const beta = solveLinearSystem(XtX, Xty);
+    return beta;
+  }
+
+  function drawTimePlot(y1, y2) {
+    const ctx = ctxTime;
+    const w = ctx.canvas.width, h = ctx.canvas.height, pad = 22;
+    ctx.clearRect(0, 0, w, h);
+    const all = y1.concat(y2);
+    const minV = Math.min(...all), maxV = Math.max(...all);
+    const den = Math.max(maxV - minV, 1e-6);
+    function plot(arr, color) {
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.7;
+      ctx.beginPath();
+      for (let i = 0; i < arr.length; i += 1) {
+        const x = pad + (i / Math.max(arr.length - 1, 1)) * (w - 2 * pad);
+        const y = h - pad - ((arr[i] - minV) / den) * (h - 2 * pad);
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
+    ctx.strokeStyle = 'rgba(19,21,24,0.24)';
+    ctx.strokeRect(pad, pad, w - 2 * pad, h - 2 * pad);
+    plot(y1, '#2b4d83');
+    plot(y2, '#b26a2b');
+  }
+
+  function drawBinPlot(bins, alignedMask) {
+    const ctx = ctxBin;
+    const w = ctx.canvas.width, h = ctx.canvas.height, pad = 30;
+    ctx.clearRect(0, 0, w, h);
+    const minV = Math.min(...bins), maxV = Math.max(...bins);
+    const den = Math.max(maxV - minV, 1e-6);
+    const bw = (w - 2 * pad) / bins.length * 0.82;
+    bins.forEach((v, i) => {
+      const x = pad + i * (w - 2 * pad) / bins.length;
+      const y0 = h - pad;
+      const y = y0 - ((v - minV) / den) * (h - 2 * pad);
+      ctx.fillStyle = alignedMask[i] ? 'rgba(27,110,72,0.78)' : 'rgba(164,62,62,0.72)';
+      ctx.fillRect(x, y, bw, y0 - y);
+    });
+    ctx.strokeStyle = 'rgba(19,21,24,0.35)';
+    ctx.strokeRect(pad, pad, w - 2 * pad, h - 2 * pad);
+  }
+
+  function drawPolar(ctx, values, colorStroke) {
+    const w = ctx.canvas.width, h = ctx.canvas.height;
+    const cx = w / 2, cy = h / 2;
+    const rMax = Math.min(w, h) * 0.37;
+    ctx.clearRect(0, 0, w, h);
+    ctx.strokeStyle = 'rgba(19,21,24,0.22)';
+    for (let i = 1; i <= 4; i += 1) {
+      ctx.beginPath(); ctx.arc(cx, cy, rMax * i / 4, 0, 2 * Math.PI); ctx.stroke();
+    }
+    for (let d = 0; d < 360; d += 30) {
+      const a = rad(d - 90);
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + rMax * Math.cos(a), cy + rMax * Math.sin(a));
+      ctx.stroke();
+    }
+    const minV = Math.min(...values), maxV = Math.max(...values);
+    const den = Math.max(maxV - minV, 1e-6);
+    ctx.beginPath();
+    values.forEach((v, i) => {
+      const a = rad(i * (360 / values.length) - 90);
+      const rr = rMax * (0.18 + 0.82 * (v - minV) / den);
+      const x = cx + rr * Math.cos(a);
+      const y = cy + rr * Math.sin(a);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    });
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(43,77,131,0.20)';
+    ctx.strokeStyle = colorStroke;
+    ctx.lineWidth = 2;
+    ctx.fill();
+    ctx.stroke();
+  }
+
+  function run() {
+    syncLabels();
+    const nCells = Number(controls.nCells.value);
+    const phaseDist = controls.phaseDist.value;
+    const phiTrue = rad(Number(controls.phiDeg.value));
+    const phiTrueDeg = Number(controls.phiDeg.value);
+    const hexAmp = Number(controls.hexAmp.value);
+    const posAmp = Number(controls.posAmp.value);
+    const noiseAmp = Number(controls.noiseAmp.value);
+    const nTime = Number(controls.nTime.value);
+    const nRuns = Number(controls.nRuns.value);
+    const hrfForward = parseKernel(controls.hrfForwardText.value, defaults.hrfForwardText);
+    const hrfDecode = parseKernel(controls.hrfDecodeText.value, defaults.hrfDecodeText);
+
+    const phases = new Array(nCells).fill(0).map(() => samplePhase(phaseDist));
+    const x = new Array(nTime).fill(0);
+    const y = new Array(nTime).fill(0);
+    const theta = new Array(nTime).fill(0);
+
+    for (let t = 1; t < nTime; t += 1) {
+      const dir = Math.random() * 2 * Math.PI;
+      const step = 0.055 + 0.02 * randn();
+      x[t] = clamp(x[t - 1] + step * Math.cos(dir), -1.35, 1.35);
+      y[t] = clamp(y[t - 1] + step * Math.sin(dir), -1.35, 1.35);
+      theta[t] = Math.atan2(y[t] - y[t - 1], x[t] - x[t - 1]);
+    }
+
+    const posSeries = new Array(nTime).fill(0);
+    const cos6Raw = new Array(nTime).fill(0);
+    const sin6Raw = new Array(nTime).fill(0);
+    const neural = new Array(nTime).fill(0);
+    for (let t = 0; t < nTime; t += 1) {
+      let posMean = 0;
+      for (let c = 0; c < nCells; c += 1) posMean += gridFieldValue(x[t], y[t], phases[c]);
+      posMean /= nCells;
+      posSeries[t] = posMean;
+      cos6Raw[t] = Math.cos(6 * theta[t]);
+      sin6Raw[t] = Math.sin(6 * theta[t]);
+      neural[t] = posAmp * posMean + hexAmp * Math.cos(6 * (theta[t] - phiTrue)) + noiseAmp * randn();
+    }
+
+    const bold = convolve(neural, hrfForward);
+    const cos6Conv = convolve(cos6Raw, hrfDecode);
+    const sin6Conv = convolve(sin6Raw, hrfDecode);
+    const posConv = convolve(posSeries, hrfDecode);
+    const drift = new Array(nTime).fill(0).map((_, i) => i / Math.max(nTime - 1, 1));
+
+    const runLen = Math.floor(nTime / nRuns);
+    const usableLen = runLen * nRuns;
+    if (usableLen < nRuns * 40) return;
+
+    let sumSin = 0;
+    let sumCos = 0;
+    const trainBetas = [];
+    const testBetas = [];
+    const testIdxAll = [];
+
+    for (let r = 0; r < nRuns; r += 1) {
+      const s = r * runLen;
+      const e = s + runLen;
+      const trainIdx = [];
+      const testIdx = [];
+      for (let i = 0; i < usableLen; i += 1) {
+        if (i >= s && i < e) testIdx.push(i); else trainIdx.push(i);
+      }
+      testIdxAll.push(...testIdx);
+
+      const yTrain = trainIdx.map((i) => bold[i]);
+      const cTrain = trainIdx.map((i) => cos6Conv[i]);
+      const sTrain = trainIdx.map((i) => sin6Conv[i]);
+      const pTrain = trainIdx.map((i) => posConv[i]);
+      const dTrain = trainIdx.map((i) => drift[i]);
+      const bTrain = fitGLM(yTrain, [cTrain, sTrain, pTrain, dTrain]);
+      const bc = bTrain[1];
+      const bs = bTrain[2];
+      const phiFold = mod2pi(Math.atan2(bs, bc) / 6);
+      const betaTrainFold = Math.sqrt(bc * bc + bs * bs);
+      trainBetas.push(betaTrainFold);
+      sumSin += Math.sin(6 * phiFold);
+      sumCos += Math.cos(6 * phiFold);
+    }
+
+    const phiHat = mod2pi(Math.atan2(sumSin, sumCos) / 6);
+    const phiHatDeg = deg(phiHat);
+
+    for (let r = 0; r < nRuns; r += 1) {
+      const s = r * runLen;
+      const e = s + runLen;
+      const testIdx = [];
+      for (let i = s; i < e; i += 1) testIdx.push(i);
+      const yTest = testIdx.map((i) => bold[i]);
+      const pTest = testIdx.map((i) => posConv[i]);
+      const dTest = testIdx.map((i) => drift[i]);
+      const hexRaw = testIdx.map((i) => Math.cos(6 * (theta[i] - phiHat)));
+      const hexConv = convolve(hexRaw, hrfDecode).slice(0, hexRaw.length);
+      const bTest = fitGLM(yTest, [hexConv, pTest, dTest]);
+      testBetas.push(bTest[1]);
+    }
+
+    const betaTrain = mean(trainBetas);
+    const betaTest = mean(testBetas);
+
+    const fullHexRaw = theta.map((th) => Math.cos(6 * (th - phiHat)));
+    const fullHexConv = convolve(fullHexRaw, hrfDecode);
+    const fullBeta = fitGLM(bold, [fullHexConv, posConv, drift]);
+    const pred = fullHexConv.map((v, i) => fullBeta[0] + fullBeta[1] * v + fullBeta[2] * posConv[i] + fullBeta[3] * drift[i]);
+    drawTimePlot(bold, pred);
+
+    const nBins = 12;
+    const binSum = new Array(nBins).fill(0);
+    const binCnt = new Array(nBins).fill(0);
+    const alignedMask = new Array(nBins).fill(false).map((_, i) => (i % 2 === 0));
+    for (let k = 0; k < testIdxAll.length; k += 1) {
+      const i = testIdxAll[k];
+      const th = mod2pi(theta[i] - phiHat);
+      const b = Math.min(nBins - 1, Math.floor(th / (2 * Math.PI / nBins)));
+      binSum[b] += bold[i];
+      binCnt[b] += 1;
+    }
+    const bins = binSum.map((v, i) => v / Math.max(1, binCnt[i]));
+    drawBinPlot(bins, alignedMask);
+    const aligned = bins.filter((_, i) => alignedMask[i]);
+    const misaligned = bins.filter((_, i) => !alignedMask[i]);
+    const alignGap = mean(aligned) - mean(misaligned);
+
+    const nPolar = 36;
+    const pSum = new Array(nPolar).fill(0);
+    const pCnt = new Array(nPolar).fill(0);
+    for (let k = 0; k < testIdxAll.length; k += 1) {
+      const i = testIdxAll[k];
+      const th = mod2pi(theta[i]);
+      const b = Math.min(nPolar - 1, Math.floor(th / (2 * Math.PI / nPolar)));
+      pSum[b] += bold[i];
+      pCnt[b] += 1;
+    }
+    drawPolar(ctxPolar, pSum.map((v, i) => v / Math.max(1, pCnt[i])), 'rgba(43,77,131,0.95)');
+
+    const nFold = 30;
+    const fSum = new Array(nFold).fill(0);
+    const fCnt = new Array(nFold).fill(0);
+    for (let k = 0; k < testIdxAll.length; k += 1) {
+      const i = testIdxAll[k];
+      const folded = mod2pi(theta[i] - phiHat) % (Math.PI / 3);
+      const b = Math.min(nFold - 1, Math.floor(folded / ((Math.PI / 3) / nFold)));
+      fSum[b] += bold[i];
+      fCnt[b] += 1;
+    }
+    drawPolar(ctxFolded, fSum.map((v, i) => v / Math.max(1, fCnt[i])), 'rgba(176,106,43,0.95)');
+
+    metrics.phiPair.textContent = `${phiTrueDeg.toFixed(1)} deg / ${phiHatDeg.toFixed(1)} deg`;
+    metrics.phiError.textContent = `${mod60ErrorDeg(phiHatDeg, phiTrueDeg).toFixed(2)} deg`;
+    metrics.betaTrain.textContent = betaTrain.toFixed(3);
+    metrics.betaTest.textContent = betaTest.toFixed(3);
+    metrics.alignGap.textContent = alignGap.toFixed(3);
+    metrics.cvInfo.textContent = `${nRuns} runs, leave-one-run-out`;
+  }
+
+  function bind() {
+    Object.values(controls).forEach((el) => {
+      const eventName = (el.tagName === 'SELECT' || el.tagName === 'TEXTAREA') ? 'change' : 'input';
+      el.addEventListener(eventName, run);
+    });
+    root.querySelector('[data-role="rerun"]').addEventListener('click', run);
+    root.querySelector('[data-role="reset-default"]').addEventListener('click', () => {
+      controls.nCells.value = defaults.nCells;
+      controls.phaseDist.value = defaults.phaseDist;
+      controls.phiDeg.value = defaults.phiDeg;
+      controls.hexAmp.value = defaults.hexAmp;
+      controls.posAmp.value = defaults.posAmp;
+      controls.noiseAmp.value = defaults.noiseAmp;
+      controls.nTime.value = defaults.nTime;
+      controls.nRuns.value = defaults.nRuns;
+      controls.hrfForwardText.value = defaults.hrfForwardText;
+      controls.hrfDecodeText.value = defaults.hrfDecodeText;
+      syncLabels();
+      run();
+    });
+  }
+
+  syncLabels();
+  bind();
+  run();
+})();
+</script>
