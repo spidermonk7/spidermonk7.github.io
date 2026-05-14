@@ -1,7 +1,7 @@
 ---
 title: "Grid Cell Demo 03: From Grid Cells to fMRI Hexadirectional Signal"
 date: 2026-05-14
-summary: "Why random spatial phases can cancel voxel-level grid fields while six-fold directional modulation survives in Right EC BOLD."
+summary: "A voxel-level fMRI demo: generate synthetic Right EC BOLD, decode population phi with train/test GLM, and compare recovered orientation against ground truth."
 tags:
   - Grid Cell
   - fMRI
@@ -12,43 +12,31 @@ authors:
 math: true
 ---
 
-This demo addresses one specific conceptual question:
+This demo now focuses only on voxel-level fMRI outputs and decoding.
 
-Why can different spatial phases wash out voxel-level grid firing fields in fMRI, but not necessarily wash out the 60-degree periodic signal?
+Core intuition:
 
-The mechanism is a separation of what is phase-sensitive vs what is phase-insensitive at the population level.
+1. Within one voxel, many cells with different spatial phases can reduce position-locked map contrast after averaging.
+2. But if local cells share a similar grid orientation $\phi$, the six-fold directional term can survive at population level.
+3. After HRF convolution, we can still decode hexadirectional structure from BOLD.
 
-## Short intuition
+Decoding protocol in this page:
 
-For a single cell, a simplified spatial response can be written as
+1. Use first half of time points as training data.
+2. Fit $\cos(6\theta)$ and $\sin(6\theta)$ GLM terms to estimate population $\hat\phi$.
+3. Use second half as test data.
+4. Build test regressor $\cos(6(\theta-\hat\phi))$ and estimate test $\beta_{\text{hex}}$.
+5. Compare recovered $\hat\phi$ against ground-truth $\phi$ (modulo 60 degrees).
+6. Visualize aligned vs misaligned bins and directional preference on a 360-degree polar plot.
 
-$$ r_i(x)=f\!\left(\sum_{m=1}^{3}\cos(k_m^\top x+\varphi_{im})\right), $$
+You can customize:
 
-where $\varphi_{im}$ are cell-specific phases.
+- voxel cell count
+- initial phase distribution
+- HRF kernel
+- signal/noise settings
+- trajectory length
 
-Inside one voxel, fMRI averages many cells:
-
-$$ \bar r(x)=\frac{1}{N}\sum_{i=1}^{N} r_i(x). $$
-
-If phases $\varphi_{im}$ are spread out, peaks of some cells align with troughs of others at the same position, so the position-locked lattice contrast is reduced in the average.
-
-But the directional component is modeled as a shared orientation-dependent term, for example:
-
-$$ h_i(\theta)\propto \cos(6(\theta-\phi)), $$
-
-with roughly common $\phi$ in a local EC population. This term has the same 60-degree periodic structure across cells, so averaging does not cancel it in the same way.
-
-After HRF convolution, the voxel BOLD can still show detectable hexadirectional modulation.
-
-## What to try in the demo
-
-1. Increase `cells per voxel` and keep `phase distribution = uniform`.
-   - You should see **single-cell spatial map** keep structure while **voxel map** gets flatter.
-2. Keep many cells but raise `hex amplitude`.
-   - `beta_hex` and `Aligned - Misaligned` usually remain positive.
-3. Edit `HRF kernel`.
-   - You can test how temporal smoothing reshapes the final BOLD-level directional profile.
-4. Switch phase distribution between `uniform`, `clustered`, and `bimodal`.
-   - Clustered phases preserve more spatial contrast; uniform phases cancel more.
+and inspect how recovery quality changes.
 
 {{< gridcell-fmri-demo >}}
