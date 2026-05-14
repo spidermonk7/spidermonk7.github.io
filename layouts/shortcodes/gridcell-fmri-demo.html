@@ -85,11 +85,11 @@
 
   <div class="gridcell-demo-stage gridcell-demo-stage-split">
     <div class="gridcell-demo-visual-block">
-      <h4>360 deg Directional Preference (Test BOLD)</h4>
+      <h4>360 deg Directional Preference (Aligned by phi_hat)</h4>
       <canvas width="420" height="420" data-role="polar-plot"></canvas>
     </div>
     <div class="gridcell-demo-visual-block">
-      <h4>Folded 60 deg Profile</h4>
+      <h4>Folded 60 deg Profile (0-60 deg)</h4>
       <canvas width="420" height="420" data-role="folded-plot"></canvas>
     </div>
   </div>
@@ -339,6 +339,43 @@
     ctx.stroke();
   }
 
+  function drawFoldedLine(ctx, values) {
+    const w = ctx.canvas.width, h = ctx.canvas.height;
+    const padL = 52, padR = 20, padT = 30, padB = 46;
+    ctx.clearRect(0, 0, w, h);
+    const minV = Math.min(...values), maxV = Math.max(...values);
+    const den = Math.max(maxV - minV, 1e-6);
+    const innerW = w - padL - padR;
+    const innerH = h - padT - padB;
+
+    ctx.strokeStyle = 'rgba(19,21,24,0.24)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(padL, padT, innerW, innerH);
+
+    const vLines = [0, 30, 60];
+    vLines.forEach((degVal, i) => {
+      const x = padL + (degVal / 60) * innerW;
+      ctx.strokeStyle = i === 1 ? 'rgba(164,62,62,0.48)' : 'rgba(27,110,72,0.48)';
+      ctx.beginPath();
+      ctx.moveTo(x, padT);
+      ctx.lineTo(x, padT + innerH);
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(19,21,24,0.72)';
+      ctx.font = '12px Instrument Sans, Segoe UI, sans-serif';
+      ctx.fillText(`${degVal}°`, x - 10, h - 18);
+    });
+
+    ctx.strokeStyle = '#b26a2b';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    for (let i = 0; i < values.length; i += 1) {
+      const x = padL + (i / Math.max(values.length - 1, 1)) * innerW;
+      const y = padT + innerH - ((values[i] - minV) / den) * innerH;
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+  }
+
   function run() {
     syncLabels();
     const nCells = Number(controls.nCells.value);
@@ -469,7 +506,7 @@
     const pCnt = new Array(nPolar).fill(0);
     for (let k = 0; k < testIdxAll.length; k += 1) {
       const i = testIdxAll[k];
-      const th = mod2pi(theta[i]);
+      const th = mod2pi(theta[i] - phiHat);
       const b = Math.min(nPolar - 1, Math.floor(th / (2 * Math.PI / nPolar)));
       pSum[b] += bold[i];
       pCnt[b] += 1;
@@ -486,7 +523,7 @@
       fSum[b] += bold[i];
       fCnt[b] += 1;
     }
-    drawPolar(ctxFolded, fSum.map((v, i) => v / Math.max(1, fCnt[i])), 'rgba(176,106,43,0.95)');
+    drawFoldedLine(ctxFolded, fSum.map((v, i) => v / Math.max(1, fCnt[i])));
 
     metrics.phiPair.textContent = `${phiTrueDeg.toFixed(1)} deg / ${phiHatDeg.toFixed(1)} deg`;
     metrics.phiError.textContent = `${mod60ErrorDeg(phiHatDeg, phiTrueDeg).toFixed(2)} deg`;
