@@ -145,7 +145,8 @@
     hrfDecodeText: '0,0,0.01,0.05,0.15,0.29,0.43,0.53,0.55,0.50,0.40,0.30,0.21,0.14,0.09,0.05,0.02,0.01,0,-0.01,-0.01,0,0'
   };
 
-  const FIXED_HEX_AMP = 0.45;
+  const FIXED_OMEGA0 = 1.6;
+  const FIXED_BETA_VEL = 22.0;
 
   function clamp(x, lo, hi) { return Math.max(lo, Math.min(hi, x)); }
   function mean(arr) { return arr.reduce((a, b) => a + b, 0) / Math.max(arr.length, 1); }
@@ -402,8 +403,6 @@
     const phaseDist = controls.phaseDist.value;
     const phiTrue = rad(Number(controls.phiDeg.value));
     const phiTrueDeg = Number(controls.phiDeg.value);
-    const hexAmp = FIXED_HEX_AMP;
-    const posAmp = 0;
     const noiseAmp = Number(controls.noiseAmp.value);
     const nTime = Number(controls.nTime.value);
     const nRuns = Number(controls.nRuns.value);
@@ -428,13 +427,32 @@
     const cos6Raw = new Array(nTime).fill(0);
     const sin6Raw = new Array(nTime).fill(0);
     const neural = new Array(nTime).fill(0);
+    const cellSignals = Array.from({ length: nCells }, () => new Array(nTime).fill(0));
+    const dirs = [phiTrue, phiTrue + Math.PI / 3, phiTrue + (2 * Math.PI) / 3];
+    const cellPhaseState = phases.map((p) => [2 * Math.PI * p[0], 2 * Math.PI * p[1], 2 * Math.PI * p[2]]);
+
     for (let t = 0; t < nTime; t += 1) {
-      let posMean = 0;
-      for (let c = 0; c < nCells; c += 1) posMean += gridFieldValue(x[t], y[t], phases[c]);
-      posMean /= nCells;
       cos6Raw[t] = Math.cos(6 * theta[t]);
       sin6Raw[t] = Math.sin(6 * theta[t]);
-      neural[t] = posAmp * posMean + hexAmp * Math.cos(6 * (theta[t] - phiTrue)) + noiseAmp * randn();
+    }
+
+    for (let t = 1; t < nTime; t += 1) {
+      const dx = x[t] - x[t - 1];
+      const dy = y[t] - y[t - 1];
+      let pop = 0;
+      for (let c = 0; c < nCells; c += 1) {
+        for (let m = 0; m < 3; m += 1) {
+          const ux = Math.cos(dirs[m]);
+          const uy = Math.sin(dirs[m]);
+          const proj = dx * ux + dy * uy;
+          cellPhaseState[c][m] += FIXED_OMEGA0 + FIXED_BETA_VEL * proj;
+        }
+        const raw = Math.cos(cellPhaseState[c][0]) + Math.cos(cellPhaseState[c][1]) + Math.cos(cellPhaseState[c][2]);
+        const firing = Math.max(0, (raw + 1.2) / 3.2);
+        cellSignals[c][t] = firing;
+        pop += firing;
+      }
+      neural[t] = pop / nCells + noiseAmp * randn();
     }
 
     const bold = convolve(neural, hrfForward);
@@ -520,10 +538,7 @@
     const cosReg = cos6Conv.slice(0, usableLen);
     const sinReg = sin6Conv.slice(0, usableLen);
     for (let c = 0; c < nCells; c += 1) {
-      const yCellNeural = new Array(usableLen);
-      for (let t = 0; t < usableLen; t += 1) {
-        yCellNeural[t] = hexAmp * Math.cos(6 * (theta[t] - phiTrue)) + noiseAmp * randn();
-      }
+      const yCellNeural = cellSignals[c].slice(0, usableLen);
       const yCellBold = convolve(yCellNeural, hrfForward);
       const bCell = fitGLM(yCellBold, [cosReg, sinReg]);
       const phiCell = mod2pi(Math.atan2(bCell[2], bCell[1]) / 6);
