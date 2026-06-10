@@ -16,7 +16,7 @@ organizations:
 
 profiles:
   - icon: at-symbol
-    url: 'mailto:sy-cui@thu.edu.cn'
+    url: 'mailto:joeycui2024@163.com'
     label: Email
   - icon: brands/github
     url: https://github.com/spidermonk7/
