@@ -33,6 +33,8 @@ sections:
         **May 2026 - Present**
         - Project: TradeCraft-v2(on-going)
         - Project: VidNum-1.4K(submitted to ACMMM2026-dataset)
+        - BCI(ongoing)
+        - GridCell coding(on going)
         
 
         **Research Assistant**    
