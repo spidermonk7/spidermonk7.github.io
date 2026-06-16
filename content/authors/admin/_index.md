@@ -11,8 +11,8 @@ highlight_name: true
 role: Research Assistant
 
 organizations:
-  - name: Tsinghua University
-    url: https://www.thu.edu.cn
+  - name: Peking University
+    url: https://www.pku.edu.cn
 
 profiles:
   - icon: at-symbol
