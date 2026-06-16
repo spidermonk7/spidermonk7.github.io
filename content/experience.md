@@ -29,14 +29,19 @@ sections:
       title: Research & Leadership
       text: |-
         **Research Assistant**    
-        **Tsinghua University**, Department of Psychological and Cognitive Sciences   
-        **Sep 2025 - May 2026**
-        - Project: TradeCraft(on-going)
-        - Project: Heliox(submitted to ICML2026)
-
-        **Research Assistant**    
         **Peking University**, School of Psychological and Cognitive Sciences   
         **May 2026 - Present**
+        - Project: TradeCraft-v2(on-going)
+        - Project: VidNum-1.4K(submitted to ACMMM2026-dataset)
+        
+
+        **Research Assistant**    
+        **Tsinghua University**, Department of Psychological and Cognitive Sciences   
+        **Sep 2025 - May 2026**
+        - Project: TradeCraft-v1(rejected by ICML2026)
+        - Project: Heliox(accepted by ICML2026)
+        - Project: InquiTree(submitted to TMLR)
+
 
         **Internship**     
         **Peking University (Dr. Kai Du's Lab)**     
