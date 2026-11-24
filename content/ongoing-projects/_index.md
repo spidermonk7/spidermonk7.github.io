@@ -1,8 +1,10 @@
-﻿---
+---
 title: Ongoing Projects
 subtitle: Current explorations where neuro-inspired ideas meet agentic systems.
 summary: Active workstreams and upcoming deliverables.
 type: landing
+layout: portfolio
+portfolio_kind: projects
 
 design:
   spacing: '4.5rem'

@@ -1,0 +1,1 @@
+<div class="pf-notebooks">{{ range $i,$p := where site.RegularPages "Section" "my-blog-collections" }}<a class="pf-notebook" href="{{ .RelPermalink }}"><span class="pf-note-index">0{{ add $i 1 }}</span><div><h3>{{ .Title }}</h3><p>{{ .Params.summary }}</p></div><span class="pf-note-arrow" aria-hidden="true">↗</span></a>{{ end }}</div>

@@ -1,0 +1,11 @@
+<!doctype html><html lang="en"><head>{{ partial "portfolio/head.html" . }}</head><body class="pf-site" id="top">{{ partial "portfolio/nav.html" . }}<main id="main" class="pf-wrap pf-page-main">
+{{ $kind := .Params.portfolio_kind }}
+<header class="pf-page-intro"><p class="pf-eyebrow">SHAOYANG CUI / {{ $kind }}</p><h1>{{ .Title }}</h1><p>{{ if eq $kind "research" }}Published work at the intersection of neural computation, visual reasoning, and artificial intelligence.{{ else if eq $kind "projects" }}Benchmarks, frameworks, and explorations of how intelligent systems reason and act.{{ else if eq $kind "notebook" }}A working notebook for ideas, interactive explanations, and lessons learned along the way.{{ else }}A background in artificial intelligence. A curiosity about minds, machines, and the space between them.{{ end }}</p></header>
+{{ if eq $kind "research" }}{{ partial "portfolio/papers.html" . }}
+{{ else if eq $kind "projects" }}{{ partial "portfolio/projects.html" . }}
+{{ else if eq $kind "notebook" }}{{ partial "portfolio/notebook.html" . }}
+{{ else }}
+<div class="pf-profile-lead"><img src="/portfolio/portrait.jpg" width="160" height="160" alt="Shaoyang Cui"><p>I work across cognitive science, computational neuroscience, and AI, exploring how intelligence emerges, fails, and generalizes.</p></div>
+{{ range .Params.sections }}{{ with .content }}<section class="pf-experience-section"><h2>{{ .title }}</h2><div class="pf-prose">{{ .text | markdownify }}</div></section>{{ end }}{{ end }}
+<div class="pf-profile-links"><a class="pf-button" href="/uploads/CV_English.pdf">Download full CV ↗</a><a class="pf-text-link" href="/talks/">Invited talks ↗</a><a class="pf-text-link" href="/awards/">Awards & activities ↗</a></div>
+{{ end }}</main>{{ partial "portfolio/footer.html" . }}</body></html>

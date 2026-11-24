@@ -1,7 +1,9 @@
-﻿---
+---
 title: Experience
 date: 2023-10-24
 type: landing
+layout: portfolio
+portfolio_kind: about
 
 design:
   spacing: '4.5rem'

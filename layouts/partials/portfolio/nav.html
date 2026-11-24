@@ -1,0 +1,7 @@
+<a class="pf-skip" href="#main">Skip to content</a>
+<header class="pf-header page-header"><nav class="pf-nav pf-wrap" aria-label="Main navigation">
+<a class="pf-brand" href="/" aria-label="Shaoyang Cui home"><span class="pf-monogram" aria-hidden="true">sc.</span><span>Shaoyang Cui<span class="pf-brand-sub">COGNITION · NEUROSCIENCE · AI</span></span></a>
+<button class="pf-menu-toggle" type="button" aria-expanded="false" aria-controls="pf-menu">Menu <span aria-hidden="true">☰</span></button>
+<div class="pf-menu" id="pf-menu">
+{{ $current := .RelPermalink }}{{ range slice (dict "name" "Home" "url" "/") (dict "name" "Research" "url" "/papers/") (dict "name" "Projects" "url" "/ongoing-projects/") (dict "name" "Notebook" "url" "/my-blogs/") (dict "name" "About" "url" "/experience/") }}<a href="{{ .url }}" {{ if eq $current .url }}aria-current="page"{{ end }}>{{ .name }}</a>{{ end }}
+<a class="pf-nav-cv" href="/uploads/CV_English.pdf" target="_blank" rel="noopener">CV <span aria-hidden="true">↗</span><span class="pf-sr"> (PDF, opens in new tab)</span></a></div></nav></header>
