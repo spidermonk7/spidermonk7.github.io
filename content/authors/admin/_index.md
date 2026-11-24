@@ -27,29 +27,32 @@ interests:
   - LLMs and Agentic Systems
 
 education:
-  - area: Bachelor of Engineering in Artificial Intelligence
+  - area: BEng Artificial Intelligence
     institution: Peking University
     date_start: 2021-09-01
     date_end: 2025-07-01
     summary: |-
 
       Selected coursework:
-  - position: Senior Software Algorithm Engineer
-    company_name: HEC Future Laboratory Technology (Beijing) Co., Ltd.
-    date_start: 2026-10-01
-    date_end: ''
+      - Conscious Turing Machine
+      - CORE
+      - Neuroscience: from Brain Simulation to NeuroAI
+
+work:
   - position: Research Assistant
-    company_name: School of Psychological and Cognitive Sciences, Peking University
-    date_start: 2026-06-01
-    date_end: ''
+    company_name: Peking University, Kai Du Lab
+    company_url: 'https://www.pku.edu.cn'
+    date_start: 2022-09-01
+    date_end: 2023-01-01
     summary: |-
-      Working with Jiayu Zhan on face decoding and reconstruction from MEG.
-  - position: Brain-Inspired AI Algorithm Engineer
-    company_name: Department of Psychological and Cognitive Sciences, Tsinghua University
-    date_start: 2025-07-01
-    date_end: 2026-05-31
+      Explored robustness in detailed neuronal models and studied how biological computation differs from artificial systems under noise and perturbation.
+
+  - position: Team Manager and Coach
+    company_name: Women's Football Team, Yuanpei College
+    date_start: 2022-10-01
+    date_end: 2024-06-01
     summary: |-
-      Worked with Kai Du on brain-inspired AI.
+      Managed training schedules, coordinated with the club, and designed weekly plans for player development.
 
 languages:
   - name: English (IELTS 7.5)
@@ -58,8 +61,8 @@ languages:
 
 ## About Me
 
-I am a Research Assistant in the School of Psychological and Cognitive Sciences at Peking University, working with Jiayu Zhan, and a Senior Software Algorithm Engineer at HEC Future Laboratory Technology (Beijing) Co., Ltd.
+My interest sits at the intersection of Cognitive Science, Computational Neuroscience, and AI. 
 
-My research interests span cognitive science, computational neuroscience, and artificial intelligence. My current work focuses on face decoding and reconstruction from MEG. I also work on visual reasoning evaluation and the security of autonomous AI agents.
+I want to figure out how intelligence emerges, fails, and generalizes across biological and artificial systems.
 
-I received my Bachelor of Engineering in Artificial Intelligence from Yuanpei College, Peking University, in July 2025, where I was a member of the Tong Class. Previously, I worked with Kai Du at Tsinghua University on brain-inspired AI.
+I'm curious about both top-down cognitive structure and bottom-up circuit dynamics. 

@@ -13,7 +13,7 @@ sections:
       text: |-
         **Bachelor of Engineering in Artificial Intelligence**, Yuanpei College, Peking University
 
-        **Duration:** September 2021 - July 2025<br>
+        **Duration:** September 2021 - July 2025  
 
 
         **Selected Courses:**
@@ -28,29 +28,28 @@ sections:
     content:
       title: Research & Leadership
       text: |-
-        **Senior Software Algorithm Engineer**<br>
-        **HEC Future Laboratory Technology (Beijing) Co., Ltd.**<br>
+        **Senior Software Algorithm Engineer**  
+        **HEC Future Laboratory Technology (Beijing) Co., Ltd.**  
         **Oct 2026 - Present**
 
-        **Research Assistant**<br>
-        **Peking University**, School of Psychological and Cognitive Sciences<br>
+        **Research Assistant**  
+        **Peking University**, School of Psychological and Cognitive Sciences  
         **Jun 2026 - Present**
         - PI: Jiayu Zhan
-        - Face decoding and reconstruction from MEG
 
-        **Brain-Inspired AI Algorithm Engineer**<br>
-        **Tsinghua University**, Department of Psychological and Cognitive Sciences<br>
+        **Brain-Inspired AI Algorithm Engineer**  
+        **Tsinghua University**, Department of Psychological and Cognitive Sciences  
         **Jul 2025 - May 2026**
         - PI: Kai Du
         - Brain-inspired AI and biophysically detailed network simulation
 
-        **Internship**<br>
-        **Peking University (Dr. Kai Du's Lab)**<br>
+        **Internship**  
+        **Peking University (Dr. Kai Du's Lab)**  
         **Sep 2022 - Jan 2023**
         - Studied computational characteristics of detailed neuron models.
         - Compared biological and artificial intelligence from robustness perspectives.
 
-        **Team Manager and Coach**, Women's Football Team, Yuanpei College<br>
+        **Team Manager and Coach**, Women's Football Team, Yuanpei College  
         **Oct 2022 - Jun 2024**
 
     design:

@@ -30,7 +30,7 @@ sections:
         - **Neural Computation** bottom-up models inspired by neural circuits and detailed neuron dynamics.
         - **Agentic Systems** practical research on LLM agents, workflow design, evaluation, and failure analysis in real tasks.
 
-        My current research focuses on decoding and reconstructing faces from MEG with Jiayu Zhan at Peking University. Related projects include VidNum for video-grounded numerical reasoning and ClawTrap for agent security evaluation.
+        Currently, I am focused on bridging these disciplines to investigate the functional mechanisms of Theory-of-Mind (ToM) within Large Language Models, seeking to discern whether their emergent behaviors stem from genuine cognitive reasoning or sophisticated statistical mimicry.
 
         I am open to collaborations and internship opportunities in Cognitive Science, Artificial Intelligence and computational neuroscience.
     design:
