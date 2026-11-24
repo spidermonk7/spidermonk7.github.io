@@ -1,0 +1,103 @@
+/* A quiet editorial page, with one interactive holographic exhibit. */
+.pf-hero-hologram { grid-template-columns: .95fr 1.05fr; gap: 44px; padding-block: 66px 72px; }
+.pf-hero-hologram h1 { font-size: clamp(64px,6vw,86px); }
+.pf-hero-hologram .pf-hero-intro { max-width: 410px; }
+.pf-hero-person { display: flex; gap: 17px; align-items: center; margin-top: 36px; }
+.pf-hero-person>img { width: 58px; height: 66px; object-fit: cover; filter: saturate(.75); border-radius: 2px; }
+.pf-hero-person .pf-identity { padding: 0; }
+.pf-hero-person .pf-identity h2 { font-size: 25px; }
+.pf-hero-person .pf-identity p { font-size: 10px; margin-top: 5px; line-height: 1.8; }
+.pf-holo-wrap { min-width: 0; position: relative; }
+.pf-holo-wrap::before { content: ''; position: absolute; pointer-events: none; inset: 0 -18% -5%; z-index: -1; background: radial-gradient(ellipse,#529de122,transparent 67%); }
+.pf-holo { --holo-color: #8bddff; --holo-glow: #39bcff; color: #d2dfe8; background: #050b13; border: 1px solid #263345; border-radius: 8px; overflow: hidden; box-shadow: 0 30px 80px -35px #102e5d77, 0 2px 4px #0001; transform: perspective(1000px) rotateX(var(--holo-tilt-y,0deg)) rotateY(var(--holo-tilt-x,0deg)); transition: transform .7s cubic-bezier(.2,.7,.2,1), box-shadow .4s; color-scheme: dark; }
+.pf-holo[data-holo-palette="amber"] { --holo-color: #ffce83; --holo-glow: #f0a94d; }
+.pf-holo-viewport { position: relative; isolation: isolate; aspect-ratio: 3/2; touch-action: pan-y; overflow: hidden; background: radial-gradient(ellipse at 50% 50%,#10253688 0,transparent 60%); }
+.pf-holo-art { position: absolute; inset: 0; width: 100%; height: 100% !important; object-fit: contain; transition: opacity .4s, filter .6s; }
+.pf-holo[data-holo-mode="core"] .pf-holo-art { opacity: 0; }
+.pf-holo[data-holo-palette="amber"] .pf-holo-art { filter: sepia(1) saturate(2.7); }
+.pf-holo-viewport::after { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 2; opacity: .13; background: repeating-linear-gradient(0deg,transparent 0px,transparent 3px,#b8e5ff14 4px,transparent 5px); }
+.pf-holo-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+.pf-holo-pulse { position: absolute; z-index: 3; inset: calc(50% - 25px) auto auto calc(50% - 25px); display: none; align-items: center; justify-content: center; width: 50px; height: 50px; border: 0; padding: 0; background: transparent; border-radius: 50%; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.pf-holo-pulse span { display: block; width: 34px; height: 34px; border: 1px solid var(--holo-color); border-radius: 50%; opacity: 0; transform: scale(.8); transition: opacity .25s,transform .25s; }
+.pf-holo-pulse:hover span,.pf-holo-pulse:focus-visible span { opacity: .7; transform: none; }
+.pf-site .pf-holo button:focus-visible { outline-color: var(--holo-color); outline-offset: -3px; }
+.pf-holo-hint { display: none; position: absolute; z-index: 3; bottom: 18px; left: 0; right: 0; text-align: center; color: #a1b5c6; font-size: 10px; letter-spacing: .04em; pointer-events: none; }
+.pf-holo-toolbar { display: none; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 12px; border-top: 1px solid #263345; background: #09111bcc; }
+.pf-holo-ready .pf-holo-toolbar,.pf-holo-ready .pf-holo-pulse { display: flex; }
+.pf-holo-ready .pf-holo-hint { display: block; }
+.pf-holo-modes,.pf-holo-tools { display: flex; align-items: center; }
+.pf-holo-modes { gap: 2px; }
+.pf-holo button { -webkit-tap-highlight-color: transparent; }
+.pf-holo-modes button { padding: 0 11px; min-height: 44px; border: 0; border-radius: 4px; font-size: 11px; color: #91a3b5; background: transparent; cursor: pointer; transition: color .2s,background .2s; }
+.pf-holo-modes button:hover { color: #e5eef7; }
+.pf-holo-modes button[aria-pressed="true"] { color: var(--holo-color); background: #ffffff09; }
+.pf-holo-swatch,.pf-holo-motion { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 0; border-radius: 4px; padding: 0; color: #a1b5c6; background: transparent; cursor: pointer; }
+.pf-holo-swatch span { width: 10px; height: 10px; border-radius: 50%; background: #8bddff; box-shadow: 0 0 0 4px transparent; transition: box-shadow .2s; }
+.pf-holo-swatch[data-holo-color="amber"] span { background: #f2c176; }
+.pf-holo-swatch[aria-pressed="true"] span { box-shadow: 0 0 0 3px #050b13,0 0 0 4px #81909e; }
+.pf-holo-motion:hover { color: #eff8ff; background: #ffffff09; }
+.pf-holo-play-icon { display: none; }
+.pf-holo-motion[aria-pressed="true"] .pf-holo-play-icon { display: block; }
+.pf-holo-motion[aria-pressed="true"] .pf-holo-pause-icon { display: none; }
+[data-pf-theme="dark"] .pf-holo { box-shadow: 0 30px 90px -35px #000a,0 0 45px -25px #4597d233; border-color: #2c3d52; }
+.pf-enter .pf-holo-wrap,.pf-enter .pf-hero-person { animation: pf-arrive 1s .15s both; }
+@media(max-width:1100px) {
+  .pf-hero-hologram { gap: 30px; grid-template-columns: 1fr 1fr; padding-block: 54px 60px; }
+  .pf-hero-hologram h1 { font-size: 69px; }
+  .pf-holo-toolbar { padding-inline: 6px; gap: 0; }
+  .pf-holo-modes button { padding-inline: 8px; font-size: 10px; }
+  .pf-holo-tools button { width: 44px; }
+}
+@media(max-width:800px) {
+  .pf-hero-hologram { grid-template-columns: 1fr; gap: 28px; padding-block: 42px 50px; }
+  .pf-hero-hologram .pf-hero-copy { display: contents; }
+  .pf-hero-hologram h1 { order: 0; font-size: clamp(64px,10vw,78px); }
+  .pf-holo-wrap { order: 1; }
+  .pf-hero-hologram .pf-hero-intro { order: 2; margin-top: 0 !important; max-width: 500px; }
+  .pf-hero-hologram .pf-hero-actions { order: 3; margin-top: -5px; }
+  .pf-hero-person { order: 4; margin-top: 0; }
+  .pf-holo { transform: none; border-radius: 6px; }
+  .pf-holo-toolbar { padding: 6px 10px; }
+  .pf-holo-tools button { width: 44px; }
+  .pf-holo-modes button { font-size: 11px; padding-inline: 11px; }
+}
+@media(max-width:600px) {
+  .pf-hero-hologram { gap: 24px; padding-top: 36px; }
+  .pf-hero-hologram h1 { font-size: clamp(60px,14vw,72px); }
+  .pf-hero-person { gap: 15px; }
+  .pf-hero-person>img { width: 50px; height: 58px; }
+  .pf-hero-person .pf-identity h2 { font-size: 24px; }
+  .pf-hero-person .pf-identity p { font-size: 10px; }
+  .pf-holo-hint { bottom: 12px; font-size: 9px; }
+  .pf-holo-modes button { padding-inline: 8px; font-size: 10px; }
+  .pf-holo-toolbar { padding-inline: 6px; }
+  .pf-holo-tools { gap: 0; }
+  .pf-holo-tools button { width: 44px; }
+}
+@media(max-width:360px) {
+  .pf-hero-hologram h1 { font-size: 52px; }
+  .pf-holo-modes button { padding-inline: 6px; font-size: 9px; }
+  .pf-holo-tools button { width: 44px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .pf-holo { transform: none; }
+  .pf-holo *, .pf-holo, .pf-holo-wrap, .pf-hero-person { transition: none !important; animation: none !important; }
+}
+@media print {
+  .pf-holo-toolbar,.pf-holo-canvas,.pf-holo-pulse,.pf-holo-hint { display: none !important; }
+  .pf-holo-art { opacity: 1 !important; }
+  .pf-holo { transform: none; box-shadow: none; }
+}
+.pf-holo[data-holo-paused="true"] { transform: none; }
+.pf-holo[data-holo-paused="true"], .pf-holo[data-holo-paused="true"] * { transition: none; }
+
+/* A slow light pass reveals the mesh; all motion follows the same pause state. */
+.pf-holo-sweep { position: absolute; z-index: 1; inset: 0; pointer-events: none; background: url('/portfolio/hologram-touch.webp') center/contain no-repeat; filter: brightness(2.3); mix-blend-mode: screen; opacity: .42; -webkit-mask-image: linear-gradient(110deg,transparent 40%,#000 50%,transparent 60%); mask-image: linear-gradient(110deg,transparent 40%,#000 50%,transparent 60%); -webkit-mask-size: 300% 100%; mask-size: 300% 100%; animation: pf-holo-lightpass 9s linear infinite; animation-play-state: paused; }
+.pf-holo[data-holo-palette="amber"] .pf-holo-sweep { filter: sepia(1) saturate(2.7) brightness(2.3); }
+.pf-holo[data-holo-mode="core"] .pf-holo-sweep { opacity: 0; }
+.pf-holo-ready[data-holo-active="true"][data-holo-paused="false"][data-holo-mode="touch"] .pf-holo-sweep { animation-play-state: running; }
+@keyframes pf-holo-lightpass { from { -webkit-mask-position: 200% 0; mask-position: 200% 0; } to { -webkit-mask-position: -100% 0; mask-position: -100% 0; } }
+.pf-holo-pulse:disabled { cursor: default; }
+.pf-holo-pulse:disabled span { opacity: 0; }
+@media(prefers-reduced-motion:reduce) { .pf-holo-sweep { display: none; } }
+@media print { .pf-holo-sweep { display: none; } }

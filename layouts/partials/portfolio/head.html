@@ -4,4 +4,6 @@
 <link rel="canonical" href="{{ .Permalink }}"><meta property="og:title" content="{{ if .IsHome }}Shaoyang Cui — Cognitive Science & AI{{ else }}{{ .Title }}{{ end }}"><meta property="og:type" content="website"><meta property="og:image" content="{{ "portfolio/portrait.jpg" | absURL }}">
 {{ partial "portfolio/appearance-head.html" . }}
 <link rel="stylesheet" href="/portfolio/fonts/fonts.css">
-<link rel="stylesheet" href="{{ "portfolio/design.css" | relURL }}?v=6"><script src="{{ "portfolio/site.js" | relURL }}?v=6" defer></script>
+<link rel="stylesheet" href="{{ "portfolio/design.css" | relURL }}?v=7"><script src="{{ "portfolio/site.js" | relURL }}?v=7" defer></script>
+
+{{ if .IsHome }}<link rel="stylesheet" href="/portfolio/hologram.css?v=1"><script src="/portfolio/hologram-engine.js?v=1" defer></script><script src="/portfolio/hologram.js?v=1" defer></script>{{ end }}

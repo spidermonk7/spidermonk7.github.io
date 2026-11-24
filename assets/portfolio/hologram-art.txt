@@ -1,0 +1,14 @@
+Holographic connection artwork
+Created: 2026-11-24
+Generation: built-in image_gen
+Original: 1536 x 1024 PNG
+Website asset: static/portfolio/hologram-touch.webp
+Web export: cwebp quality 88, original dimensions preserved
+
+Use case: stylized-concept
+Asset type: a premium, original wide hero artwork for a modern researcher's personal website; landscape 3:2 composition.
+Primary request: two anatomically credible human hands and short forearms reaching toward one another, inspired by the elegant nearly touching fingers gesture of Michelangelo's Creation of Adam. One forearm enters from the lower-left edge and its hand reaches diagonally toward the center. The other enters from the upper-right edge and reaches diagonally toward the center. The two extended index fingertips nearly meet at the EXACT geometric center of the entire image (50% horizontal, 50% vertical), separated by a very small, clearly visible gap. The gap is centered precisely. Left fingertip at approximately x49%, y50%; right fingertip at approximately x51%, y50%. Keep all five fingers of each hand anatomically coherent, with relaxed curled non-index fingers, believable knuckles, tendons, thumb placement, and human proportions. No extra fingers, no fused fingers.
+Style/medium: sophisticated scientific-gallery holographic 3D artwork. The hands themselves are constructed entirely from luminous cyan and ice-blue thin contour-wireframe lines and very fine point-cloud particles, revealing intricate believable anatomy and subtle volumetric structure. They must still read immediately as two graceful human hands in silhouette, not abstract ribbons. Dense enough mesh to describe anatomy, restrained delicate glow, tiny white-blue light at the central fingertip gap. No opaque skin or plastic surface. Premium, precise, calm, quietly futuristic.
+Scene/backdrop: pure, almost uniform near-black #050b13 background with generous untouched negative space above and below the hands. Only a few sparse scientific traces or isolated particles near the hands; no scenery or objects. Forearms should fade naturally toward the outer edges. Monochromatic blue/cyan/white only, designed to support CSS hue rotation into an amber variant.
+Composition constraints: fingertips and their tiny gap exactly centered; both hands clearly visible; wide cinematic composition, landscape 3:2; hands distributed on opposing diagonal sides. Keep glow tight and restrained; preserve rich black negative space.
+Avoid: text, letters, numerals, labels, symbols, logos, watermarks, UI panels, circular HUDs, colored borders, faces, torsos, bodies, cartoon illustration, game concept-art clutter, lightning bolts, thick neon tubes, excessive bloom, large lens flares, opaque metallic robot parts.

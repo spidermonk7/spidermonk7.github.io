@@ -1,0 +1,24 @@
+<div class="pf-holo" data-holo-mode="touch" data-holo-palette="blue">
+  <p class="pf-sr" id="pf-holo-description">An interactive artwork: two holographic hands reach toward a shared spark. Switch to a neural core, choose a color, or send a pulse.</p>
+  <div class="pf-holo-viewport" aria-describedby="pf-holo-description">
+    <img class="pf-holo-art" src="/portfolio/hologram-touch.webp" width="1536" height="1024" alt="Two blue holographic hands reaching toward one another, their index fingers almost touching." fetchpriority="high">
+    <div class="pf-holo-sweep" aria-hidden="true"></div>
+    <canvas class="pf-holo-canvas" aria-hidden="true"></canvas>
+    <button class="pf-holo-pulse" type="button" aria-label="Send a pulse through the hologram" title="Send a pulse"><span aria-hidden="true"></span></button>
+    <span class="pf-holo-hint" aria-hidden="true">Touch to connect</span>
+  </div>
+  <div class="pf-holo-toolbar">
+    <div class="pf-holo-modes" role="group" aria-label="Hologram view">
+      <button type="button" data-holo-view="touch" aria-pressed="true">Connection</button>
+      <button type="button" data-holo-view="core" aria-pressed="false">Neural core</button>
+    </div>
+    <div class="pf-holo-tools" role="group" aria-label="Hologram appearance">
+      <button class="pf-holo-swatch" type="button" data-holo-color="blue" aria-label="Blue hologram" aria-pressed="true" title="Blue"><span aria-hidden="true"></span></button>
+      <button class="pf-holo-swatch" type="button" data-holo-color="amber" aria-label="Amber hologram" aria-pressed="false" title="Amber"><span aria-hidden="true"></span></button>
+      <button class="pf-holo-motion" type="button" aria-label="Pause hologram animation" aria-pressed="false" title="Pause animation">
+        <svg class="pf-holo-pause-icon" width="16" height="16" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4v12M13 4v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <svg class="pf-holo-play-icon" width="16" height="16" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 9 6-9 6Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
