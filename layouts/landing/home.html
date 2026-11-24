@@ -1,17 +1,17 @@
 <!doctype html><html lang="en"><head>{{ partial "portfolio/head.html" . }}</head><body class="pf-site" id="top">
 {{ partial "portfolio/nav.html" . }}
 <main id="main">
-  <section class="pf-hero pf-wrap">
+  <div class="pf-hero-shell"><section class="pf-hero pf-wrap">
     <div class="pf-hero-copy">
       <h1>Intelligence, <br>from <em>neurons</em> <br>to <em>agents.</em></h1>
       <p class="pf-hero-intro">I explore how intelligence emerges, fails, and generalizes across biological and artificial systems.</p>
       <div class="pf-hero-actions"><a class="pf-button" href="#selected-research">Selected work <span aria-hidden="true">↓</span></a><a class="pf-text-link" href="/experience/">About me ↗</a></div>
     </div>
     <aside class="pf-hero-aside">
-      <div class="pf-portrait-frame"><img src="/portfolio/portrait.jpg" width="846" height="846" alt="Shaoyang Cui at Peking University" fetchpriority="high"></div>
+      <div class="pf-portrait-stage">{{ partial "portfolio/field.html" . }}<div class="pf-portrait-frame"><img src="/portfolio/portrait.jpg" width="846" height="846" alt="Shaoyang Cui at Peking University" fetchpriority="high"></div></div>
       <div class="pf-identity"><h2>Shaoyang Cui</h2><p>Research Assistant · Peking University<br>Senior Software Algorithm Engineer · HEC</p></div>
     </aside>
-  </section>
+  </section></div>
   <section class="pf-section pf-wrap" id="selected-research">
     <div class="pf-section-head"><h2>Selected research</h2><a class="pf-text-link" href="/papers/">All publications ↗</a></div>
     {{ partial "portfolio/papers.html" . }}

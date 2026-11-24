@@ -1,7 +1,21 @@
 <a class="pf-skip" href="#main">Skip to content</a>
-<header class="pf-header page-header"><nav class="pf-nav pf-wrap" aria-label="Main navigation">
-<a class="pf-brand" href="/" aria-label="Shaoyang Cui home"><span class="pf-monogram" aria-hidden="true">sc.</span><span>Shaoyang Cui</span></a>
-<button class="pf-menu-toggle" type="button" aria-expanded="false" aria-controls="pf-menu">Menu <span aria-hidden="true">☰</span></button>
-<div class="pf-menu" id="pf-menu">
-{{ $current := .RelPermalink }}{{ range slice (dict "name" "Home" "url" "/") (dict "name" "Research" "url" "/papers/") (dict "name" "Projects" "url" "/ongoing-projects/") (dict "name" "Notebook" "url" "/my-blogs/") (dict "name" "About" "url" "/experience/") }}<a href="{{ .url }}" {{ if eq $current .url }}aria-current="page"{{ end }}>{{ .name }}</a>{{ end }}
-<a class="pf-nav-cv" href="/uploads/CV_English.pdf" target="_blank" rel="noopener">CV <span aria-hidden="true">↗</span><span class="pf-sr"> (PDF, opens in new tab)</span></a></div></nav></header>
+<header class="pf-header page-header">
+  <nav class="pf-nav pf-wrap" aria-label="Main navigation">
+    <a class="pf-brand" href="/" aria-label="Shaoyang Cui home"><span class="pf-monogram" aria-hidden="true">sc.</span><span>Shaoyang Cui</span></a>
+    <div class="pf-menu" id="pf-menu">
+      {{ $current := .RelPermalink }}
+      {{ range slice (dict "name" "Home" "url" "/") (dict "name" "Research" "url" "/papers/") (dict "name" "Projects" "url" "/ongoing-projects/") (dict "name" "Notebook" "url" "/my-blogs/") (dict "name" "About" "url" "/experience/") }}
+      <a href="{{ .url }}" {{ if eq $current .url }}aria-current="page"{{ end }}>{{ .name }}</a>
+      {{ end }}
+      <a class="pf-nav-cv" href="/uploads/CV_English.pdf" target="_blank" rel="noopener">CV <span aria-hidden="true">↗</span><span class="pf-sr"> (PDF, opens in new tab)</span></a>
+    </div>
+    <div class="pf-nav-tools">
+      <button class="pf-theme-toggle" type="button" aria-label="Switch to dark appearance" aria-pressed="false" title="Switch appearance">
+        <svg class="pf-moon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.2A8.8 8.8 0 0 1 10.8 3.2a9 9 0 1 0 10 10Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        <svg class="pf-sun" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      </button>
+      <button class="pf-menu-toggle" type="button" aria-expanded="false" aria-controls="pf-menu">Menu <span aria-hidden="true">☰</span></button>
+    </div>
+  </nav>
+  <div class="pf-reading-track" aria-hidden="true"><span></span></div>
+</header>

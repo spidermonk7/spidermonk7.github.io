@@ -7,6 +7,7 @@
     const open = toggle.getAttribute('aria-expanded') !== 'true';
     toggle.setAttribute('aria-expanded', String(open));
     menu.classList.toggle('is-open', open);
+    if (open) menu.querySelector('a')?.focus();
   });
   menu.addEventListener('click', e => { if (e.target.closest('a')) close(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.contains('is-open')) { close(); toggle.focus(); } });
@@ -47,4 +48,92 @@
     document.body.classList.remove('pf-viewing-figure');
     if (opener) opener.focus({preventScroll: true});
   });
+})();
+
+(() => {
+  const root = document.documentElement;
+  const button = document.querySelector('.pf-theme-toggle');
+  const applyTheme = (theme, persist = false) => {
+    const dark = theme === 'dark';
+    root.dataset.pfTheme = dark ? 'dark' : 'light';
+    root.classList.toggle('dark', dark);
+    root.style.colorScheme = dark ? 'dark' : 'light';
+    if (persist) { try { localStorage.setItem('wc-color-theme', dark ? 'dark' : 'light'); } catch (_) {} }
+    if (button) {
+      button.setAttribute('aria-pressed', String(dark));
+      button.setAttribute('aria-label', dark ? 'Switch to light appearance' : 'Switch to dark appearance');
+      button.title = dark ? 'Switch to light appearance' : 'Switch to dark appearance';
+    }
+    document.dispatchEvent(new CustomEvent('hbThemeChange', {detail: {isDarkTheme: () => dark}}));
+  };
+  applyTheme(root.dataset.pfTheme || 'light');
+  button?.addEventListener('click', () => applyTheme(root.dataset.pfTheme === 'dark' ? 'light' : 'dark', true));
+  window.addEventListener('storage', event => {
+    if (event.key === 'wc-color-theme') applyTheme(event.newValue === 'dark' ? 'dark' : 'light');
+  });
+
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const header = document.querySelector('.pf-header');
+  const track = document.querySelector('.pf-reading-track');
+  let queued = false;
+  const updateScroll = () => {
+    queued = false;
+    header?.classList.toggle('is-scrolled', scrollY > 20);
+    const range = root.scrollHeight - innerHeight;
+    const progress = range > 0 ? Math.min(1, Math.max(0, scrollY / range)) : 0;
+    track?.style.setProperty('--read-progress', reduced.matches ? '0' : String(progress));
+  };
+  const queueScroll = () => { if (!queued) { queued = true; requestAnimationFrame(updateScroll); } };
+  addEventListener('scroll', queueScroll, {passive: true});
+  addEventListener('resize', queueScroll, {passive: true});
+  updateScroll();
+
+  let observer;
+  const revealAll = () => {
+    document.body.classList.remove('pf-enter');
+    document.querySelectorAll('.pf-reveal-ready').forEach(el => el.classList.add('is-revealed'));
+    observer?.disconnect();
+  };
+  if (!reduced.matches) {
+    document.body.classList.add('pf-enter');
+    if ('IntersectionObserver' in window) {
+      observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) { entry.target.classList.add('is-revealed'); observer.unobserve(entry.target); }
+        });
+      }, {rootMargin: '0px 0px 80px 0px', threshold: 0.03});
+      document.querySelectorAll('.pf-section-head, .pf-paper, .pf-project, .pf-notebook, .pf-talk-card, .pf-focus-grid>article, .pf-footer-top').forEach(el => {
+        if (el.getBoundingClientRect().top > innerHeight + 40) {
+          el.classList.add('pf-reveal-ready');
+          observer.observe(el);
+        }
+      });
+    }
+  }
+  document.addEventListener('focusin', event => {
+    let current = event.target;
+    while (current instanceof Element) {
+      if (current.classList.contains('pf-reveal-ready')) { current.classList.add('is-revealed'); observer?.unobserve(current); }
+      current = current.parentElement;
+    }
+  });
+  reduced.addEventListener('change', () => { if (reduced.matches) revealAll(); updateScroll(); });
+  addEventListener('beforeprint', revealAll);
+
+  const stage = document.querySelector('.pf-portrait-stage');
+  const field = stage?.querySelector('.pf-field');
+  if (stage && field && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    let pointerFrame = false, x = 0, y = 0;
+    stage.addEventListener('pointermove', event => {
+      if (reduced.matches) return;
+      const bounds = stage.getBoundingClientRect();
+      x = (event.clientX - bounds.left - bounds.width / 2) / bounds.width * 14;
+      y = (event.clientY - bounds.top - bounds.height / 2) / bounds.height * 14;
+      if (!pointerFrame) {
+        pointerFrame = true;
+        requestAnimationFrame(() => { field.style.setProperty('--field-x', `${x}px`); field.style.setProperty('--field-y', `${y}px`); pointerFrame = false; });
+      }
+    });
+    stage.addEventListener('pointerleave', () => { field.style.setProperty('--field-x', '0px'); field.style.setProperty('--field-y', '0px'); });
+  }
 })();
