@@ -1,16 +1,29 @@
-/* The hologram occupies the page background, without a panel or frame. */
+/* Identity is foreground; the interactive hologram stays in the background. */
 .pf-amber-hero { position: relative; isolation: isolate; min-height: 700px; height: min(820px,calc(100svh - 86px)); background: var(--pf-bg); }
-.pf-hero-amber { display: flex; align-items: center; height: 100%; padding-block: 56px 94px; pointer-events: none; }
+.pf-hero-amber { display: flex; align-items: center; height: 100%; padding-block: 44px 76px; pointer-events: none; }
 .pf-hero-amber::before { display: none; }
 .pf-hero-amber .pf-hero-copy { width: 48%; max-width: 580px; pointer-events: auto; }
-.pf-hero-amber h1 { font-size: clamp(66px,6.4vw,92px); line-height: 1.06; letter-spacing: -.04em; }
-.pf-hero-amber h1 em { background: linear-gradient(110deg,#d99d49,#f4d4a2); background-clip: text; -webkit-background-clip: text; color: transparent; }
-.pf-hero-amber .pf-hero-intro { max-width: 420px; margin-top: 27px !important; color: #a9a39b; }
-.pf-hero-person { display: flex; align-items: center; gap: 17px; margin-top: 38px; }
-.pf-hero-person>img { width: 56px; height: 64px; object-fit: cover; filter: saturate(.65); border-radius: 2px; }
-.pf-hero-person .pf-identity { padding: 0; }
-.pf-hero-person .pf-identity h2 { font-size: 26px; }
-.pf-hero-person .pf-identity p { font-size: 10px; line-height: 1.85; margin-top: 5px; }
+.pf-hero-amber h1 { font-size: clamp(66px,6vw,82px); line-height: 1.05; letter-spacing: -.04em; color: var(--pf-ink); }
+.pf-profile-overview { display: grid; grid-template-columns: 150px minmax(0,1fr); gap: 25px; align-items: center; margin-top: 25px; }
+.pf-profile-photo { position: relative; width: 150px; height: 180px; overflow: hidden; border-radius: 3px; border: 1px solid #4c3e29; background: #17130e; }
+.pf-profile-photo>img { position: absolute; width: 180%; max-width: none; height: auto; left: -83%; top: -16%; }
+.pf-profile-affiliations { display: grid; gap: 22px; }
+.pf-profile-affiliation { display: grid; gap: 4px; }
+.pf-profile-institution { font-size: 17px; font-weight: 500; color: #ece7dd; line-height: 1.4; }
+.pf-profile-institution:hover { color: var(--pf-blue); }
+.pf-profile-role { font-size: 13px; line-height: 1.6; color: #c2b7a8; }
+.pf-profile-department { font-size: 12px; line-height: 1.6; color: #9e988f; max-width: 270px; }
+.pf-profile-contact { margin-top: 23px; }
+.pf-profile-email { display: inline-flex; align-items: center; gap: 12px; min-height: 30px; font-size: 15px; color: #e9c58e !important; }
+.pf-profile-email:hover { color: #f7dbb1 !important; }
+.pf-profile-links { display: flex; align-items: center; flex-wrap: wrap; column-gap: 24px; row-gap: 0; margin-top: 2px; }
+.pf-profile-links>a { display: inline-flex; align-items: center; gap: 6px; min-height: 38px; font-size: 12px; color: #c3b9aa; }
+.pf-profile-links>a:hover { color: #f0d2a3; }
+.pf-profile-links>a span { font-size: 11px; color: #988268; }
+.pf-profile-tagline { margin-top: 23px !important; font: 400 26px/1.25 var(--pf-display); letter-spacing: -.015em; }
+.pf-profile-tagline em { color: #e6b775; font-weight: 400; }
+.pf-hero-amber .pf-hero-intro { max-width: 430px; margin-top: 10px !important; font-size: 14px; line-height: 1.85; color: #a9a39b; }
+.pf-hero-amber .pf-hero-actions { margin-top: 22px; }
 .pf-amber-scene { position: absolute; z-index: -1; inset: 0; overflow: hidden; }
 .pf-amber-scene::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg,#060606 0%,#060606d9 26%,#06060600 48%); }
 .pf-amber-canvas { display: block; width: 100%; height: 100%; cursor: grab; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
@@ -25,46 +38,70 @@
 .pf-amber-controls button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; min-width: 68px; min-height: 44px; padding: 0 8px; border-radius: 3px; background: transparent; color: #bba98e; font-size: 11px; cursor: pointer; transition: color .2s,background .2s; }
 .pf-amber-controls button:hover { color: #f4d4a2; background: #dca2570a; }
 .pf-amber-controls button>span[aria-hidden] { font-size: 16px; line-height: 1; }
-.pf-enter .pf-hero-person { animation: pf-arrive .8s .25s both; }
+.pf-enter .pf-profile-overview,.pf-enter .pf-profile-contact { animation: pf-arrive .8s .10s both; }
 @media(max-width:1100px) {
   .pf-amber-hero { min-height: 670px; }
   .pf-hero-amber .pf-hero-copy { width: 47%; }
-  .pf-hero-amber h1 { font-size: 68px; }
-  .pf-hero-amber .pf-hero-intro { max-width: 360px; font-size: 14px; }
+  .pf-hero-amber h1 { font-size: 66px; }
+  .pf-profile-overview { grid-template-columns: 132px minmax(0,1fr); gap: 20px; }
+  .pf-profile-photo { width: 132px; height: 164px; }
+  .pf-profile-institution { font-size: 16px; }
+  .pf-profile-role { font-size: 12px; }
+  .pf-profile-department { font-size: 11px; }
+  .pf-profile-tagline { font-size: 24px; }
+  .pf-hero-amber .pf-hero-intro { max-width: 360px; }
   .pf-amber-controls-inner { gap: 8px; }
   .pf-amber-drag-hint { margin-right: 0; }
 }
 @media(max-width:900px) {
-  .pf-amber-hero { display: grid; grid-template-columns: minmax(0,1fr); height: auto; min-height: 0; padding-top: 38px; padding-bottom: 48px; gap: 0; }
+  .pf-amber-hero { display: grid; grid-template-columns: minmax(0,1fr); height: auto; min-height: 0; padding-top: 38px; padding-bottom: 30px; gap: 0; }
   .pf-hero-amber, .pf-hero-amber .pf-hero-copy { display: contents; }
-  .pf-hero-amber h1 { order: 0; width: calc(100% - 40px); margin-inline: auto; font-size: clamp(60px,10vw,78px); pointer-events: auto; }
-  .pf-amber-scene { order: 1; z-index: auto; position: relative; height: min(500px,104vw); margin-top: 5px; }
+  .pf-hero-amber h1 { order: 0; width: calc(100% - 40px); margin-inline: auto; font-size: clamp(46px,9vw,76px); pointer-events: auto; }
+  .pf-profile-overview { order: 1; width: calc(100% - 40px); margin: 24px auto 0; grid-template-columns: 150px minmax(0,1fr); gap: 25px; }
+  .pf-profile-photo { width: 150px; height: 180px; }
+  .pf-profile-institution { font-size: 17px; }
+  .pf-profile-role { font-size: 13px; }
+  .pf-profile-department { font-size: 12px; }
+  .pf-profile-contact { order: 2; width: calc(100% - 40px); margin: 22px auto 0; }
+  .pf-profile-tagline { order: 3; width: calc(100% - 40px); margin: 24px auto 0 !important; font-size: 27px; }
+  .pf-hero-amber .pf-hero-intro { order: 4; width: calc(100% - 40px); max-width: none; margin: 10px auto 0 !important; font-size: 14px; }
+  .pf-hero-amber .pf-hero-actions { order: 5; width: calc(100% - 40px); margin: 22px auto 10px; }
+  .pf-amber-scene { order: 6; z-index: auto; position: relative; height: min(500px,104vw); margin-top: 12px; }
   .pf-amber-scene::after { display: none; }
   .pf-amber-fallback { width: 92%; max-width: 500px; left: 50%; top: 50%; }
-  .pf-amber-controls { order: 2; position: static; width: calc(100% - 40px); transform: none; margin: -8px auto 22px; justify-content: center; }
+  .pf-amber-controls { order: 7; position: static; width: calc(100% - 40px); transform: none; margin: -8px auto 0; justify-content: center; }
   .pf-amber-controls-inner { width: auto; gap: 14px; }
-  .pf-hero-amber .pf-hero-intro { order: 3; width: calc(100% - 40px); max-width: none; margin: 0 auto !important; font-size: 14px; }
-  .pf-hero-amber .pf-hero-actions { order: 4; width: calc(100% - 40px); margin: 24px auto 0; }
-  .pf-hero-person { order: 5; width: calc(100% - 40px); margin: 30px auto 0; }
-  .pf-hero-person>img { width: 50px; height: 58px; }
-  .pf-hero-person .pf-identity h2 { font-size: 25px; }
-  .pf-hero-person .pf-identity p { font-size: 10px; }
 }
 @media(max-width:600px) {
-  .pf-hero-amber h1 { font-size: clamp(60px,14vw,72px); }
   .pf-amber-hero { padding-top: 32px; }
+  .pf-hero-amber h1 { font-size: clamp(44px,12vw,64px); }
+  .pf-profile-overview { grid-template-columns: 112px minmax(0,1fr); gap: 19px; margin-top: 23px; }
+  .pf-profile-photo { width: 112px; height: 142px; }
+  .pf-profile-affiliations { gap: 17px; }
+  .pf-profile-institution { font-size: 15px; }
+  .pf-profile-role { font-size: 12px; }
+  .pf-profile-department { font-size: 11px; }
+  .pf-profile-email { font-size: 14px; min-height: 36px; }
+  .pf-profile-links { column-gap: 23px; }
+  .pf-profile-links>a { min-height: 44px; }
+  .pf-profile-contact { margin-top: 19px; }
+  .pf-profile-tagline { font-size: 25px; margin-top: 18px !important; }
 }
 @media(max-width:360px) {
-  .pf-hero-amber h1 { font-size: 52px; width: calc(100% - 32px); }
-  .pf-hero-amber .pf-hero-intro,.pf-hero-amber .pf-hero-actions,.pf-hero-person { width: calc(100% - 32px); }
+  .pf-hero-amber h1 { font-size: 44px; }
+  .pf-hero-amber h1,.pf-profile-overview,.pf-profile-contact,.pf-profile-tagline,.pf-hero-amber .pf-hero-intro,.pf-hero-amber .pf-hero-actions { width: calc(100% - 32px); }
+  .pf-profile-overview { grid-template-columns: 100px minmax(0,1fr); gap: 16px; }
+  .pf-profile-photo { width: 100px; height: 132px; }
+  .pf-profile-institution { font-size: 14px; }
+  .pf-profile-links { column-gap: 21px; }
+  .pf-profile-tagline { font-size: 23px; }
   .pf-amber-controls-inner { gap: 6px; }
   .pf-amber-drag-hint { font-size: 9px; }
 }
-@media(prefers-reduced-motion:reduce) { .pf-hero-person { animation: none !important; } }
+@media(prefers-reduced-motion:reduce) { .pf-profile-overview,.pf-profile-contact { animation: none !important; } }
 @media print {
   .pf-amber-hero { height: auto; min-height: 0; }
   .pf-amber-scene,.pf-amber-controls { display: none !important; }
   .pf-hero-amber .pf-hero-copy { width: 100%; }
 }
-
 .pf-amber-hero:not(.pf-amber-ready) #pf-amber-help { display: none; }

@@ -18,6 +18,9 @@ profiles:
   - icon: at-symbol
     url: 'mailto:joeyapply2026@163.com'
     label: Email
+  - icon: academic-cap
+    url: 'https://scholar.google.com/citations?user=Qh_XlJUAAAAJ'
+    label: Google Scholar
   - icon: brands/github
     url: https://github.com/spidermonk7/
 
