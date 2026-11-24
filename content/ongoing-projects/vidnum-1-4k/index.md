@@ -1,5 +1,5 @@
 ---
-title: VidNum1.4K - A Comprehensive Benchmark for Video-based Numerical Reasoning
+title: VidNum - Video-Grounded Numerical Reasoning
 date: 2026-04-03
 # summary: Project website for the VidNum-1.4K initiative.
 status: in-progress
@@ -16,3 +16,5 @@ This research introduces VNum, a comprehensive VideoQA benchmark containing 1,37
 <!-- Official page: <https://vidnumteam.github.io> -->
 
 <!--more-->
+
+Research period: May 2025 - June 2026. Manuscript under review at AAAI 2027.

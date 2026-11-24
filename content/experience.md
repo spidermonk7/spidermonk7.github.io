@@ -11,13 +11,13 @@ sections:
     content:
       title: Education
       text: |-
-        **BSc in Artificial Intelligence**, Peking University
+        **Bachelor of Engineering in Artificial Intelligence**, Yuanpei College, Peking University
 
-        **Duration:** September 2021 - July 2025  
-     
+        **Duration:** September 2021 - July 2025<br>
+<br>
 
         **Selected Courses:**
-        - Consciouse Turing Machine (Prof. Lenore Blum & Prof. Manuel Blum)
+        - Conscious Turing Machine (Prof. Lenore Blum & Prof. Manuel Blum)
         - CORE ([Prof. Yixin Zhu](https://yzhu.io))
         - Neuroscience: from Brain Simulation to NeuroAI ([Prof. Kai Du](https://scholar.google.com/citations?user=jkAOvWkAAAAJ&hl=zh-CN))
     design:
@@ -28,30 +28,29 @@ sections:
     content:
       title: Research & Leadership
       text: |-
-        **Research Assistant**    
-        **Peking University**, School of Psychological and Cognitive Sciences   
-        **May 2026 - Present**
-        - Project: TradeCraft-v2(on-going)
-        - Project: VidNum-1.4K(submitted to ACMMM2026-dataset)
-        - BCI(ongoing)
-        - GridCell coding(on going)
-        
+        **Senior Software Algorithm Engineer**<br>
+        **HEC Future Laboratory Technology (Beijing) Co., Ltd.**<br>
+        **Oct 2026 - Present**
 
-        **Research Assistant**    
-        **Tsinghua University**, Department of Psychological and Cognitive Sciences   
-        **Sep 2025 - May 2026**
-        - Project: TradeCraft-v1(rejected by ICML2026)
-        - Project: Heliox(accepted by ICML2026)
-        - Project: InquiTree(submitted to TMLR)
+        **Research Assistant**<br>
+        **Peking University**, School of Psychological and Cognitive Sciences<br>
+        **Jun 2026 - Present**
+        - PI: Jiayu Zhan
+        - Face decoding and reconstruction from MEG
 
+        **Brain-Inspired AI Algorithm Engineer**<br>
+        **Tsinghua University**, Department of Psychological and Cognitive Sciences<br>
+        **Jul 2025 - May 2026**
+        - PI: Kai Du
+        - Brain-inspired AI and biophysically detailed network simulation
 
-        **Internship**     
-        **Peking University (Dr. Kai Du's Lab)**     
+        **Internship**<br>
+        **Peking University (Dr. Kai Du's Lab)**<br>
         **Sep 2022 - Jan 2023**
         - Studied computational characteristics of detailed neuron models.
         - Compared biological and artificial intelligence from robustness perspectives.
 
-        **Team Manager and Coach**, Women's Football Team, Yuanpei College  
+        **Team Manager and Coach**, Women's Football Team, Yuanpei College<br>
         **Oct 2022 - Jun 2024**
 
     design:
