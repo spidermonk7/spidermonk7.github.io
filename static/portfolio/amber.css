@@ -14,12 +14,10 @@
 .pf-profile-role { font-size: 13px; line-height: 1.6; color: #c2b7a8; }
 .pf-profile-department { font-size: 12px; line-height: 1.6; color: #9e988f; max-width: 270px; }
 .pf-profile-contact { margin-top: 23px; }
-.pf-profile-email { display: inline-flex; align-items: center; gap: 12px; min-height: 30px; font-size: 15px; color: #e9c58e !important; }
-.pf-profile-email:hover { color: #f7dbb1 !important; }
-.pf-profile-links { display: flex; align-items: center; flex-wrap: wrap; column-gap: 24px; row-gap: 0; margin-top: 2px; }
-.pf-profile-links>a { display: inline-flex; align-items: center; gap: 6px; min-height: 38px; font-size: 12px; color: #c3b9aa; }
-.pf-profile-links>a:hover { color: #f0d2a3; }
-.pf-profile-links>a span { font-size: 11px; color: #988268; }
+.pf-profile-icons { display: flex; align-items: center; gap: 8px; margin-left: -8px; }
+.pf-profile-icons>a { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; flex: 0 0 44px; color: #c7bdad; border-radius: 4px; transition: color .2s; }
+.pf-profile-icons>a:hover,.pf-profile-icons>a:focus-visible { color: #f0c885; }
+.pf-profile-icons svg { display: block; width: 23px; height: 23px; }
 .pf-profile-tagline { margin-top: 23px !important; font: 400 26px/1.25 var(--pf-display); letter-spacing: -.015em; }
 .pf-profile-tagline em { color: #e6b775; font-weight: 400; }
 .pf-hero-amber .pf-hero-intro { max-width: 430px; margin-top: 10px !important; font-size: 14px; line-height: 1.85; color: #a9a39b; }
@@ -81,9 +79,6 @@
   .pf-profile-institution { font-size: 15px; }
   .pf-profile-role { font-size: 12px; }
   .pf-profile-department { font-size: 11px; }
-  .pf-profile-email { font-size: 14px; min-height: 36px; }
-  .pf-profile-links { column-gap: 23px; }
-  .pf-profile-links>a { min-height: 44px; }
   .pf-profile-contact { margin-top: 19px; }
   .pf-profile-tagline { font-size: 25px; margin-top: 18px !important; }
 }
@@ -93,7 +88,6 @@
   .pf-profile-overview { grid-template-columns: 100px minmax(0,1fr); gap: 16px; }
   .pf-profile-photo { width: 100px; height: 132px; }
   .pf-profile-institution { font-size: 14px; }
-  .pf-profile-links { column-gap: 21px; }
   .pf-profile-tagline { font-size: 23px; }
   .pf-amber-controls-inner { gap: 6px; }
   .pf-amber-drag-hint { font-size: 9px; }
