@@ -16,7 +16,7 @@ organizations:
 
 profiles:
   - icon: at-symbol
-    url: 'mailto:joeyapply2026@163.com'
+    url: 'mailto:sy-cui@pku.edu.cn'
     label: Email
   - icon: academic-cap
     url: 'https://scholar.google.com/citations?user=Qh_XlJUAAAAJ'
