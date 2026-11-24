@@ -1,4 +1,7 @@
 ---
+card_title: "VidNum"
+card_summary: "Video-grounded numerical reasoning beyond counting."
+card_status: "Under review \u00b7 AAAI 2027"
 title: VidNum - Video-Grounded Numerical Reasoning
 date: 2026-04-03
 # summary: Project website for the VidNum-1.4K initiative.

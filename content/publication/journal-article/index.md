@@ -1,4 +1,6 @@
 ---
+card_title: "TADDL-V"
+card_summary: "Decomposing visual abilities and quantifying task difficulty for AGI evaluation."
 title: "Task Ability Decomposition and Difficulty Quantification of Visual Tasks for AGI Evaluation"
 authors:
 - admin

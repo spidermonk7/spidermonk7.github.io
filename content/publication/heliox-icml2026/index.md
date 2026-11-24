@@ -1,4 +1,6 @@
 ---
+card_title: "HelioX"
+card_summary: "GPU-native simulation and training for biophysically detailed neural networks."
 title: "HelioX: A GPU-Native Framework for Simulation and Training of Biophysically Detailed Networks"
 authors:
 - Junfeng Lu

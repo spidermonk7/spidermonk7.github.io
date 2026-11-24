@@ -37,23 +37,13 @@ links:
     url: https://conferences.cis.um.edu.mo/ijtcs2023/IJTCS-FAW_Booklet.pdf#page=14
 ---
 
-## Research context
 
-The CTM framework, proposed by Manuel Blum and Lenore Blum and inspired by Bernard Baars’s Global Workspace Theory, connects theories of consciousness with theoretical computer science. My presentation focused on defining self-consciousness and examining how a MotW processor could support it.
+The CTM framework, proposed by Manuel Blum and Lenore Blum and inspired by Bernard Baars’s Global Workspace Theory, connects theories of consciousness with theoretical computer science.
 
-## Conference session
+## Official sources
 
-I presented in **Track H (Conscious AI)** on **15 August 2023**, in a session chaired by **Yurong Chen**. The conference took place at the University of Macau from **14–18 August 2023**.
-
-The official speaker listing records my affiliation as **Peking University**. The programme booklet lists the presentation at **17:10–17:30**, following the session’s introduction to the CTM framework.
-
-## Official record
-
-- [Invited speakers and talk abstracts — Track H](https://conferences.cis.um.edu.mo/ijtcs2023/invited_speakers.html): the original title, speaker affiliation, and abstract.
-- [Conference booklet — page 14](https://conferences.cis.um.edu.mo/ijtcs2023/IJTCS-FAW_Booklet.pdf#page=14): the detailed session schedule, speaker name, and talk time.
-- [Conference programme](https://conferences.cis.um.edu.mo/ijtcs2023/program.html): the event overview and venue.
-- [IJTCS-FAW 2023 website](https://conferences.cis.um.edu.mo/ijtcs2023/): the conference’s official archive.
-
-- [University of Macau FST newsletter — August–October 2023, page 1](https://www.fst.um.edu.mo/wp-content/uploads/2023/11/Faculty-of-Science-and-Technology-of-the-University-of-Macau-E-newsletter-Issue-13-Aug-Oct-2023.pdf#page=1): an official post-conference recap.
-
-*The overview above summarizes the official abstract; the conference links preserve the original record. All times shown are Macau local time (UTC+8).*
+- [Speaker listing & original abstract](https://conferences.cis.um.edu.mo/ijtcs2023/invited_speakers.html)
+- [Programme booklet · page 14](https://conferences.cis.um.edu.mo/ijtcs2023/IJTCS-FAW_Booklet.pdf#page=14)
+- [Conference programme](https://conferences.cis.um.edu.mo/ijtcs2023/program.html)
+- [Conference website](https://conferences.cis.um.edu.mo/ijtcs2023/)
+- [University of Macau recap · newsletter, page 1](https://www.fst.um.edu.mo/wp-content/uploads/2023/11/Faculty-of-Science-and-Technology-of-the-University-of-Macau-E-newsletter-Issue-13-Aug-Oct-2023.pdf#page=1)

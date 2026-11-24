@@ -1,10 +1,35 @@
-<!doctype html><html lang="en"><head>{{ partial "portfolio/head.html" . }}</head><body class="pf-site" id="top">{{ partial "portfolio/nav.html" . }}<main id="main">
-<section class="pf-hero pf-wrap"><div class="pf-hero-copy"><p class="pf-eyebrow"><span class="pf-dot"></span> SHAOYANG CUI · RESEARCH & EXPLORATION</p><h1>Intelligence, <br>from <em>neurons</em> <br>to <em>agents.</em></h1><p class="pf-hero-intro">I explore how intelligence emerges, fails, and generalizes across biological and artificial systems.</p><div class="pf-hero-actions"><a class="pf-button" href="#selected-research">Explore my research <span aria-hidden="true">↓</span></a><a class="pf-text-link" href="/uploads/CV_English.pdf">Download CV ↗</a></div></div><aside class="pf-hero-aside"><div class="pf-portrait-frame"><img src="/portfolio/portrait.jpg" width="846" height="846" alt="Shaoyang Cui at Peking University" fetchpriority="high"><span class="pf-photo-label">PEKING UNIVERSITY</span><span class="pf-photo-mark" aria-hidden="true">✳</span></div><div class="pf-identity"><h2>Shaoyang Cui</h2><p>Research Assistant · Peking University<br>Senior Software Algorithm Engineer · HEC</p><a href="/experience/">More about me <span aria-hidden="true">↗</span></a></div></aside></section>
-<div class="pf-discipline"><div class="pf-wrap"><span>COGNITIVE SCIENCE</span><span aria-hidden="true">✳</span><span>COMPUTATIONAL NEUROSCIENCE</span><span aria-hidden="true">✳</span><span>ARTIFICIAL INTELLIGENCE</span></div></div>
-<section class="pf-section pf-wrap" id="selected-research"><div class="pf-section-head"><div><p class="pf-eyebrow">01 / SELECTED RESEARCH</p><h2>Questions into contributions.</h2></div><a class="pf-text-link" href="/papers/">All publications ↗</a></div>{{ partial "portfolio/papers.html" . }}</section>
-<section class="pf-focus"><div class="pf-wrap pf-focus-grid"><div><p class="pf-eyebrow">THE THREAD THROUGH MY WORK</p><h2>Different scales.<br>A shared question.</h2><p>What does it take to understand intelligence?</p></div><div class="pf-focus-items"><article><span>01</span><div><h3>Cognitive structure</h3><p>Theory of mind, consciousness, and the internal representations that shape intelligent behavior.</p></div></article><article><span>02</span><div><h3>Neural computation</h3><p>Biological circuits and detailed neuronal dynamics as a source of computational principles.</p></div></article><article><span>03</span><div><h3>Agentic systems</h3><p>How agents reason and act—and how to evaluate their abilities, reliability, and failure modes.</p></div></article></div></div></section>
-<section class="pf-section pf-wrap"><div class="pf-section-head"><div><p class="pf-eyebrow">02 / PROJECTS</p><h2>Ideas in the making.</h2></div><a class="pf-text-link" href="/ongoing-projects/">Explore projects ↗</a></div>{{ partial "portfolio/projects.html" . }}</section>
-<section class="pf-notes-section"><div class="pf-wrap pf-notes-grid"><div><p class="pf-eyebrow">03 / THE NOTEBOOK</p><h2>Thinking,<br>in the open.</h2><p>Reading notes, interactive explanations,<br>and lessons from things that didn’t work.</p><a class="pf-text-link" href="/my-blogs/">Open the notebook ↗</a></div>{{ partial "portfolio/notebook.html" . }}</div></section>
-<section class="pf-section pf-wrap"><div class="pf-section-head"><div><p class="pf-eyebrow">04 / TALKS & CONVERSATIONS</p><h2>Ideas beyond the page.</h2></div><a class="pf-text-link" href="/talks/">All talks ↗</a></div>{{ partial "portfolio/talks.html" . }}</section>
-<section class="pf-section pf-wrap pf-about-strip"><p class="pf-eyebrow">BEYOND THE RESEARCH</p><h2>Curiosity on and off the field.</h2><p>A Peking University AI graduate, former women’s football team manager and coach, tennis team member, and competitive Mahjong AI participant.</p><div><a class="pf-text-link" href="/experience/">Background & experience ↗</a><a class="pf-text-link" href="/awards/">Awards & activities ↗</a></div></section>
-</main>{{ partial "portfolio/footer.html" . }}</body></html>
+<!doctype html><html lang="en"><head>{{ partial "portfolio/head.html" . }}</head><body class="pf-site" id="top">
+{{ partial "portfolio/nav.html" . }}
+<main id="main">
+  <section class="pf-hero pf-wrap">
+    <div class="pf-hero-copy">
+      <h1>Intelligence, <br>from <em>neurons</em> <br>to <em>agents.</em></h1>
+      <p class="pf-hero-intro">I explore how intelligence emerges, fails, and generalizes across biological and artificial systems.</p>
+      <div class="pf-hero-actions"><a class="pf-button" href="#selected-research">Selected work <span aria-hidden="true">↓</span></a><a class="pf-text-link" href="/experience/">About me ↗</a></div>
+    </div>
+    <aside class="pf-hero-aside">
+      <div class="pf-portrait-frame"><img src="/portfolio/portrait.jpg" width="846" height="846" alt="Shaoyang Cui at Peking University" fetchpriority="high"></div>
+      <div class="pf-identity"><h2>Shaoyang Cui</h2><p>Research Assistant · Peking University<br>Senior Software Algorithm Engineer · HEC</p></div>
+    </aside>
+  </section>
+  <section class="pf-section pf-wrap" id="selected-research">
+    <div class="pf-section-head"><h2>Selected research</h2><a class="pf-text-link" href="/papers/">All publications ↗</a></div>
+    {{ partial "portfolio/papers.html" . }}
+  </section>
+  <section class="pf-focus" aria-label="Research interests"><div class="pf-wrap pf-focus-grid">
+    <article><h3>Cognitive structure</h3><p>Theory of mind, consciousness, and internal representations.</p></article>
+    <article><h3>Neural computation</h3><p>Computational principles from biological circuits and neuronal dynamics.</p></article>
+    <article><h3>Agentic systems</h3><p>Reasoning, reliability, and evaluation of agents in action.</p></article>
+  </div></section>
+  <section class="pf-section pf-wrap">
+    <div class="pf-section-head"><h2>Projects</h2><a class="pf-text-link" href="/ongoing-projects/">All projects ↗</a></div>
+    {{ partial "portfolio/projects.html" . }}
+  </section>
+  <section class="pf-notes-section"><div class="pf-wrap pf-notes-grid"><div><h2>Notebook</h2><a class="pf-text-link" href="/my-blogs/">Browse notes ↗</a></div>{{ partial "portfolio/notebook.html" . }}</div></section>
+  <section class="pf-section pf-wrap">
+    <div class="pf-section-head"><h2>Talks</h2><a class="pf-text-link" href="/talks/">All talks ↗</a></div>
+    {{ partial "portfolio/talks.html" . }}
+  </section>
+</main>
+{{ partial "portfolio/footer.html" . }}
+</body></html>

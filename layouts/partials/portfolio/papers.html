@@ -1,6 +1,26 @@
+{{ $home := .IsHome }}
 <div class="pf-papers">
 {{ range where site.RegularPages "Section" "publication" }}
-{{ $paper := . }}<article class="pf-paper">
-<a class="pf-paper-visual" href="{{ .RelPermalink }}" aria-label="Read {{ .Title }}">{{ $img := .Resources.GetMatch (.Params.image.filename | default "featured.jpg") }}{{ if not $img }}{{ $img = .Resources.GetMatch "featured.png" }}{{ end }}{{ with $img }}{{ $image := .Resize "1000x webp" }}<img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" loading="lazy" alt="Research overview for {{ $paper.Title }}">{{ end }}</a>
-<div class="pf-paper-copy"><div class="pf-meta"><span class="pf-tag">{{ .Params.publication_short }}</span><span>{{ .Date.Format "2006" }}</span></div><h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3><p class="pf-authors">{{ range $i,$author := .Params.authors }}{{ if $i }}, {{ end }}{{ if eq $author "admin" }}<strong>Shaoyang Cui</strong>{{ else }}{{ $author }}{{ end }}{{ end }}</p><p>{{ .Params.summary }}</p><div class="pf-paper-links"><a href="{{ .RelPermalink }}">Read overview <span aria-hidden="true">↗</span></a>{{ with .Params.url_pdf }}<a href="{{ if hasPrefix . "http" }}{{ . }}{{ else }}{{ $paper.RelPermalink }}{{ . }}{{ end }}">Paper PDF ↗</a>{{ end }}{{ with .Params.url_project }}<a href="{{ . }}">Project ↗</a>{{ end }}{{ with .Params.url_code }}<a href="{{ . }}" target="_blank" rel="noopener">Code ↗</a>{{ end }}{{ with .Params.doi }}<a href="https://doi.org/{{ . }}" target="_blank" rel="noopener">DOI ↗</a>{{ end }}</div></div>
-</article>{{ end }}</div>
+  {{ $paper := . }}
+  <article class="pf-paper">
+    <a class="pf-paper-visual" href="{{ .RelPermalink }}" aria-label="Read {{ .Title }}">
+      {{ $img := .Resources.GetMatch (.Params.image.filename | default "featured.jpg") }}
+      {{ if not $img }}{{ $img = .Resources.GetMatch "featured.png" }}{{ end }}
+      {{ with $img }}{{ $image := .Resize "1200x webp" }}<img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" loading="lazy" alt="Research overview for {{ $paper.Title }}">{{ end }}
+    </a>
+    <div class="pf-paper-copy">
+      <div class="pf-meta"><span>{{ .Params.publication_short }}{{ if not (in .Params.publication_short (.Date.Format "2006")) }} · {{ .Date.Format "2006" }}{{ end }}</span></div>
+      <h3><a href="{{ .RelPermalink }}">{{ if $home }}{{ .Params.card_title | default .Title }}{{ else }}{{ .Title }}{{ end }}</a></h3>
+      {{ if not $home }}<p class="pf-authors">{{ range $i,$author := .Params.authors }}{{ if $i }}, {{ end }}{{ if eq $author "admin" }}<strong>Shaoyang Cui</strong>{{ else }}{{ $author }}{{ end }}{{ end }}</p>{{ end }}
+      <p>{{ .Params.card_summary | default .Params.summary }}</p>
+      <div class="pf-paper-links">
+        {{ if $home }}<a href="{{ .RelPermalink }}">Overview ↗</a>{{ end }}
+        {{ with .Params.url_pdf }}<a href="{{ if hasPrefix . "http" }}{{ . }}{{ else }}{{ $paper.RelPermalink }}{{ . }}{{ end }}">Paper ↗</a>{{ end }}
+        {{ if not $home }}{{ with .Params.url_project }}<a href="{{ . }}">Project ↗</a>{{ end }}{{ end }}
+        {{ with .Params.url_code }}<a href="{{ . }}" target="_blank" rel="noopener">Code ↗</a>{{ end }}
+        {{ with .Params.doi }}<a href="https://doi.org/{{ . }}" target="_blank" rel="noopener">Paper ↗</a>{{ end }}
+      </div>
+    </div>
+  </article>
+{{ end }}
+</div>

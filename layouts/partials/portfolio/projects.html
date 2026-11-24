@@ -1,1 +1,23 @@
-<div class="pf-projects">{{ range $i,$p := where site.RegularPages "Section" "ongoing-projects" }}<article class="pf-project"><div class="pf-project-image">{{ with .Resources.GetMatch "featured.png" }}{{ $img := .Resize "800x webp" }}<img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" loading="lazy" alt="{{ $p.Title }} research overview">{{ end }}</div><div class="pf-project-body"><div class="pf-meta"><span>{{ index .Params.tags 0 }}</span><span class="pf-project-number">0{{ add $i 1 }}</span></div><h3><a href="{{ .Params.external_link | default .RelPermalink }}" {{ if .Params.external_link }}target="_blank" rel="noopener"{{ end }}>{{ .Title }} <span aria-hidden="true">↗</span></a></h3><p>{{ if eq .File.ContentBaseName "clawtrap" }}A network-level red-teaming framework for evaluating autonomous agents in real-world environments.{{ else if eq .File.ContentBaseName "vidnum-1-4k" }}Video-grounded numerical reasoning beyond counting. Manuscript under review at AAAI 2027.{{ else }}{{ .Params.summary | default .Summary | plainify | truncate 180 }}{{ end }}</p></div></article>{{ end }}</div>
+<div class="pf-projects">
+{{ range where site.RegularPages "Section" "ongoing-projects" }}
+  {{ $project := . }}
+  <article class="pf-project">
+    <div class="pf-project-body">
+      <h3><a href="{{ .Params.external_link | default .RelPermalink }}" {{ if .Params.external_link }}target="_blank" rel="noopener"{{ end }}>{{ .Params.card_title | default .Title }}</a></h3>
+      <p>{{ .Params.card_summary | default .Params.summary }}</p>
+      {{ with .Params.card_status }}<p class="pf-project-status">{{ . }}</p>{{ end }}
+      <a class="pf-text-link" href="{{ .Params.external_link | default .RelPermalink }}" {{ if .Params.external_link }}target="_blank" rel="noopener"{{ end }}>Project website ↗</a>
+    </div>
+    {{ with .Resources.GetMatch "featured.png" }}
+      {{ $image := .Process "webp" }}
+      {{ if gt .Width 1600 }}{{ $image = .Resize "1600x webp" }}{{ end }}
+      <figure class="pf-project-figure">
+        <button class="pf-figure-button" type="button" data-figure-src="{{ .RelPermalink }}" data-figure-caption="{{ $project.Params.card_title | default $project.Title }} — research overview" aria-label="Enlarge {{ $project.Params.card_title | default $project.Title }} figure">
+          <img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" loading="lazy" alt="{{ $project.Params.card_title | default $project.Title }} research overview">
+          <span class="pf-expand-label" aria-hidden="true">View figure ⤢</span>
+        </button>
+      </figure>
+    {{ end }}
+  </article>
+{{ end }}
+</div>

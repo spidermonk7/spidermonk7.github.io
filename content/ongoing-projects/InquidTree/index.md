@@ -1,4 +1,6 @@
 ---
+card_title: "InquiTree"
+card_summary: "Evaluating scientific inquiry through paper-derived research trees."
 title: "InquiTree: Evaluating AI Agents in the Scientific Inquiry Loop with Paper-Derived Research Trees"
 date: 2026-06-08
 status: in-progress

@@ -1,1 +1,11 @@
-<div class="pf-talk-list">{{ range where site.RegularPages "Section" "event" }}<article class="pf-talk-card"><div class="pf-talk-date"><span>{{ .Date.Format "2006" }}</span><strong>{{ .Date.Format "02 Jan" }}</strong><p>{{ .Date.Format "15:04" }}–{{ time.Format "15:04" .Params.date_end }} · UTC+8</p></div><div><div class="pf-meta"><span>{{ .Params.event }} · {{ .Params.track }}</span></div><h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3><p>{{ .Params.summary }}</p><div class="pf-paper-links"><a href="{{ .RelPermalink }}">Talk details ↗</a><a href="{{ .Params.event_url }}">Conference website ↗</a>{{ range .Params.links }}<a href="{{ .url }}">{{ .name }} ↗</a>{{ end }}</div></div></article>{{ end }}</div>
+<div class="pf-talk-list">
+{{ range where site.RegularPages "Section" "event" }}
+  <article class="pf-talk-card">
+    <time class="pf-talk-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 Jan 2006" }}</time>
+    <div><div class="pf-meta"><span>{{ .Params.event }}{{ with .Params.track }} · {{ . }}{{ end }}</span></div>
+      <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+      <a class="pf-text-link" href="{{ .RelPermalink }}">View talk ↗</a>
+    </div>
+  </article>
+{{ end }}
+</div>

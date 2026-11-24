@@ -1,4 +1,6 @@
 ---
+card_title: "TradeCraft"
+card_summary: "Studying theory of mind in strategic negotiation."
 title: TradeCraft - Exploring Theory of Mind in LLM Agents' Strategic Decision-Making and Communication
 date: 2025-12-01
 tags:

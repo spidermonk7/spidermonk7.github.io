@@ -1,4 +1,6 @@
 ---
+card_title: "ClawTrap"
+card_summary: "Network-level red-teaming for autonomous agents."
 title: ClawTrap - MITM-Based Red-Teaming for OpenClaw Security Evaluation
 date: 2026-04-02
 # summary: Project website for ClawTrap.
