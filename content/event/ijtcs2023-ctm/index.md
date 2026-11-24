@@ -1,63 +1,59 @@
 ---
-title: Possible Models of Self-Awareness in Conscious Turing Machines
-
-event: IJTCS2023 Workshop
-event_url: https://ijtcs.fudan.edu.cn/
-
-location: University of Macau
-address:
-  street: ""
-  city: ""
-  region: ""
-  postcode: ""
-  country: "" 
-
-summary: Invited presentation on consciousness and self-consciousness models in Conscious Turing Machines (CTM) framework.
-abstract: 'Based on the previous works of Conscious Turing machine(CTM), we discussed the consciousness and self-consciousness of a CTM and gave clear definitions. We examined whether the CTM framework aligns with key definitions of human consciousness to evaluate its potential for generating awareness. Concerning some illusion and disorder phenomena, we created a possible model and workflow (the "MIT" model) to understand how those phenomena work in CTM, and thus grasp a glimpse of the generation of consciousness in CTM.'
-
-# Talk start and end times.
-date: '2023-01-15T14:00:00Z'
-date_end: '2023-01-15T15:00:00Z'
+title: A possible mechanism for CTM generating self-conscious
+layout: talk
+event: IJTCS-FAW 2023
+event_url: https://conferences.cis.um.edu.mo/ijtcs2023/
+track: Track H · Conscious AI
+session_chair: Yurong Chen
+location: University of Macau, Macau SAR, China
+venue: N1-1005, University of Macau
+summary: "Invited talk at IJTCS-FAW 2023, Track H (Conscious AI), exploring self-consciousness and a possible Model-of-the-World processor in the CTM framework."
+abstract: "How might a computational model represent its own consciousness? This talk examined self-consciousness within the Conscious Turing Machine (CTM), proposed a possible design for its Model-of-the-World (MotW) processor, and used illusions and disorders to illustrate the model."
+date: '2023-08-15T17:10:00+08:00'
+date_end: '2023-08-15T17:30:00+08:00'
 all_day: false
-
-# Schedule page publish date (NOT talk date).
-publishDate: '2023-01-01T00:00:00Z'
-
+publishDate: '2023-08-15T00:00:00+08:00'
 authors:
   - admin
-
 tags:
   - Consciousness
-  - Consciouse Turing Machines
+  - Conscious Turing Machines
   - Cognitive Science
   - Self-Awareness
-
-# Is this a featured talk? (true/false)
 featured: true
-
+reading_time: false
 image:
-  caption: 'Conscious Turing Machine Framework'
-  focal_point: Right
-
+  preview_only: true
 url_code: ''
 url_pdf: ''
 url_slides: ''
 url_video: ''
-
-# Markdown Slides (optional).
-slides: ""
-
-# Projects (optional).
-# projects:
-#   - ctm
+links:
+  - name: Official abstract
+    url: https://conferences.cis.um.edu.mo/ijtcs2023/invited_speakers.html
+  - name: Programme
+    url: https://conferences.cis.um.edu.mo/ijtcs2023/program.html
+  - name: Booklet · page 14
+    url: https://conferences.cis.um.edu.mo/ijtcs2023/IJTCS-FAW_Booklet.pdf#page=14
 ---
 
-This invited talk presented our research on consciousness and self-awareness models within the Conscious Turing Machine (CTM) framework. We explored fundamental questions about machine consciousness and proposed the "MIT" model to understand consciousness generation phenomena in computational systems.
+## Research context
 
-The presentation covered:
-- Clear definitions of consciousness and self-consciousness in CTM
-- Analysis of how the CTM framework aligns with human consciousness theories
-- The "MIT" model for understanding(or possibly explaining) illusion and disorder phenomena
-- Implications for artificial general intelligence development
+The CTM framework, proposed by Manuel Blum and Lenore Blum and inspired by Bernard Baars’s Global Workspace Theory, connects theories of consciousness with theoretical computer science. My presentation focused on defining self-consciousness and examining how a MotW processor could support it.
 
-This work contributes to the theoretical foundations of machine consciousness and provides insights into the computational basis of awareness.
+## Conference session
+
+I presented in **Track H (Conscious AI)** on **15 August 2023**, in a session chaired by **Yurong Chen**. The conference took place at the University of Macau from **14–18 August 2023**.
+
+The official speaker listing records my affiliation as **Peking University**. The programme booklet lists the presentation at **17:10–17:30**, following the session’s introduction to the CTM framework.
+
+## Official record
+
+- [Invited speakers and talk abstracts — Track H](https://conferences.cis.um.edu.mo/ijtcs2023/invited_speakers.html): the original title, speaker affiliation, and abstract.
+- [Conference booklet — page 14](https://conferences.cis.um.edu.mo/ijtcs2023/IJTCS-FAW_Booklet.pdf#page=14): the detailed session schedule, speaker name, and talk time.
+- [Conference programme](https://conferences.cis.um.edu.mo/ijtcs2023/program.html): the event overview and venue.
+- [IJTCS-FAW 2023 website](https://conferences.cis.um.edu.mo/ijtcs2023/): the conference’s official archive.
+
+- [University of Macau FST newsletter — August–October 2023, page 1](https://www.fst.um.edu.mo/wp-content/uploads/2023/11/Faculty-of-Science-and-Technology-of-the-University-of-Macau-E-newsletter-Issue-13-Aug-Oct-2023.pdf#page=1): an official post-conference recap.
+
+*The overview above summarizes the official abstract; the conference links preserve the original record. All times shown are Macau local time (UTC+8).*

@@ -1,7 +1,9 @@
-﻿---
+---
 title: Talks
 date: 2026-03-18
 type: landing
+layout: portfolio
+portfolio_kind: talks
 aliases:
   - /event/
 
