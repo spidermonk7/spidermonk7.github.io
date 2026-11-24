@@ -1,0 +1,70 @@
+/* The hologram occupies the page background, without a panel or frame. */
+.pf-amber-hero { position: relative; isolation: isolate; min-height: 700px; height: min(820px,calc(100svh - 86px)); background: var(--pf-bg); }
+.pf-hero-amber { display: flex; align-items: center; height: 100%; padding-block: 56px 94px; pointer-events: none; }
+.pf-hero-amber::before { display: none; }
+.pf-hero-amber .pf-hero-copy { width: 48%; max-width: 580px; pointer-events: auto; }
+.pf-hero-amber h1 { font-size: clamp(66px,6.4vw,92px); line-height: 1.06; letter-spacing: -.04em; }
+.pf-hero-amber h1 em { background: linear-gradient(110deg,#d99d49,#f4d4a2); background-clip: text; -webkit-background-clip: text; color: transparent; }
+.pf-hero-amber .pf-hero-intro { max-width: 420px; margin-top: 27px !important; color: #a9a39b; }
+.pf-hero-person { display: flex; align-items: center; gap: 17px; margin-top: 38px; }
+.pf-hero-person>img { width: 56px; height: 64px; object-fit: cover; filter: saturate(.65); border-radius: 2px; }
+.pf-hero-person .pf-identity { padding: 0; }
+.pf-hero-person .pf-identity h2 { font-size: 26px; }
+.pf-hero-person .pf-identity p { font-size: 10px; line-height: 1.85; margin-top: 5px; }
+.pf-amber-scene { position: absolute; z-index: -1; inset: 0; overflow: hidden; }
+.pf-amber-scene::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg,#060606 0%,#060606d9 26%,#06060600 48%); }
+.pf-amber-canvas { display: block; width: 100%; height: 100%; cursor: grab; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+.pf-amber-canvas:active, .pf-amber-canvas.is-dragging { cursor: grabbing; }
+.pf-amber-canvas:focus-visible { outline: 1px solid #bb894b; outline-offset: -8px; }
+.pf-amber-fallback { position: absolute; width: min(50%,700px); height: auto; left: 72%; top: 48%; transform: translate(-50%,-50%); pointer-events: none; }
+.pf-amber-ready .pf-amber-fallback { display: none; }
+.pf-amber-controls { display: none; position: absolute; z-index: 3; bottom: 16px; left: 50%; transform: translateX(-50%); justify-content: flex-end; pointer-events: none; }
+.pf-amber-ready .pf-amber-controls { display: flex; }
+.pf-amber-controls-inner { display: flex; align-items: center; justify-content: center; gap: 14px; width: 50%; pointer-events: auto; }
+.pf-amber-drag-hint { font-size: 10px; letter-spacing: .04em; color: #a68c68; margin-right: 10px; }
+.pf-amber-controls button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; min-width: 68px; min-height: 44px; padding: 0 8px; border-radius: 3px; background: transparent; color: #bba98e; font-size: 11px; cursor: pointer; transition: color .2s,background .2s; }
+.pf-amber-controls button:hover { color: #f4d4a2; background: #dca2570a; }
+.pf-amber-controls button>span[aria-hidden] { font-size: 16px; line-height: 1; }
+.pf-enter .pf-hero-person { animation: pf-arrive .8s .25s both; }
+@media(max-width:1100px) {
+  .pf-amber-hero { min-height: 670px; }
+  .pf-hero-amber .pf-hero-copy { width: 47%; }
+  .pf-hero-amber h1 { font-size: 68px; }
+  .pf-hero-amber .pf-hero-intro { max-width: 360px; font-size: 14px; }
+  .pf-amber-controls-inner { gap: 8px; }
+  .pf-amber-drag-hint { margin-right: 0; }
+}
+@media(max-width:900px) {
+  .pf-amber-hero { display: grid; grid-template-columns: minmax(0,1fr); height: auto; min-height: 0; padding-top: 38px; padding-bottom: 48px; gap: 0; }
+  .pf-hero-amber, .pf-hero-amber .pf-hero-copy { display: contents; }
+  .pf-hero-amber h1 { order: 0; width: calc(100% - 40px); margin-inline: auto; font-size: clamp(60px,10vw,78px); pointer-events: auto; }
+  .pf-amber-scene { order: 1; z-index: auto; position: relative; height: min(500px,104vw); margin-top: 5px; }
+  .pf-amber-scene::after { display: none; }
+  .pf-amber-fallback { width: 92%; max-width: 500px; left: 50%; top: 50%; }
+  .pf-amber-controls { order: 2; position: static; width: calc(100% - 40px); transform: none; margin: -8px auto 22px; justify-content: center; }
+  .pf-amber-controls-inner { width: auto; gap: 14px; }
+  .pf-hero-amber .pf-hero-intro { order: 3; width: calc(100% - 40px); max-width: none; margin: 0 auto !important; font-size: 14px; }
+  .pf-hero-amber .pf-hero-actions { order: 4; width: calc(100% - 40px); margin: 24px auto 0; }
+  .pf-hero-person { order: 5; width: calc(100% - 40px); margin: 30px auto 0; }
+  .pf-hero-person>img { width: 50px; height: 58px; }
+  .pf-hero-person .pf-identity h2 { font-size: 25px; }
+  .pf-hero-person .pf-identity p { font-size: 10px; }
+}
+@media(max-width:600px) {
+  .pf-hero-amber h1 { font-size: clamp(60px,14vw,72px); }
+  .pf-amber-hero { padding-top: 32px; }
+}
+@media(max-width:360px) {
+  .pf-hero-amber h1 { font-size: 52px; width: calc(100% - 32px); }
+  .pf-hero-amber .pf-hero-intro,.pf-hero-amber .pf-hero-actions,.pf-hero-person { width: calc(100% - 32px); }
+  .pf-amber-controls-inner { gap: 6px; }
+  .pf-amber-drag-hint { font-size: 9px; }
+}
+@media(prefers-reduced-motion:reduce) { .pf-hero-person { animation: none !important; } }
+@media print {
+  .pf-amber-hero { height: auto; min-height: 0; }
+  .pf-amber-scene,.pf-amber-controls { display: none !important; }
+  .pf-hero-amber .pf-hero-copy { width: 100%; }
+}
+
+.pf-amber-hero:not(.pf-amber-ready) #pf-amber-help { display: none; }

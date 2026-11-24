@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head>{{ partial "portfolio/head.html" . }}</head><body class="pf-site" id="top">{{ partial "portfolio/nav.html" . }}<main id="main" class="pf-wrap pf-page-main">
+<!doctype html><html lang="en" class="dark" data-pf-theme="dark"><head>{{ partial "portfolio/head.html" . }}</head><body class="pf-site" id="top">{{ partial "portfolio/nav.html" . }}<main id="main" class="pf-wrap pf-page-main">
 {{ $kind := .Params.portfolio_kind }}
 <header class="pf-page-intro"><h1>{{ .Title }}</h1></header>
 {{ if eq $kind "research" }}{{ partial "portfolio/papers.html" . }}

@@ -52,25 +52,10 @@
 
 (() => {
   const root = document.documentElement;
-  const button = document.querySelector('.pf-theme-toggle');
-  const applyTheme = (theme, persist = false) => {
-    const dark = theme === 'dark';
-    root.dataset.pfTheme = dark ? 'dark' : 'light';
-    root.classList.toggle('dark', dark);
-    root.style.colorScheme = dark ? 'dark' : 'light';
-    if (persist) { try { localStorage.setItem('wc-color-theme', dark ? 'dark' : 'light'); } catch (_) {} }
-    if (button) {
-      button.setAttribute('aria-pressed', String(dark));
-      button.setAttribute('aria-label', dark ? 'Switch to light appearance' : 'Switch to dark appearance');
-      button.title = dark ? 'Switch to light appearance' : 'Switch to dark appearance';
-    }
-    document.dispatchEvent(new CustomEvent('hbThemeChange', {detail: {isDarkTheme: () => dark}}));
-  };
-  applyTheme(root.dataset.pfTheme || 'light');
-  button?.addEventListener('click', () => applyTheme(root.dataset.pfTheme === 'dark' ? 'light' : 'dark', true));
-  window.addEventListener('storage', event => {
-    if (event.key === 'wc-color-theme') applyTheme(event.newValue === 'dark' ? 'dark' : 'light');
-  });
+  root.dataset.pfTheme = 'dark';
+  root.classList.add('dark');
+  root.style.colorScheme = 'dark';
+  document.dispatchEvent(new CustomEvent('hbThemeChange', {detail: {isDarkTheme: () => true}}));
 
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const header = document.querySelector('.pf-header');

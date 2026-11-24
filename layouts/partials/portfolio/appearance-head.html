@@ -1,10 +1,9 @@
 <script>
 (() => {
-  let theme = 'light';
-  try { theme = localStorage.getItem('wc-color-theme') === 'dark' ? 'dark' : 'light'; } catch (_) {}
-  document.documentElement.dataset.pfTheme = theme;
-  document.documentElement.style.colorScheme = theme;
-  document.documentElement.classList.add('pf-js');
-  document.documentElement.classList.toggle('dark', theme === 'dark');
+  const root = document.documentElement;
+  root.dataset.pfTheme = 'dark';
+  root.style.colorScheme = 'dark';
+  root.classList.add('pf-js', 'dark');
+  try { localStorage.setItem('wc-color-theme', 'dark'); } catch (_) {}
 })();
 </script>

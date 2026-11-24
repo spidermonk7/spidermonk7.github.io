@@ -1,15 +1,24 @@
-<!doctype html><html lang="en"><head>{{ partial "portfolio/head.html" . }}</head><body class="pf-site" id="top">
+<!doctype html><html lang="en" class="dark" data-pf-theme="dark"><head>{{ partial "portfolio/head.html" . }}</head><body class="pf-site" id="top">
 {{ partial "portfolio/nav.html" . }}
 <main id="main">
-  <div class="pf-hero-shell"><section class="pf-hero pf-hero-hologram pf-wrap">
-    <div class="pf-hero-copy">
-      <h1>Intelligence, <br>from <em>neurons</em> <br>to <em>agents.</em></h1>
-      <p class="pf-hero-intro">I explore how intelligence emerges, fails, and generalizes across biological and artificial systems.</p>
-      <div class="pf-hero-actions"><a class="pf-button" href="#selected-research">Selected work <span aria-hidden="true">↓</span></a><a class="pf-text-link" href="/experience/">About me ↗</a></div>
-      <div class="pf-hero-person"><img src="/portfolio/portrait.jpg" width="846" height="846" alt="Shaoyang Cui at Peking University"><div class="pf-identity"><h2>Shaoyang Cui</h2><p>Research Assistant · Peking University<br>Senior Software Algorithm Engineer · HEC</p></div></div>
+  <section class="pf-hero-shell pf-amber-hero" aria-labelledby="pf-hero-heading">
+    {{ partial "portfolio/amber.html" . }}
+    <div class="pf-hero pf-hero-amber pf-wrap">
+      <div class="pf-hero-copy">
+        <h1 id="pf-hero-heading">Intelligence, <br>from <em>neurons</em> <br>to <em>agents.</em></h1>
+        <p class="pf-hero-intro">I explore how intelligence emerges, fails, and generalizes across biological and artificial systems.</p>
+        <div class="pf-hero-actions"><a class="pf-button" href="#selected-research">Selected work <span aria-hidden="true">↓</span></a><a class="pf-text-link" href="/experience/">About me ↗</a></div>
+        <div class="pf-hero-person"><img src="/portfolio/portrait.jpg" width="846" height="846" alt="Shaoyang Cui at Peking University"><div class="pf-identity"><h2>Shaoyang Cui</h2><p>Research Assistant · Peking University<br>Senior Software Algorithm Engineer · HEC</p></div></div>
+      </div>
     </div>
-    <div class="pf-holo-wrap">{{ partial "portfolio/hologram.html" . }}</div>
-  </section></div>
+    <div class="pf-amber-controls pf-wrap">
+      <div class="pf-amber-controls-inner">
+        <span class="pf-amber-drag-hint" aria-hidden="true">Drag to rotate</span>
+        <button class="pf-amber-pause" type="button" aria-label="Pause automatic rotation" aria-pressed="false"><span class="pf-amber-pause-symbol" aria-hidden="true">Ⅱ</span><span class="pf-amber-pause-label">Pause</span></button>
+        <button class="pf-amber-reset" type="button" aria-label="Reset hologram orientation"><span aria-hidden="true">↺</span> Reset</button>
+      </div>
+    </div>
+  </section>
   <section class="pf-section pf-wrap" id="selected-research">
     <div class="pf-section-head"><h2>Selected research</h2><a class="pf-text-link" href="/papers/">All publications ↗</a></div>
     {{ partial "portfolio/papers.html" . }}
