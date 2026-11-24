@@ -14,7 +14,7 @@ sections:
         **Bachelor of Engineering in Artificial Intelligence**, Yuanpei College, Peking University
 
         **Duration:** September 2021 - July 2025<br>
-<br>
+
 
         **Selected Courses:**
         - Conscious Turing Machine (Prof. Lenore Blum & Prof. Manuel Blum)
